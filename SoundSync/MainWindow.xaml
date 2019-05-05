@@ -1,0 +1,23 @@
+﻿<metro:MetroWindow x:Class="SoundSync.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:local="clr-namespace:SoundSync"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <!--<TabItem Header="Processes">
+                
+            </TabItem>-->
+            <TabItem Header="Server">
+                <local:ServerSettings/>
+            </TabItem>
+            <TabItem Header="Audio">
+                <local:AudioSettings/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</metro:MetroWindow>
