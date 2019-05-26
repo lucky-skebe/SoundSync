@@ -1,6 +1,7 @@
 ﻿using System;
 
 using MahApps.Metro.Controls;
+using SoundSync.models;
 
 namespace SoundSync
 {
@@ -9,7 +10,7 @@ namespace SoundSync
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        Model model = new Model();
+        Global model = new Global();
 
         public MainWindow()
         {

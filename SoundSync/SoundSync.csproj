@@ -154,7 +154,12 @@
     </Compile>
     <Compile Include="DelegateCommand.cs" />
     <Compile Include="Device.cs" />
-    <Compile Include="Model.cs" />
+    <Compile Include="models\Audio.cs" />
+    <Compile Include="models\AudioDevice.cs" />
+    <Compile Include="models\Buttplug.cs" />
+    <Compile Include="models\Connection.cs" />
+    <Compile Include="models\Global.cs" />
+    <Compile Include="models\ViewModel.cs" />
     <Compile Include="ServerSettings.xaml.cs">
       <DependentUpon>ServerSettings.xaml</DependentUpon>
     </Compile>
