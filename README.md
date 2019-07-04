@@ -23,7 +23,7 @@ Planned Featres:
    - [x] ~~Connect/Disconnect to buttplug server~~
    - [x] ~~Start/Stop Scaning~~
    - [x] ~~Choose Single Buttplug Device~~
-   - [ ] Automatically connects to "ws://ws://localhost:12345/buttplug" (Default unsafe butplug port)
+   - [x] Automatically connects to "ws://ws://localhost:12345/buttplug" (Default unsafe butplug port)
    - [ ] Embedded Server support
    - [ ] Server Management UI improvement.
  - [x] Vibration Scaling.
