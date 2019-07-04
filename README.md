@@ -13,6 +13,8 @@ Fear no more!
 
 I created a little program for myself that just makes a buttplug vibrate according to the volume of your PCs output using the buttplug server.
 
+##Feature List
+
 Legend:
 - [ ] Not yet implemented
 - [x] Implemented and currently working
@@ -43,3 +45,26 @@ Optional Features (if I feel like it):
   - [ ] quadratic/logaritmic scaling
   - [ ] multiple thresholds
 - [ ] JS/Electron Port for cross platform compartibility
+- [ ] Grouping of PipeLine Elements to one container (e.g. having a multiply, add and clamping element in one group wich could behave like the old linear scaling behaviour)
+
+##Technical details
+
+In the latest version I started implementing an extensible Pipeline very heavily influenced by the GStreamer Framework wich should make it possible to create custom pipelines to you buttplug device (or other outputs in theory).
+This should also make it possible to extend the functionality vie Plugins later on.
+
+Ever wanted to control your philips hue together with your butplug based on your cpu load?
+
+With the new pipeline and plugins you should be able to.
+
+### Avaiable Pipeline Elements
+
+ - Audio
+  - [x] LoopbackAudioSrc - Input source based on the loopback audio volume
+  - [ ] AudioSrc - Same as LoopbackAudioSrc but based on an input audio device of you system (a microphone for example) 
+ - Buttplug
+  - [x] ButtplugSink - Output sending the signal to your buttplug device (or devices)
+ - Misc
+  - [x] MultiplyElement - Multiply an input by a  fixed amount
+  - [x] TimedAVGElement - Takes an average over the input signal in a fixed interval
+  - [ ] ClampElement - Clamps the signal between two values (Min and Max value)
+  - [ ] Tee and Merge - Splits the pipeline or merges it to be more flexible
