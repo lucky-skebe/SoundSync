@@ -1,0 +1,46 @@
+﻿<Window x:Class="SharPipes.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SharPipes.UI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <Canvas AllowDrop="True">
+        </Canvas>
+        <Button Content="Start" Width="100" Height="20" Click="Button_Click" />
+        <Button Content="Scan" Width="100" Height="20" Margin="0,50,0,0"  Click="Button_Click_1" />
+        <Border Grid.Row="1" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Black">
+
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid x:Name="ToolBox" Height="100" Visibility="Collapsed">
+                <ListBox x:Name="ToolBoxList" ItemsSource="{Binding PipeElements}" BorderThickness="1" BorderBrush="Magenta">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <local:ElementRenderer Element="{Binding}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Grid>
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button Click="ToggleToolBar">
+                <TextBlock>
+                    ToolBox
+                </TextBlock>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
