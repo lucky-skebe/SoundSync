@@ -58,12 +58,12 @@ With the new pipeline and plugins you should be able to.
 
 ### Avaiable Pipeline Elements
 
- - Audio
+ - [ ] Audio
   - [x] LoopbackAudioSrc - Input source based on the loopback audio volume
   - [ ] AudioSrc - Same as LoopbackAudioSrc but based on an input audio device of you system (a microphone for example) 
- - Buttplug
+ - [ ] Buttplug
   - [x] ButtplugSink - Output sending the signal to your buttplug device (or devices)
- - Misc
+ - [ ] Misc
   - [x] MultiplyElement - Multiply an input by a  fixed amount
   - [x] TimedAVGElement - Takes an average over the input signal in a fixed interval
   - [ ] ClampElement - Clamps the signal between two values (Min and Max value)
