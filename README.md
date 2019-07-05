@@ -1,5 +1,7 @@
 # SoundSync
 
+# New Repository at: https://gitlab.com/LuckySkebe/soundsync
+
 **WIP WARING!**
 
 **THIS VERSION IS VERY MUCH WORK IN PROGRESS AND SOME FEATURES REGRESSED DUE TO A MAYOR REFACTORING**
