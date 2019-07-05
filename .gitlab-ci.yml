@@ -38,7 +38,7 @@ stages:
 
 build_job:
   stage: build
-    only:
+  only:
     - tags
   script:
     - '& "$env:NUGET_PATH" restore'  # restore Nuget dependencies
@@ -52,7 +52,7 @@ build_job:
 
 test_job:
   stage: test
-    only:
+  only:
     - tags
   script:
     - '& "$env:NUNIT_PATH" ".\$env:TEST_FOLDER\Tests.dll"'  # running NUnit tests
@@ -66,7 +66,7 @@ test_job:
 
 deploy_job:
   stage: deploy
-    only:
+  only:
     - tags
   script:
     # Compose a folder for each release based on commit tag.
