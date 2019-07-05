@@ -41,8 +41,8 @@ build_job:
   only:
     - tags
   script:
-    - '& "$env:NUGET_PATH" restore'  # restore Nuget dependencies
-    - '& "$env:MSBUILD_PATH" /p:Configuration=Release'  # build the project
+    - '"$env:NUGET_PATH" restore'  # restore Nuget dependencies
+    - '"$env:MSBUILD_PATH" /p:Configuration=Release'  # build the project
   artifacts:
     expire_in: 1 week  # save gitlab server space, we copy the files we need to deploy folder later on
     paths:
@@ -55,7 +55,7 @@ test_job:
   only:
     - tags
   script:
-    - '& "$env:NUNIT_PATH" ".\$env:TEST_FOLDER\Tests.dll"'  # running NUnit tests
+    - '"$env:NUNIT_PATH" ".\$env:TEST_FOLDER\Tests.dll"'  # running NUnit tests
   artifacts:
     when: always  # save test results even when the task fails
     expire_in: 1 week  # save gitlab server space, we copy the files we need to deploy folder later on
