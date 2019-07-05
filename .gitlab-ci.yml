@@ -38,8 +38,6 @@ stages:
 
 build_job:
   stage: build
-  only:
-    - tags  # the build process will only be started by git tag commits
   script:
     - '& "$env:NUGET_PATH" restore'  # restore Nuget dependencies
     - '& "$env:MSBUILD_PATH" /p:Configuration=Release'  # build the project
@@ -52,8 +50,6 @@ build_job:
 
 test_job:
   stage: test
-  only:
-    - tags
   script:
     - '& "$env:NUNIT_PATH" ".\$env:TEST_FOLDER\Tests.dll"'  # running NUnit tests
   artifacts:
@@ -66,8 +62,6 @@ test_job:
 
 deploy_job:
   stage: deploy
-  only:
-    - tags
   script:
     # Compose a folder for each release based on commit tag.
     # Assuming your tag is Rev1.0.0.1, and your last commit message is 'First commit'
