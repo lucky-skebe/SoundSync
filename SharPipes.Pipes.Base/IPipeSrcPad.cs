@@ -6,6 +6,12 @@ namespace SharPipes.Pipes.Base
 {
     public interface IPipeSrcPad
     {
-        IPipeSrc Parent { get; }
+        public IPipeSrc Parent
+        {
+            get;
+        }
+
+
+        public void Unlink();
     }
 }

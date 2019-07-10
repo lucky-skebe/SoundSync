@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharPipes.Pipes.Buttplug", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharPipes.Pipes.NAudio", "SharPipes.Pipes.NAudio\SharPipes.Pipes.NAudio.csproj", "{9902A994-0F1A-42FB-AF56-CBD39143ACC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharPipes.UI", "SharPipes.UI\SharPipes.UI.csproj", "{D6E4B576-DD50-40EA-B325-777AC27F4FEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharPipes.UI", "SharPipes.UI\SharPipes.UI.csproj", "{D6E4B576-DD50-40EA-B325-777AC27F4FEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

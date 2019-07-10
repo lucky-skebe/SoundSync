@@ -50,6 +50,8 @@ namespace SharPipes.Pipes.NAudio
             }
         }
 
+
+        public override string Name => "Audio Loopback";
         public override IEnumerable<IPipeElement> GetPrevNodes()
         {
             return Enumerable.Empty<IPipeElement>();
@@ -65,6 +67,11 @@ namespace SharPipes.Pipes.NAudio
         {
             loopback.StopRecording();
             return Task.CompletedTask;
+        }
+
+        public override IEnumerable<IPipeSrcPad> GetSrcPads()
+        {
+            yield return Src;
         }
     }
 }

@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Buttplug" Version="0.4.6" />
-    <PackageReference Include="Buttplug.Client.Connectors.WebsocketConnector" Version="0.4.6" />
-    <PackageReference Include="System.Reactive" Version="4.1.5" />
+    <PackageReference Include="Buttplug" Version="0.4.7" />
+    <PackageReference Include="Buttplug.Client.Connectors.WebsocketConnector" Version="0.4.7" />
   </ItemGroup>
 </Project>

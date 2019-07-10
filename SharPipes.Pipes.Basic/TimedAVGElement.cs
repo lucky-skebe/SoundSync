@@ -1,4 +1,5 @@
 ﻿using SharPipes.Pipes.Base;
+using SharPipes.Pipes.Base.InteractionInfos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,9 +56,12 @@ namespace SharPipes.Pipes.Basic
             }
         }
 
-        public override IEnumerable<ParameterInfo> DescribeParameters()
+        public override IEnumerable<IInteraction> Interactions
         {
-            yield return new ParameterInfo("Time (ms)", ParameterType.Float, "AVGMs");
+            get
+            {
+                yield return new IntParameterInteraction("Time (ms)", () => this.AVGMs, (value) => { this.AVGMs = value; });
+            }
         }
 
         private int _AVGMs = 50;
@@ -80,6 +84,8 @@ namespace SharPipes.Pipes.Basic
             get;
             set;
         }
+
+        public override string Name => "Timed Average";
 
         public override PipeSinkPad<TValue>? GetSink<TValue>(string name)
         {
@@ -126,6 +132,16 @@ namespace SharPipes.Pipes.Basic
         {
             this.running = false;
             return Task.CompletedTask;
+        }
+
+        public override IEnumerable<IPipeSinkPad> GetSinkPads()
+        {
+            yield return Sink;
+        }
+
+        public override IEnumerable<IPipeSrcPad> GetSrcPads()
+        {
+            yield return Src;
         }
     }
 }

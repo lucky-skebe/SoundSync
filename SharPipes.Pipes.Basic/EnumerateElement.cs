@@ -49,6 +49,8 @@ namespace SharPipes.Pipes.Basic
             return null;
         }
 
+
+        public override string Name => "Unlist";
         public override GraphState Check()
         {
             if (Sink.Edge == null)
@@ -71,6 +73,16 @@ namespace SharPipes.Pipes.Basic
             {
                 yield return Sink.Edge.From.Parent;
             }
+        }
+
+        public override IEnumerable<IPipeSinkPad> GetSinkPads()
+        {
+            yield return Sink;
+        }
+
+        public override IEnumerable<IPipeSrcPad> GetSrcPads()
+        {
+            yield return Src;
         }
     }
 }

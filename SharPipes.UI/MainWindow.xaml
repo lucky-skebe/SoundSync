@@ -4,43 +4,66 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SharPipes.UI"
+        xmlns:helper="clr-namespace:SharPipes.UI.Helpers"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <helper:ObjectVisibilityConverter x:Key="ObjectVisibilityConverter"/>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="20" />
+            <RowDefinition Height="24" />
         </Grid.RowDefinitions>
-        <Canvas AllowDrop="True">
-        </Canvas>
-        <Button Content="Start" Width="100" Height="20" Click="Button_Click" />
-        <Button Content="Scan" Width="100" Height="20" Margin="0,50,0,0"  Click="Button_Click_1" />
-        <Border Grid.Row="1" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Black">
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Border>
+            <local:PipeLineRenderer AllowDrop="True" 
+                                Drop="Canvas_Drop" 
+                                DragEnter="Canvas_DragEnter" 
+                                Background="Transparent" 
+                                ItemsSource="{Binding Pipeline}" 
+                                PreviewMouseLeftButtonDown="PipeLineRenderer_PreviewMouseLeftButtonDown"
+                                PreviewMouseMove="PipeLineRenderer_PreviewMouseMove"
+                                x:Name="Renderer">
+            </local:PipeLineRenderer>
         </Border>
-        <Grid Grid.Row="1">
-            <Grid x:Name="ToolBox" Height="100" Visibility="Collapsed">
-                <ListBox x:Name="ToolBoxList" ItemsSource="{Binding PipeElements}" BorderThickness="1" BorderBrush="Magenta">
-                    <ListBox.ItemsPanel>
+        <Border Grid.Column="1" Width="200" DataContext="{Binding ElementName=Renderer, Path=SelectedElement}" Visibility="{Binding Converter={StaticResource ObjectVisibilityConverter}}" BorderThickness="1,0,0,0" BorderBrush="Black"> <!-- Properties-->
+            <local:SettingsControl />
+        </Border>
+        <Border x:Name="ToolBox" Grid.Row="1" BorderThickness="1" BorderBrush="Black" Visibility="Collapsed"> <!-- ToolBox -->
+            <Grid Height="100" >
+                <ListView x:Name="ToolBoxList" ItemsSource="{Binding PipeElements}" BorderThickness="1" 
+                        PreviewMouseLeftButtonDown="ToolBoxList_PreviewMouseLeftButtonDown" 
+                        PreviewMouseMove="ToolBoxList_PreviewMouseMove">
+                    <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel Orientation="Horizontal" />
                         </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
                         <DataTemplate>
                             <local:ElementRenderer Element="{Binding}" />
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
-        </Grid>
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Button Click="ToggleToolBar">
-                <TextBlock>
+        </Border>
+        <Border Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black">
+            <StackPanel Orientation="Horizontal">
+                <!-- ToolBar -->
+                <Button Click="ToggleToolBar" Padding="2">
+                    <TextBlock>
                     ToolBox
-                </TextBlock>
-            </Button>
-        </StackPanel>
+                    </TextBlock>
+                </Button>
+                <Button Name="btnStart" Content="Start" Click="btnStart_Click" Padding="2" />
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

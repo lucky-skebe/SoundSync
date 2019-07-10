@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharPipes.Pipes.Base.InteractionInfos;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +16,12 @@ namespace SharPipes.Pipes.Base
 
         public TransformElement(Guid id)
         {
-
+            this.Id = id;
         }
 
-        public abstract IEnumerable<ParameterInfo> DescribeParameters();
+        public abstract IEnumerable<IInteraction> Interactions { get; }
+
+        public abstract string Name { get; }
 
         public PipeSinkPad<TValue>? GetSink<TValue>(string name)
         {
@@ -40,5 +43,8 @@ namespace SharPipes.Pipes.Base
 
         public abstract IEnumerable<IPipeElement> GetPrevNodes();
 
+        public abstract IEnumerable<IPipeSinkPad> GetSinkPads();
+
+        public abstract IEnumerable<IPipeSrcPad> GetSrcPads();
     }
 }
