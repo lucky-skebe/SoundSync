@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharPipes.Pipes.Base.InteractionInfos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,14 +23,20 @@ namespace SharPipes.Pipes.Base
 
         public abstract GraphState Check();
 
-        public virtual IEnumerable<ParameterInfo> DescribeParameters()
-        {
-            return Enumerable.Empty<ParameterInfo>();
-        }
+        public virtual IEnumerable<IInteraction> Interactions => Enumerable.Empty<IInteraction>();
+
+        public abstract string Name { get; }
 
         public abstract IEnumerable<IPipeElement> GetPrevNodes();
 
         public abstract PipeSinkPad<TValue>? GetSink<TValue>(string name);
+
+        public abstract IEnumerable<IPipeSinkPad> GetSinkPads();
+
+        public IEnumerable<IPipeSrcPad> GetSrcPads()
+        {
+            return Enumerable.Empty<IPipeSrcPad>();
+        }
 
         public virtual Task Start()
         {

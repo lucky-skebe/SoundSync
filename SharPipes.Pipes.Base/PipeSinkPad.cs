@@ -29,5 +29,11 @@ namespace SharPipes.Pipes.Base
         {
             this.ElemFunc(value);
         }
+
+        public void Unlink()
+        {
+            this.Edge?.Unlink();
+            this.Edge = null;
+        }
     }
 }

@@ -15,7 +15,13 @@ Fear no more!
 
 I created a little program for myself that just makes a buttplug vibrate according to the volume of your PCs output using the buttplug server.
 
-##Feature List
+## Current progress
+
+Picture of current Progress considering teh rendering of pipelines:
+
+![Progress.png](Progress.PNG "Progress of pipeline rendering")
+
+## Feature List
 
 Legend:
 - [ ] Not yet implemented
@@ -23,20 +29,19 @@ Legend:
 - [x] ~~Was implemented in previous wersion but is currently unavaiable~~ 
 
 Planned Featres:
-- [x] ~~Simple Server management~~
-   - [x] ~~Connect/Disconnect to buttplug server~~
-   - [x] ~~Start/Stop Scaning~~
-   - [x] ~~Choose Single Buttplug Device~~
-   - [x] Automatically connects to "ws://ws://localhost:12345/buttplug" (Default unsafe butplug port)
+- [x] Simple Server management
+   - [x] Connect/Disconnect to buttplug server
+   - [x] Start/Stop Scaning
+   - [x] Choose Single Buttplug Device
    - [ ] Embedded Server support
    - [ ] Server Management UI improvement.
  - [x] Vibration Scaling.
-   - [x] ~~only linear between Min and Max values atm.~~
+   - [x] only linear between Min and Max values atm.
    - [x] Linear Scaling with a fixed 10x multiplier
-- [ ] Pipeline
-   - [ ] Multi Vibration Support
+- [x] Pipeline
+   - [x] Multi Vibration Support
    - [ ] Support for user created Plugins (Custom inputs / outputs or manipulation of signal in the pipeline)
-   - [ ] Working Pipeline UI (Connecting Elements via Drag & Drop, Controlling Element Parameters)
+   - [x] Working Pipeline UI (Connecting Elements via Drag & Drop, Controlling Element Parameters)
 - [ ] Audio Device Selection
   - [x] currently only Loopback audio
 - [ ] Save/Load Setting
@@ -47,9 +52,9 @@ Optional Features (if I feel like it):
   - [ ] quadratic/logaritmic scaling
   - [ ] multiple thresholds
 - [ ] JS/Electron Port for cross platform compartibility
-- [ ] Grouping of PipeLine Elements to one container (e.g. having a multiply, add and clamping element in one group wich could behave like the old linear scaling behaviour)
+- [ ] Grouping of PipeLine Elements to one container like Gstreamer Bins(e.g. having a multiply, add and clamping element in one group wich could behave like the old linear scaling behaviour)
 
-##Technical details
+## Technical details
 
 In the latest version I started implementing an extensible Pipeline very heavily influenced by the GStreamer Framework wich should make it possible to create custom pipelines to you buttplug device (or other outputs in theory).
 This should also make it possible to extend the functionality vie Plugins later on.

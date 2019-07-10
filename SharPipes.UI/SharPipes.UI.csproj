@@ -4,11 +4,10 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <StartupObject>SharPipes.UI.App</StartupObject>
+    <LangVersion>preview</LangVersion>
+    <NullableContextOptions>enable</NullableContextOptions>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="ElementRenderer.xaml" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SharPipes.Pipes.Base\SharPipes.Pipes.Base.csproj" />
@@ -16,5 +15,12 @@
     <ProjectReference Include="..\SharPipes.Pipes.Buttplug\SharPipes.Pipes.Buttplug.csproj" />
     <ProjectReference Include="..\SharPipes.Pipes.NAudio\SharPipes.Pipes.NAudio.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Gu.Wpf.NumericInput.NetCore">
+      <HintPath>..\libs\Gu.Wpf.NumericInput.NetCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
 </Project>

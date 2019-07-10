@@ -17,6 +17,12 @@ namespace SharPipes.Pipes.Base
 
         IPipeSinkPad IPipeEdge.To => this.To;
 
+        public void Unlink()
+        {
+            this.From.Edge = null;
+            this.To.Edge = null;
+        }
+
         internal void Push(TValue value)
         {
             To.Push(value);

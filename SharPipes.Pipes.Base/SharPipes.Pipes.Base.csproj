@@ -6,8 +6,4 @@
     <NullableContextOptions>enable</NullableContextOptions>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Reactive" Version="4.1.5" />
-  </ItemGroup>
-
 </Project>

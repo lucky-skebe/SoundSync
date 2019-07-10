@@ -24,5 +24,11 @@ namespace SharPipes.Pipes.Base
                 Edge.Push(value);
             }
         }
+
+        public void Unlink()
+        {
+            this.Edge?.Unlink();
+            this.Edge = null;
+        }
     }
 }

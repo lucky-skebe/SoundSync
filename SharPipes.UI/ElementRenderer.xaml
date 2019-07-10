@@ -8,6 +8,8 @@
              d:DesignHeight="80" d:DesignWidth="100">
     <Grid Height="80" Width="100">
         
-        <Border BorderBrush="Black" BorderThickness="1"></Border>
+        <Border BorderBrush="Black" BorderThickness="1">
+            <TextBlock Text="{Binding Name}" />
+        </Border>
     </Grid>
 </UserControl>

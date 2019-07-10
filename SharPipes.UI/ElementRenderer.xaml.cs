@@ -19,8 +19,6 @@ namespace SharPipes.UI
     /// </summary>
     public partial class ElementRenderer : UserControl
     {
-
-
         public IPipeElement Element
         {
             get { return (IPipeElement)GetValue(ElementProperty); }

@@ -1,4 +1,5 @@
 ﻿using SharPipes.Pipes.Base;
+using SharPipes.Pipes.Base.InteractionInfos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,9 +24,15 @@ namespace SharPipes.Pipes.Basic
         }
 
 
-        public override IEnumerable<ParameterInfo> DescribeParameters()
+        public override IEnumerable<IInteraction> Interactions
         {
-            yield return new ParameterInfo("Multiplier", ParameterType.Float, "Multiplier");
+            get {
+                yield return new FloatParameterInteraction("Multiplier",
+                    () => this.Multiplier, 
+                    (value) => { this.Multiplier = value; }
+                    );
+            }
+            
         }
 
         public PipeSinkPad<double> Sink
@@ -66,12 +73,24 @@ namespace SharPipes.Pipes.Basic
             }
         }
 
+
+        public override string Name => "Multiply";
         public override IEnumerable<IPipeElement> GetPrevNodes()
         {
             if (Sink.Edge != null)
             {
                 yield return Sink.Edge.From.Parent;
             }
+        }
+
+        public override IEnumerable<IPipeSinkPad> GetSinkPads()
+        {
+            yield return Sink;
+        }
+
+        public override IEnumerable<IPipeSrcPad> GetSrcPads()
+        {
+            yield return Src;
         }
     }
 }

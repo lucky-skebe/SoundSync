@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SharPipes.Pipes.Base
 {
@@ -13,6 +16,13 @@ namespace SharPipes.Pipes.Base
         public void AddNode(IPipeElement node)
         {
             nodes.Add(node);
+        }
+
+        public IPipeElement CreateNodeFromTemplate(IPipeElement template)
+        {
+            IPipeElement node = (IPipeElement)template.GetType().GetConstructor(new Type[] { }).Invoke(new object[] { });
+            this.AddNode(node);
+            return node;
         }
 
         private (GraphState, List<IPipeElement>?) GetOrderedElements()
@@ -90,6 +100,21 @@ namespace SharPipes.Pipes.Base
             return (GraphState.OK, orderedList);
         }
 
+        public void Remove(IPipeElement element)
+        {
+            foreach( var sink in element.GetSinkPads())
+            {
+                sink.Unlink();
+            }
+
+            foreach (var src in element.GetSrcPads())
+            {
+                src.Unlink();
+            }
+
+            this.nodes.Remove(element);
+        }
+
         public void Connect<TValue>(PipeSrcPad<TValue> From, PipeSinkPad<TValue> To)
         {
             PipeEdge<TValue> e = new PipeEdge<TValue>(From, To);
@@ -111,6 +136,59 @@ namespace SharPipes.Pipes.Base
                 }
             }
         }
+
+        static Type? IsInstanceOfGenericType(Type genericType, Type instanceType)
+        {
+            while (instanceType != null)
+            {
+                if (instanceType.IsGenericType &&
+                    instanceType.GetGenericTypeDefinition() == genericType)
+                {
+                    return instanceType;
+                }
+                instanceType = instanceType.BaseType;
+            }
+            return null;
+        }
+
+        public bool TryConnect(IPipeSrcPad src, IPipeSinkPad sink)
+        {
+            var srcType = src.GetType();
+            var sinkType = sink.GetType();
+
+            var srcBaseType = IsInstanceOfGenericType(typeof(PipeSrcPad<>), srcType);
+            var sinkBaseType = IsInstanceOfGenericType(typeof(PipeSinkPad<>), sinkType);
+
+            if (srcBaseType == null)
+            {
+                return false;
+            } 
+            if(sinkBaseType == null)
+            {
+                return false;
+            }
+            if(!srcBaseType.GenericTypeArguments.SequenceEqual(sinkBaseType.GenericTypeArguments))
+            {
+                return false;
+            }
+
+            MethodInfo? genericConnect = typeof(PipeLine).GetMethod(nameof(Connect));
+            if (genericConnect == null)
+            {
+                return false;
+            }
+
+            var specificConnect = genericConnect.MakeGenericMethod(srcBaseType.GenericTypeArguments);
+                        
+            sink.Unlink();
+            src.Unlink();
+            specificConnect.Invoke(this, new object[] { src, sink });
+
+            return true;
+        }
+
+
+
 
         public async Task Stop()
         {

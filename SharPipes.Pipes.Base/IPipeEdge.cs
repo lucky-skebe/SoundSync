@@ -8,5 +8,7 @@ namespace SharPipes.Pipes.Base
     {
         public IPipeSrcPad From { get; }
         public IPipeSinkPad To { get; }
+
+        public void Unlink();
     }
 }
