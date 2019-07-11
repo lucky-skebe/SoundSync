@@ -15,7 +15,7 @@ namespace SharPipes.UI.GraphicalDecorators
         public override double X => position.X;
         public override double Y => position.Y;
 
-        public string Name => Element.Name;
+        public string Name => Element.TypeName;
 
 
         public void MoveTo(Point position)

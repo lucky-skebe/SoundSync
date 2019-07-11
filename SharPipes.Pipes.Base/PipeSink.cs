@@ -9,14 +9,14 @@ namespace SharPipes.Pipes.Base
 {
     public abstract class PipeSink : IPipeSink
     {
-        public PipeSink() : this(Guid.NewGuid())
+        public PipeSink() : this(null)
         {
 
         }
 
-        public PipeSink(Guid id)
+        public PipeSink(string? name)
         {
-            this.Id = id;
+            this.Name = name ?? $"{PipeElementFactory.GetName(this.GetType())}-{Guid.NewGuid()}";
         }
 
         public Guid Id { get; }
@@ -25,7 +25,8 @@ namespace SharPipes.Pipes.Base
 
         public virtual IEnumerable<IInteraction> Interactions => Enumerable.Empty<IInteraction>();
 
-        public abstract string Name { get; }
+        public abstract string TypeName { get; }
+        public string Name { get; }
 
         public abstract IEnumerable<IPipeElement> GetPrevNodes();
 

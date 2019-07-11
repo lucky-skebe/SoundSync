@@ -90,7 +90,7 @@ namespace SharPipes.Pipes.Buttplug
             this.disconnectInteraction.SetCanExecute(this.stateMachine.CanDisonnect);
         }
 
-        public override string Name => "Buttplug";
+        public override string TypeName => "Buttplug";
         public async Task StartScanning()
         {
             if (this.Client == null)

@@ -8,20 +8,21 @@ namespace SharPipes.Pipes.Base
 {
     public abstract class TransformElement<TFrom, TTo> : IPipeTransform
     {
-        public Guid Id { get; }
 
-        public TransformElement() : this(Guid.NewGuid())
+        public TransformElement() : this(null)
         {
         }
 
-        public TransformElement(Guid id)
+        public TransformElement(string? name)
         {
-            this.Id = id;
+            this.Name = name ?? $"{PipeElementFactory.GetName(this.GetType())}-{Guid.NewGuid()}";
         }
 
         public abstract IEnumerable<IInteraction> Interactions { get; }
 
-        public abstract string Name { get; }
+        public abstract string TypeName { get; }
+
+        public string Name { get; }
 
         public PipeSinkPad<TValue>? GetSink<TValue>(string name)
         {
