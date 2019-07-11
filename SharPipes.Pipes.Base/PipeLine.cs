@@ -31,6 +31,74 @@ namespace SharPipes.Pipes.Base
             return pipeline;
         }
 
+        public IList<string> FromDefinition(PipeLineDefinition definition)
+        {
+            IList<string> errors = new List<string>();
+            this.elements.Clear();
+            this.links.Clear();
+
+            Dictionary<string, IPipeElement> elementCache = new Dictionary<string, IPipeElement>();
+
+            foreach(var element in definition.Elements)
+            {
+                IPipeElement? pipeElement = PipeElementFactory.Make(element.TypeFactory, element.Name);
+                if (pipeElement != null)
+                {
+                    this.elements.Add(pipeElement);
+                    
+                    foreach(var propvalue in element.Properties)
+                    {
+                        if(!pipeElement.SetPropertyValue(propvalue))
+                        {
+                            errors.Add($"Property {propvalue} could not be set.");
+                        }
+                    }
+
+                    elementCache.Add(element.Name, pipeElement);
+                }
+            }
+
+            foreach(var link in definition.Links)
+            {
+                IPipeElement? fromElement = elementCache[link.FromElement];
+                IPipeElement? toElement = elementCache[link.ToElement];
+
+                if(fromElement == null)
+                {
+                    errors.Add($"Could not Link from {link.FromElement}:{link.FromPad} because the Element doesn't exist");
+                    continue;
+                }
+                if (fromElement == null)
+                {
+                    errors.Add($"Could not Link to {link.ToElement}:{link.ToPad} because the Element doesn't exist");
+                    continue;
+                }
+
+                IPipeSrcPad? srcPad = fromElement.GetSrcPad(link.FromPad);
+                IPipeSinkPad? sinkPad = toElement.GetSinkPad(link.ToPad);
+
+                if (srcPad == null)
+                {
+                    errors.Add($"Could not Link from {link.FromElement}:{link.FromPad} because the Pad doesn't exist");
+                    continue;
+                }
+                if (sinkPad == null)
+                {
+                    errors.Add($"Could not Link to {link.ToElement}:{link.ToPad} because the Pad doesn't exist");
+                    continue;
+                }
+
+                if(!this.TryConnect(srcPad, sinkPad))
+                {
+                    errors.Add($"Could not Link to {link.ToElement}:{link.ToPad} because the types don't match");
+                    continue;
+                }
+
+            }
+
+            return errors;
+        }
+
         public void Add(IPipeElement node)
         {
             elements.Add(node);

@@ -7,13 +7,17 @@ namespace SharPipes.Pipes.Base.PipeLineDefinitions
     public class PipeLineDefinition
     {
 
-        public PipeLineDefinition()
+        public PipeLineDefinition() : this(new List<ElementDefinition>(), new List<LinkDefinition>())
         {
-            this.Elements = new List<ElementDefinition>();
-            this.Links = new List<LinkDefinition>();
         }
 
-        public List<ElementDefinition> Elements { get; }
-        public List<LinkDefinition> Links { get; }
+        public PipeLineDefinition(IList<ElementDefinition> elements, IList<LinkDefinition> links)
+        {
+            this.Elements = elements;
+            this.Links = links;
+        }
+
+        public IList<ElementDefinition> Elements { get; }
+        public IList<LinkDefinition> Links { get; }
     }
 }

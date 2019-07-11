@@ -17,14 +17,15 @@ namespace SharPipes.Pipes.Basic
 
         private readonly Thread background_thread;
 
-        public TimedAVGElement()
+        public TimedAVGElement(string? name = null) : base(name)
         {
             Src = new PipeSrcPad<double>(this, "src");
             background_thread = new Thread(new ThreadStart(BackgroundWorker))
             {
                 IsBackground = true
             };
-            Sink = new PipeSinkPad<float>(this, "sink", (f) => {
+            Sink = new PipeSinkPad<float>(this, "sink", (f) =>
+            {
                 lock (this)
                 {
                     accumulator += Math.Abs(f);
@@ -104,7 +105,7 @@ namespace SharPipes.Pipes.Basic
             {
                 return GraphState.INCOMPLETE;
             }
-            else if(Src.Edge == null)
+            else if (Src.Edge == null)
             {
                 return GraphState.INCOMPLETE;
             }
@@ -147,7 +148,26 @@ namespace SharPipes.Pipes.Basic
 
         public override IEnumerable<PropertyValue> GetPropertyValues()
         {
-            yield return new PropertyValue(nameof(AVGMs), "int", AVGMs);
+            yield return new PropertyValue(nameof(AVGMs), AVGMs);
+        }
+
+        public override IPipeSrcPad? GetSrcPad(string fromPad)
+            => fromPad.ToLower() switch
+            {
+                "src" => this.Src,
+                _ => null
+            };
+
+        public override IPipeSinkPad? GetSinkPad(string toPad)
+            => toPad.ToLower() switch
+            {
+                "sink" => this.Sink,
+                _ => null
+            };
+
+        protected override IEnumerable<IPropertySetter> GetPropertySetters()
+        {
+            yield return new PropertySetter<int>(() => AVGMs);
         }
     }
 }

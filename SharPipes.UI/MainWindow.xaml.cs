@@ -56,7 +56,7 @@ namespace SharPipes.UI
                     {
                         if(type.IsClass && !type.IsAbstract)
                         {
-                            PipeElements.Add((IPipeElement)Activator.CreateInstance(type));
+                            PipeElements.Add((IPipeElement)Activator.CreateInstance(type, "test"));
                         }
                     }
                 }
@@ -238,13 +238,16 @@ namespace SharPipes.UI
             HandlePreviewMouseMove(e);
         }
 
+        private GraphicalPipeLineDefinition definition;
+
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            var definition = this.Pipeline.GetDefinition();
+            this.definition = this.Pipeline.GetDefinition();
+        }
 
-            string test = JsonConvert.SerializeObject(definition);
-
-            var tmp_definition = JsonConvert.DeserializeObject<PipeLineDefinition>(test);
+        private void BtnLoad_Click(object sender, RoutedEventArgs e)
+        {
+            this.Pipeline.FromDefinition(this.definition);
         }
     }
 }

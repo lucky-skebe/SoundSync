@@ -9,7 +9,7 @@ namespace SharPipes.Pipes.Basic
 {
     public class EnumerateElement : PipeTransform
     {
-        public EnumerateElement()
+        public EnumerateElement(string? name = null) : base(name)
         {
             Src = new PipeSrcPad<double>(this, "src");
             Sink = new PipeSinkPad<IEnumerable<float>>(this, "sink", e =>
@@ -83,6 +83,25 @@ namespace SharPipes.Pipes.Basic
         public override IEnumerable<IPipeSrcPad> GetSrcPads()
         {
             yield return Src;
+        }
+
+        public override IPipeSrcPad? GetSrcPad(string fromPad)
+            => fromPad.ToLower() switch
+            {
+                "src" => this.Src,
+                _ => null
+            };
+
+        public override IPipeSinkPad? GetSinkPad(string toPad)
+            => toPad.ToLower() switch
+            {
+                "sink" => this.Sink,
+                _ => null
+            };
+
+        protected override IEnumerable<IPropertySetter> GetPropertySetters()
+        {
+            return Enumerable.Empty<IPropertySetter>();
         }
     }
 }

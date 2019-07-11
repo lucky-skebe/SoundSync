@@ -11,12 +11,14 @@ namespace SharPipes.Pipes.NAudio
     public class LoopBackSrc : PipeSrc
     {
         private readonly WasapiLoopbackCapture loopback;
-        public LoopBackSrc()
+        public LoopBackSrc(string? name = null) : base(name)
         {
             loopback = new WasapiLoopbackCapture();
             loopback.DataAvailable += Loopback_DataAvailable;
             Src = new PipeSrcPad<float>(this, "src");
         }
+
+
 
         private void Loopback_DataAvailable(object sender, WaveInEventArgs args)
         {
@@ -72,6 +74,21 @@ namespace SharPipes.Pipes.NAudio
         public override IEnumerable<IPipeSrcPad> GetSrcPads()
         {
             yield return Src;
+        }
+
+        public override IPipeSrcPad? GetSrcPad(string fromPad)
+            => fromPad.ToLower() switch
+            {
+                "src" => this.Src,
+                _ => null
+            };
+
+        public override IPipeSinkPad? GetSinkPad(string toPad)
+            => null;
+
+        protected override IEnumerable<IPropertySetter> GetPropertySetters()
+        {
+            return Enumerable.Empty<IPropertySetter>();
         }
     }
 }

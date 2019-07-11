@@ -10,12 +10,7 @@ namespace SharPipes.Pipes.Base
 {
     public abstract class PipeSink : IPipeSink
     {
-        public PipeSink() : this(null)
-        {
-
-        }
-
-        public PipeSink(string? name)
+        public PipeSink(string? name = null)
         {
             this.Name = name ?? $"{PipeElementFactory.GetName(this.GetType())}-{Guid.NewGuid()}";
         }
@@ -51,5 +46,15 @@ namespace SharPipes.Pipes.Base
         }
 
         public abstract IEnumerable<PropertyValue> GetPropertyValues();
+        public virtual bool SetPropertyValue(PropertyValue propvalue)
+        {
+            var setter = this.GetPropertySetters().FirstOrDefault(setter => setter.TrySetValue(propvalue));
+
+            return setter != null;
+        }
+
+        protected abstract IEnumerable<IPropertySetter> GetPropertySetters();
+        public abstract IPipeSrcPad? GetSrcPad(string fromPad);
+        public abstract IPipeSinkPad? GetSinkPad(string toPad);
     }
 }

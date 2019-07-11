@@ -209,9 +209,26 @@ namespace SharPipes.UI.GraphicalDecorators
             return this.GetEnumerator();
         }
 
-        internal PipeLineDefinition GetDefinition()
+        internal GraphicalPipeLineDefinition GetDefinition()
         {
-            return pipeLine.GetDefinition();
+            var rawDefinition = pipeLine.GetDefinition();
+            var elementLookup = this.nodes.ToDictionary(elem => elem.Element.Name);
+
+            var graphicalDefinition = new GraphicalPipeLineDefinition(rawDefinition.Links);
+
+            foreach(ElementDefinition element in rawDefinition.Elements)
+            {
+                var gElement = elementLookup[element.Name];
+                graphicalDefinition.Elements.Add(new GraphicalElementDefinition(element, gElement.X, gElement.Y));
+            }
+
+
+            return graphicalDefinition;
+        }
+
+        internal IList<string> FromDefinition(GraphicalPipeLineDefinition definition)
+        {
+            return pipeLine.FromDefinition(definition);
         }
     }
 }

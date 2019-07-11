@@ -10,12 +10,7 @@ namespace SharPipes.Pipes.Base
 {
     public abstract class PipeTransform : IPipeTransform
     {
-        public PipeTransform() : this(null)
-        {
-
-        }
-
-        public PipeTransform(string? name)
+        public PipeTransform(string? name = null)
         {
             this.Name = name ?? $"{PipeElementFactory.GetName(this.GetType())}-{Guid.NewGuid()}";
         }
@@ -52,5 +47,19 @@ namespace SharPipes.Pipes.Base
         {
             return Enumerable.Empty<PropertyValue>();
         }
+
+        public virtual bool SetPropertyValue(PropertyValue propvalue)
+        {
+            var setter = this.GetPropertySetters().FirstOrDefault(setter => setter.TrySetValue(propvalue));
+
+            return setter != null;
+        }
+
+        protected abstract IEnumerable<IPropertySetter> GetPropertySetters();
+
+        public abstract IPipeSrcPad? GetSrcPad(string fromPad);
+        public abstract IPipeSinkPad? GetSinkPad(string toPad);
+
+
     }
 }

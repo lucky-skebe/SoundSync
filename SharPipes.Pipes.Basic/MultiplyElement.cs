@@ -10,7 +10,7 @@ namespace SharPipes.Pipes.Basic
 {
     public class MultiplyElement : PipeTransform 
     {
-        public MultiplyElement()
+        public MultiplyElement(string? name = null) : base(name)
         {
             Src = new PipeSrcPad<double>(this, "src");
             Sink = new PipeSinkPad<double>(this, "sink", (f) => Src.Push(f * this.Multiplier));
@@ -96,7 +96,26 @@ namespace SharPipes.Pipes.Basic
 
         public override IEnumerable<PropertyValue> GetPropertyValues()
         {
-            yield return new PropertyValue(nameof(Multiplier), "float", Multiplier);
+            yield return new PropertyValue(nameof(Multiplier), Multiplier);
+        }
+
+        public override IPipeSrcPad? GetSrcPad(string fromPad)
+            => fromPad.ToLower() switch
+            {
+                "src" => this.Src,
+                _ => null
+            };
+
+        public override IPipeSinkPad? GetSinkPad(string toPad)
+            => toPad.ToLower() switch
+            {
+                "sink" => this.Sink,
+                _ => null
+            };
+
+        protected override IEnumerable<IPropertySetter> GetPropertySetters()
+        {
+            yield return new PropertySetter<float>(() => this.Multiplier);
         }
     }
 }

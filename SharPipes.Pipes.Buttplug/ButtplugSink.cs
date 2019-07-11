@@ -48,7 +48,7 @@ namespace SharPipes.Pipes.Buttplug
 
         public string ServerUrl { get; set; } = "ws://localhost:12345/buttplug";
 
-        public ButtplugSink()
+        public ButtplugSink(string? name = null) : base(name)
         {
             Sink = new PipeSinkPad<double>(this, "sink", (f) => {
                 if(lastVal != f)
@@ -207,7 +207,7 @@ namespace SharPipes.Pipes.Buttplug
 
         public override IEnumerable<PropertyValue> GetPropertyValues()
         {
-            yield return new PropertyValue(nameof(ServerUrl), "string", ServerUrl);
+            yield return new PropertyValue(nameof(ServerUrl), ServerUrl);
         }
 
         public override IEnumerable<IInteraction> Interactions
@@ -221,6 +221,21 @@ namespace SharPipes.Pipes.Buttplug
                 yield return this.stopScanningInteraction;
                 yield return this.deviceInteraction;
             }
+        }
+
+        public override IPipeSrcPad? GetSrcPad(string fromPad)
+            => null;
+
+        public override IPipeSinkPad? GetSinkPad(string toPad)
+            => toPad.ToLower() switch
+            {
+                "sink" => this.Sink,
+                _ => null
+            };
+
+        protected override IEnumerable<IPropertySetter> GetPropertySetters()
+        {
+            yield return new PropertySetter<string>(() => this.ServerUrl);
         }
     }
 }
