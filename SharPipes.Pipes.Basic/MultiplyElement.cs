@@ -1,5 +1,6 @@
 ﻿using SharPipes.Pipes.Base;
 using SharPipes.Pipes.Base.InteractionInfos;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,8 +12,8 @@ namespace SharPipes.Pipes.Basic
     {
         public MultiplyElement()
         {
-            Src = new PipeSrcPad<double>(this);
-            Sink = new PipeSinkPad<double>(this, (f) => Src.Push(f * this.Multiplier));
+            Src = new PipeSrcPad<double>(this, "src");
+            Sink = new PipeSinkPad<double>(this, "sink", (f) => Src.Push(f * this.Multiplier));
         }
 
         private float _Multiplier = 10;
@@ -91,6 +92,11 @@ namespace SharPipes.Pipes.Basic
         public override IEnumerable<IPipeSrcPad> GetSrcPads()
         {
             yield return Src;
+        }
+
+        public override IEnumerable<PropertyValue> GetPropertyValues()
+        {
+            yield return new PropertyValue(nameof(Multiplier), "float", Multiplier);
         }
     }
 }

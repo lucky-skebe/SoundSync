@@ -11,6 +11,8 @@ namespace SharPipes.Pipes.Base
             get;
         }
 
+        string Name { get; }
+
 
         public void Unlink();
     }

@@ -62,7 +62,8 @@
                     ToolBox
                     </TextBlock>
                 </Button>
-                <Button Name="btnStart" Content="Start" Click="btnStart_Click" Padding="2" />
+                <Button Name="btnStart" Content="Start" Click="BtnStart_Click" Padding="2" />
+                <Button Name="btnSave" Content="Save" Click="BtnSave_Click" Padding="2" />
             </StackPanel>
         </Border>
     </Grid>

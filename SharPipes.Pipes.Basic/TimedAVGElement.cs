@@ -1,5 +1,6 @@
 ﻿using SharPipes.Pipes.Base;
 using SharPipes.Pipes.Base.InteractionInfos;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +19,12 @@ namespace SharPipes.Pipes.Basic
 
         public TimedAVGElement()
         {
-            Src = new PipeSrcPad<double>(this);
+            Src = new PipeSrcPad<double>(this, "src");
             background_thread = new Thread(new ThreadStart(BackgroundWorker))
             {
                 IsBackground = true
             };
-            Sink = new PipeSinkPad<float>(this, (f) => {
+            Sink = new PipeSinkPad<float>(this, "sink", (f) => {
                 lock (this)
                 {
                     accumulator += Math.Abs(f);
@@ -142,6 +143,11 @@ namespace SharPipes.Pipes.Basic
         public override IEnumerable<IPipeSrcPad> GetSrcPads()
         {
             yield return Src;
+        }
+
+        public override IEnumerable<PropertyValue> GetPropertyValues()
+        {
+            yield return new PropertyValue(nameof(AVGMs), "int", AVGMs);
         }
     }
 }

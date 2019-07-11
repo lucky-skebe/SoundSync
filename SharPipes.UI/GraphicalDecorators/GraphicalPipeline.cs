@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Linq;
 using System.Diagnostics;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 
 namespace SharPipes.UI.GraphicalDecorators
 {
@@ -109,7 +110,7 @@ namespace SharPipes.UI.GraphicalDecorators
 
         public void AddNode(IPipeElement node, Point position)
         {
-            this.pipeLine.AddNode(node);
+            this.pipeLine.Add(node);
             var graphicalNode = new GraphicalElement(node, position, this);
             this.nodes.Add(graphicalNode);
             this.FireCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, graphicalNode, GetIndex(graphicalNode)));
@@ -206,6 +207,11 @@ namespace SharPipes.UI.GraphicalDecorators
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+        internal PipeLineDefinition GetDefinition()
+        {
+            return pipeLine.GetDefinition();
         }
     }
 }

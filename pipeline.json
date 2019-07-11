@@ -1,0 +1,62 @@
+{
+    "Elements": [
+        {
+            "TypeFactory": "Audio Loopback",
+            "Name": "LoopBack-a3801815-4a9e-4b91-9c36-e9d6b41053b5",
+            "Properties": []
+        },
+        {
+            "TypeFactory": "Timed Average",
+            "Name": "TimedAVG-603a2755-d190-48ce-8a23-60f790f834d2",
+            "Properties": [
+                {
+                    "PropertyName": "AVGMs",
+                    "Type": "int",
+                    "Value": 50
+                }
+            ]
+        },
+        {
+            "TypeFactory": "Multiply",
+            "Name": "Multiply-a6b3e615-768e-4895-82c6-7624ccd9b742",
+            "Properties": [
+                {
+                    "PropertyName": "Multiplier",
+                    "Type": "float",
+                    "Value": 10
+                }
+            ]
+        },
+        {
+            "TypeFactory": "Buttplug",
+            "Name": "Buttplug-f63dd963-ab89-4192-afd0-8c31c9e024ae",
+            "Properties": [
+                {
+                    "PropertyName": "ServerUrl",
+                    "Type": "string",
+                    "Value": "ws://localhost:12345/buttplug"
+                }
+            ]
+        }
+    ],
+    "Links": [
+        {
+            "FromElement": "LoopBack-a3801815-4a9e-4b91-9c36-e9d6b41053b5",
+            "FromPad": "src",
+            "ToElement": "TimedAVG-603a2755-d190-48ce-8a23-60f790f834d2",
+            "ToPad": "sink"
+        },
+        {
+            "FromElement": "TimedAVG-603a2755-d190-48ce-8a23-60f790f834d2",
+            "FromPad": "src",
+            "ToElement": "Multiply-a6b3e615-768e-4895-82c6-7624ccd9b742",
+            "ToPad": "sink"
+        },
+        {
+            "FromElement": "Multiply-a6b3e615-768e-4895-82c6-7624ccd9b742",
+            "FromPad": "src",
+            "ToElement": "Buttplug-f63dd963-ab89-4192-afd0-8c31c9e024ae",
+            "ToPad": "sink"
+        }
+    ]
+}

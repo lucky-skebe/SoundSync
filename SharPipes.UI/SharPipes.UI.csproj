@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SharPipes.Pipes.Base\SharPipes.Pipes.Base.csproj" />
     <ProjectReference Include="..\SharPipes.Pipes.Basic\SharPipes.Pipes.Basic.csproj" />
     <ProjectReference Include="..\SharPipes.Pipes.Buttplug\SharPipes.Pipes.Buttplug.csproj" />

@@ -11,8 +11,8 @@ namespace SharPipes.Pipes.Basic
     {
         public EnumerateElement()
         {
-            Src = new PipeSrcPad<double>(this);
-            Sink = new PipeSinkPad<IEnumerable<float>>(this, e =>
+            Src = new PipeSrcPad<double>(this, "src");
+            Sink = new PipeSinkPad<IEnumerable<float>>(this, "sink", e =>
             {
                 try
                 {

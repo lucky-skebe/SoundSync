@@ -1,4 +1,5 @@
 ﻿using SharPipes.Pipes.Base.InteractionInfos;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,11 @@ namespace SharPipes.Pipes.Base
         public virtual Task Stop()
         {
             return Task.CompletedTask;
+        }
+
+        public virtual IEnumerable<PropertyValue> GetPropertyValues()
+        {
+            return Enumerable.Empty<PropertyValue>();
         }
     }
 }

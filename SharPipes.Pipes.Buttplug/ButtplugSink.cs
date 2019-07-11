@@ -8,6 +8,7 @@ using Buttplug.Client;
 using Buttplug.Client.Connectors.WebsocketConnector;
 using SharPipes.Pipes.Base;
 using SharPipes.Pipes.Base.InteractionInfos;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 
 namespace SharPipes.Pipes.Buttplug
 {
@@ -49,7 +50,7 @@ namespace SharPipes.Pipes.Buttplug
 
         public ButtplugSink()
         {
-            Sink = new PipeSinkPad<double>(this, (f) => {
+            Sink = new PipeSinkPad<double>(this, "sink", (f) => {
                 if(lastVal != f)
                 {
                     if (Client != null && Client.Connected )
@@ -202,6 +203,11 @@ namespace SharPipes.Pipes.Buttplug
         public override IEnumerable<IPipeSinkPad> GetSinkPads()
         {
             yield return Sink;
+        }
+
+        public override IEnumerable<PropertyValue> GetPropertyValues()
+        {
+            yield return new PropertyValue(nameof(ServerUrl), "string", ServerUrl);
         }
 
         public override IEnumerable<IInteraction> Interactions

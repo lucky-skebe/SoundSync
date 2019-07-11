@@ -11,10 +11,11 @@ namespace SharPipes.Pipes.Base
             set;
           }
 
-        public PipeSinkPad(IPipeSink Parent, Action<TValue> elemFunc)
+        public PipeSinkPad(IPipeSink Parent, string name, Action<TValue> elemFunc)
         {
             this.ElemFunc = elemFunc;
             this.Parent = Parent;
+            Name = name;
         }
 
         public IPipeSink Parent
@@ -22,8 +23,9 @@ namespace SharPipes.Pipes.Base
             get;
             protected set;
         }
-
+        public string Name { get; }
         public PipeEdge<TValue>? Edge { get; internal set; }
+
 
         public void Push(TValue value)
         {

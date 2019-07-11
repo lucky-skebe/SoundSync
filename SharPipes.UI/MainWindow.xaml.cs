@@ -1,4 +1,6 @@
-﻿using SharPipes.Pipes.Base;
+﻿using Newtonsoft.Json;
+using SharPipes.Pipes.Base;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 using SharPipes.Pipes.Basic;
 using SharPipes.Pipes.Buttplug;
 using SharPipes.Pipes.NAudio;
@@ -95,7 +97,7 @@ namespace SharPipes.UI
             }
         }
 
-        private async void btnStart_Click(object sender, RoutedEventArgs e)
+        private async void BtnStart_Click(object sender, RoutedEventArgs e)
         {
             await this.Pipeline.Start();
         }
@@ -234,6 +236,15 @@ namespace SharPipes.UI
         private void ToolBoxList_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             HandlePreviewMouseMove(e);
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            var definition = this.Pipeline.GetDefinition();
+
+            string test = JsonConvert.SerializeObject(definition);
+
+            var tmp_definition = JsonConvert.DeserializeObject<PipeLineDefinition>(test);
         }
     }
 }

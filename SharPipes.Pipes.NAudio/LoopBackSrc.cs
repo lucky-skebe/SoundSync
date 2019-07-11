@@ -15,7 +15,7 @@ namespace SharPipes.Pipes.NAudio
         {
             loopback = new WasapiLoopbackCapture();
             loopback.DataAvailable += Loopback_DataAvailable;
-            Src = new PipeSrcPad<float>(this);
+            Src = new PipeSrcPad<float>(this, "src");
         }
 
         private void Loopback_DataAvailable(object sender, WaveInEventArgs args)

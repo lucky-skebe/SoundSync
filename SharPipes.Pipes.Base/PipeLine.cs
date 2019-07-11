@@ -5,23 +5,41 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 
 namespace SharPipes.Pipes.Base
 {
     public class PipeLine
     {
-        private readonly IList<IPipeElement> nodes = new List<IPipeElement>();
-        private readonly IList<IPipeEdge> edges = new List<IPipeEdge>();
+        private readonly IList<IPipeElement> elements = new List<IPipeElement>();
+        private readonly IList<IPipeEdge> links = new List<IPipeEdge>();
 
-        public void AddNode(IPipeElement node)
+        public PipeLineDefinition GetDefinition()
         {
-            nodes.Add(node);
+            var pipeline = new PipeLineDefinition();
+
+            foreach( var element in this.elements)
+            {
+                pipeline.Elements.Add(new ElementDefinition(PipeElementFactory.GetName(element.GetType()), element.Name, element.GetPropertyValues().ToList()));
+            }
+
+            foreach (var link in this.links)
+            {
+                pipeline.Links.Add(new LinkDefinition(link.From.Parent.Name, link.From.Name, link.To.Parent.Name, link.To.Name ));
+            }
+
+            return pipeline;
+        }
+
+        public void Add(IPipeElement node)
+        {
+            elements.Add(node);
         }
 
         public IPipeElement CreateNodeFromTemplate(IPipeElement template)
         {
             IPipeElement node = (IPipeElement)template.GetType().GetConstructor(new Type[] { }).Invoke(new object[] { });
-            this.AddNode(node);
+            this.Add(node);
             return node;
         }
 
@@ -33,7 +51,7 @@ namespace SharPipes.Pipes.Base
             Dictionary<IPipeElement, IList<IPipeElement>> nextNodeList = new Dictionary<IPipeElement, IList<IPipeElement>>();
             IList<IPipeElement> startNodes = new List<IPipeElement>();
 
-            foreach (var node in nodes)
+            foreach (var node in elements)
             {
                 var state = node.Check();
                 if (state != GraphState.OK)
@@ -112,7 +130,7 @@ namespace SharPipes.Pipes.Base
                 src.Unlink();
             }
 
-            this.nodes.Remove(element);
+            this.elements.Remove(element);
         }
 
         public void Connect<TValue>(PipeSrcPad<TValue> From, PipeSinkPad<TValue> To)
@@ -120,7 +138,7 @@ namespace SharPipes.Pipes.Base
             PipeEdge<TValue> e = new PipeEdge<TValue>(From, To);
             From.Edge = e;
             To.Edge = e;
-            this.edges.Add(e);
+            this.links.Add(e);
         }
 
         public async Task Start()
