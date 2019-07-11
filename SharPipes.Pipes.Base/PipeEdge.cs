@@ -2,7 +2,7 @@ using System;
 
 namespace SharPipes.Pipes.Base
 {
-    public class PipeEdge<TValue> : IPipeEdge
+    internal class PipeEdge<TValue> : IPipeEdge
     {
         internal PipeEdge(PipeSrcPad<TValue> From, PipeSinkPad<TValue> To)
         {

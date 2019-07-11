@@ -29,7 +29,7 @@ namespace SharPipes.Pipes.Buttplug
             get => _client;
             set
             {
-                if(_client != null)
+                if (_client != null)
                 {
                     _client.DeviceAdded -= Client_DeviceAdded;
                     _client.DeviceRemoved -= Client_DeviceRemoved;
@@ -49,14 +49,15 @@ namespace SharPipes.Pipes.Buttplug
 
         public ButtplugSink()
         {
-            Sink = new PipeSinkPad<double>(this, (f) => {
-                if(lastVal != f)
+            Sink = new PipeSinkPad<double>(this, "sink", (f) =>
+            {
+                if (lastVal != f)
                 {
-                    if (Client != null && Client.Connected )
+                    if (Client != null && Client.Connected)
                     {
                         foreach (var d in this.deviceList)
                         {
-                            if(d.Selected)
+                            if (d.Selected)
                             {
                                 d.Value.SendVibrateCmd(f);
                             }
@@ -64,7 +65,7 @@ namespace SharPipes.Pipes.Buttplug
                         lastVal = f;
                     }
                 }
-                
+
             });
 
 
@@ -78,9 +79,9 @@ namespace SharPipes.Pipes.Buttplug
         }
 
 
-        
 
-        
+
+
 
         private void UpdateCommands()
         {
@@ -143,7 +144,7 @@ namespace SharPipes.Pipes.Buttplug
                 return;
             }
 
-            if(this.stateMachine.Disonnect())
+            if (this.stateMachine.Disonnect())
             {
                 await Client.DisconnectAsync();
 
@@ -181,7 +182,7 @@ namespace SharPipes.Pipes.Buttplug
 
         public override GraphState Check()
         {
-            if(Sink.Edge != null)
+            if (Sink.IsLinked)
             {
                 return GraphState.OK;
             }
@@ -193,9 +194,9 @@ namespace SharPipes.Pipes.Buttplug
 
         public override IEnumerable<IPipeElement> GetPrevNodes()
         {
-            if (Sink.Edge != null)
+            if (Sink.Peer != null)
             {
-                yield return Sink.Edge.From.Parent;
+                yield return Sink.Peer.Parent;
             }
         }
 

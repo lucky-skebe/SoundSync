@@ -17,6 +17,7 @@ namespace SharPipes.UI.GraphicalDecorators
 
         public string Name => Element.TypeName;
 
+        public override int ZIndex => (int)ZLayer.Elements;
 
         public void MoveTo(Point position)
         {

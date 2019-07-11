@@ -14,6 +14,7 @@ namespace SharPipes.UI.GraphicalDecorators
         public TPipe Element { get; }
 
         public Guid Id { get; }
+        public abstract int ZIndex { get; }
 
         public Graphical(TPipe element)
         {
