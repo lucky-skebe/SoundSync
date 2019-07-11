@@ -9,23 +9,23 @@ namespace SharPipes.Pipes.Base
 {
     public abstract class PipeTransform : IPipeTransform
     {
-        public PipeTransform() : this(Guid.NewGuid())
+        public PipeTransform() : this(null)
         {
 
         }
 
-        public PipeTransform(Guid id)
+        public PipeTransform(string? name)
         {
-            this.Id = id;
+            this.Name = name ?? $"{PipeElementFactory.GetName(this.GetType())}-{Guid.NewGuid()}";
         }
-
-        public Guid Id { get; }
 
         public abstract GraphState Check();
 
         public virtual IEnumerable<IInteraction> Interactions => Enumerable.Empty<IInteraction>();
 
-        public abstract string Name { get; }
+        public abstract string TypeName { get; }
+
+        public string Name { get; }
 
         public abstract IEnumerable<IPipeElement> GetPrevNodes();
 

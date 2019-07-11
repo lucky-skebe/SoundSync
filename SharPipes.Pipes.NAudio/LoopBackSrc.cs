@@ -51,7 +51,7 @@ namespace SharPipes.Pipes.NAudio
         }
 
 
-        public override string Name => "Audio Loopback";
+        public override string TypeName => "Audio Loopback";
         public override IEnumerable<IPipeElement> GetPrevNodes()
         {
             return Enumerable.Empty<IPipeElement>();

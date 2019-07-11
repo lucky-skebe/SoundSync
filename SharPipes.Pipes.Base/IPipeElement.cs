@@ -7,13 +7,14 @@ namespace SharPipes.Pipes.Base
 {
     public interface IPipeElement
     {
-        public Guid Id { get; }
+        String Name { get; }
+
         Task Start();
         Task Stop();
 
         GraphState Check();
 
-        string Name { get; }
+        string TypeName { get; }
 
         IEnumerable<IPipeElement> GetPrevNodes();
 

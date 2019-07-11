@@ -74,7 +74,7 @@ namespace SharPipes.Pipes.Basic
         }
 
 
-        public override string Name => "Multiply";
+        public override string TypeName => "Multiply";
         public override IEnumerable<IPipeElement> GetPrevNodes()
         {
             if (Sink.Edge != null)

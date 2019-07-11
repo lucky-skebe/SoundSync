@@ -50,7 +50,7 @@ namespace SharPipes.Pipes.Basic
         }
 
 
-        public override string Name => "Unlist";
+        public override string TypeName => "Unlist";
         public override GraphState Check()
         {
             if (Sink.Edge == null)

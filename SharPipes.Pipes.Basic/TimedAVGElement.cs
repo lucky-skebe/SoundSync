@@ -85,7 +85,7 @@ namespace SharPipes.Pipes.Basic
             set;
         }
 
-        public override string Name => "Timed Average";
+        public override string TypeName => "Timed Average";
 
         public override PipeSinkPad<TValue>? GetSink<TValue>(string name)
         {
