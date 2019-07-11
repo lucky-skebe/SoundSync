@@ -21,7 +21,7 @@ namespace SharPipes.UI.GraphicalDecorators
 
         private void Dependant_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == "X")
+            if (e.PropertyName == "X")
             {
                 OnPropertyChanged("X");
                 OnPropertyChanged("Width");
@@ -72,5 +72,7 @@ namespace SharPipes.UI.GraphicalDecorators
         public GraphicalSinkPad Sink { get; }
 
         public Guid Id { get; } = Guid.NewGuid();
+
+        public int ZIndex => (int)ZLayer.Links;
     }
 }

@@ -9,5 +9,7 @@ namespace SharPipes.UI.GraphicalDecorators
         Guid Id { get; }
         double X { get; }
         double Y { get; }
+
+        int ZIndex { get; }
     }
 }

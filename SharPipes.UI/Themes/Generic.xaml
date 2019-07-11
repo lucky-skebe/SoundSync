@@ -18,6 +18,7 @@
     <Style TargetType="{x:Type local:PipeLineItem}">
         <Setter Property="Canvas.Left" Value="{Binding X}" />
         <Setter Property="Canvas.Top" Value="{Binding Y}" />
+        <Setter Property="Panel.ZIndex" Value="{Binding ZIndex}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:PipeLineItem}">

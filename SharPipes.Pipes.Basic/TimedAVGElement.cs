@@ -18,12 +18,13 @@ namespace SharPipes.Pipes.Basic
 
         public TimedAVGElement()
         {
-            Src = new PipeSrcPad<double>(this);
+            Src = new PipeSrcPad<double>(this, "src");
             background_thread = new Thread(new ThreadStart(BackgroundWorker))
             {
                 IsBackground = true
             };
-            Sink = new PipeSinkPad<float>(this, (f) => {
+            Sink = new PipeSinkPad<float>(this, "sink", (f) =>
+            {
                 lock (this)
                 {
                     accumulator += Math.Abs(f);
@@ -99,11 +100,11 @@ namespace SharPipes.Pipes.Basic
 
         public override GraphState Check()
         {
-            if (Sink.Edge == null)
+            if (!Sink.IsLinked)
             {
                 return GraphState.INCOMPLETE;
             }
-            else if(Src.Edge == null)
+            else if (!Src.IsLinked)
             {
                 return GraphState.INCOMPLETE;
             }
@@ -115,9 +116,9 @@ namespace SharPipes.Pipes.Basic
 
         public override IEnumerable<IPipeElement> GetPrevNodes()
         {
-            if (Sink.Edge != null)
+            if (Sink.Peer != null)
             {
-                yield return Sink.Edge.From.Parent;
+                yield return Sink.Peer.Parent;
             }
         }
 

@@ -15,7 +15,7 @@ namespace SharPipes.Pipes.NAudio
         {
             loopback = new WasapiLoopbackCapture();
             loopback.DataAvailable += Loopback_DataAvailable;
-            Src = new PipeSrcPad<float>(this);
+            Src = new PipeSrcPad<float>(this, "src");
         }
 
         private void Loopback_DataAvailable(object sender, WaveInEventArgs args)
@@ -40,13 +40,13 @@ namespace SharPipes.Pipes.NAudio
 
         public override GraphState Check()
         {
-            if (Src.Edge == null)
+            if (Src.IsLinked)
             {
-                return GraphState.INCOMPLETE;
+                return GraphState.OK;
             }
             else
             {
-                return GraphState.OK;
+                return GraphState.INCOMPLETE;
             }
         }
 

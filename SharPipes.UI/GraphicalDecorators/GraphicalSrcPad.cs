@@ -14,6 +14,7 @@ namespace SharPipes.UI.GraphicalDecorators
 
         public override double Y => Parent.Y + padNr * 15 + 10;
 
+        public override int ZIndex => (int)ZLayer.Pads;
         public GraphicalSrcPad(IPipeSrcPad element, GraphicalElement parent, int padNr = 0) : base(element)
         {
             this.padNr = padNr;
