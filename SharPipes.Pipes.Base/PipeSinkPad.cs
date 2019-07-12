@@ -47,8 +47,6 @@ namespace SharPipes.Pipes.Base
 
         IPipeSrcPad? IPipeSinkPad.Peer => this.Peer;
 
-        public string Name { get; }
-
         public override int GetHashCode()
         {
             return (this.Parent, this.Name).GetHashCode();

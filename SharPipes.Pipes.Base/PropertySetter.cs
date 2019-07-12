@@ -35,7 +35,7 @@ namespace SharPipes.Pipes.Base
             if (propertyInfo != null && caller != null)
             {
                 this.name = body.Member.Name;
-                
+
                 this.setValue = (v) => propertyInfo.SetValue(caller, v, null);
             }
             else
@@ -52,6 +52,19 @@ namespace SharPipes.Pipes.Base
                 {
                     this.setValue((TValue)propvalue.Value);
                     return true;
+                }
+                else
+                {
+                    try
+                    {
+                        TValue val = (TValue)Convert.ChangeType(propvalue.Value, typeof(TValue));
+                        this.setValue((TValue)val);
+                        return true;
+                    }
+                    catch
+                    {
+                        return false;
+                    }
                 }
             }
             return false;

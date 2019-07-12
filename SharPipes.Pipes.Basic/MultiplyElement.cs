@@ -16,9 +16,9 @@ namespace SharPipes.Pipes.Basic
             Sink = new PipeSinkPad<double>(this, "sink", (f) => Src.Push(f * this.Multiplier));
         }
 
-        private float _Multiplier = 10;
+        private double _Multiplier = 10;
 
-        public float Multiplier
+        public double Multiplier
         {
             get { return _Multiplier; }
             set { _Multiplier = value; }
@@ -28,7 +28,7 @@ namespace SharPipes.Pipes.Basic
         public override IEnumerable<IInteraction> Interactions
         {
             get {
-                yield return new FloatParameterInteraction("Multiplier",
+                yield return new DoubleParameterInteraction("Multiplier",
                     () => this.Multiplier, 
                     (value) => { this.Multiplier = value; }
                     );
@@ -115,7 +115,7 @@ namespace SharPipes.Pipes.Basic
 
         protected override IEnumerable<IPropertySetter> GetPropertySetters()
         {
-            yield return new PropertySetter<float>(() => this.Multiplier);
+            yield return new PropertySetter<double>(() => this.Multiplier);
         }
     }
 }

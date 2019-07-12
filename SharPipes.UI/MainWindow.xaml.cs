@@ -238,16 +238,20 @@ namespace SharPipes.UI
             HandlePreviewMouseMove(e);
         }
 
-        private GraphicalPipeLineDefinition definition;
+        private string? definition;
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            this.definition = this.Pipeline.GetDefinition();
+            this.definition = JsonConvert.SerializeObject(this.Pipeline.GetDefinition());
         }
 
         private void BtnLoad_Click(object sender, RoutedEventArgs e)
         {
-            this.Pipeline.FromDefinition(this.definition);
+            GraphicalPipeLineDefinition? pdef = JsonConvert.DeserializeObject<GraphicalPipeLineDefinition>(definition);
+            if (pdef != null)
+            {
+                this.Pipeline.FromDefinition(pdef);
+            }
         }
     }
 }

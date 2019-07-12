@@ -1,22 +1,23 @@
 ﻿using SharPipes.Pipes.Base.PipeLineDefinitions;
 using System.Collections.Generic;
-using System.Linq;
+using System.Windows;
 
 namespace SharPipes.UI.GraphicalDecorators
 {
     internal class GraphicalPipeLineDefinition
     {
-        public GraphicalPipeLineDefinition(IList<LinkDefinition> links)
+        public GraphicalPipeLineDefinition(PipeLineDefinition definition, Dictionary<string, Point> positions)
         {
-            Elements = new List<GraphicalElementDefinition>();
-            Links = links;
+            Definition = definition;
+            Positions = positions;
         }
-        public IList<LinkDefinition> Links { get; }
-        public IList<GraphicalElementDefinition> Elements { get; }
+
+        public PipeLineDefinition Definition { get; }
+        public Dictionary<string, Point> Positions { get; }
 
         public static implicit operator PipeLineDefinition(GraphicalPipeLineDefinition d)
         {
-            return new PipeLineDefinition(d.Elements.Select(e => e.Element).ToList(), d.Links);
+            return d.Definition;
         }
     }
 }

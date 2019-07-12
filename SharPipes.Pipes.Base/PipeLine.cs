@@ -30,12 +30,21 @@ namespace SharPipes.Pipes.Base
             return pipeline;
         }
 
+        private void Clear()
+        {
+            while(this.elements.Count > 0)
+            {
+                this.Remove(this.elements[0]);
+            }
+
+            this.links.Clear();
+        }
+
         public IList<string> FromDefinition(PipeLineDefinition definition)
         {
             IList<string> errors = new List<string>();
-            this.elements.Clear();
-            this.links.Clear();
 
+            this.Clear();
             Dictionary<string, IPipeElement> elementCache = new Dictionary<string, IPipeElement>();
 
             foreach(var element in definition.Elements)
@@ -43,7 +52,7 @@ namespace SharPipes.Pipes.Base
                 IPipeElement? pipeElement = PipeElementFactory.Make(element.TypeFactory, element.Name);
                 if (pipeElement != null)
                 {
-                    this.elements.Add(pipeElement);
+                    this.Add(pipeElement);
                     
                     foreach(var propvalue in element.Properties)
                     {
@@ -133,7 +142,7 @@ namespace SharPipes.Pipes.Base
 
         public IPipeElement CreateNodeFromTemplate(IPipeElement template)
         {
-            IPipeElement node = (IPipeElement)template.GetType().GetConstructor(new Type[] { }).Invoke(new object[] { });
+            IPipeElement node = (IPipeElement)template.GetType().GetConstructor(new Type[] { typeof(String?) }).Invoke(new object[] { null });
             return node;
         }
 
@@ -217,7 +226,9 @@ namespace SharPipes.Pipes.Base
             var peer = srcPad.Peer;
             if (peer != null)
             {
+                
                 srcPad.Unlink();
+                
                 this.OnElementsUnlinked(srcPad, peer);
             }
         }
