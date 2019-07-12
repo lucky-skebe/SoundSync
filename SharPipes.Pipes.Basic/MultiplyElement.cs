@@ -3,11 +3,14 @@ using SharPipes.Pipes.Base.InteractionInfos;
 using SharPipes.Pipes.Base.PipeLineDefinitions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SharPipes.Pipes.Basic
 {
+
+    [Export(typeof(IPipeElement))]
     public class MultiplyElement : PipeTransform 
     {
         public MultiplyElement(string? name = null) : base(name)

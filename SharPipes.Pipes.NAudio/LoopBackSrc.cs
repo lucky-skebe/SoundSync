@@ -1,13 +1,13 @@
 ﻿using NAudio.Wave;
 using SharPipes.Pipes.Base;
-using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SharPipes.Pipes.NAudio
 {
+    [Export(typeof(IPipeElement))]
     public class LoopBackSrc : PipeSrc
     {
         private readonly WasapiLoopbackCapture loopback;

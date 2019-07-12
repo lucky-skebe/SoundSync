@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.Loader;
 using System.Text;
@@ -65,21 +66,6 @@ namespace SharPipes.UI
             this.startPoint = new Point();
 
             this.Pipeline = new GraphicalPipeline(new PipeLine());
-
-            var input = new LoopBackSrc();
-            var avg = new TimedAVGElement();
-            var multiply = new MultiplyElement { Multiplier = 10 };
-            var output = new ButtplugSink();
-
-            this.Pipeline.Add(input, new Point(100, 100));
-            this.Pipeline.Add(avg, new Point(250, 200));
-            this.Pipeline.Add(multiply, new Point(400, 100));
-            // TODO clamp
-            this.Pipeline.Add(output, new Point(550, 100));
-
-            Pipeline.Connect(input.Src, avg.Sink);
-            Pipeline.Connect(avg.Src, multiply.Sink);
-            Pipeline.Connect(multiply.Src, output.Sink);
 
             this.DataContext = this;
             InitializeComponent();
@@ -238,20 +224,47 @@ namespace SharPipes.UI
             HandlePreviewMouseMove(e);
         }
 
-        private string? definition;
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            this.definition = JsonConvert.SerializeObject(this.Pipeline.GetDefinition());
+            var sfd = new System.Windows.Forms.SaveFileDialog();
+            sfd.FileName = "pipeline";
+            sfd.Filter =
+            "Json files (*.json)|*.json|All files (*.*)|*.*";
+            sfd.InitialDirectory =
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            sfd.DefaultExt = "json";
+
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                using Stream fileStream = sfd.OpenFile();
+                using var streamWriter = new StreamWriter(fileStream);
+                streamWriter.Write(JsonConvert.SerializeObject(this.Pipeline.GetDefinition(), Formatting.Indented));
+            }
         }
 
         private void BtnLoad_Click(object sender, RoutedEventArgs e)
         {
-            GraphicalPipeLineDefinition? pdef = JsonConvert.DeserializeObject<GraphicalPipeLineDefinition>(definition);
-            if (pdef != null)
+            var ofd = new System.Windows.Forms.OpenFileDialog();
+            ofd.FileName = "pipeline";
+            ofd.Filter =
+            "Json files (*.json)|*.json|All files (*.*)|*.*";
+            ofd.InitialDirectory =
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            ofd.DefaultExt = "json";
+
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                this.Pipeline.FromDefinition(pdef);
+                using Stream fileStream = ofd.OpenFile();
+                using var streamReader = new StreamReader(fileStream);
+                GraphicalPipeLineDefinition? pdef = JsonConvert.DeserializeObject<GraphicalPipeLineDefinition>(streamReader.ReadToEnd());
+                if (pdef != null)
+                {
+                    this.Pipeline.FromDefinition(pdef);
+                }
             }
+
+
         }
     }
 }

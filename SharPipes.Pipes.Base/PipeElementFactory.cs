@@ -1,6 +1,8 @@
 ﻿using SharPipes.Pipes.Base.Attributes;
+using SharPipes.Pipes.Base.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Loader;
 
@@ -53,21 +55,22 @@ namespace SharPipes.Pipes.Base
 
         static PipeElementFactory()
         {
+            var parts = MEFExtensions.GetRegisteredTypes<IPipeElement>();
+
             types = new Dictionary<string, Type>();
-            foreach (Assembly assembly in AssemblyLoadContext.Default.Assemblies)
+            
+            foreach (var type in parts)
             {
-                foreach (var type in assembly.GetTypes())
+                if (typeof(IPipeElement).IsAssignableFrom(type))
                 {
-                    if (typeof(IPipeElement).IsAssignableFrom(type))
+                    if (type.IsClass && !type.IsAbstract)
                     {
-                        if (type.IsClass && !type.IsAbstract)
-                        {
-                            string name = GetName(type);
-                            types.Add(name, type);
-                        }
+                        string name = GetName(type);
+                        types.Add(name, type);
                     }
                 }
             }
+            
         }
 
         public static IReadOnlyCollection<string> GetFactoryTypes()

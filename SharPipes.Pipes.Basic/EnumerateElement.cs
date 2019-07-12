@@ -1,12 +1,15 @@
 ﻿using SharPipes.Pipes.Base;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SharPipes.Pipes.Basic
 {
+
+    [Export(typeof(IPipeElement))]
     public class EnumerateElement : PipeTransform
     {
         public EnumerateElement(string? name = null) : base(name)

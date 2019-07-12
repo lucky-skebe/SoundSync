@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ using SharPipes.Pipes.Base.PipeLineDefinitions;
 
 namespace SharPipes.Pipes.Buttplug
 {
+
+    [Export(typeof(IPipeElement))]
     public class ButtplugSink : PipeSink
     {
         private ButtplugClient? _client;
