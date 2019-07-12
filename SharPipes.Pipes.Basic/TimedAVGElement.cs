@@ -122,14 +122,14 @@ namespace SharPipes.Pipes.Basic
             }
         }
 
-        public override Task Start()
+        public override Task TransitionReadyPlaying()
         {
             this.running = true;
             background_thread.Start();
             return Task.CompletedTask;
         }
 
-        public override Task Stop()
+        public override Task TransitionPlayingReady()
         {
             this.running = false;
             return Task.CompletedTask;
@@ -144,5 +144,6 @@ namespace SharPipes.Pipes.Basic
         {
             yield return Src;
         }
+
     }
 }

@@ -1,48 +1,35 @@
-﻿using SharPipes.Pipes.Base.InteractionInfos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharPipes.Pipes.Base.InteractionInfos;
 
 namespace SharPipes.Pipes.Base
 {
-    public abstract class PipeTransform : IPipeTransform
+    public abstract class PipeElement : IPipeElement
     {
-        public PipeTransform() : this(null)
-        {
-
-        }
-
-        public PipeTransform(string? name)
+        public PipeElement(string? name = null)
         {
             this.Name = name ?? $"{PipeElementFactory.GetName(this.GetType())}-{Guid.NewGuid()}";
+            this.CurrentState = State.Stopped;
         }
-
-        public abstract GraphState Check();
-
-        public virtual IEnumerable<IInteraction> Interactions => Enumerable.Empty<IInteraction>();
-
-        public abstract string TypeName { get; }
 
         public string Name { get; }
         public State CurrentState { get; private set; }
+        public abstract string TypeName { get; }
+        public virtual IEnumerable<IInteraction> Interactions => Enumerable.Empty<IInteraction>();
 
+        public abstract GraphState Check();
         public abstract IEnumerable<IPipeElement> GetPrevNodes();
-
-        public abstract PipeSinkPad<TValue>? GetSink<TValue>(string name);
-
         public abstract IEnumerable<IPipeSinkPad> GetSinkPads();
-
-        public abstract PipeSrcPad<TValue>? GetSrc<TValue>(string name);
-
         public abstract IEnumerable<IPipeSrcPad> GetSrcPads();
 
         public async Task GoToState(State newState)
         {
             var transitions = StateManager.GetTransitions(CurrentState, newState);
 
-            foreach(var transition in transitions)
+            foreach (var transition in transitions)
             {
                 await ((this.CurrentState, transition) switch
                 {
@@ -52,6 +39,7 @@ namespace SharPipes.Pipes.Base
                     (State.Ready, State.Stopped) => this.TransitionReadyStopped(),
                     _ => Task.CompletedTask,
                 });
+                this.CurrentState = transition;
             }
         }
 
@@ -74,7 +62,5 @@ namespace SharPipes.Pipes.Base
         {
             return Task.CompletedTask;
         }
-
-
     }
 }

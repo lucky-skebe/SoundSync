@@ -24,6 +24,7 @@ namespace SharPipes.Pipes.Base
 
         public string Name { get; }
 
+        public State CurrentState { get; private set; }
         public PipeSinkPad<TValue>? GetSink<TValue>(string name)
         {
             return null;
@@ -36,10 +37,6 @@ namespace SharPipes.Pipes.Base
 
         protected abstract void Convert(TFrom fromValue, TTo toValue);
 
-        public abstract Task Start();
-
-        public abstract Task Stop();
-
         public abstract GraphState Check();
 
         public abstract IEnumerable<IPipeElement> GetPrevNodes();
@@ -47,5 +44,7 @@ namespace SharPipes.Pipes.Base
         public abstract IEnumerable<IPipeSinkPad> GetSinkPads();
 
         public abstract IEnumerable<IPipeSrcPad> GetSrcPads();
+
+        public abstract Task GoToState(State newState);
     }
 }
