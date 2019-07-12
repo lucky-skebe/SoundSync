@@ -79,11 +79,6 @@ namespace SharPipes.Pipes.Buttplug
             this.deviceInteraction = new ButtplugDeviceInteraction();
         }
 
-
-
-
-
-
         private void UpdateCommands()
         {
             this.startScanningInteraction.SetCanExecute(this.stateMachine.CanStartScanning);
@@ -222,6 +217,22 @@ namespace SharPipes.Pipes.Buttplug
                 yield return this.stopScanningInteraction;
                 yield return this.deviceInteraction;
             }
+        }
+
+        public override async Task TransitionStoppedReady()
+        {
+            await this.Connect();
+
+            await this.StartScanning();
+        }
+
+        public override async Task TransitionReadyStopped()
+        {
+            if(this.stateMachine.CanStopScanning)
+            {
+                await this.StopScanning();
+            }
+            await this.Disconnect();
         }
 
         public override IPipeSrcPad? GetSrcPad(string fromPad)

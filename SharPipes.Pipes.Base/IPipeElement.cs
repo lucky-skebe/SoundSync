@@ -10,8 +10,9 @@ namespace SharPipes.Pipes.Base
     {
         String Name { get; }
 
-        Task Start();
-        Task Stop();
+        Task GoToState(State newState);
+
+        State CurrentState { get; }
 
         GraphState Check();
 

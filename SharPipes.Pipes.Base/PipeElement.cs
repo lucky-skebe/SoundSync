@@ -1,44 +1,36 @@
-﻿using SharPipes.Pipes.Base.InteractionInfos;
-using SharPipes.Pipes.Base.PipeLineDefinitions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SharPipes.Pipes.Base.InteractionInfos;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 
 namespace SharPipes.Pipes.Base
 {
-    public abstract class PipeTransform : IPipeTransform
+    public abstract class PipeElement : IPipeElement
     {
-        public PipeTransform(string? name = null)
+        public PipeElement(string? name = null)
         {
             this.Name = name ?? $"{PipeElementFactory.GetName(this.GetType())}-{Guid.NewGuid()}";
+            this.CurrentState = State.Stopped;
         }
-
-        public abstract GraphState Check();
-
-        public virtual IEnumerable<IInteraction> Interactions => Enumerable.Empty<IInteraction>();
-
-        public abstract string TypeName { get; }
 
         public string Name { get; }
         public State CurrentState { get; private set; }
+        public abstract string TypeName { get; }
+        public virtual IEnumerable<IInteraction> Interactions => Enumerable.Empty<IInteraction>();
 
+        public abstract GraphState Check();
         public abstract IEnumerable<IPipeElement> GetPrevNodes();
-
-        public abstract PipeSinkPad<TValue>? GetSink<TValue>(string name);
-
         public abstract IEnumerable<IPipeSinkPad> GetSinkPads();
-
-        public abstract PipeSrcPad<TValue>? GetSrc<TValue>(string name);
-
         public abstract IEnumerable<IPipeSrcPad> GetSrcPads();
 
         public async Task GoToState(State newState)
         {
             var transitions = StateManager.GetTransitions(CurrentState, newState);
 
-            foreach(var transition in transitions)
+            foreach (var transition in transitions)
             {
                 await ((this.CurrentState, transition) switch
                 {
@@ -48,6 +40,7 @@ namespace SharPipes.Pipes.Base
                     (State.Ready, State.Stopped) => this.TransitionReadyStopped(),
                     _ => Task.CompletedTask,
                 });
+                this.CurrentState = transition;
             }
         }
 
@@ -71,10 +64,12 @@ namespace SharPipes.Pipes.Base
             return Task.CompletedTask;
         }
 
-        public virtual IEnumerable<PropertyValue> GetPropertyValues()
-        {
-            return Enumerable.Empty<PropertyValue>();
-        }
+        public abstract IEnumerable<PropertyValue> GetPropertyValues();
+        public abstract IPipeSrcPad? GetSrcPad(string fromPad);
+        public abstract IPipeSinkPad? GetSinkPad(string toPad);
+
+
+        protected abstract IEnumerable<IPropertySetter> GetPropertySetters();
 
         public virtual bool SetPropertyValue(PropertyValue propvalue)
         {
@@ -82,12 +77,5 @@ namespace SharPipes.Pipes.Base
 
             return setter != null;
         }
-
-        protected abstract IEnumerable<IPropertySetter> GetPropertySetters();
-
-        public abstract IPipeSrcPad? GetSrcPad(string fromPad);
-        public abstract IPipeSinkPad? GetSinkPad(string toPad);
-
-
     }
 }

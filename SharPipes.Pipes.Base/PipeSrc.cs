@@ -8,57 +8,27 @@ using System.Threading.Tasks;
 
 namespace SharPipes.Pipes.Base
 {
-    public abstract class PipeSrc : IPipeSrc
+    public abstract class PipeSrc : PipeElement, IPipeSrc
     {
-        public PipeSrc(string? name = null)
+        public PipeSrc(string? name = null) : base(name)
         {
-            this.Name = name ?? $"{PipeElementFactory.GetName(this.GetType())}-{Guid.NewGuid()}";
         }
 
-
-        public abstract GraphState Check();
-
-        public virtual IEnumerable<IInteraction> Interactions => Enumerable.Empty<IInteraction>();
-
-        public abstract string TypeName { get; }
-        public string Name { get; }
-
-        public abstract IEnumerable<IPipeElement> GetPrevNodes();
-
-        public IEnumerable<IPipeSinkPad> GetSinkPads()
+        public override IEnumerable<IPipeSinkPad> GetSinkPads()
         {
             return Enumerable.Empty<IPipeSinkPad>();
         }
 
         public abstract PipeSrcPad<TValue>? GetSrc<TValue>(string name);
 
-        public abstract IEnumerable<IPipeSrcPad> GetSrcPads();
-
-        public virtual Task Start()
-        {
-            return Task.CompletedTask;
-        }
-
-        public virtual Task Stop()
-        {
-            return Task.CompletedTask;
-        }
-
-        public virtual IEnumerable<PropertyValue> GetPropertyValues()
+        public override IEnumerable<PropertyValue> GetPropertyValues()
         {
             return Enumerable.Empty<PropertyValue>();
         }
 
-        public virtual bool SetPropertyValue(PropertyValue propvalue)
+        protected override IEnumerable<IPropertySetter> GetPropertySetters()
         {
-            var setter = this.GetPropertySetters().FirstOrDefault(setter => setter.TrySetValue(propvalue));
-
-            return setter != null;
+            return Enumerable.Empty<IPropertySetter>();
         }
-
-        protected abstract IEnumerable<IPropertySetter> GetPropertySetters();
-
-        public abstract IPipeSrcPad? GetSrcPad(string fromPad);
-        public abstract IPipeSinkPad? GetSinkPad(string toPad);
     }
 }

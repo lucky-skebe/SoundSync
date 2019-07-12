@@ -268,18 +268,42 @@ namespace SharPipes.Pipes.Base
             this.OnElementsLinked(From, To);
         }
 
-        public async Task Start()
+        public State CurrentState = State.Stopped;
+
+        private async Task GoToState(State state)
         {
-            var (state, orderedElements) = GetOrderedElements();
-            if(state == GraphState.OK && orderedElements!= null)
+            var transitions = StateManager.GetTransitions(this.CurrentState, state);
+
+            //Sync All elements to current state without resetting if they are already in a future state
+            transitions.Insert(0, this.CurrentState);
+
+            var (elemstate, orderedElements) = GetOrderedElements();
+            
+
+            if (elemstate != GraphState.CYCLE && orderedElements != null)
             {
                 orderedElements.Reverse();
-
-                foreach (var elem in orderedElements)
+                int step = 0;
+                foreach(State transition in transitions)
                 {
-                    await elem.Start();
+                    foreach (var elem in orderedElements)
+                    {
+                        if(transitions.IndexOf(elem.CurrentState) >= step)
+                        {
+                            await elem.GoToState(transition);
+                        }
+                    }
+                    step++;
+                    this.CurrentState = transition;
                 }
             }
+
+            
+        }
+
+        public Task Start()
+        {
+            return GoToState(State.Playing);
         }
 
         static Type? IsInstanceOfGenericType(Type genericType, Type instanceType)
@@ -335,16 +359,9 @@ namespace SharPipes.Pipes.Base
 
 
 
-        public async Task Stop()
+        public Task Stop()
         {
-            var (state, orderedElements) = GetOrderedElements();
-            if (state == GraphState.OK && orderedElements != null)
-            {
-                foreach (var elem in orderedElements)
-                {
-                    await elem.Stop();
-                }
-            }
+            return this.GoToState(State.Stopped);
         }
     }
 }
