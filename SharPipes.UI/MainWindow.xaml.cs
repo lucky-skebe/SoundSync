@@ -71,11 +71,11 @@ namespace SharPipes.UI
             var multiply = new MultiplyElement { Multiplier = 10 };
             var output = new ButtplugSink();
 
-            this.Pipeline.AddNode(input, new Point(100, 100));
-            this.Pipeline.AddNode(avg, new Point(250, 200));
-            this.Pipeline.AddNode(multiply, new Point(400, 100));
+            this.Pipeline.Add(input, new Point(100, 100));
+            this.Pipeline.Add(avg, new Point(250, 200));
+            this.Pipeline.Add(multiply, new Point(400, 100));
             // TODO clamp
-            this.Pipeline.AddNode(output, new Point(550, 100));
+            this.Pipeline.Add(output, new Point(550, 100));
 
             Pipeline.Connect(input.Src, avg.Sink);
             Pipeline.Connect(avg.Src, multiply.Sink);

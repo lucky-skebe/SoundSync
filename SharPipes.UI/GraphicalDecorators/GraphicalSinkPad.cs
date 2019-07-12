@@ -14,6 +14,8 @@ namespace SharPipes.UI.GraphicalDecorators
         public override double X => Parent.X - 5;
         public override double Y => Parent.Y + padNr * 15 + 10;
 
+        public override int ZIndex => (int)ZLayer.Pads;
+
         private int padNr;
 
         public GraphicalSinkPad(IPipeSinkPad element, GraphicalElement parent, int padNr = 0) : base(element)

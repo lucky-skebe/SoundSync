@@ -101,11 +101,11 @@ namespace SharPipes.Pipes.Basic
 
         public override GraphState Check()
         {
-            if (Sink.Edge == null)
+            if (!Sink.IsLinked)
             {
                 return GraphState.INCOMPLETE;
             }
-            else if (Src.Edge == null)
+            else if (!Src.IsLinked)
             {
                 return GraphState.INCOMPLETE;
             }
@@ -117,9 +117,9 @@ namespace SharPipes.Pipes.Basic
 
         public override IEnumerable<IPipeElement> GetPrevNodes()
         {
-            if (Sink.Edge != null)
+            if (Sink.Peer != null)
             {
-                yield return Sink.Edge.From.Parent;
+                yield return Sink.Peer.Parent;
             }
         }
 

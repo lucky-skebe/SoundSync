@@ -8,99 +8,140 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Linq;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
+using SharPipes.Pipes.Base.Events;
 using SharPipes.Pipes.Base.PipeLineDefinitions;
 
 namespace SharPipes.UI.GraphicalDecorators
 {
     public class GraphicalPipeline : INotifyCollectionChanged, IEnumerable<IGraphical>
     {
-        private readonly PipeLine pipeLine;
-        private readonly IList<GraphicalElement> nodes = new List<GraphicalElement>();
-        private readonly IList<GraphicalSinkPad> sinkPads = new List<GraphicalSinkPad>();
-        private readonly IList<GraphicalSrcPad> srcPads = new List<GraphicalSrcPad>();
-        private readonly IList<GraphicalEdge> edges = new List<GraphicalEdge>();
+        private readonly PipeLine pipeline;
+        private readonly ObservableCollection<IGraphical> graphicals;
+        private readonly Dictionary<IPipeElement, GraphicalElement> elementLookup;
+        private readonly Dictionary<IPipeSinkPad, GraphicalSinkPad> sinkPadLookup;
+        private readonly Dictionary<IPipeSrcPad, GraphicalSrcPad> srcPadLookup;
+        private readonly Dictionary<(IPipeSrcPad, IPipeSinkPad), GraphicalEdge> linkLookup;
 
-        public int Count => throw new NotImplementedException();
-
-        public bool IsReadOnly => throw new NotImplementedException();
+        private readonly Dictionary<IPipeElement, Point> positionCache;
 
         public void Remove(GraphicalElement graphicalElement)
         {
-            pipeLine.Remove(graphicalElement.Element);
-
-            var sinks = this.sinkPads.Where(sink => sink.Parent == graphicalElement).ToList();
-            var srcs = this.srcPads.Where(src => src.Parent == graphicalElement).ToList();
-
-
-            foreach (var sink in sinks)
-            {
-                Remove(sink);
-                
-            }
-
-            foreach (var src in srcs)
-            {
-                Remove(src);
-            }
-
-            var index = GetIndex(graphicalElement);
-            this.FireCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, graphicalElement, index));
-            this.nodes.Remove(graphicalElement);
-        }
-
-        private void Remove(GraphicalEdge edge)
-        {
-            int index = GetIndex(edge);
-            this.FireCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, edge, index));
-            this.edges.Remove(edge);
-        }
-
-        private void Remove(GraphicalSinkPad sink)
-        {
-            var edges = this.edges.Where(edge => edge.Sink == sink).ToList();
-
-            foreach (var edge in edges)
-            {
-                 Remove(edge);
-            }
-
-            int index = GetIndex(sink);
-            this.FireCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, sink, index));
-            this.sinkPads.Remove(sink);
-        }
-
-        private void Remove(GraphicalSrcPad src)
-        {
-
-            var edges = this.edges.Where(edge => edge.Src == src).ToList();
-
-            foreach (var edge in edges)
-            {
-                Remove(edge);
-            }
-
-            int index = GetIndex(src);
-            this.FireCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, src, index));
-            this.srcPads.Remove(src);
+            pipeline.Remove(graphicalElement.Element);
         }
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
 
         public GraphicalPipeline(PipeLine pipeLine)
         {
-            this.pipeLine = pipeLine;
+            this.pipeline = pipeLine;
+            this.graphicals = new ObservableCollection<IGraphical>();
+            this.elementLookup = new Dictionary<IPipeElement, GraphicalElement>();
+            this.srcPadLookup = new Dictionary<IPipeSrcPad, GraphicalSrcPad>();
+            this.sinkPadLookup = new Dictionary<IPipeSinkPad, GraphicalSinkPad>();
+            this.linkLookup = new Dictionary<(IPipeSrcPad, IPipeSinkPad), GraphicalEdge>();
+            this.positionCache = new Dictionary<IPipeElement, Point>();
+
+            this.pipeline.ElementAdded += Pipeline_ElementAdded;
+            this.pipeline.ElementRemoved += Pipeline_ElementRemoved;
+            this.pipeline.ElementsLinked += Pipeline_ElementsLinked;
+            this.pipeline.ElementsUnlinked += Pipeline_ElementsUnlinked;
+            this.graphicals.CollectionChanged += Graphicals_CollectionChanged;
+        }
+
+        private void Graphicals_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnCollectionChanged(e);
+        }
+
+        private void Pipeline_ElementsUnlinked(object sender, ElementsUnlinkedEventArgs e)
+        {
+            if (this.linkLookup.Remove((e.Src, e.Sink), out GraphicalEdge link))
+            {
+                this.graphicals.Remove(link);
+            }
+        }
+
+        private void Pipeline_ElementsLinked(object sender, ElementsLinkedEventArgs e)
+        {
+            if (this.srcPadLookup.TryGetValue(e.Src, out GraphicalSrcPad src) && 
+                this.sinkPadLookup.TryGetValue(e.Sink, out GraphicalSinkPad sink))
+            {
+                var index = (e.Src, e.Sink);
+                GraphicalEdge link = new GraphicalEdge(src, sink);
+                this.linkLookup.Add(index, link);
+                this.graphicals.Add(link);
+            }
+        }
+
+        private void Pipeline_ElementRemoved(object sender, ElementRemovedEventArgs e)
+        {
+            if (this.elementLookup.Remove(e.Element, out GraphicalElement element))
+            {
+                this.graphicals.Remove(element);
+            }
+
+            foreach (var sink in e.Element.GetSinkPads())
+            {
+                if(this.sinkPadLookup.Remove(sink, out GraphicalSinkPad gSink))
+                {
+                    this.graphicals.Remove(gSink);
+                }
+            }
+
+            foreach (var src in e.Element.GetSrcPads())
+            {
+                if (this.srcPadLookup.Remove(src, out GraphicalSrcPad gSrc))
+                {
+                    this.graphicals.Remove(gSrc);
+                }
+            }
+
+            this.positionCache.Remove(e.Element);
+        }
+
+        private void Pipeline_ElementAdded(object sender, ElementAddedEventArgs e)
+        {
+            GraphicalElement element;
+            if (this.positionCache.TryGetValue(e.Element, out Point position))
+            {
+                element = new GraphicalElement(e.Element, position, this);
+            }
+            else
+            {
+                element = new GraphicalElement(e.Element, new Point(), this);
+            }
+
+            int padNr = 0;
+            foreach (var sink in e.Element.GetSinkPads())
+            {
+                var gSink = new GraphicalSinkPad(sink, element, padNr);
+                this.sinkPadLookup.Add(sink, gSink);
+                this.graphicals.Add(gSink);
+            }
+
+            padNr = 0;
+            foreach (var src in e.Element.GetSrcPads())
+            {
+                var gSrc = new GraphicalSrcPad(src, element, padNr);
+                this.srcPadLookup.Add(src, gSrc);
+                this.graphicals.Add(gSrc);
+            }
+
+            this.elementLookup.Add(e.Element, element);
+            this.graphicals.Add(element);
         }
 
         public IPipeElement CreateNodeFromTemplate(IPipeElement template, Point position)
         {
-            var node = this.pipeLine.CreateNodeFromTemplate(template);
-            this.AddNode(node, position);
+            var node = this.pipeline.CreateNodeFromTemplate(template);
+            this.Add(node, position);
             return node;
         }
 
-        
 
-        private void FireCollectionChanged(NotifyCollectionChangedEventArgs args)
+
+        private void OnCollectionChanged(NotifyCollectionChangedEventArgs args)
         {
             if (this.CollectionChanged != null)
             {
@@ -108,100 +149,35 @@ namespace SharPipes.UI.GraphicalDecorators
             }
         }
 
-        public void AddNode(IPipeElement node, Point position)
+        public void Add(IPipeElement node, Point position)
         {
-            this.pipeLine.Add(node);
-            var graphicalNode = new GraphicalElement(node, position, this);
-            this.nodes.Add(graphicalNode);
-            this.FireCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, graphicalNode, GetIndex(graphicalNode)));
-            int padNr = 0;
-            foreach (var sink in node.GetSinkPads())
-            {
-                var gsink = new GraphicalSinkPad(sink, graphicalNode, padNr++);
-                this.sinkPads.Add(gsink);
-                this.FireCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, gsink, GetIndex(gsink)));
-            }
-            padNr = 0;
-            foreach (var src in node.GetSrcPads())
-            {
-                var gsrc = new GraphicalSrcPad(src, graphicalNode, padNr++);
-                this.srcPads.Add(gsrc);
-                this.FireCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, gsrc, GetIndex(gsrc)));
-            }
+            this.positionCache.Add(node, position);
+            this.pipeline.Add(node);
         }
 
         public void Connect<TValue>(PipeSrcPad<TValue> From, PipeSinkPad<TValue> To)
         {
-            this.pipeLine.Connect<TValue>(From, To);
-            var from = this.srcPads.Single(src => src.Element == From);
-            var to = this.sinkPads.Single(sink => sink.Element == To);
-            AddEdge(from, to);
-        }
-
-        private void AddEdge(GraphicalSrcPad src, GraphicalSinkPad sink)
-        {
-            var edge = new GraphicalEdge(src, sink);
-            this.edges.Add(edge);
-            this.FireCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, edge, GetIndex(edge)));
+            this.pipeline.Connect<TValue>(From, To);
         }
 
         public Task Start()
         {
-            return this.pipeLine.Start();
+            return this.pipeline.Start();
         }
 
         public Task Stop()
         {
-            return this.pipeLine.Stop();
+            return this.pipeline.Stop();
         }
 
         internal void TryConnect(GraphicalSrcPad src, GraphicalSinkPad sink)
         {
-            if(this.pipeLine.TryConnect(src.Element, sink.Element))
-            {
-                GraphicalEdge? sinkEdge = this.edges.SingleOrDefault((e) => e.Sink == sink);
-                GraphicalEdge? srcEdge = this.edges.SingleOrDefault((e) => e.Src == src);
-
-                if(sinkEdge != null)
-                {
-                    this.Remove(sinkEdge);
-                }
-                if (srcEdge != null)
-                {
-                    this.Remove(srcEdge);
-                }
-
-                this.AddEdge(src, sink);
-            }
-        }
-
-        private int GetIndex(GraphicalElement node)
-        {
-            return this.nodes.IndexOf(node);
-        }
-
-        private int GetIndex(GraphicalSinkPad sink)
-        {
-            return this.sinkPads.IndexOf(sink) + this.nodes.Count;
-        }
-
-        private int GetIndex(GraphicalSrcPad src)
-        {
-            return this.srcPads.IndexOf(src) + this.nodes.Count + this.sinkPads.Count;
-        }
-
-        private int GetIndex(GraphicalEdge edge)
-        {
-            return this.edges.IndexOf(edge) + this.nodes.Count + this.sinkPads.Count + this.srcPads.Count;
+            this.pipeline.TryConnect(src.Element, sink.Element);
         }
 
         public IEnumerator<IGraphical> GetEnumerator()
         {
-            var elements = this.nodes.Cast<IGraphical>();
-            var sinks = this.sinkPads.Cast<IGraphical>();
-            var srcs = this.srcPads.Cast<IGraphical>();
-            var edges = this.edges.Cast<IGraphical>();
-            return elements.Concat(sinks).Concat(srcs).Concat(edges).GetEnumerator();
+            return graphicals.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

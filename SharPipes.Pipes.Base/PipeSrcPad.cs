@@ -9,12 +9,10 @@ namespace SharPipes.Pipes.Base
         public PipeSrcPad(IPipeSrc Parent, string name)
         {
             this.Parent = Parent;
-            Name = name;
+            this.Name = name;
         }
 
-
-
-        public PipeEdge<TValue>? Edge { get; internal set; }
+        internal PipeEdge<TValue>? Edge { get; set; }
         public IPipeSrc Parent {
             get;
             protected set;
@@ -33,6 +31,19 @@ namespace SharPipes.Pipes.Base
         {
             this.Edge?.Unlink();
             this.Edge = null;
+        }
+
+        public bool Equals(IPipeSrcPad other) => Parent.Equals(other.Parent) && Name.Equals(other.Name);
+
+        public bool IsLinked => this.Edge != null;
+
+        public PipeSinkPad<TValue>? Peer => this.Edge?.To;
+
+        IPipeSinkPad? IPipeSrcPad.Peer => this.Peer;
+
+        public override int GetHashCode()
+        {
+            return (this.Parent, this.Name).GetHashCode();
         }
     }
 }

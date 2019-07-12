@@ -27,7 +27,7 @@ namespace SharPipes.Pipes.Buttplug
 
         internal bool ScanningFinished()
         {
-            if(this.state == State.Scanning)
+            if (this.state == State.Scanning)
             {
                 this.state = State.Connected;
                 return true;

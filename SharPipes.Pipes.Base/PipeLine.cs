@@ -5,15 +5,14 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
+using SharPipes.Pipes.Base.Events;
 using SharPipes.Pipes.Base.PipeLineDefinitions;
 
 namespace SharPipes.Pipes.Base
 {
     public class PipeLine
     {
-        private readonly IList<IPipeElement> elements = new List<IPipeElement>();
-        private readonly IList<IPipeEdge> links = new List<IPipeEdge>();
-
+        
         public PipeLineDefinition GetDefinition()
         {
             var pipeline = new PipeLineDefinition();
@@ -98,16 +97,43 @@ namespace SharPipes.Pipes.Base
 
             return errors;
         }
+        public event EventHandler<ElementAddedEventArgs> ElementAdded;
+        public event EventHandler<ElementRemovedEventArgs> ElementRemoved;
+        public event EventHandler<ElementsLinkedEventArgs> ElementsLinked;
+        public event EventHandler<ElementsUnlinkedEventArgs> ElementsUnlinked;
 
-        public void Add(IPipeElement node)
+        private void OnElementAdded(IPipeElement element)
         {
-            elements.Add(node);
+            ElementAdded?.Invoke(this, new ElementAddedEventArgs(element));
+        }
+
+        private void OnElementRemoved(IPipeElement element)
+        {
+            ElementRemoved?.Invoke(this, new ElementRemovedEventArgs(element));
+        }
+
+        private void OnElementsLinked(IPipeSrcPad src, IPipeSinkPad sink)
+        {
+            ElementsLinked?.Invoke(this, new ElementsLinkedEventArgs(src, sink));
+        }
+
+        private void OnElementsUnlinked(IPipeSrcPad src, IPipeSinkPad sink)
+        {
+            ElementsUnlinked?.Invoke(this, new ElementsUnlinkedEventArgs(src, sink));
+        }
+
+        private readonly IList<IPipeElement> elements = new List<IPipeElement>();
+        private readonly IList<IPipeEdge> links = new List<IPipeEdge>();
+
+        public void Add(IPipeElement element)
+        {
+            elements.Add(element);
+            this.OnElementAdded(element);
         }
 
         public IPipeElement CreateNodeFromTemplate(IPipeElement template)
         {
             IPipeElement node = (IPipeElement)template.GetType().GetConstructor(new Type[] { }).Invoke(new object[] { });
-            this.Add(node);
             return node;
         }
 
@@ -147,13 +173,13 @@ namespace SharPipes.Pipes.Base
                     nodeAdded = true;
                 }
 
-                if(!nodeAdded){
-                    
+                if (!nodeAdded) {
+
                     startNodes.Add(node);
                 }
             }
 
-            while(startNodes.Count > 0)
+            while (startNodes.Count > 0)
             {
                 var node = startNodes[0];
                 startNodes.RemoveAt(0);
@@ -162,13 +188,13 @@ namespace SharPipes.Pipes.Base
 
                 if (prevNodeList.ContainsKey(node))
                 {
-                    while ( prevNodeList[node].Count > 0)
+                    while (prevNodeList[node].Count > 0)
                     {
                         var prevNode = prevNodeList[node][0];
                         prevNodeList[node].Remove(prevNode);
                         nextNodeList[prevNode].Remove(node);
 
-                        if(nextNodeList[prevNode].Count == 0)
+                        if (nextNodeList[prevNode].Count == 0)
                         {
                             nextNodeList.Remove(prevNode);
                             startNodes.Add(prevNode);
@@ -178,7 +204,7 @@ namespace SharPipes.Pipes.Base
                 }
             }
 
-            if(prevNodeList.Count > 0 || nextNodeList.Count > 0 || startNodes.Count > 0)
+            if (prevNodeList.Count > 0 || nextNodeList.Count > 0 || startNodes.Count > 0)
             {
                 return (GraphState.CYCLE, null);
             }
@@ -186,19 +212,40 @@ namespace SharPipes.Pipes.Base
             return (GraphState.OK, orderedList);
         }
 
+        private void Unlink(IPipeSrcPad srcPad)
+        {
+            var peer = srcPad.Peer;
+            if (peer != null)
+            {
+                srcPad.Unlink();
+                this.OnElementsUnlinked(srcPad, peer);
+            }
+        }
+
+        private void Unlink(IPipeSinkPad sinkPad)
+        {
+            var peer = sinkPad.Peer;
+            if (peer != null)
+            {
+                sinkPad.Unlink();
+                this.OnElementsUnlinked(peer, sinkPad);
+            }
+        }
+
         public void Remove(IPipeElement element)
         {
             foreach( var sink in element.GetSinkPads())
             {
-                sink.Unlink();
+                Unlink(sink);
             }
 
             foreach (var src in element.GetSrcPads())
             {
-                src.Unlink();
+                Unlink(src);
             }
 
             this.elements.Remove(element);
+            this.OnElementRemoved(element);
         }
 
         public void Connect<TValue>(PipeSrcPad<TValue> From, PipeSinkPad<TValue> To)
@@ -207,6 +254,7 @@ namespace SharPipes.Pipes.Base
             From.Edge = e;
             To.Edge = e;
             this.links.Add(e);
+            this.OnElementsLinked(From, To);
         }
 
         public async Task Start()
@@ -266,8 +314,8 @@ namespace SharPipes.Pipes.Base
 
             var specificConnect = genericConnect.MakeGenericMethod(srcBaseType.GenericTypeArguments);
                         
-            sink.Unlink();
-            src.Unlink();
+            Unlink(sink);
+            Unlink(src);
             specificConnect.Invoke(this, new object[] { src, sink });
 
             return true;

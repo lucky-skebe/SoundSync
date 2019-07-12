@@ -42,13 +42,13 @@ namespace SharPipes.Pipes.NAudio
 
         public override GraphState Check()
         {
-            if (Src.Edge == null)
+            if (Src.IsLinked)
             {
-                return GraphState.INCOMPLETE;
+                return GraphState.OK;
             }
             else
             {
-                return GraphState.OK;
+                return GraphState.INCOMPLETE;
             }
         }
 
