@@ -16,28 +16,14 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="24" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Border>
-            <local:PipeLineRenderer AllowDrop="True" 
-                                Drop="Canvas_Drop" 
-                                DragEnter="Canvas_DragEnter" 
-                                Background="Transparent" 
-                                ItemsSource="{Binding Pipeline}" 
-                                PreviewMouseLeftButtonDown="PipeLineRenderer_PreviewMouseLeftButtonDown"
-                                PreviewMouseMove="PipeLineRenderer_PreviewMouseMove"
-                                x:Name="Renderer">
-            </local:PipeLineRenderer>
-        </Border>
-        <Border Grid.Column="1" Width="200" DataContext="{Binding ElementName=Renderer, Path=SelectedElement}" Visibility="{Binding Converter={StaticResource ObjectVisibilityConverter}}" BorderThickness="1,0,0,0" BorderBrush="Black"> <!-- Properties-->
-            <local:SettingsControl />
-        </Border>
-        <Border x:Name="ToolBox" Grid.Row="1" BorderThickness="1" BorderBrush="Black" Visibility="Collapsed"> <!-- ToolBox -->
-            <Grid Height="100" >
+
+        <DockPanel>
+
+
+            <local:SettingsControl DockPanel.Dock="Right" Width="200" DataContext="{Binding ElementName=Renderer, Path=SelectedElement}" Visibility="{Binding Converter={StaticResource ObjectVisibilityConverter}}" />
+
+            <Grid DockPanel.Dock="Bottom" Height="100" Visibility="Collapsed" Name="ToolBox">
                 <ListView x:Name="ToolBoxList" ItemsSource="{Binding PipeElements}" BorderThickness="1" 
                         PreviewMouseLeftButtonDown="ToolBoxList_PreviewMouseLeftButtonDown" 
                         PreviewMouseMove="ToolBoxList_PreviewMouseMove">
@@ -53,10 +39,20 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
-        </Border>
-        <Border Grid.Row="2" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black">
+
+            <local:PipeLineRenderer AllowDrop="True" 
+                                Drop="Canvas_Drop" 
+                                
+                                DragEnter="Canvas_DragEnter" 
+                                Background="Transparent" 
+                                ItemsSource="{Binding Pipeline}" 
+                                PreviewMouseLeftButtonDown="PipeLineRenderer_PreviewMouseLeftButtonDown"
+                                PreviewMouseMove="PipeLineRenderer_PreviewMouseMove"
+                                x:Name="Renderer">
+            </local:PipeLineRenderer>
+        </DockPanel>
+        <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Black">
             <StackPanel Orientation="Horizontal">
-                <!-- ToolBar -->
                 <Button Click="ToggleToolBar" Padding="2">
                     <TextBlock>
                     ToolBox
@@ -68,4 +64,5 @@
             </StackPanel>
         </Border>
     </Grid>
+    
 </Window>
