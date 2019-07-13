@@ -126,14 +126,14 @@ namespace SharPipes.Pipes.Basic
             }
         }
 
-        public override Task TransitionReadyPlaying()
+        protected override Task TransitionReadyPlaying()
         {
             this.running = true;
             background_thread.Start();
             return Task.CompletedTask;
         }
 
-        public override Task TransitionPlayingReady()
+        protected override Task TransitionPlayingReady()
         {
             this.running = false;
             return Task.CompletedTask;
@@ -149,10 +149,6 @@ namespace SharPipes.Pipes.Basic
             yield return Src;
         }
 
-        public override IEnumerable<PropertyValue> GetPropertyValues()
-        {
-            yield return new PropertyValue(nameof(AVGMs), AVGMs);
-        }
 
         public override IPipeSrcPad? GetSrcPad(string fromPad)
             => fromPad.ToLower() switch
@@ -168,9 +164,9 @@ namespace SharPipes.Pipes.Basic
                 _ => null
             };
 
-        protected override IEnumerable<IPropertySetter> GetPropertySetters()
+        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
         {
-            yield return new PropertySetter<int>(() => AVGMs);
+            yield return new PropertyBinding<int>(() => AVGMs);
         }
     }
 }

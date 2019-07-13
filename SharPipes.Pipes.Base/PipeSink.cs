@@ -23,9 +23,9 @@ namespace SharPipes.Pipes.Base
             return Enumerable.Empty<IPipeSrcPad>();
         }
 
-        protected override IEnumerable<IPropertySetter> GetPropertySetters()
+        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
         {
-            return Enumerable.Empty<IPropertySetter>();
+            return Enumerable.Empty<IPropertyBinding>();
         }
     }
 }

@@ -21,14 +21,9 @@ namespace SharPipes.Pipes.Base
 
         public abstract PipeSrcPad<TValue>? GetSrc<TValue>(string name);
 
-        public override IEnumerable<PropertyValue> GetPropertyValues()
+        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
         {
-            return Enumerable.Empty<PropertyValue>();
-        }
-
-        protected override IEnumerable<IPropertySetter> GetPropertySetters()
-        {
-            return Enumerable.Empty<IPropertySetter>();
+            return Enumerable.Empty<IPropertyBinding>();
         }
     }
 }

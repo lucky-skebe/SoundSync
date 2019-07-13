@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Buttplug.Client;
 using Buttplug.Client.Connectors.WebsocketConnector;
+using Newtonsoft.Json.Linq;
+using Optional;
 using SharPipes.Pipes.Base;
 using SharPipes.Pipes.Base.InteractionInfos;
 using SharPipes.Pipes.Base.PipeLineDefinitions;
@@ -166,9 +168,12 @@ namespace SharPipes.Pipes.Buttplug
 
         private void Client_DeviceAdded(object sender, DeviceAddedEventArgs e)
         {
-            var device = new ButtPlugClientDeviceWrapper(e.Device, (self, selected) => { if (selected) { self.Value.SendVibrateCmd(this.lastVal); } else { self.Value.SendVibrateCmd(0); } });
+            bool selected = this.selectedDeviceCache.Remove(getDeviceId(e.Device));
+
+            var device = new ButtPlugClientDeviceWrapper(e.Device, selected, (self, selected) => { if (selected) { self.Value.SendVibrateCmd(this.lastVal); } else { self.Value.SendVibrateCmd(0); } });
             this.deviceList.Add(device);
             this.deviceInteraction.Options.Add(device);
+
         }
 
         public PipeSinkPad<double> Sink;
@@ -204,11 +209,6 @@ namespace SharPipes.Pipes.Buttplug
             yield return Sink;
         }
 
-        public override IEnumerable<PropertyValue> GetPropertyValues()
-        {
-            yield return new PropertyValue(nameof(ServerUrl), ServerUrl);
-        }
-
         public override IEnumerable<IInteraction> Interactions
         {
             get
@@ -222,19 +222,13 @@ namespace SharPipes.Pipes.Buttplug
             }
         }
 
-        public override async Task TransitionStoppedReady()
+        protected override async Task TransitionStoppedReady()
         {
             await this.Connect();
-
-            await this.StartScanning();
         }
 
-        public override async Task TransitionReadyStopped()
+        protected override async Task TransitionReadyStopped()
         {
-            if(this.stateMachine.CanStopScanning)
-            {
-                await this.StopScanning();
-            }
             await this.Disconnect();
         }
 
@@ -248,9 +242,40 @@ namespace SharPipes.Pipes.Buttplug
                 _ => null
             };
 
-        protected override IEnumerable<IPropertySetter> GetPropertySetters()
+        private List<string> selectedDeviceCache;
+
+        private Option<List<string>> ParseSelectedDeviceCache(object? value)
         {
-            yield return new PropertySetter<string>(() => this.ServerUrl);
+            if(value is JArray array)
+            {
+                List<string> ret = new List<string>();
+                foreach (var entry in array)
+                {
+                    if(entry.Type != JTokenType.String)
+                    {
+                        return Option.None<List<string>>();
+                    }
+
+                    ret.Add(entry.ToObject<string>());
+                }
+                return Option.Some<List<string>>(ret);
+            }
+            return Option.None<List<string>>();
+        }
+
+        private string getDeviceId(ButtplugClientDevice device)
+        {
+            return device.Name;
+        }
+
+        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        {
+            yield return new PropertyBinding<string>(() => this.ServerUrl);
+            yield return new PropertyBinding<List<string>>("SelectedDevices",
+                (s) => { this.selectedDeviceCache = s; },
+                this.deviceList.Where(d => d.Selected).Select(w => getDeviceId(w.Value)).ToList,
+                ParseSelectedDeviceCache
+                );
         }
     }
 }

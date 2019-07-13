@@ -278,17 +278,22 @@ namespace SharPipes.Pipes.Base
             transitions.Insert(0, this.CurrentState);
 
             var (elemstate, orderedElements) = GetOrderedElements();
-            
+
+            bool shouldReverse = IsReverseOrder(this.CurrentState, state);
 
             if (elemstate != GraphState.CYCLE && orderedElements != null)
             {
-                orderedElements.Reverse();
+                if (shouldReverse)
+                {
+                    orderedElements.Reverse();
+                }
                 int step = 0;
                 foreach(State transition in transitions)
                 {
                     foreach (var elem in orderedElements)
                     {
-                        if(transitions.IndexOf(elem.CurrentState) >= step)
+                        var stateIndex = transitions.IndexOf(elem.CurrentState);
+                        if (stateIndex < step)
                         {
                             await elem.GoToState(transition);
                         }
@@ -299,6 +304,16 @@ namespace SharPipes.Pipes.Base
             }
 
             
+        }
+
+        private bool IsReverseOrder(State from, State to)
+        {
+            return (from, to) switch
+            {
+                (State.Stopped, _) => true,
+                (State.Ready, State.Playing) => true,
+                _ => false
+            };
         }
 
         public Task Start()

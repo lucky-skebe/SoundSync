@@ -15,7 +15,14 @@ namespace SharPipes.Pipes.Base.InteractionInfos
             Value = value;
             this.setSelectedCallback = setSelectedCallback;
         }
-        
+
+        public Selectable(T value, bool selected, Action<Selectable<T>, bool>? setSelectedCallback = null)
+        {
+            this.selected = selected;
+            Value = value;
+            this.setSelectedCallback = setSelectedCallback;
+        }
+
         public bool Selected
         {
             get => selected;

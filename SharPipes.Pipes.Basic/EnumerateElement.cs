@@ -102,9 +102,9 @@ namespace SharPipes.Pipes.Basic
                 _ => null
             };
 
-        protected override IEnumerable<IPropertySetter> GetPropertySetters()
+        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
         {
-            return Enumerable.Empty<IPropertySetter>();
+            return Enumerable.Empty<IPropertyBinding>();
         }
     }
 }

@@ -59,13 +59,13 @@ namespace SharPipes.Pipes.NAudio
             return Enumerable.Empty<IPipeElement>();
         }
 
-        public override Task TransitionReadyPlaying()
+        protected override Task TransitionReadyPlaying()
         {
             loopback.StartRecording();
             return Task.CompletedTask;
         }
 
-        public override Task TransitionPlayingReady()
+        protected override Task TransitionPlayingReady()
         {
             loopback.StopRecording();
             return Task.CompletedTask;

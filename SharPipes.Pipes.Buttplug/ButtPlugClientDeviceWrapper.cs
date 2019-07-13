@@ -9,7 +9,18 @@ namespace SharPipes.Pipes.Buttplug
     public class ButtPlugClientDeviceWrapper : Selectable<ButtplugClientDevice>, IEquatable<ButtPlugClientDeviceWrapper>
     {
 
-        public ButtPlugClientDeviceWrapper(ButtplugClientDevice device, Action<Selectable<ButtplugClientDevice>, bool>? setSelectedDeviceCallback = null) : base(device, setSelectedDeviceCallback)
+        public ButtPlugClientDeviceWrapper(
+            ButtplugClientDevice device, 
+            Action<Selectable<ButtplugClientDevice>, bool>? setSelectedDeviceCallback = null) 
+            : base(device, setSelectedDeviceCallback)
+        {
+        }
+
+        public ButtPlugClientDeviceWrapper(
+            ButtplugClientDevice device,
+            bool selected,
+            Action<Selectable<ButtplugClientDevice>, bool>? setSelectedDeviceCallback = null)
+            : base(device, selected, setSelectedDeviceCallback)
         {
         }
 

@@ -13,6 +13,7 @@
   <ItemGroup>
     <PackageReference Include="Buttplug" Version="0.4.7" />
     <PackageReference Include="Buttplug.Client.Connectors.WebsocketConnector" Version="0.4.7" />
+    <PackageReference Include="Optional" Version="4.0.0" />
     <PackageReference Include="System.ComponentModel.Composition" Version="4.5.0" />
   </ItemGroup>
 </Project>

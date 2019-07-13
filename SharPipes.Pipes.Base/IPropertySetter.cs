@@ -5,8 +5,10 @@ using System.Text;
 
 namespace SharPipes.Pipes.Base
 {
-    public interface IPropertySetter
+    public interface IPropertyBinding
     {
         bool TrySetValue(PropertyValue propvalue);
+
+        PropertyValue GetValue();
     }
 }

@@ -69,6 +69,8 @@ namespace SharPipes.UI
 
             this.DataContext = this;
             InitializeComponent();
+
+            new LoopBackSrc();
         }
 
         private void ToggleToolBar(object sender, RoutedEventArgs e)

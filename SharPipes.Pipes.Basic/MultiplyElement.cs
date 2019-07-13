@@ -97,11 +97,6 @@ namespace SharPipes.Pipes.Basic
             yield return Src;
         }
 
-        public override IEnumerable<PropertyValue> GetPropertyValues()
-        {
-            yield return new PropertyValue(nameof(Multiplier), Multiplier);
-        }
-
         public override IPipeSrcPad? GetSrcPad(string fromPad)
             => fromPad.ToLower() switch
             {
@@ -116,9 +111,9 @@ namespace SharPipes.Pipes.Basic
                 _ => null
             };
 
-        protected override IEnumerable<IPropertySetter> GetPropertySetters()
+        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
         {
-            yield return new PropertySetter<double>(() => this.Multiplier);
+            yield return new PropertyBinding<double>(() => this.Multiplier);
         }
     }
 }

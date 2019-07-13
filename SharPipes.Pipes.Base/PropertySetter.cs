@@ -1,24 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
+using Optional;
 using SharPipes.Pipes.Base.PipeLineDefinitions;
 
 namespace SharPipes.Pipes.Base
 {
-    public class PropertySetter<TValue> : IPropertySetter
+    public class PropertyBinding<TValue> : IPropertyBinding
     {
         private readonly string name;
         private readonly Action<TValue> setValue;
+        private readonly Func<TValue> getValue;
+        private readonly Func<object?, Option<TValue>>? convert;
 
-        public PropertySetter(string Name, Action<TValue> setValue)
+        public PropertyBinding(string Name, Action<TValue> setValue, Func<TValue> getValue, Func<object?, Option<TValue>>? convert = null)
         {
             name = Name;
             this.setValue = setValue;
+            this.getValue = getValue;
+            this.convert = convert;
         }
 
-        public PropertySetter(Expression<Func<TValue>> property)
+        public PropertyBinding(Expression<Func<TValue>> property)
         {
             if (property == null)
             {
@@ -37,6 +40,7 @@ namespace SharPipes.Pipes.Base
                 this.name = body.Member.Name;
 
                 this.setValue = (v) => propertyInfo.SetValue(caller, v, null);
+                this.getValue = property.Compile();
             }
             else
             {
@@ -44,11 +48,32 @@ namespace SharPipes.Pipes.Base
             }
         }
 
+        public PropertyValue GetValue()
+        {
+            if(this.getValue == null)
+            {
+                throw new ArgumentNullException($"Could not get Value for Property {this.name}");
+            }
+            else
+            {
+                return new PropertyValue(this.name, this.getValue());
+            }
+        }
+
         public bool TrySetValue(PropertyValue propvalue)
         {
             if (this.name.Equals(propvalue.PropertyName, StringComparison.OrdinalIgnoreCase))
             {
-                if (typeof(TValue).IsAssignableFrom(propvalue.Value.GetType()))
+                if(convert != null)
+                {
+                    var option = convert(propvalue.Value);
+                    option.MatchSome(this.setValue);
+                }
+                else if (propvalue.Value == null)
+                {
+                    return false;
+                }
+                else if (typeof(TValue).IsAssignableFrom(propvalue.Value.GetType()))
                 {
                     this.setValue((TValue)propvalue.Value);
                     return true;
