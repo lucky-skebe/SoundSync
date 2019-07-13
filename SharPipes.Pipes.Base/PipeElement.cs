@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SharPipes.Pipes.Base.InteractionInfos;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 
 namespace SharPipes.Pipes.Base
 {
@@ -35,7 +36,7 @@ namespace SharPipes.Pipes.Base
                 {
                     (State.Stopped, State.Ready) => this.TransitionStoppedReady(),
                     (State.Ready, State.Playing) => this.TransitionReadyPlaying(),
-                    (State.Playing, State.Ready) => this.TransitionReadyStopped(),
+                    (State.Playing, State.Ready) => this.TransitionPlayingReady(),
                     (State.Ready, State.Stopped) => this.TransitionReadyStopped(),
                     _ => Task.CompletedTask,
                 });
@@ -43,24 +44,41 @@ namespace SharPipes.Pipes.Base
             }
         }
 
-        public virtual Task TransitionStoppedReady()
+        protected virtual Task TransitionStoppedReady()
         {
             return Task.CompletedTask;
         }
 
-        public virtual Task TransitionReadyPlaying()
+        protected virtual Task TransitionReadyPlaying()
         {
             return Task.CompletedTask;
         }
 
-        public virtual Task TransitionPlayingReady()
+        protected virtual Task TransitionPlayingReady()
         {
             return Task.CompletedTask;
         }
 
-        public virtual Task TransitionReadyStopped()
+        protected virtual Task TransitionReadyStopped()
         {
             return Task.CompletedTask;
+        }
+
+        public virtual IEnumerable<PropertyValue> GetPropertyValues()
+        {
+            return this.GetPropertyBindings().Select(pValue => pValue.GetValue());
+        }
+        public abstract IPipeSrcPad? GetSrcPad(string fromPad);
+        public abstract IPipeSinkPad? GetSinkPad(string toPad);
+
+
+        protected abstract IEnumerable<IPropertyBinding> GetPropertyBindings();
+
+        public virtual bool SetPropertyValue(PropertyValue propvalue)
+        {
+            var setter = this.GetPropertyBindings().FirstOrDefault(setter => setter.TrySetValue(propvalue));
+
+            return setter != null;
         }
     }
 }

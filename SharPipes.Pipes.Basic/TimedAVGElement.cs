@@ -1,7 +1,9 @@
 ﻿using SharPipes.Pipes.Base;
 using SharPipes.Pipes.Base.InteractionInfos;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace SharPipes.Pipes.Basic
 {
+
+    [Export(typeof(IPipeElement))]
     public class TimedAVGElement : PipeTransform
     {
         float accumulator = 0;
@@ -16,7 +20,7 @@ namespace SharPipes.Pipes.Basic
 
         private readonly Thread background_thread;
 
-        public TimedAVGElement()
+        public TimedAVGElement(string? name = null) : base(name)
         {
             Src = new PipeSrcPad<double>(this, "src");
             background_thread = new Thread(new ThreadStart(BackgroundWorker))
@@ -122,14 +126,14 @@ namespace SharPipes.Pipes.Basic
             }
         }
 
-        public override Task TransitionReadyPlaying()
+        protected override Task TransitionReadyPlaying()
         {
             this.running = true;
             background_thread.Start();
             return Task.CompletedTask;
         }
 
-        public override Task TransitionPlayingReady()
+        protected override Task TransitionPlayingReady()
         {
             this.running = false;
             return Task.CompletedTask;
@@ -145,5 +149,24 @@ namespace SharPipes.Pipes.Basic
             yield return Src;
         }
 
+
+        public override IPipeSrcPad? GetSrcPad(string fromPad)
+            => fromPad.ToLower() switch
+            {
+                "src" => this.Src,
+                _ => null
+            };
+
+        public override IPipeSinkPad? GetSinkPad(string toPad)
+            => toPad.ToLower() switch
+            {
+                "sink" => this.Sink,
+                _ => null
+            };
+
+        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        {
+            yield return new PropertyBinding<int>(() => AVGMs);
+        }
     }
 }

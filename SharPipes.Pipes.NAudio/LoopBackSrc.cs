@@ -1,22 +1,24 @@
 ﻿using NAudio.Wave;
 using SharPipes.Pipes.Base;
-using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SharPipes.Pipes.NAudio
 {
+    [Export(typeof(IPipeElement))]
     public class LoopBackSrc : PipeSrc
     {
         private readonly WasapiLoopbackCapture loopback;
-        public LoopBackSrc()
+        public LoopBackSrc(string? name = null) : base(name)
         {
             loopback = new WasapiLoopbackCapture();
             loopback.DataAvailable += Loopback_DataAvailable;
             Src = new PipeSrcPad<float>(this, "src");
         }
+
+
 
         private void Loopback_DataAvailable(object sender, WaveInEventArgs args)
         {
@@ -57,13 +59,13 @@ namespace SharPipes.Pipes.NAudio
             return Enumerable.Empty<IPipeElement>();
         }
 
-        public override Task TransitionReadyPlaying()
+        protected override Task TransitionReadyPlaying()
         {
             loopback.StartRecording();
             return Task.CompletedTask;
         }
 
-        public override Task TransitionPlayingReady()
+        protected override Task TransitionPlayingReady()
         {
             loopback.StopRecording();
             return Task.CompletedTask;
@@ -73,5 +75,16 @@ namespace SharPipes.Pipes.NAudio
         {
             yield return Src;
         }
+
+        public override IPipeSrcPad? GetSrcPad(string fromPad)
+            => fromPad.ToLower() switch
+            {
+                "src" => this.Src,
+                _ => null
+            };
+
+        public override IPipeSinkPad? GetSinkPad(string toPad)
+            => null;
+
     }
 }

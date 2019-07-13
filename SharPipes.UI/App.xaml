@@ -49,7 +49,7 @@
                 </Border>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type interactions:FloatParameterInteraction}">
+            <DataTemplate DataType="{x:Type interactions:DoubleParameterInteraction}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100" />
@@ -57,7 +57,7 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{Binding Name}" />
 
-                    <numeric:FloatBox Value="{Binding Mode=TwoWay, Path=Value}" ValidationTrigger="PropertyChanged" Grid.Column="1" Margin="1"/>
+                    <numeric:DoubleBox Value="{Binding Mode=TwoWay, Path=Value}" ValidationTrigger="PropertyChanged" Grid.Column="1" Margin="1"/>
                 </Grid>
             </DataTemplate>
 

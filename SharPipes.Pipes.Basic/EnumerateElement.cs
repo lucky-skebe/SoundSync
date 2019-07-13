@@ -1,15 +1,18 @@
 ﻿using SharPipes.Pipes.Base;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SharPipes.Pipes.Basic
 {
+
+    [Export(typeof(IPipeElement))]
     public class EnumerateElement : PipeTransform
     {
-        public EnumerateElement()
+        public EnumerateElement(string? name = null) : base(name)
         {
             Src = new PipeSrcPad<double>(this, "src");
             Sink = new PipeSinkPad<IEnumerable<float>>(this, "sink", e =>
@@ -83,6 +86,25 @@ namespace SharPipes.Pipes.Basic
         public override IEnumerable<IPipeSrcPad> GetSrcPads()
         {
             yield return Src;
+        }
+
+        public override IPipeSrcPad? GetSrcPad(string fromPad)
+            => fromPad.ToLower() switch
+            {
+                "src" => this.Src,
+                _ => null
+            };
+
+        public override IPipeSinkPad? GetSinkPad(string toPad)
+            => toPad.ToLower() switch
+            {
+                "sink" => this.Sink,
+                _ => null
+            };
+
+        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        {
+            return Enumerable.Empty<IPropertyBinding>();
         }
     }
 }
