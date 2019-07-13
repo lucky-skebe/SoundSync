@@ -6,11 +6,106 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 using SharPipes.Pipes.Base.Events;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 
 namespace SharPipes.Pipes.Base
 {
     public class PipeLine
     {
+        
+        public PipeLineDefinition GetDefinition()
+        {
+            var pipeline = new PipeLineDefinition();
+
+            foreach( var element in this.elements)
+            {
+                pipeline.Elements.Add(new ElementDefinition(PipeElementFactory.GetName(element.GetType()), element.Name, element.GetPropertyValues().ToList()));
+            }
+
+            foreach (var link in this.links)
+            {
+                pipeline.Links.Add(new LinkDefinition(link.From.Parent.Name, link.From.Name, link.To.Parent.Name, link.To.Name ));
+            }
+
+            return pipeline;
+        }
+
+        private void Clear()
+        {
+            while(this.elements.Count > 0)
+            {
+                this.Remove(this.elements[0]);
+            }
+
+            this.links.Clear();
+        }
+
+        public IList<string> FromDefinition(PipeLineDefinition definition)
+        {
+            IList<string> errors = new List<string>();
+
+            this.Clear();
+            Dictionary<string, IPipeElement> elementCache = new Dictionary<string, IPipeElement>();
+
+            foreach(var element in definition.Elements)
+            {
+                IPipeElement? pipeElement = PipeElementFactory.Make(element.TypeFactory, element.Name);
+                if (pipeElement != null)
+                {
+                    this.Add(pipeElement);
+                    
+                    foreach(var propvalue in element.Properties)
+                    {
+                        if(!pipeElement.SetPropertyValue(propvalue))
+                        {
+                            errors.Add($"Property {propvalue} could not be set.");
+                        }
+                    }
+
+                    elementCache.Add(element.Name, pipeElement);
+                }
+            }
+
+            foreach(var link in definition.Links)
+            {
+                IPipeElement? fromElement = elementCache[link.FromElement];
+                IPipeElement? toElement = elementCache[link.ToElement];
+
+                if(fromElement == null)
+                {
+                    errors.Add($"Could not Link from {link.FromElement}:{link.FromPad} because the Element doesn't exist");
+                    continue;
+                }
+                if (fromElement == null)
+                {
+                    errors.Add($"Could not Link to {link.ToElement}:{link.ToPad} because the Element doesn't exist");
+                    continue;
+                }
+
+                IPipeSrcPad? srcPad = fromElement.GetSrcPad(link.FromPad);
+                IPipeSinkPad? sinkPad = toElement.GetSinkPad(link.ToPad);
+
+                if (srcPad == null)
+                {
+                    errors.Add($"Could not Link from {link.FromElement}:{link.FromPad} because the Pad doesn't exist");
+                    continue;
+                }
+                if (sinkPad == null)
+                {
+                    errors.Add($"Could not Link to {link.ToElement}:{link.ToPad} because the Pad doesn't exist");
+                    continue;
+                }
+
+                if(!this.TryConnect(srcPad, sinkPad))
+                {
+                    errors.Add($"Could not Link to {link.ToElement}:{link.ToPad} because the types don't match");
+                    continue;
+                }
+
+            }
+
+            return errors;
+        }
         public event EventHandler<ElementAddedEventArgs> ElementAdded;
         public event EventHandler<ElementRemovedEventArgs> ElementRemoved;
         public event EventHandler<ElementsLinkedEventArgs> ElementsLinked;
@@ -47,7 +142,7 @@ namespace SharPipes.Pipes.Base
 
         public IPipeElement CreateNodeFromTemplate(IPipeElement template)
         {
-            IPipeElement node = (IPipeElement)template.GetType().GetConstructor(new Type[] { }).Invoke(new object[] { });
+            IPipeElement node = (IPipeElement)template.GetType().GetConstructor(new Type[] { typeof(String?) }).Invoke(new object[] { null });
             return node;
         }
 
@@ -131,7 +226,9 @@ namespace SharPipes.Pipes.Base
             var peer = srcPad.Peer;
             if (peer != null)
             {
+                
                 srcPad.Unlink();
+                
                 this.OnElementsUnlinked(srcPad, peer);
             }
         }
@@ -181,17 +278,22 @@ namespace SharPipes.Pipes.Base
             transitions.Insert(0, this.CurrentState);
 
             var (elemstate, orderedElements) = GetOrderedElements();
-            
+
+            bool shouldReverse = IsReverseOrder(this.CurrentState, state);
 
             if (elemstate != GraphState.CYCLE && orderedElements != null)
             {
-                orderedElements.Reverse();
+                if (shouldReverse)
+                {
+                    orderedElements.Reverse();
+                }
                 int step = 0;
                 foreach(State transition in transitions)
                 {
                     foreach (var elem in orderedElements)
                     {
-                        if(transitions.IndexOf(elem.CurrentState) >= step)
+                        var stateIndex = transitions.IndexOf(elem.CurrentState);
+                        if (stateIndex < step)
                         {
                             await elem.GoToState(transition);
                         }
@@ -202,6 +304,16 @@ namespace SharPipes.Pipes.Base
             }
 
             
+        }
+
+        private bool IsReverseOrder(State from, State to)
+        {
+            return (from, to) switch
+            {
+                (State.Stopped, _) => true,
+                (State.Ready, State.Playing) => true,
+                _ => false
+            };
         }
 
         public Task Start()

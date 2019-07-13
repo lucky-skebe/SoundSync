@@ -1,23 +1,27 @@
 ﻿using SharPipes.Pipes.Base;
 using SharPipes.Pipes.Base.InteractionInfos;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SharPipes.Pipes.Basic
 {
+
+    [Export(typeof(IPipeElement))]
     public class MultiplyElement : PipeTransform 
     {
-        public MultiplyElement()
+        public MultiplyElement(string? name = null) : base(name)
         {
             Src = new PipeSrcPad<double>(this, "src");
             Sink = new PipeSinkPad<double>(this, "sink", (f) => Src.Push(f * this.Multiplier));
         }
 
-        private float _Multiplier = 10;
+        private double _Multiplier = 10;
 
-        public float Multiplier
+        public double Multiplier
         {
             get { return _Multiplier; }
             set { _Multiplier = value; }
@@ -27,7 +31,7 @@ namespace SharPipes.Pipes.Basic
         public override IEnumerable<IInteraction> Interactions
         {
             get {
-                yield return new FloatParameterInteraction("Multiplier",
+                yield return new DoubleParameterInteraction("Multiplier",
                     () => this.Multiplier, 
                     (value) => { this.Multiplier = value; }
                     );
@@ -91,6 +95,25 @@ namespace SharPipes.Pipes.Basic
         public override IEnumerable<IPipeSrcPad> GetSrcPads()
         {
             yield return Src;
+        }
+
+        public override IPipeSrcPad? GetSrcPad(string fromPad)
+            => fromPad.ToLower() switch
+            {
+                "src" => this.Src,
+                _ => null
+            };
+
+        public override IPipeSinkPad? GetSinkPad(string toPad)
+            => toPad.ToLower() switch
+            {
+                "sink" => this.Sink,
+                _ => null
+            };
+
+        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        {
+            yield return new PropertyBinding<double>(() => this.Multiplier);
         }
     }
 }

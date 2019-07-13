@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Buttplug.Client;
 using Buttplug.Client.Connectors.WebsocketConnector;
+using Newtonsoft.Json.Linq;
+using Optional;
 using SharPipes.Pipes.Base;
 using SharPipes.Pipes.Base.InteractionInfos;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 
 namespace SharPipes.Pipes.Buttplug
 {
+
+    [Export(typeof(IPipeElement))]
     public class ButtplugSink : PipeSink
     {
         private ButtplugClient? _client;
@@ -47,7 +53,7 @@ namespace SharPipes.Pipes.Buttplug
 
         public string ServerUrl { get; set; } = "ws://localhost:12345/buttplug";
 
-        public ButtplugSink()
+        public ButtplugSink(string? name = null) : base(name)
         {
             Sink = new PipeSinkPad<double>(this, "sink", (f) =>
             {
@@ -162,9 +168,12 @@ namespace SharPipes.Pipes.Buttplug
 
         private void Client_DeviceAdded(object sender, DeviceAddedEventArgs e)
         {
-            var device = new ButtPlugClientDeviceWrapper(e.Device, (self, selected) => { if (selected) { self.Value.SendVibrateCmd(this.lastVal); } else { self.Value.SendVibrateCmd(0); } });
+            bool selected = this.selectedDeviceCache.Remove(getDeviceId(e.Device));
+
+            var device = new ButtPlugClientDeviceWrapper(e.Device, selected, (self, selected) => { if (selected) { self.Value.SendVibrateCmd(this.lastVal); } else { self.Value.SendVibrateCmd(0); } });
             this.deviceList.Add(device);
             this.deviceInteraction.Options.Add(device);
+
         }
 
         public PipeSinkPad<double> Sink;
@@ -213,20 +222,60 @@ namespace SharPipes.Pipes.Buttplug
             }
         }
 
-        public override async Task TransitionStoppedReady()
+        protected override async Task TransitionStoppedReady()
         {
             await this.Connect();
-
-            await this.StartScanning();
         }
 
-        public override async Task TransitionReadyStopped()
+        protected override async Task TransitionReadyStopped()
         {
-            if(this.stateMachine.CanStopScanning)
-            {
-                await this.StopScanning();
-            }
             await this.Disconnect();
+        }
+
+        public override IPipeSrcPad? GetSrcPad(string fromPad)
+            => null;
+
+        public override IPipeSinkPad? GetSinkPad(string toPad)
+            => toPad.ToLower() switch
+            {
+                "sink" => this.Sink,
+                _ => null
+            };
+
+        private List<string> selectedDeviceCache;
+
+        private Option<List<string>> ParseSelectedDeviceCache(object? value)
+        {
+            if(value is JArray array)
+            {
+                List<string> ret = new List<string>();
+                foreach (var entry in array)
+                {
+                    if(entry.Type != JTokenType.String)
+                    {
+                        return Option.None<List<string>>();
+                    }
+
+                    ret.Add(entry.ToObject<string>());
+                }
+                return Option.Some<List<string>>(ret);
+            }
+            return Option.None<List<string>>();
+        }
+
+        private string getDeviceId(ButtplugClientDevice device)
+        {
+            return device.Name;
+        }
+
+        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        {
+            yield return new PropertyBinding<string>(() => this.ServerUrl);
+            yield return new PropertyBinding<List<string>>("SelectedDevices",
+                (s) => { this.selectedDeviceCache = s; },
+                this.deviceList.Where(d => d.Selected).Select(w => getDeviceId(w.Value)).ToList,
+                ParseSelectedDeviceCache
+                );
         }
     }
 }

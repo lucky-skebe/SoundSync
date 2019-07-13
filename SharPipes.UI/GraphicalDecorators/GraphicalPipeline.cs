@@ -10,6 +10,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using SharPipes.Pipes.Base.Events;
+using SharPipes.Pipes.Base.PipeLineDefinitions;
 
 namespace SharPipes.UI.GraphicalDecorators
 {
@@ -22,7 +23,7 @@ namespace SharPipes.UI.GraphicalDecorators
         private readonly Dictionary<IPipeSrcPad, GraphicalSrcPad> srcPadLookup;
         private readonly Dictionary<(IPipeSrcPad, IPipeSinkPad), GraphicalEdge> linkLookup;
 
-        private readonly Dictionary<IPipeElement, Point> positionCache;
+        private readonly Dictionary<string, Point> positionCache;
 
         public void Remove(GraphicalElement graphicalElement)
         {
@@ -39,7 +40,7 @@ namespace SharPipes.UI.GraphicalDecorators
             this.srcPadLookup = new Dictionary<IPipeSrcPad, GraphicalSrcPad>();
             this.sinkPadLookup = new Dictionary<IPipeSinkPad, GraphicalSinkPad>();
             this.linkLookup = new Dictionary<(IPipeSrcPad, IPipeSinkPad), GraphicalEdge>();
-            this.positionCache = new Dictionary<IPipeElement, Point>();
+            this.positionCache = new Dictionary<string, Point>();
 
             this.pipeline.ElementAdded += Pipeline_ElementAdded;
             this.pipeline.ElementRemoved += Pipeline_ElementRemoved;
@@ -95,14 +96,12 @@ namespace SharPipes.UI.GraphicalDecorators
                     this.graphicals.Remove(gSrc);
                 }
             }
-
-            this.positionCache.Remove(e.Element);
         }
 
         private void Pipeline_ElementAdded(object sender, ElementAddedEventArgs e)
         {
             GraphicalElement element;
-            if (this.positionCache.TryGetValue(e.Element, out Point position))
+            if (this.positionCache.Remove(e.Element.Name, out Point position))
             {
                 element = new GraphicalElement(e.Element, position, this);
             }
@@ -150,7 +149,7 @@ namespace SharPipes.UI.GraphicalDecorators
 
         public void Add(IPipeElement node, Point position)
         {
-            this.positionCache.Add(node, position);
+            this.positionCache.Add(node.Name, position);
             this.pipeline.Add(node);
         }
 
@@ -182,6 +181,26 @@ namespace SharPipes.UI.GraphicalDecorators
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();
+        }
+
+        internal GraphicalPipeLineDefinition GetDefinition()
+        {
+            var rawDefinition = pipeline.GetDefinition();
+
+            var positions= this.elementLookup.ToDictionary(e => e.Key.Name, e => new Point(e.Value.X, e.Value.Y));
+
+            var graphicalDefinition = new GraphicalPipeLineDefinition(rawDefinition, positions);
+
+            return graphicalDefinition;
+        }
+
+        internal IList<string> FromDefinition(GraphicalPipeLineDefinition definition)
+        {
+            foreach(var kvp in definition.Positions)
+            {
+                this.positionCache.Add(kvp.Key, kvp.Value);
+            }
+            return this.pipeline.FromDefinition(definition);
         }
     }
 }

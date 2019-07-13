@@ -23,6 +23,7 @@ namespace SharPipes.Pipes.Base
             get;
             protected set;
         }
+        public string Name { get; }
 
         internal PipeEdge<TValue>? Edge { get; set; }
 
@@ -45,8 +46,6 @@ namespace SharPipes.Pipes.Base
         public PipeSrcPad<TValue>? Peer => this.Edge?.From;
 
         IPipeSrcPad? IPipeSinkPad.Peer => this.Peer;
-
-        public string Name { get; }
 
         public override int GetHashCode()
         {

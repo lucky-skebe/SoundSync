@@ -1,8 +1,5 @@
 ﻿using SharPipes.UI.GraphicalDecorators;
 using SharPipes.UI.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

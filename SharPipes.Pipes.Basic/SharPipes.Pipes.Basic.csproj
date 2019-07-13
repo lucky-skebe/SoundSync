@@ -2,9 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>Preview</LangVersion>
     <NullableContextOptions>enable</NullableContextOptions>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Optional" Version="4.0.0" />
+    <PackageReference Include="System.ComponentModel.Composition" Version="4.5.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SharPipes.Pipes.Base\SharPipes.Pipes.Base.csproj" />
