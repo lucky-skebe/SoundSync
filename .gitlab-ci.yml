@@ -1,4 +1,6 @@
-image: mcr.microsoft.com/dotnet/core/sdk:3.0
+# This file is a template, and might need editing before it works on your project.
+# Full project: https://gitlab.com/pages/doxygen
+image: alpine
 
 stages:
  - build
@@ -6,14 +8,12 @@ stages:
  - document
  - deploy
 
-docfx:
+pages:
   stage: document
-  before_script:
-    - dotnet add package docfx.console --version 2.43.2
   script:
-    - ls docfx.console/tools/
+    - apk update && apk add doxygen
+    - doxygen doxygen/Doxyfile
+    - mv doxygen/documentation/html/ public/
   artifacts:
     paths:
       - public
-  only:
-    - master
