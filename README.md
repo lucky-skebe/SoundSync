@@ -54,6 +54,10 @@ Optional Features (if I feel like it):
 - [ ] JS/Electron Port for cross platform compartibility
 - [ ] Grouping of PipeLine Elements to one container like Gstreamer Bins(e.g. having a multiply, add and clamping element in one group wich could behave like the old linear scaling behaviour)
 
+## Documentation
+
+https://luckyskebe.gitlab.io/soundsync
+
 ## Technical details
 
 In the latest version I started implementing an extensible Pipeline very heavily influenced by the GStreamer Framework wich should make it possible to create custom pipelines to you buttplug device (or other outputs in theory).

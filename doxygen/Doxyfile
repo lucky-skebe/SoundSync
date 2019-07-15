@@ -1,0 +1,8 @@
+PROJECT_NAME           = SharPipes
+CREATE_SUBDIRS         = YES
+OUTPUT_DIRECTORY       = doxygen/documentation
+FILE_PATTERNS          = *.cs
+RECURSIVE              = YES
+GENERATE_LATEX         = NO
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html

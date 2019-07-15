@@ -1,39 +1,45 @@
-﻿using SharPipes.Pipes.Base;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ElementRenderer.xaml.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace SharPipes.UI
 {
+    using System.Windows;
+    using System.Windows.Controls;
+    using SharPipes.Pipes.Base;
+
     /// <summary>
-    /// Interaktionslogik für ElementRenderer.xaml
+    /// Interaktionslogik für ElementRenderer.xaml.
     /// </summary>
     public partial class ElementRenderer : UserControl
     {
-        public IPipeElement Element
-        {
-            get { return (IPipeElement)GetValue(ElementProperty); }
-            set { SetValue(ElementProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for Element.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the <see cref="Element"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty ElementProperty =
             DependencyProperty.Register("Element", typeof(IPipeElement), typeof(ElementRenderer), new PropertyMetadata(null));
 
-
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ElementRenderer"/> class.
+        /// </summary>
         public ElementRenderer()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+        }
+
+        /// <summary>
+        /// Gets or sets the element to render.
+        /// </summary>
+        /// <value>
+        /// The element to render.
+        /// </value>
+        public IPipeElement Element
+        {
+            get { return (IPipeElement)this.GetValue(ElementProperty); }
+            set { this.SetValue(ElementProperty, value); }
         }
     }
 }

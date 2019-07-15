@@ -85,10 +85,6 @@
                 </Grid>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type interactions:ActionInteraction}">
-                <Button Content="{Binding Name}" /> <!-- unfinished command binding-->
-            </DataTemplate>
-
             <DataTemplate DataType="{x:Type interactions:CommandInteraction}">
                 <Button Content="{Binding Name}" Command="{Binding Converter={StaticResource dispatchCommands}}"/>
             </DataTemplate>

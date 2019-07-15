@@ -1,31 +1,37 @@
-using System;
+﻿// -----------------------------------------------------------------------
+// <copyright file="PipeEdge.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace SharPipes.Pipes.Base
 {
-    internal class PipeEdge<TValue> : IPipeEdge
+    internal class PipeEdge<TValue> : IPipeLink
     {
-        internal PipeEdge(PipeSrcPad<TValue> From, PipeSinkPad<TValue> To)
+        internal PipeEdge(PipeSrcPad<TValue> src, PipeSinkPad<TValue> sink)
         {
-            this.To = To;
-            this.From = From;
+            this.Sink = sink;
+            this.Src = src;
         }
 
-        public PipeSrcPad<TValue> From { get; }
-        public PipeSinkPad<TValue> To { get; }
+        public PipeSrcPad<TValue> Src { get; }
 
-        IPipeSrcPad IPipeEdge.From => this.From;
+        public PipeSinkPad<TValue> Sink { get; }
 
-        IPipeSinkPad IPipeEdge.To => this.To;
+        IPipeSrcPad IPipeLink.Src => this.Src;
+
+        IPipeSinkPad IPipeLink.Sink => this.Sink;
 
         public void Unlink()
         {
-            this.From.Edge = null;
-            this.To.Edge = null;
+            this.Src.Edge = null;
+            this.Sink.Edge = null;
         }
 
         internal void Push(TValue value)
         {
-            To.Push(value);
+            this.Sink.Push(value);
         }
     }
 }
