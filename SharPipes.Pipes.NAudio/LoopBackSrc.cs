@@ -23,7 +23,7 @@ namespace SharPipes.Pipes.NAudio
     {
         private readonly WasapiLoopbackCapture loopback;
 
-        private PipeSrcPad<float> src;
+        private readonly PipeSrcPad<float> src;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LoopBackSrc"/> class.

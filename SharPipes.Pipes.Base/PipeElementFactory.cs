@@ -73,9 +73,8 @@ namespace SharPipes.Pipes.Base
             else
             {
                 var typeName = type.Name;
-                string trimmed;
 
-                if (TrimEnd(typeName, "element", out trimmed))
+                if (TrimEnd(typeName, "element", out string trimmed))
                 {
                     return trimmed;
                 }

@@ -12,6 +12,7 @@ namespace SharPipes.Pipes.Base.Helpers
     using System.ComponentModel.Composition.Hosting;
     using System.ComponentModel.Composition.Primitives;
     using System.ComponentModel.Composition.ReflectionModel;
+    using System.IO;
     using System.Linq;
 
     internal static class MEFExtensions
@@ -21,9 +22,17 @@ namespace SharPipes.Pipes.Base.Helpers
         static MEFExtensions()
         {
             #pragma warning disable CA2000 // Dispose objects before losing scope
-            var directoryCatalog = new DirectoryCatalog(".");
-            #pragma warning restore CA2000 // Dispose objects before losing scope
-            Catalog.Catalogs.Add(directoryCatalog);
+            var localDirectory = new DirectoryCatalog(".");
+#pragma warning restore CA2000 // Dispose objects before losing scope
+            Catalog.Catalogs.Add(localDirectory);
+
+            if (Directory.Exists("./plugins"))
+            {
+#pragma warning disable CA2000 // Dispose objects before losing scope
+                var pluginDirectory = new DirectoryCatalog("./plugins");
+#pragma warning restore CA2000 // Dispose objects before losing scope
+                Catalog.Catalogs.Add(pluginDirectory);
+            }
         }
 
         public static IEnumerable<Type> GetRegisteredTypes<T>()

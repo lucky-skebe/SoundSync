@@ -49,7 +49,7 @@ namespace SharPipes.UI
                 }
             }
 
-            this.startPoint = default(Point);
+            this.startPoint = default;
 
             this.Pipeline = new GraphicalPipeline(new PipeLine());
 

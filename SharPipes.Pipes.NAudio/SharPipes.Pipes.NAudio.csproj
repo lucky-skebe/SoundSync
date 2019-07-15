@@ -5,6 +5,7 @@
     <LangVersion>preview</LangVersion>
     <NullableContextOptions>enable</NullableContextOptions>
     <CodeAnalysisRuleSet>../custom.ruleset</CodeAnalysisRuleSet>
+    <Version>0.2.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
