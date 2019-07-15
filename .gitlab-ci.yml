@@ -13,6 +13,10 @@ pages:
   script:
     - apk update && apk add doxygen
     - doxygen doxygen/Doxyfile
+    - ls
+    - ls doxygen
+    - ls doxygen/documentation
+    - ls doxygen/documentation/html
     - mv doxygen/documentation/html/ public/
   artifacts:
     paths:

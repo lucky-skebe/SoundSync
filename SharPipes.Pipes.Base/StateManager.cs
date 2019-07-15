@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// -----------------------------------------------------------------------
+// <copyright file="StateManager.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace SharPipes.Pipes.Base
 {
-    static class StateManager
+    using System.Collections.Generic;
+
+    internal static class StateManager
     {
         public static IList<State> GetTransitions(State from, State to)
         {
@@ -13,7 +17,7 @@ namespace SharPipes.Pipes.Base
             {
                 (State.Stopped, State.Playing) => new List<State> { State.Ready, State.Playing },
                 (State.Playing, State.Stopped) => new List<State> { State.Ready, State.Stopped },
-                _ when from == to => new List<State> {  },
+                _ when from == to => new List<State> { },
                 (_, State newState) => new List<State> { newState },
             };
         }

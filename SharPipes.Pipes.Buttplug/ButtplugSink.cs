@@ -1,27 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Composition;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Buttplug.Client;
-using Buttplug.Client.Connectors.WebsocketConnector;
-using Newtonsoft.Json.Linq;
-using Optional;
-using SharPipes.Pipes.Base;
-using SharPipes.Pipes.Base.InteractionInfos;
-using SharPipes.Pipes.Base.PipeLineDefinitions;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ButtplugSink.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace SharPipes.Pipes.Buttplug
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.Composition;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using global::Buttplug.Client;
+    using global::Buttplug.Client.Connectors.WebsocketConnector;
+    using Newtonsoft.Json.Linq;
+    using Optional;
+    using SharPipes.Pipes.Base;
+    using SharPipes.Pipes.Base.InteractionInfos;
 
+    /// <summary>
+    /// Sends the inputdata to selected Buttplug Devices as Vibrationcommands.
+    /// </summary>
     [Export(typeof(IPipeElement))]
     public class ButtplugSink : PipeSink
     {
-        private ButtplugClient? _client;
-        private double lastVal = 0;
-
         private readonly CommandInteraction connectInteraction;
         private readonly CommandInteraction startScanningInteraction;
         private readonly CommandInteraction stopScanningInteraction;
@@ -29,37 +32,25 @@ namespace SharPipes.Pipes.Buttplug
         private readonly ButtplugDeviceInteraction deviceInteraction;
 
         private readonly IList<ButtPlugClientDeviceWrapper> deviceList = new List<ButtPlugClientDeviceWrapper>();
+        private readonly ButtplugServerStateMachine stateMachine;
+        private readonly PipeSinkPad<double> sink;
 
-        ButtplugClient? Client
+        private List<string> selectedDeviceCache;
+        private ButtplugClient? client;
+        private double lastVal = 0;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ButtplugSink"/> class.
+        /// </summary>
+        /// <param name="name">The name of the element.</param>
+        public ButtplugSink(string? name = null)
+            : base(name)
         {
-            get => _client;
-            set
+            this.sink = new PipeSinkPad<double>(this, "sink", (f) =>
             {
-                if (_client != null)
+                if (this.lastVal != f)
                 {
-                    _client.DeviceAdded -= Client_DeviceAdded;
-                    _client.DeviceRemoved -= Client_DeviceRemoved;
-                    _client.ScanningFinished -= Client_ScanningFinished;
-                }
-                _client = value;
-                if (_client != null)
-                {
-                    _client.DeviceAdded += Client_DeviceAdded;
-                    _client.DeviceRemoved += Client_DeviceRemoved;
-                    _client.ScanningFinished += Client_ScanningFinished;
-                }
-            }
-        }
-
-        public string ServerUrl { get; set; } = "ws://localhost:12345/buttplug";
-
-        public ButtplugSink(string? name = null) : base(name)
-        {
-            Sink = new PipeSinkPad<double>(this, "sink", (f) =>
-            {
-                if (lastVal != f)
-                {
-                    if (Client != null && Client.Connected)
+                    if (this.Client != null && this.Client.Connected)
                     {
                         foreach (var d in this.deviceList)
                         {
@@ -68,20 +59,229 @@ namespace SharPipes.Pipes.Buttplug
                                 d.Value.SendVibrateCmd(f);
                             }
                         }
-                        lastVal = f;
+
+                        this.lastVal = f;
                     }
                 }
-
             });
-
 
             this.stateMachine = new ButtplugServerStateMachine();
 
-            this.startScanningInteraction = new CommandInteraction("Start Scanning", async () => await this.StartScanning(), this.stateMachine.CanStartScanning);
-            this.stopScanningInteraction = new CommandInteraction("Stop Scanning", async () => await this.StopScanning(), this.stateMachine.CanStopScanning);
-            this.connectInteraction = new CommandInteraction("Connect", async () => await this.Connect(), this.stateMachine.CanConnect);
-            this.disconnectInteraction = new CommandInteraction("Disconnect", async () => await this.Disconnect(), this.stateMachine.CanDisonnect);
+            this.startScanningInteraction = new CommandInteraction("Start Scanning", async () => await this.StartScanning().ConfigureAwait(true), this.stateMachine.CanStartScanning);
+            this.stopScanningInteraction = new CommandInteraction("Stop Scanning", async () => await this.StopScanning().ConfigureAwait(true), this.stateMachine.CanStopScanning);
+            this.connectInteraction = new CommandInteraction("Connect", async () => await this.Connect().ConfigureAwait(true), this.stateMachine.CanConnect);
+            this.disconnectInteraction = new CommandInteraction("Disconnect", async () => await this.Disconnect().ConfigureAwait(true), this.stateMachine.CanDisonnect);
             this.deviceInteraction = new ButtplugDeviceInteraction();
+            this.selectedDeviceCache = new List<string>();
+        }
+
+        /// <summary>
+        /// Gets or sets the Client used to communicating with a Buttplug server.
+        /// </summary>
+        /// <value>
+        /// The Client used to communicating with a Buttplug server.
+        /// </value>
+        public ButtplugClient? Client
+        {
+            get => this.client;
+            set
+            {
+                if (this.client != null)
+                {
+                    this.client.DeviceAdded -= this.Client_DeviceAdded;
+                    this.client.DeviceRemoved -= this.Client_DeviceRemoved;
+                    this.client.ScanningFinished -= this.Client_ScanningFinished;
+                }
+
+                this.client = value;
+                if (this.client != null)
+                {
+                    this.client.DeviceAdded += this.Client_DeviceAdded;
+                    this.client.DeviceRemoved += this.Client_DeviceRemoved;
+                    this.client.ScanningFinished += this.Client_ScanningFinished;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the address of the server to connecto to.
+        /// </summary>
+        /// <value>
+        /// The address of the server to connecto to.
+        /// </value>
+        public string ServerAddress { get; set; } = "ws://localhost:12345/buttplug";
+
+        /// <inheritdoc/>
+        public override string TypeName => "Buttplug";
+
+        /// <inheritdoc/>
+        public override IEnumerable<IInteraction> Interactions
+        {
+            get
+            {
+                yield return new StringParameterInteraction("ServerAddress:", () => this.ServerAddress, (serverUrl) => this.ServerAddress = serverUrl);
+                yield return this.connectInteraction;
+                yield return this.disconnectInteraction;
+                yield return this.startScanningInteraction;
+                yield return this.stopScanningInteraction;
+                yield return this.deviceInteraction;
+            }
+        }
+
+        /// <summary>
+        /// Tell the Server to stop Scannign for new devices.
+        /// </summary>
+        /// <returns>A Task representing communication with the buttplug server.</returns>
+        public async Task StartScanning()
+        {
+            if (this.Client == null)
+            {
+                return;
+            }
+
+            if (this.stateMachine.StartScanning())
+            {
+                this.startScanningInteraction.SetCanExecute(false);
+                await this.Client.StartScanningAsync().ConfigureAwait(true);
+
+                this.UpdateCommands();
+            }
+        }
+
+        /// <summary>
+        /// Tell the Server to stop Scannign for new devices.
+        /// </summary>
+        /// <returns>A Task representing communication with the buttplug server.</returns>
+        public async Task StopScanning()
+        {
+            if (this.Client == null)
+            {
+                return;
+            }
+
+            if (this.stateMachine.StopScanning())
+            {
+                this.stopScanningInteraction.SetCanExecute(false);
+                await this.Client.StopScanningAsync().ConfigureAwait(true);
+
+                this.UpdateCommands();
+            }
+        }
+
+        /// <summary>
+        /// Connect to the given Server.
+        /// </summary>
+        /// <returns>A Task representing connection process.</returns>
+        public async Task Connect()
+        {
+            if (this.stateMachine.Connect())
+            {
+                IButtplugClientConnector connector = new ButtplugWebsocketConnector(new Uri(this.ServerAddress));
+                this.Client = new ButtplugClient("SoundSync", connector);
+                await this.Client.ConnectAsync().ConfigureAwait(true);
+
+                this.UpdateCommands();
+            }
+        }
+
+        /// <summary>
+        /// Disconnect to the given Server.
+        /// </summary>
+        /// <returns>A Task representing disconnection process.</returns>
+        public async Task Disconnect()
+        {
+            if (this.Client == null)
+            {
+                return;
+            }
+
+            if (this.stateMachine.Disonnect())
+            {
+                await this.Client.DisconnectAsync().ConfigureAwait(true);
+
+                this.UpdateCommands();
+            }
+        }
+
+        /// <inheritdoc/>
+        public override PipeSinkPad<TValue>? GetSinkPad<TValue>(string name)
+        {
+            return null;
+        }
+
+        /// <inheritdoc/>
+        public override GraphState Check()
+        {
+            if (this.sink.IsLinked())
+            {
+                return GraphState.OK;
+            }
+            else
+            {
+                return GraphState.INCOMPLETE;
+            }
+        }
+
+        /// <inheritdoc/>
+        public override IEnumerable<IPipeElement> GetPrevNodes()
+        {
+            if (this.sink.Peer != null)
+            {
+                yield return this.sink.Peer.Parent;
+            }
+        }
+
+        /// <inheritdoc/>
+        public override IEnumerable<IPipeSinkPad> GetSinkPads()
+        {
+            yield return this.sink;
+        }
+
+        /// <inheritdoc/>
+        public override IPipeSrcPad? GetSrcPad(string fromPad)
+            => null;
+
+        /// <inheritdoc/>
+        public override IPipeSinkPad? GetSinkPad(string padName)
+        {
+            if (padName == null)
+            {
+                return null;
+            }
+
+            return padName.ToUpperInvariant() switch
+            {
+                "SINK" => this.sink,
+                _ => null
+            };
+        }
+
+        /// <inheritdoc/>
+        protected override Task TransitionStoppedReady()
+        {
+            return this.Connect();
+        }
+
+        /// <inheritdoc/>
+        protected override Task TransitionReadyStopped()
+        {
+            return this.Disconnect();
+        }
+
+        /// <inheritdoc/>
+        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        {
+            yield return new PropertyBinding<string>(() => this.ServerAddress);
+            yield return new PropertyBinding<List<string>>(
+                Properties.strings.SelectedDevices,
+                (s) => { this.selectedDeviceCache = s; },
+                this.deviceList.Where(d => d.Selected).Select(w => GetDeviceId(w.Value)).ToList,
+                this.ParseSelectedDeviceCache);
+        }
+
+        private static string GetDeviceId(ButtplugClientDevice device)
+        {
+            return device.Name;
         }
 
         private void UpdateCommands()
@@ -92,71 +292,10 @@ namespace SharPipes.Pipes.Buttplug
             this.disconnectInteraction.SetCanExecute(this.stateMachine.CanDisonnect);
         }
 
-        public override string TypeName => "Buttplug";
-        public async Task StartScanning()
-        {
-            if (this.Client == null)
-            {
-                return;
-            }
-            if (this.stateMachine.StartScanning())
-            {
-                this.startScanningInteraction.SetCanExecute(false);
-                await this.Client.StartScanningAsync();
-
-
-                UpdateCommands();
-            }
-        }
-
-        public async Task StopScanning()
-        {
-            if (this.Client == null)
-            {
-                return;
-            }
-
-            if (this.stateMachine.StopScanning())
-            {
-
-                this.stopScanningInteraction.SetCanExecute(false);
-                await this.Client.StopScanningAsync();
-
-                UpdateCommands();
-            }
-        }
-
-        public async Task Connect()
-        {
-            if (this.stateMachine.Connect())
-            {
-                IButtplugClientConnector connector = new ButtplugWebsocketConnector(new Uri(ServerUrl));
-                Client = new ButtplugClient("SoundSync", connector);
-                await Client.ConnectAsync();
-
-                UpdateCommands();
-            }
-        }
-
-        public async Task Disconnect()
-        {
-            if (this.Client == null)
-            {
-                return;
-            }
-
-            if (this.stateMachine.Disonnect())
-            {
-                await Client.DisconnectAsync();
-
-                UpdateCommands();
-            }
-        }
-
         private void Client_ScanningFinished(object sender, EventArgs e)
         {
             this.stateMachine.ScanningFinished();
-            UpdateCommands();
+            this.UpdateCommands();
         }
 
         private void Client_DeviceRemoved(object sender, DeviceRemovedEventArgs e)
@@ -168,114 +307,42 @@ namespace SharPipes.Pipes.Buttplug
 
         private void Client_DeviceAdded(object sender, DeviceAddedEventArgs e)
         {
-            bool selected = this.selectedDeviceCache.Remove(getDeviceId(e.Device));
+            bool selected = this.selectedDeviceCache.Remove(GetDeviceId(e.Device));
 
-            var device = new ButtPlugClientDeviceWrapper(e.Device, selected, (self, selected) => { if (selected) { self.Value.SendVibrateCmd(this.lastVal); } else { self.Value.SendVibrateCmd(0); } });
+            var device = new ButtPlugClientDeviceWrapper(e.Device, selected, (self, selected) =>
+            {
+                if (selected)
+                {
+                    self.Value.SendVibrateCmd(this.lastVal);
+                }
+                else
+                {
+                    self.Value.SendVibrateCmd(0);
+                }
+            });
             this.deviceList.Add(device);
             this.deviceInteraction.Options.Add(device);
-
         }
-
-        public PipeSinkPad<double> Sink;
-        private readonly ButtplugServerStateMachine stateMachine;
-
-        public override PipeSinkPad<TValue>? GetSink<TValue>(string name)
-        {
-            return null;
-        }
-
-        public override GraphState Check()
-        {
-            if (Sink.IsLinked)
-            {
-                return GraphState.OK;
-            }
-            else
-            {
-                return GraphState.INCOMPLETE;
-            }
-        }
-
-        public override IEnumerable<IPipeElement> GetPrevNodes()
-        {
-            if (Sink.Peer != null)
-            {
-                yield return Sink.Peer.Parent;
-            }
-        }
-
-        public override IEnumerable<IPipeSinkPad> GetSinkPads()
-        {
-            yield return Sink;
-        }
-
-        public override IEnumerable<IInteraction> Interactions
-        {
-            get
-            {
-                yield return new StringParameterInteraction("ServerAddress:", () => this.ServerUrl, (serverUrl) => this.ServerUrl = serverUrl);
-                yield return this.connectInteraction;
-                yield return this.disconnectInteraction;
-                yield return this.startScanningInteraction;
-                yield return this.stopScanningInteraction;
-                yield return this.deviceInteraction;
-            }
-        }
-
-        protected override async Task TransitionStoppedReady()
-        {
-            await this.Connect();
-        }
-
-        protected override async Task TransitionReadyStopped()
-        {
-            await this.Disconnect();
-        }
-
-        public override IPipeSrcPad? GetSrcPad(string fromPad)
-            => null;
-
-        public override IPipeSinkPad? GetSinkPad(string toPad)
-            => toPad.ToLower() switch
-            {
-                "sink" => this.Sink,
-                _ => null
-            };
-
-        private List<string> selectedDeviceCache;
 
         private Option<List<string>> ParseSelectedDeviceCache(object? value)
         {
-            if(value is JArray array)
+            if (value is JArray array)
             {
                 List<string> ret = new List<string>();
                 foreach (var entry in array)
                 {
-                    if(entry.Type != JTokenType.String)
+                    if (entry.Type != JTokenType.String)
                     {
                         return Option.None<List<string>>();
                     }
 
                     ret.Add(entry.ToObject<string>());
                 }
+
                 return Option.Some<List<string>>(ret);
             }
+
             return Option.None<List<string>>();
-        }
-
-        private string getDeviceId(ButtplugClientDevice device)
-        {
-            return device.Name;
-        }
-
-        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
-        {
-            yield return new PropertyBinding<string>(() => this.ServerUrl);
-            yield return new PropertyBinding<List<string>>("SelectedDevices",
-                (s) => { this.selectedDeviceCache = s; },
-                this.deviceList.Where(d => d.Selected).Select(w => getDeviceId(w.Value)).ToList,
-                ParseSelectedDeviceCache
-                );
         }
     }
 }

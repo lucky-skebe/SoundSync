@@ -1,13 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ZLayer.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace SharPipes.UI.GraphicalDecorators
 {
-    enum ZLayer
+    internal static class ZLayer
     {
-        Pads = 30,
-        Elements = 20,
-        Links = 10
+        public const int Pads = 30;
+
+        public const int Elements = 20;
+
+        public const int Links = 10;
     }
 }

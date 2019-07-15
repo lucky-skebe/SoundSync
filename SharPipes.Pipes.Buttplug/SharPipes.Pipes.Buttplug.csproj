@@ -4,6 +4,12 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <LangVersion>preview</LangVersion>
     <NullableContextOptions>enable</NullableContextOptions>
+    <CodeAnalysisRuleSet>../custom.ruleset</CodeAnalysisRuleSet>
+    <NeutralLanguage>en-US</NeutralLanguage>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\Fritz\Documents\Projects\SharPipes\SharPipes.Pipes.Buttplug\SharPipes.Pipes.Buttplug.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,9 +17,33 @@
   </ItemGroup>
 
   <ItemGroup>
+    <AdditionalFiles Include="../stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Buttplug" Version="0.4.7" />
     <PackageReference Include="Buttplug.Client.Connectors.WebsocketConnector" Version="0.4.7" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" />
     <PackageReference Include="Optional" Version="4.0.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.ComponentModel.Composition" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\strings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>strings.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

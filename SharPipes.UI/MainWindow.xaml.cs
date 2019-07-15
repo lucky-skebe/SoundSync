@@ -1,100 +1,103 @@
-﻿using Newtonsoft.Json;
-using SharPipes.Pipes.Base;
-using SharPipes.Pipes.Base.PipeLineDefinitions;
-using SharPipes.Pipes.Basic;
-using SharPipes.Pipes.Buttplug;
-using SharPipes.Pipes.NAudio;
-using SharPipes.UI.GraphicalDecorators;
-using SharPipes.UI.Helpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.Loader;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿// -----------------------------------------------------------------------
+// <copyright file="MainWindow.xaml.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace SharPipes.UI
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.IO;
+    using System.Runtime.Loader;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using Newtonsoft.Json;
+    using SharPipes.Pipes.Base;
+    using SharPipes.UI.GraphicalDecorators;
+    using SharPipes.UI.Helpers;
+
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml.
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<IPipeElement> PipeElements
-        {
-            get;
-            set;
-        }
-
         private Point startPoint;
         private Vector offset;
+        private bool isDragging = false;
+        private DataObject? dragData = null;
+        private DependencyObject? dragSource;
 
-        public GraphicalPipeline Pipeline { get; set; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
-            PipeElements = new List<IPipeElement>
+            this.PipeElements = new List<IPipeElement>
             {
             };
 
-            foreach (var assembly in AssemblyLoadContext.Default.Assemblies)
+            foreach (string factoryTypeName in PipeElementFactory.GetFactoryTypes())
             {
-                foreach(var type in assembly.GetTypes())
+                var element = PipeElementFactory.Make(factoryTypeName, "template");
+                if (element != null)
                 {
-                    if(typeof(IPipeElement).IsAssignableFrom(type))
-                    {
-                        if(type.IsClass && !type.IsAbstract)
-                        {
-                            PipeElements.Add((IPipeElement)Activator.CreateInstance(type, "test"));
-                        }
-                    }
+                    this.PipeElements.Add(element);
                 }
             }
 
-            this.startPoint = new Point();
+            this.startPoint = default(Point);
 
             this.Pipeline = new GraphicalPipeline(new PipeLine());
 
             this.DataContext = this;
-            InitializeComponent();
+            this.InitializeComponent();
+        }
 
-            new LoopBackSrc();
+        /// <summary>
+        /// Gets a list of <see cref="IPipeElement"/> to use as templates.
+        /// </summary>
+        /// <value>
+        /// A list of <see cref="IPipeElement"/> to use as templates.
+        /// </value>
+        public List<IPipeElement> PipeElements
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets or sets the graphical pipeline used.
+        /// </summary>
+        /// <value>
+        /// The graphical pipeline used.
+        /// </value>
+        public GraphicalPipeline Pipeline { get; set; }
+
+        /// <inheritdoc/>
+        protected override async void OnClosing(CancelEventArgs e)
+        {
+            await this.Pipeline.Stop().ConfigureAwait(true);
+            base.OnClosing(e);
         }
 
         private void ToggleToolBar(object sender, RoutedEventArgs e)
         {
-            if (ToolBox.Visibility == Visibility.Visible)
+            if (this.ToolBox.Visibility == Visibility.Visible)
             {
-                ToolBox.Visibility = Visibility.Collapsed;
+                this.ToolBox.Visibility = Visibility.Collapsed;
             }
             else
             {
-                ToolBox.Visibility = Visibility.Visible;
+                this.ToolBox.Visibility = Visibility.Visible;
             }
         }
 
         private async void BtnStart_Click(object sender, RoutedEventArgs e)
         {
-            await this.Pipeline.Start();
-        }
-
-
-        protected override async void OnClosing(CancelEventArgs e)
-        {
-            await this.Pipeline.Stop();
-            base.OnClosing(e);
+            await this.Pipeline.Start().ConfigureAwait(true);
         }
 
         private void Canvas_Drop(object sender, DragEventArgs e)
@@ -103,7 +106,7 @@ namespace SharPipes.UI
             {
                 if (e.Data.GetData("fromToolBar") is IPipeElement template)
                 {
-                    this.Pipeline.CreateNodeFromTemplate(template, e.GetPosition(sender as IInputElement) - offset);
+                    this.Pipeline.CreateNodeFromTemplate(template, e.GetPosition(sender as IInputElement) - this.offset);
                 }
             }
             else if (e.Data.GetDataPresent("drawEdge"))
@@ -119,7 +122,6 @@ namespace SharPipes.UI
                     }
 
                     // Find the data behind the ListViewItem
-
                     if (listView.ItemContainerGenerator.
                         ItemFromContainer(listViewItem) is GraphicalSinkPad sink)
                     {
@@ -131,11 +133,10 @@ namespace SharPipes.UI
             {
                 if (e.Data.GetData("moveElement") is GraphicalElement element)
                 {
-                    Point newPos = e.GetPosition(sender as IInputElement) - offset;
+                    Point newPos = e.GetPosition(sender as IInputElement) - this.offset;
 
                     element.MoveTo(newPos);
                 }
-
             }
         }
 
@@ -147,11 +148,9 @@ namespace SharPipes.UI
             }
         }
 
-        private bool isDragging = false;
-        DataObject? dragData = null;
-        DependencyObject? dragSource;
-
-        private void HandleDragStart<TContainer, TItem, TValue>(MouseButtonEventArgs e, string format) where TContainer : ItemsControl where TItem : DependencyObject, IInputElement
+        private void HandleDragStart<TContainer, TItem, TValue>(MouseButtonEventArgs e, string format)
+            where TContainer : ItemsControl
+            where TItem : DependencyObject, IInputElement
         {
             TItem? listViewItem =
                 ((DependencyObject)e.OriginalSource).FindAnchestor<TItem>();
@@ -162,15 +161,15 @@ namespace SharPipes.UI
                 return;
             }
 
-            startPoint = e.GetPosition(null);
-            isDragging = false;
+            this.startPoint = e.GetPosition(null);
+            this.isDragging = false;
 
             var item = listView.ItemContainerGenerator.
                     ItemFromContainer(listViewItem);
 
             if (item is TValue element)
             {
-                offset = e.GetPosition(listViewItem) - new Point();
+                this.offset = e.GetPosition(listViewItem) - default(Point);
                 this.dragData = new DataObject(format, element);
                 this.dragSource = listViewItem;
             }
@@ -178,95 +177,94 @@ namespace SharPipes.UI
 
         private void HandlePreviewMouseMove(MouseEventArgs e)
         {
-            if (isDragging || dragSource == null || dragData == null || this.startPoint == null)
+            if (this.isDragging || this.dragSource == null || this.dragData == null || this.startPoint == null)
             {
                 return;
             }
 
             Point mousePos = e.GetPosition(null);
-            
+
             Vector diff = this.startPoint - mousePos;
 
-            if (e.LeftButton == MouseButtonState.Pressed && 
+            if (e.LeftButton == MouseButtonState.Pressed &&
                 (Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance ||
                 Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance))
             {
-                isDragging = true;
-                
-                DragDrop.DoDragDrop(this.dragSource, dragData, DragDropEffects.Move);
+                this.isDragging = true;
+
+                DragDrop.DoDragDrop(this.dragSource, this.dragData, DragDropEffects.Move);
             }
         }
 
-
-
         private void PipeLineRenderer_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            isDragging = false;
-            dragSource = null;
-            dragData = null;
-            HandleDragStart<PipeLineRenderer, PipeLineItem, GraphicalElement>(e, "moveElement");
-            HandleDragStart<PipeLineRenderer, PipeLineItem, GraphicalSrcPad>(e, "drawEdge");
+            this.isDragging = false;
+            this.dragSource = null;
+            this.dragData = null;
+            this.HandleDragStart<PipeLineRenderer, PipeLineItem, GraphicalElement>(e, "moveElement");
+            this.HandleDragStart<PipeLineRenderer, PipeLineItem, GraphicalSrcPad>(e, "drawEdge");
         }
 
         private void PipeLineRenderer_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            HandlePreviewMouseMove(e);
+            this.HandlePreviewMouseMove(e);
         }
 
         private void ToolBoxList_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            isDragging = false;
-            dragSource = null;
-            dragData = null;
-            HandleDragStart<ListView, ListViewItem, IPipeElement>(e, "fromToolBar");
+            this.isDragging = false;
+            this.dragSource = null;
+            this.dragData = null;
+            this.HandleDragStart<ListView, ListViewItem, IPipeElement>(e, "fromToolBar");
         }
 
         private void ToolBoxList_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            HandlePreviewMouseMove(e);
+            this.HandlePreviewMouseMove(e);
         }
-
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            var sfd = new System.Windows.Forms.SaveFileDialog();
-            sfd.FileName = "pipeline";
-            sfd.Filter =
-            "Json files (*.json)|*.json|All files (*.*)|*.*";
-            sfd.InitialDirectory =
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            sfd.DefaultExt = "json";
-
-            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            using (System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog
             {
-                using Stream fileStream = sfd.OpenFile();
-                using var streamWriter = new StreamWriter(fileStream);
-                streamWriter.Write(JsonConvert.SerializeObject(this.Pipeline.GetDefinition(), Formatting.Indented));
+                FileName = "pipeline",
+                Filter = Properties.strings.FileFilter,
+                InitialDirectory =
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                DefaultExt = "json",
+            })
+            {
+                if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    using Stream fileStream = sfd.OpenFile();
+                    using var streamWriter = new StreamWriter(fileStream);
+                    streamWriter.Write(JsonConvert.SerializeObject(this.Pipeline.GetDefinition(), Formatting.Indented));
+                }
             }
         }
 
         private void BtnLoad_Click(object sender, RoutedEventArgs e)
         {
-            var ofd = new System.Windows.Forms.OpenFileDialog();
-            ofd.FileName = "pipeline";
-            ofd.Filter =
-            "Json files (*.json)|*.json|All files (*.*)|*.*";
-            ofd.InitialDirectory =
-                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            ofd.DefaultExt = "json";
-
-            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            using (System.Windows.Forms.OpenFileDialog ofd = new System.Windows.Forms.OpenFileDialog
             {
-                using Stream fileStream = ofd.OpenFile();
-                using var streamReader = new StreamReader(fileStream);
-                GraphicalPipeLineDefinition? pdef = JsonConvert.DeserializeObject<GraphicalPipeLineDefinition>(streamReader.ReadToEnd());
-                if (pdef != null)
+                FileName = "pipeline",
+                Filter = Properties.strings.FileFilter,
+                InitialDirectory =
+                Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                DefaultExt = "json",
+            })
+            {
+                if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    this.Pipeline.FromDefinition(pdef);
+                    using Stream fileStream = ofd.OpenFile();
+                    using var streamReader = new StreamReader(fileStream);
+                    GraphicalPipeLineDefinition? pdef = JsonConvert.DeserializeObject<GraphicalPipeLineDefinition>(streamReader.ReadToEnd());
+                    if (pdef != null)
+                    {
+                        this.Pipeline.FromDefinition(pdef);
+                    }
                 }
             }
-
-
         }
     }
 }
