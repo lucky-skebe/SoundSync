@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IPipeSinkPad.cs" company="LuckySkebe (fmann12345@gmail.com)">
+// <copyright file="IPad.cs" company="LuckySkebe (fmann12345@gmail.com)">
 //     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
 //     Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
@@ -7,13 +7,7 @@
 
 namespace SharPipes.Pipes.Base
 {
-    using System;
-
-    /// <summary>
-    /// Describes the minimum requirements for a SinkPad.
-    /// most of the time <see cref="PipeSinkPad{TValue}"/> should be used.
-    /// </summary>
-    public interface IPipeSinkPad : IEquatable<IPipeSinkPad>
+    public interface IPad
     {
         /// <summary>
         /// Gets the element this pad is a part of.
@@ -21,7 +15,7 @@ namespace SharPipes.Pipes.Base
         /// <value>
         /// The element this pad is a part of.
         /// </value>
-        public IPipeSink Parent
+        IElement Parent
         {
             get;
         }
@@ -42,7 +36,7 @@ namespace SharPipes.Pipes.Base
         /// <value>
         /// The pad on the other side of the link of null if the pad is not linked.
         /// </value>
-        IPipeSrcPad? Peer { get; }
+        IPad? Peer { get; }
 
         /// <summary>
         /// Returns the linking status of the pad.

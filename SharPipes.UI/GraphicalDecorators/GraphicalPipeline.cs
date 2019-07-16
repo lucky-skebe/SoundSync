@@ -29,10 +29,10 @@ namespace SharPipes.UI.GraphicalDecorators
     {
         private readonly PipeLine pipeline;
         private readonly ObservableCollection<IGraphical> graphicals;
-        private readonly Dictionary<IPipeElement, GraphicalElement> elementLookup;
-        private readonly Dictionary<IPipeSinkPad, GraphicalSinkPad> sinkPadLookup;
-        private readonly Dictionary<IPipeSrcPad, GraphicalSrcPad> srcPadLookup;
-        private readonly Dictionary<(IPipeSrcPad, IPipeSinkPad), GraphicalEdge> linkLookup;
+        private readonly Dictionary<IElement, GraphicalElement> elementLookup;
+        private readonly Dictionary<ISinkPad, GraphicalSinkPad> sinkPadLookup;
+        private readonly Dictionary<ISrcPad, GraphicalSrcPad> srcPadLookup;
+        private readonly Dictionary<(ISrcPad, ISinkPad), GraphicalEdge> linkLookup;
 
         private readonly Dictionary<string, Point> positionCache;
 
@@ -44,10 +44,10 @@ namespace SharPipes.UI.GraphicalDecorators
         {
             this.pipeline = pipeLine ?? throw new ArgumentNullException(nameof(pipeLine));
             this.graphicals = new ObservableCollection<IGraphical>();
-            this.elementLookup = new Dictionary<IPipeElement, GraphicalElement>();
-            this.srcPadLookup = new Dictionary<IPipeSrcPad, GraphicalSrcPad>();
-            this.sinkPadLookup = new Dictionary<IPipeSinkPad, GraphicalSinkPad>();
-            this.linkLookup = new Dictionary<(IPipeSrcPad, IPipeSinkPad), GraphicalEdge>();
+            this.elementLookup = new Dictionary<IElement, GraphicalElement>();
+            this.srcPadLookup = new Dictionary<ISrcPad, GraphicalSrcPad>();
+            this.sinkPadLookup = new Dictionary<ISinkPad, GraphicalSinkPad>();
+            this.linkLookup = new Dictionary<(ISrcPad, ISinkPad), GraphicalEdge>();
             this.positionCache = new Dictionary<string, Point>();
 
             this.pipeline.ElementAdded += this.Pipeline_ElementAdded;
@@ -84,7 +84,7 @@ namespace SharPipes.UI.GraphicalDecorators
         /// <param name="template">The template element.</param>
         /// <param name="position">The position the element should be rendered at.</param>
         /// <returns>A new element of the same type as the template.</returns>
-        public IPipeElement CreateNodeFromTemplate(IPipeElement template, Point position)
+        public IElement CreateNodeFromTemplate(IElement template, Point position)
         {
             var node = PipeLine.CreateNodeFromTemplate(template);
             this.Add(node, position);
@@ -97,7 +97,7 @@ namespace SharPipes.UI.GraphicalDecorators
         /// </summary>
         /// <param name="element">The element to add to the pipeline.</param>
         /// <param name="position">The position the element should be rendered at.</param>
-        public void Add(IPipeElement element, Point position)
+        public void Add(IElement element, Point position)
         {
             if (element == null)
             {
@@ -114,7 +114,7 @@ namespace SharPipes.UI.GraphicalDecorators
         /// <typeparam name="TValue">The type of data that can be sent.</typeparam>
         /// <param name="src">The src ot the data.</param>
         /// <param name="sink">The destination of the data.</param>
-        public void Connect<TValue>(PipeSrcPad<TValue> src, PipeSinkPad<TValue> sink)
+        public void Connect<TValue>(SrcPad<TValue> src, SinkPad<TValue> sink)
         {
             this.pipeline.Connect<TValue>(src, sink);
         }

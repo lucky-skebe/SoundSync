@@ -14,7 +14,7 @@ namespace SharPipes.UI.GraphicalDecorators
     /// <summary>
     /// Draws an element of a specific pipeline.
     /// </summary>
-    public class GraphicalElement : Graphical<IPipeElement>, IEquatable<GraphicalElement>
+    public class GraphicalElement : Graphical<IElement>, IEquatable<GraphicalElement>
     {
         private readonly GraphicalPipeline pipeline;
         private Point position;
@@ -25,7 +25,7 @@ namespace SharPipes.UI.GraphicalDecorators
         /// <param name="element">The element that should be drawn.</param>
         /// <param name="position">The position where the element should be drawn.</param>
         /// <param name="pipeline">The pipline that should be notified of changes to the element.</param>
-        public GraphicalElement(IPipeElement element, Point position, GraphicalPipeline pipeline)
+        public GraphicalElement(IElement element, Point position, GraphicalPipeline pipeline)
             : base(element)
         {
             this.position = position;

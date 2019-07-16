@@ -20,7 +20,7 @@ namespace SharPipes.UI
         /// Identifies the <see cref="Element"/> dependency property.
         /// </summary>
         public static readonly DependencyProperty ElementProperty =
-            DependencyProperty.Register("Element", typeof(IPipeElement), typeof(ElementRenderer), new PropertyMetadata(null));
+            DependencyProperty.Register("Element", typeof(IElement), typeof(ElementRenderer), new PropertyMetadata(null));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ElementRenderer"/> class.
@@ -36,9 +36,9 @@ namespace SharPipes.UI
         /// <value>
         /// The element to render.
         /// </value>
-        public IPipeElement Element
+        public IElement Element
         {
-            get { return (IPipeElement)this.GetValue(ElementProperty); }
+            get { return (IElement)this.GetValue(ElementProperty); }
             set { this.SetValue(ElementProperty, value); }
         }
     }

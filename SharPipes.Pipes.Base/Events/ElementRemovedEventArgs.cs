@@ -16,7 +16,7 @@ namespace SharPipes.Pipes.Base.Events
         /// Initializes a new instance of the <see cref="ElementRemovedEventArgs"/> class.
         /// </summary>
         /// <param name="element">The removed element.</param>
-        public ElementRemovedEventArgs(IPipeElement element)
+        public ElementRemovedEventArgs(IElement element)
         {
             this.Element = element;
         }
@@ -27,6 +27,6 @@ namespace SharPipes.Pipes.Base.Events
         /// <value>
         /// the removed element.
         /// </value>
-        public IPipeElement Element { get; }
+        public IElement Element { get; }
     }
 }

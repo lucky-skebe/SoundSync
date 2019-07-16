@@ -18,12 +18,12 @@ namespace SharPipes.Pipes.NAudio
     /// <summary>
     /// Reads audiosamples from the Windows loopback device.
     /// </summary>
-    [Export(typeof(IPipeElement))]
-    public class LoopBackSrc : PipeSrc, IDisposable
+    [Export(typeof(IElement))]
+    public class LoopBackSrc : SrcElement, IDisposable
     {
         private readonly WasapiLoopbackCapture loopback;
 
-        private readonly PipeSrcPad<float> src;
+        private readonly SrcPad<float> src;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LoopBackSrc"/> class.
@@ -34,7 +34,7 @@ namespace SharPipes.Pipes.NAudio
         {
             this.loopback = new WasapiLoopbackCapture();
             this.loopback.DataAvailable += this.Loopback_DataAvailable;
-            this.src = new PipeSrcPad<float>(this, "src");
+            this.src = new SrcPad<float>(this, "src");
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace SharPipes.Pipes.NAudio
         public override string TypeName => "Audio Loopback";
 
         /// <inheritdoc/>
-        public override PipeSrcPad<TValue>? GetSrcPad<TValue>(string name)
+        public override SrcPad<TValue>? GetSrcPad<TValue>(string name)
         {
             return null;
         }
@@ -69,19 +69,19 @@ namespace SharPipes.Pipes.NAudio
         }
 
         /// <inheritdoc/>
-        public override IEnumerable<IPipeElement> GetPrevNodes()
+        public override IEnumerable<IElement> GetPrevNodes()
         {
-            return Enumerable.Empty<IPipeElement>();
+            return Enumerable.Empty<IElement>();
         }
 
         /// <inheritdoc/>
-        public override IEnumerable<IPipeSrcPad> GetSrcPads()
+        public override IEnumerable<ISrcPad> GetSrcPads()
         {
             yield return this.src;
         }
 
         /// <inheritdoc/>
-        public override IPipeSrcPad? GetSrcPad(string padName)
+        public override ISrcPad? GetSrcPad(string padName)
         {
             if (padName == null)
             {
@@ -96,7 +96,7 @@ namespace SharPipes.Pipes.NAudio
         }
 
         /// <inheritdoc/>
-        public override IPipeSinkPad? GetSinkPad(string toPad)
+        public override ISinkPad? GetSinkPad(string toPad)
             => null;
 
         /// <inheritdoc/>

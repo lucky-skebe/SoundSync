@@ -17,7 +17,7 @@ namespace SharPipes.Pipes.Base.Events
         /// </summary>
         /// <param name="src">The src pad that was unlinked.</param>
         /// <param name="sink">The sink pad that was unlinked.</param>
-        public ElementsUnlinkedEventArgs(IPipeSrcPad src, IPipeSinkPad sink)
+        public ElementsUnlinkedEventArgs(ISrcPad src, ISinkPad sink)
         {
             this.Src = src;
             this.Sink = sink;
@@ -29,7 +29,7 @@ namespace SharPipes.Pipes.Base.Events
         /// <value>
         /// The unlinked src pad.
         /// </value>
-        public IPipeSrcPad Src { get; }
+        public ISrcPad Src { get; }
 
         /// <summary>
         /// Gets the unlinked sink pad.
@@ -37,6 +37,6 @@ namespace SharPipes.Pipes.Base.Events
         /// <value>
         /// The unlinked sink pad.
         /// </value>
-        public IPipeSinkPad Sink { get; }
+        public ISinkPad Sink { get; }
     }
 }

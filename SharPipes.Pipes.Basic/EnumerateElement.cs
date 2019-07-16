@@ -12,14 +12,14 @@ namespace SharPipes.Pipes.Basic
     using System.Linq;
     using SharPipes.Pipes.Base;
 
-    [Export(typeof(IPipeElement))]
-    public class EnumerateElement : PipeTransform
+    [Export(typeof(IElement))]
+    public class EnumerateElement : TransformElement
     {
         public EnumerateElement(string? name = null)
             : base(name)
         {
-            this.Src = new PipeSrcPad<double>(this, "src");
-            this.Sink = new PipeSinkPad<IEnumerable<float>>(this, "sink", e =>
+            this.Src = new SrcPad<double>(this, "src");
+            this.Sink = new SinkPad<IEnumerable<float>>(this, "sink", e =>
             {
                 if (e == null)
                 {
@@ -39,7 +39,7 @@ namespace SharPipes.Pipes.Basic
         /// <value>
         /// The one output input this element has.
         /// </value>
-        public PipeSinkPad<IEnumerable<float>> Sink
+        public SinkPad<IEnumerable<float>> Sink
         {
             get;
             private set;
@@ -51,7 +51,7 @@ namespace SharPipes.Pipes.Basic
         /// <value>
         /// The one output srcpad this element has.
         /// </value>
-        public PipeSrcPad<double> Src
+        public SrcPad<double> Src
         {
             get;
             private set;
@@ -61,13 +61,13 @@ namespace SharPipes.Pipes.Basic
         public override string TypeName => "Unlist";
 
         /// <inheritdoc/>
-        public override PipeSinkPad<TValue>? GetSinkPad<TValue>(string name)
+        public override SinkPad<TValue>? GetSinkPad<TValue>(string name)
         {
             return null;
         }
 
         /// <inheritdoc/>
-        public override PipeSrcPad<TValue>? GetSrcPad<TValue>(string name)
+        public override SrcPad<TValue>? GetSrcPad<TValue>(string name)
         {
             return null;
         }
@@ -90,7 +90,7 @@ namespace SharPipes.Pipes.Basic
         }
 
         /// <inheritdoc/>
-        public override IEnumerable<IPipeElement> GetPrevNodes()
+        public override IEnumerable<IElement> GetPrevNodes()
         {
             if (this.Sink.Peer != null)
             {
@@ -99,19 +99,19 @@ namespace SharPipes.Pipes.Basic
         }
 
         /// <inheritdoc/>
-        public override IEnumerable<IPipeSinkPad> GetSinkPads()
+        public override IEnumerable<ISinkPad> GetSinkPads()
         {
             yield return this.Sink;
         }
 
         /// <inheritdoc/>
-        public override IEnumerable<IPipeSrcPad> GetSrcPads()
+        public override IEnumerable<ISrcPad> GetSrcPads()
         {
             yield return this.Src;
         }
 
         /// <inheritdoc/>
-        public override IPipeSrcPad? GetSrcPad(string padName)
+        public override ISrcPad? GetSrcPad(string padName)
         {
             if (padName == null)
             {
@@ -126,7 +126,7 @@ namespace SharPipes.Pipes.Basic
         }
 
         /// <inheritdoc/>
-        public override IPipeSinkPad? GetSinkPad(string padName)
+        public override ISinkPad? GetSinkPad(string padName)
         {
             if (padName == null)
             {

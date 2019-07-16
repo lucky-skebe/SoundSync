@@ -36,7 +36,7 @@ namespace SharPipes.UI
         /// </summary>
         public MainWindow()
         {
-            this.PipeElements = new List<IPipeElement>
+            this.PipeElements = new List<IElement>
             {
             };
 
@@ -58,12 +58,12 @@ namespace SharPipes.UI
         }
 
         /// <summary>
-        /// Gets a list of <see cref="IPipeElement"/> to use as templates.
+        /// Gets a list of <see cref="IElement"/> to use as templates.
         /// </summary>
         /// <value>
-        /// A list of <see cref="IPipeElement"/> to use as templates.
+        /// A list of <see cref="IElement"/> to use as templates.
         /// </value>
-        public List<IPipeElement> PipeElements
+        public List<IElement> PipeElements
         {
             get;
         }
@@ -104,7 +104,7 @@ namespace SharPipes.UI
         {
             if (e.Data.GetDataPresent("fromToolBar"))
             {
-                if (e.Data.GetData("fromToolBar") is IPipeElement template)
+                if (e.Data.GetData("fromToolBar") is IElement template)
                 {
                     this.Pipeline.CreateNodeFromTemplate(template, e.GetPosition(sender as IInputElement) - this.offset);
                 }
@@ -215,7 +215,7 @@ namespace SharPipes.UI
             this.isDragging = false;
             this.dragSource = null;
             this.dragData = null;
-            this.HandleDragStart<ListView, ListViewItem, IPipeElement>(e, "fromToolBar");
+            this.HandleDragStart<ListView, ListViewItem, IElement>(e, "fromToolBar");
         }
 
         private void ToolBoxList_PreviewMouseMove(object sender, MouseEventArgs e)

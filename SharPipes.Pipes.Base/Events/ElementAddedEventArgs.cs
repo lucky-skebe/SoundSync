@@ -16,7 +16,7 @@ namespace SharPipes.Pipes.Base.Events
         /// Initializes a new instance of the <see cref="ElementAddedEventArgs"/> class.
         /// </summary>
         /// <param name="element">The added element.</param>
-        public ElementAddedEventArgs(IPipeElement element)
+        public ElementAddedEventArgs(IElement element)
         {
             this.Element = element;
         }
@@ -27,6 +27,6 @@ namespace SharPipes.Pipes.Base.Events
         /// <value>
         /// the added element.
         /// </value>
-        public IPipeElement Element { get; }
+        public IElement Element { get; }
     }
 }

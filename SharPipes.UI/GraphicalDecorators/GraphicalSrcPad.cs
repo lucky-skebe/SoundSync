@@ -13,7 +13,7 @@ namespace SharPipes.UI.GraphicalDecorators
     /// <summary>
     /// Draws a single SrcPad of the given <see cref="Parent"/> <see cref="GraphicalElement"/>.
     /// </summary>
-    public class GraphicalSrcPad : Graphical<IPipeSrcPad>
+    public class GraphicalSrcPad : Graphical<ISrcPad>
     {
         private int padIndex;
 
@@ -23,7 +23,7 @@ namespace SharPipes.UI.GraphicalDecorators
         /// <param name="element">The underlying SrcPad.</param>
         /// <param name="parent">The element his pad belongs to.</param>
         /// <param name="padIndex">The Index of this Pad used to calculate position relative to the element.</param>
-        public GraphicalSrcPad(IPipeSrcPad element, GraphicalElement parent, int padIndex = 0)
+        public GraphicalSrcPad(ISrcPad element, GraphicalElement parent, int padIndex = 0)
             : base(element)
         {
             this.padIndex = padIndex;

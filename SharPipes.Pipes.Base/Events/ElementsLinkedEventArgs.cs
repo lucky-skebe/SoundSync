@@ -17,7 +17,7 @@ namespace SharPipes.Pipes.Base.Events
         /// </summary>
         /// <param name="src">The src pad that was linked.</param>
         /// <param name="sink">The sink pad that was linked.</param>
-        public ElementsLinkedEventArgs(IPipeSrcPad src, IPipeSinkPad sink)
+        public ElementsLinkedEventArgs(ISrcPad src, ISinkPad sink)
         {
             this.Src = src;
             this.Sink = sink;
@@ -29,7 +29,7 @@ namespace SharPipes.Pipes.Base.Events
         /// <value>
         /// The linked src pad.
         /// </value>
-        public IPipeSrcPad Src { get; }
+        public ISrcPad Src { get; }
 
         /// <summary>
         /// Gets the linked sink pad.
@@ -37,6 +37,6 @@ namespace SharPipes.Pipes.Base.Events
         /// <value>
         /// The linked sink pad.
         /// </value>
-        public IPipeSinkPad Sink { get; }
+        public ISinkPad Sink { get; }
     }
 }

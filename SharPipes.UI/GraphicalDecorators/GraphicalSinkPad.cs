@@ -13,7 +13,7 @@ namespace SharPipes.UI.GraphicalDecorators
     /// <summary>
     /// Draws a single SinkPad of the given <see cref="Parent"/> <see cref="GraphicalElement"/>.
     /// </summary>
-    public class GraphicalSinkPad : Graphical<IPipeSinkPad>
+    public class GraphicalSinkPad : Graphical<ISinkPad>
     {
         private int padIndex;
 
@@ -23,7 +23,7 @@ namespace SharPipes.UI.GraphicalDecorators
         /// <param name="element">The underlying SinkPad.</param>
         /// <param name="parent">The element his pad belongs to.</param>
         /// <param name="padIndex">The Index of this Pad used to calculate position relative to the element.</param>
-        public GraphicalSinkPad(IPipeSinkPad element, GraphicalElement parent, int padIndex = 0)
+        public GraphicalSinkPad(ISinkPad element, GraphicalElement parent, int padIndex = 0)
             : base(element)
         {
             this.padIndex = padIndex;

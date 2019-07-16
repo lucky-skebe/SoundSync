@@ -35,6 +35,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CSrteamer.Plugins.Base\CSrteamer.Plugins.Base.csproj" />
+    <ProjectReference Include="..\CStreamer.Plugins.Interfaces\CStreamer.Plugins.Interfaces.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Properties\strings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

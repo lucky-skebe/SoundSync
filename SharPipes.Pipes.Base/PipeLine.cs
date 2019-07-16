@@ -20,9 +20,9 @@ namespace SharPipes.Pipes.Base
     /// </summary>
     public class PipeLine
     {
-        private readonly IList<IPipeElement> elements = new List<IPipeElement>();
+        private readonly IList<IElement> elements = new List<IElement>();
 
-        private readonly IList<IPipeLink> links = new List<IPipeLink>();
+        private readonly IList<ILink> links = new List<ILink>();
 
         private State currentState = State.Stopped;
 
@@ -53,14 +53,14 @@ namespace SharPipes.Pipes.Base
         /// </summary>
         /// <param name="template">The template element.</param>
         /// <returns>A new element of the same type as the template.</returns>
-        public static IPipeElement CreateNodeFromTemplate(IPipeElement template)
+        public static IElement CreateNodeFromTemplate(IElement template)
         {
             if (template == null)
             {
                 throw new ArgumentNullException(nameof(template));
             }
 
-            IPipeElement node = (IPipeElement)template.GetType().GetConstructor(new Type[] { typeof(string?) }).Invoke(new object?[] { null });
+            IElement node = (IElement)template.GetType().GetConstructor(new Type[] { typeof(string?) }).Invoke(new object?[] { null });
             return node;
         }
 
@@ -75,7 +75,7 @@ namespace SharPipes.Pipes.Base
 
             foreach (var element in this.elements)
             {
-                pipeline.Elements.Add(new ElementDefinition(PipeElementFactory.GetName(element.GetType()), element.Name, element.GetPropertyValues().ToList()));
+                pipeline.Elements.Add(new ElementDefinition(Element.GetName(element.GetType()), element.Name, element.GetPropertyValues().ToList()));
             }
 
             foreach (var link in this.links)
@@ -102,11 +102,11 @@ namespace SharPipes.Pipes.Base
             IList<string> errors = new List<string>();
 
             this.Clear();
-            Dictionary<string, IPipeElement> elementCache = new Dictionary<string, IPipeElement>();
+            Dictionary<string, IElement> elementCache = new Dictionary<string, IElement>();
 
             foreach (var element in definition.Elements)
             {
-                IPipeElement? pipeElement = PipeElementFactory.Make(element.TypeFactory, element.Name);
+                IElement? pipeElement = PipeElementFactory.Make(element.TypeFactory, element.Name);
                 if (pipeElement != null)
                 {
                     this.Add(pipeElement);
@@ -125,8 +125,8 @@ namespace SharPipes.Pipes.Base
 
             foreach (var link in definition.Links)
             {
-                IPipeElement? fromElement = elementCache[link.FromElement];
-                IPipeElement? toElement = elementCache[link.ToElement];
+                IElement? fromElement = elementCache[link.FromElement];
+                IElement? toElement = elementCache[link.ToElement];
 
                 if (fromElement == null)
                 {
@@ -140,8 +140,8 @@ namespace SharPipes.Pipes.Base
                     continue;
                 }
 
-                IPipeSrcPad? srcPad = fromElement.GetSrcPad(link.FromPad);
-                IPipeSinkPad? sinkPad = toElement.GetSinkPad(link.ToPad);
+                ISrcPad? srcPad = fromElement.GetSrcPad(link.FromPad);
+                ISinkPad? sinkPad = toElement.GetSinkPad(link.ToPad);
 
                 if (srcPad == null)
                 {
@@ -170,7 +170,7 @@ namespace SharPipes.Pipes.Base
         /// The pipeline handles the <see cref="State"/> of all it's elements and serielizes elements it owns when it gets serialized.
         /// </summary>
         /// <param name="element">The element to add to the pipeline.</param>
-        public void Add(IPipeElement element)
+        public void Add(IElement element)
         {
             this.elements.Add(element);
             this.OnElementAdded(element);
@@ -182,21 +182,16 @@ namespace SharPipes.Pipes.Base
         /// Afterwars this element won't be handled by the pipleline.
         /// </summary>
         /// <param name="element">The element to remove from the pipeline.</param>
-        public void Remove(IPipeElement element)
+        public void Remove(IElement element)
         {
             if (element == null)
             {
                 throw new ArgumentNullException(nameof(element));
             }
 
-            foreach (IPipeSinkPad sink in element.GetSinkPads())
+            foreach (ISinkPad sink in element.GetPads())
             {
                 this.Unlink(sink);
-            }
-
-            foreach (var src in element.GetSrcPads())
-            {
-                this.Unlink(src);
             }
 
             this.elements.Remove(element);
@@ -209,7 +204,7 @@ namespace SharPipes.Pipes.Base
         /// <typeparam name="TValue">The type of data that can be sent.</typeparam>
         /// <param name="src">The src ot the data.</param>
         /// <param name="sink">The destination of the data.</param>
-        public void Connect<TValue>(PipeSrcPad<TValue> src, PipeSinkPad<TValue> sink)
+        public void Connect<TValue>(SrcPad<TValue> src, SinkPad<TValue> sink)
         {
             if (src == null)
             {
@@ -221,7 +216,7 @@ namespace SharPipes.Pipes.Base
                 throw new ArgumentNullException(nameof(sink));
             }
 
-            PipeEdge<TValue> e = new PipeEdge<TValue>(src, sink);
+            Link<TValue> e = new Link<TValue>(src, sink);
             src.Edge = e;
             sink.Edge = e;
             this.links.Add(e);
@@ -235,7 +230,7 @@ namespace SharPipes.Pipes.Base
         /// <param name="sink">The sink pad receiving the data.</param>
         /// <returns>True if the elements were linked. False otherwise.</returns>
         /// <exception cref="ArgumentNullException">If either parameters were null.</exception>
-        public bool TryConnect(IPipeSrcPad src, IPipeSinkPad sink)
+        public bool TryConnect(ISrcPad src, ISinkPad sink)
         {
             if (src == null)
             {
@@ -250,8 +245,8 @@ namespace SharPipes.Pipes.Base
             var srcType = src.GetType();
             var sinkType = sink.GetType();
 
-            var srcBaseType = IsInstanceOfGenericType(typeof(PipeSrcPad<>), srcType);
-            var sinkBaseType = IsInstanceOfGenericType(typeof(PipeSinkPad<>), sinkType);
+            var srcBaseType = IsInstanceOfGenericType(typeof(SrcPad<>), srcType);
+            var sinkBaseType = IsInstanceOfGenericType(typeof(SinkPad<>), sinkType);
 
             if (srcBaseType == null)
             {
@@ -337,34 +332,34 @@ namespace SharPipes.Pipes.Base
             this.links.Clear();
         }
 
-        private void OnElementAdded(IPipeElement element)
+        private void OnElementAdded(IElement element)
         {
             this.ElementAdded?.Invoke(this, new ElementAddedEventArgs(element));
         }
 
-        private void OnElementRemoved(IPipeElement element)
+        private void OnElementRemoved(IElement element)
         {
             this.ElementRemoved?.Invoke(this, new ElementRemovedEventArgs(element));
         }
 
-        private void OnElementsLinked(IPipeSrcPad src, IPipeSinkPad sink)
+        private void OnElementsLinked(ISrcPad src, ISinkPad sink)
         {
             this.ElementsLinked?.Invoke(this, new ElementsLinkedEventArgs(src, sink));
         }
 
-        private void OnElementsUnlinked(IPipeSrcPad src, IPipeSinkPad sink)
+        private void OnElementsUnlinked(ISrcPad src, ISinkPad sink)
         {
             this.ElementsUnlinked?.Invoke(this, new ElementsUnlinkedEventArgs(src, sink));
         }
 
-        private (GraphState, List<IPipeElement>?) GetOrderedElements()
+        private (GraphState, List<IElement>?) GetOrderedElements()
         {
-            List<IPipeElement>? orderedList = new List<IPipeElement>();
+            List<IElement>? orderedList = new List<IElement>();
 
             // TODO Refactor to use an autogenerated node name instead of the nodes hash
-            Dictionary<IPipeElement, IList<IPipeElement>> prevNodeList = new Dictionary<IPipeElement, IList<IPipeElement>>();
-            Dictionary<IPipeElement, IList<IPipeElement>> nextNodeList = new Dictionary<IPipeElement, IList<IPipeElement>>();
-            IList<IPipeElement> startNodes = new List<IPipeElement>();
+            Dictionary<IElement, IList<IElement>> prevNodeList = new Dictionary<IElement, IList<IElement>>();
+            Dictionary<IElement, IList<IElement>> nextNodeList = new Dictionary<IElement, IList<IElement>>();
+            IList<IElement> startNodes = new List<IElement>();
 
             foreach (var element in this.elements)
             {
@@ -382,12 +377,12 @@ namespace SharPipes.Pipes.Base
                 {
                     if (!prevNodeList.ContainsKey(prev))
                     {
-                        prevNodeList.Add(prev, new List<IPipeElement>());
+                        prevNodeList.Add(prev, new List<IElement>());
                     }
 
                     if (!nextNodeList.ContainsKey(element))
                     {
-                        nextNodeList.Add(element, new List<IPipeElement>());
+                        nextNodeList.Add(element, new List<IElement>());
                     }
 
                     prevNodeList[prev].Add(element);
@@ -435,7 +430,7 @@ namespace SharPipes.Pipes.Base
             return (GraphState.OK, orderedList);
         }
 
-        private void Unlink(IPipeSrcPad srcPad)
+        private void Unlink(ISrcPad srcPad)
         {
             var peer = srcPad.Peer;
             if (peer != null)
@@ -446,7 +441,7 @@ namespace SharPipes.Pipes.Base
             }
         }
 
-        private void Unlink(IPipeSinkPad sinkPad)
+        private void Unlink(ISinkPad sinkPad)
         {
             var peer = sinkPad.Peer;
             if (peer != null)

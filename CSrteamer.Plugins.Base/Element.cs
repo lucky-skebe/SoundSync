@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="PipeElement.cs" company="LuckySkebe (fmann12345@gmail.com)">
+// <copyright file="Element.cs" company="LuckySkebe (fmann12345@gmail.com)">
 //     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
 //     Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
@@ -7,25 +7,24 @@
 
 namespace SharPipes.Pipes.Base
 {
+    using SharPipes.Pipes.Base.Attributes;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+    using System.Reflection;
     using System.Threading.Tasks;
-    using SharPipes.Pipes.Base.InteractionInfos;
-    using SharPipes.Pipes.Base.PipeLineDefinitions;
 
     /// <summary>
     /// Baseclass for all element.
     /// </summary>
-    public abstract class PipeElement : IPipeElement
+    public abstract class Element : IElement
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipeElement"/> class.
         /// </summary>
         /// <param name="name">the name ot the element.</param>
-        protected PipeElement(string? name = null)
+        protected Element(string? name = null)
         {
-            this.Name = name ?? $"{PipeElementFactory.GetName(this.GetType())}-{Guid.NewGuid()}";
+            this.Name = name ?? $"{GetName(this.GetType())}-{Guid.NewGuid()}";
             this.CurrentState = State.Stopped;
         }
 
@@ -35,23 +34,47 @@ namespace SharPipes.Pipes.Base
         /// <inheritdoc/>
         public State CurrentState { get; private set; }
 
-        /// <inheritdoc/>
-        public abstract string TypeName { get; }
+        /// <summary>
+        /// Gets the name for a given Type.
+        ///
+        /// These names can either be registered using the <see cref="ElementNameAttribute"/> or will be generated using the Classname.
+        /// Classnames ending in Src, Sink, or Element will get these parts removed.
+        /// </summary>
+        /// <param name="type">the type to resolve the name of.</param>
+        /// <returns>The factoryType name of the given type.</returns>
+        /// <exception cref="ArgumentNullException">if type is null.</exception>
+        public static string GetName(Type type)
+        {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
 
-        /// <inheritdoc/>
-        public virtual IEnumerable<IInteraction> Interactions => Enumerable.Empty<IInteraction>();
+            ElementNameAttribute? attribute;
+            if ((attribute = type.GetCustomAttribute<ElementNameAttribute>()) != null)
+            {
+                return attribute.Name;
+            }
+            else
+            {
+                var typeName = type.Name;
 
-        /// <inheritdoc/>
-        public abstract GraphState Check();
+                if (TrimEnd(typeName, "element", out string trimmed))
+                {
+                    return trimmed;
+                }
+                else if (TrimEnd(typeName, "src", out trimmed))
+                {
+                    return trimmed;
+                }
+                else if (TrimEnd(typeName, "sink", out trimmed))
+                {
+                    return trimmed;
+                }
 
-        /// <inheritdoc/>
-        public abstract IEnumerable<IPipeElement> GetPrevNodes();
-
-        /// <inheritdoc/>
-        public abstract IEnumerable<IPipeSinkPad> GetSinkPads();
-
-        /// <inheritdoc/>
-        public abstract IEnumerable<IPipeSrcPad> GetSrcPads();
+                return type.Name;
+            }
+        }
 
         /// <inheritdoc/>
         public virtual async Task GoToState(State newState)
@@ -79,27 +102,7 @@ namespace SharPipes.Pipes.Base
                 this.CurrentState = transition;
             }
         }
-
-        /// <inheritdoc/>
-        public virtual IEnumerable<PropertyValue> GetPropertyValues()
-        {
-            return this.GetPropertyBindings().Select(propertyValue => propertyValue.GetValue());
-        }
-
-        /// <inheritdoc/>
-        public abstract IPipeSrcPad? GetSrcPad(string srcPadName);
-
-        /// <inheritdoc/>
-        public abstract IPipeSinkPad? GetSinkPad(string sinkPadName);
-
-        /// <inheritdoc/>
-        public virtual bool SetPropertyValue(PropertyValue propvalue)
-        {
-            var setter = this.GetPropertyBindings().FirstOrDefault(setter => setter.TrySetValue(propvalue));
-
-            return setter != null;
-        }
-
+        
         /// <summary>
         /// Contains the logic that should run when changing from the Stopped to the Ready state.
         ///
@@ -144,10 +147,23 @@ namespace SharPipes.Pipes.Base
             return Task.CompletedTask;
         }
 
+        private static bool TrimEnd(string from, string end, out string trimmed)
+        {
+            trimmed = from;
+            if (from.EndsWith(end, StringComparison.OrdinalIgnoreCase))
+            {
+                var index = from.LastIndexOf(end, StringComparison.OrdinalIgnoreCase);
+                trimmed = from.Substring(0, index);
+                return true;
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Gets a list of all Property bindings that should be serialized/deserialized.
         /// </summary>
         /// <returns>List of all the PropertyBindings of hte element.</returns>
-        protected abstract IEnumerable<IPropertyBinding> GetPropertyBindings();
+        public abstract IEnumerable<IPropertyBinding> GetPropertyBindings();
     }
 }

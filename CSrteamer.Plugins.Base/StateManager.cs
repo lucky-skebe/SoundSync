@@ -9,7 +9,7 @@ namespace SharPipes.Pipes.Base
 {
     using System.Collections.Generic;
 
-    internal static class StateManager
+    public static class StateManager
     {
         public static IList<State> GetTransitions(State from, State to)
         {

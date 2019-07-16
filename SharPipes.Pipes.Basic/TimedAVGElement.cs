@@ -19,8 +19,8 @@ namespace SharPipes.Pipes.Basic
     /// <summary>
     /// Takes an average over all inputdata over a given amount of time.
     /// </summary>
-    [Export(typeof(IPipeElement))]
-    public class TimedAVGElement : PipeTransform
+    [Export(typeof(IElement))]
+    public class TimedAVGElement : TransformElement
     {
         private readonly Thread backgroundThread;
 
@@ -35,12 +35,12 @@ namespace SharPipes.Pipes.Basic
         public TimedAVGElement(string? name = null)
             : base(name)
         {
-            this.Src = new PipeSrcPad<double>(this, "src");
+            this.Src = new SrcPad<double>(this, "src");
             this.backgroundThread = new Thread(new ThreadStart(this.BackgroundWorker))
             {
                 IsBackground = true,
             };
-            this.Sink = new PipeSinkPad<float>(this, "sink", (f) =>
+            this.Sink = new SinkPad<float>(this, "sink", (f) =>
             {
                 lock (this)
                 {
@@ -93,7 +93,7 @@ namespace SharPipes.Pipes.Basic
         /// <value>
         /// The one output input this element has.
         /// </value>
-        public PipeSinkPad<float> Sink
+        public SinkPad<float> Sink
         {
             get;
             private set;
@@ -105,7 +105,7 @@ namespace SharPipes.Pipes.Basic
         /// <value>
         /// The one output srcpad this element has.
         /// </value>
-        public PipeSrcPad<double> Src
+        public SrcPad<double> Src
         {
             get;
             private set;
@@ -115,13 +115,13 @@ namespace SharPipes.Pipes.Basic
         public override string TypeName => "Timed Average";
 
         /// <inheritdoc/>
-        public override PipeSinkPad<TValue>? GetSinkPad<TValue>(string name)
+        public override SinkPad<TValue>? GetSinkPad<TValue>(string name)
         {
             return null;
         }
 
         /// <inheritdoc/>
-        public override PipeSrcPad<TValue>? GetSrcPad<TValue>(string name)
+        public override SrcPad<TValue>? GetSrcPad<TValue>(string name)
         {
             return null;
         }
@@ -144,7 +144,7 @@ namespace SharPipes.Pipes.Basic
         }
 
         /// <inheritdoc/>
-        public override IEnumerable<IPipeElement> GetPrevNodes()
+        public override IEnumerable<IElement> GetPrevNodes()
         {
             if (this.Sink.Peer != null)
             {
@@ -153,19 +153,19 @@ namespace SharPipes.Pipes.Basic
         }
 
         /// <inheritdoc/>
-        public override IEnumerable<IPipeSinkPad> GetSinkPads()
+        public override IEnumerable<ISinkPad> GetSinkPads()
         {
             yield return this.Sink;
         }
 
         /// <inheritdoc/>
-        public override IEnumerable<IPipeSrcPad> GetSrcPads()
+        public override IEnumerable<ISrcPad> GetSrcPads()
         {
             yield return this.Src;
         }
 
         /// <inheritdoc/>
-        public override IPipeSrcPad? GetSrcPad(string padName)
+        public override ISrcPad? GetSrcPad(string padName)
         {
             if (padName == null)
             {
@@ -180,7 +180,7 @@ namespace SharPipes.Pipes.Basic
         }
 
         /// <inheritdoc/>
-        public override IPipeSinkPad? GetSinkPad(string padName)
+        public override ISinkPad? GetSinkPad(string padName)
         {
             if (padName == null)
             {
