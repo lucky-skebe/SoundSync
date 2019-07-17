@@ -13,6 +13,9 @@ namespace SharPipes.Pipes.Base
         {
             this.Sink = sink;
             this.Src = src;
+
+            src.Link = this;
+            sink.Link = this;
         }
 
         public SrcPad<TValue> Src { get; }

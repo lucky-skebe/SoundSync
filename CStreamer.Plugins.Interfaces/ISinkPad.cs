@@ -33,5 +33,6 @@ namespace SharPipes.Pipes.Base
         /// The pad on the other side of the link of null if the pad is not linked.
         /// </value>
         new ISrcPad<TValue>? Peer { get; }
+        new ILink<TValue>? Link { get; set; }
     }
 }

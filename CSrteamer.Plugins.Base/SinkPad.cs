@@ -71,6 +71,12 @@ namespace SharPipes.Pipes.Base
 
         IPad? IPad.Peer => this.Peer;
 
+        public ILink<TValue>? Link { get; set; }
+
+        ILink<TValue>? ISinkPad<TValue>.Link { get => this.Link; set => this.Link = value; }
+
+        ILink? IPad.Link => this.Link;
+
         /// <inheritdoc/>
         public bool IsLinked()
         {

@@ -221,8 +221,7 @@ namespace SharPipes.Pipes.Base
             }
 
             Link<TValue> e = new Link<TValue>(src, sink);
-            src.Edge = e;
-            sink.Edge = e;
+            
             this.links.Add(e);
             this.OnElementsLinked(src, sink);
         }

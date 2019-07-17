@@ -27,5 +27,7 @@ namespace SharPipes.Pipes.Base
     public interface ISrcPad<TValue> : ISrcPad
     {
         new ISinkPad<TValue>? Peer { get; }
+
+        new ILink<TValue>? Link { get; set; }
     }
 }

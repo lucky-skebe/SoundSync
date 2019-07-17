@@ -55,13 +55,29 @@ namespace SharPipes.Pipes.Base
             return element.GetSinkPads<TValue>().SingleOrNone(p => p.Name == name);
         }
 
-        public Option<object, string> SetPropertyValue(this IElement element, PropertyValue propertyValue)
+        public static Option<object, string> SetPropertyValue(this IElement element, PropertyValue propertyValue)
         {
             return element
                 .GetPropertyBindings()
                 .FirstOrNone(binding => binding.Name == propertyValue.PropertyName)
                 .WithException($"Could not find Property {propertyValue.PropertyName}")
                 .FlatMap(binding => binding.TrySetValue(propertyValue));
+        }
+
+        public static Option<object?, string> GetPropertyValue(this IElement element, string name)
+        {
+            return element
+                .GetPropertyBindings()
+                .FirstOrNone(binding => binding.Name == name)
+                .WithException($"Could not find Property {name}")
+                .Map<object?>(binding => binding.GetValue().Value);
+        }
+
+        public static IEnumerable<PropertyValue> GetPropertyValues(this IElement element)
+        {
+            return element
+                .GetPropertyBindings()
+                .Select(binding => binding.GetValue());
         }
     }
 }

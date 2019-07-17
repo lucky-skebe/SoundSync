@@ -38,6 +38,8 @@ namespace SharPipes.Pipes.Base
         /// </value>
         IPad? Peer { get; }
 
+        ILink? Link { get; }
+
         /// <summary>
         /// Returns the linking status of the pad.
         /// </summary>
