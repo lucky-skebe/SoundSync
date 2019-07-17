@@ -23,7 +23,7 @@ namespace SharPipes.Pipes.Base
         /// <param name="parent">the element this pad is connected to.</param>
         /// <param name="name">the name of the pad.</param>
         /// <param name="elementCallback">the callback inside the element to push data to.</param>
-        public SinkPad(ISinkElement parent, string name, Action<TValue> elementCallback)
+        public SinkPad(IElement parent, string name, Action<TValue> elementCallback)
         {
             this.Name = name;
             this.ElementCallback = elementCallback;
@@ -31,7 +31,7 @@ namespace SharPipes.Pipes.Base
         }
 
         /// <inheritdoc/>
-        public ISinkElement Parent
+        public IElement Parent
         {
             get;
             protected set;

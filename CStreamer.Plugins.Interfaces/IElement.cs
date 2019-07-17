@@ -7,6 +7,8 @@
 
 namespace SharPipes.Pipes.Base
 {
+    using Optional;
+    using SharPipes.Pipes.Base.PipeLineDefinitions;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
@@ -49,6 +51,6 @@ namespace SharPipes.Pipes.Base
         /// Returns all pads of the element.
         /// </summary>
         /// <returns>All pads.</returns>
-        IEnumerable<ISinkPad> GetPads();
+        IEnumerable<IPad> GetPads();
     }
 }

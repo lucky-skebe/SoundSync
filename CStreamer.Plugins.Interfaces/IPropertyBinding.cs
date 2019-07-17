@@ -7,6 +7,7 @@
 
 namespace SharPipes.Pipes.Base
 {
+    using Optional;
     using SharPipes.Pipes.Base.PipeLineDefinitions;
 
     /// <summary>
@@ -20,12 +21,17 @@ namespace SharPipes.Pipes.Base
         /// </summary>
         /// <param name="propvalue">the name and value of the property to set.</param>
         /// <returns>True if the property was set. False otherwise.</returns>
-        bool TrySetValue(PropertyValue propvalue);
+        Option<object, string> TrySetValue(PropertyValue propvalue);
 
         /// <summary>
         /// Gets the name and value of a property.
         /// </summary>
         /// <returns>The name and value of a property.</returns>
         PropertyValue GetValue();
+
+        string Name
+        {
+            get;
+        }
     }
 }

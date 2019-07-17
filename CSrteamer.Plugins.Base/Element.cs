@@ -7,9 +7,13 @@
 
 namespace SharPipes.Pipes.Base
 {
+    using Optional;
+    using Optional.Collections;
     using SharPipes.Pipes.Base.Attributes;
+    using SharPipes.Pipes.Base.PipeLineDefinitions;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
 
@@ -165,5 +169,6 @@ namespace SharPipes.Pipes.Base
         /// </summary>
         /// <returns>List of all the PropertyBindings of hte element.</returns>
         public abstract IEnumerable<IPropertyBinding> GetPropertyBindings();
+        public abstract IEnumerable<IPad> GetPads();
     }
 }

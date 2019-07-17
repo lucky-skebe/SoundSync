@@ -16,17 +16,6 @@ namespace SharPipes.Pipes.Base
     public interface ISrcPad : IPad, IEquatable<ISrcPad>
     {
         /// <summary>
-        /// Gets the element this pad is a part of.
-        /// </summary>
-        /// <value>
-        /// The element this pad is a part of.
-        /// </value>
-        new ISrcElement Parent
-        {
-            get;
-        }
-
-        /// <summary>
         /// Gets the pad on the other side of the link of null if the pad is not linked.
         /// </summary>
         /// <value>

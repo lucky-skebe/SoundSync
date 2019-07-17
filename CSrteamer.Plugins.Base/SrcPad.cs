@@ -22,14 +22,14 @@ namespace SharPipes.Pipes.Base
         /// </summary>
         /// <param name="parent">the element this pad is connected to.</param>
         /// <param name="name">the name of the pad.</param>
-        public SrcPad(ISrcElement parent, string name)
+        public SrcPad(IElement parent, string name)
         {
             this.Parent = parent;
             this.Name = name;
         }
 
         /// <inheritdoc/>
-        public ISrcElement Parent
+        public IElement Parent
         {
             get;
             protected set;
@@ -53,8 +53,6 @@ namespace SharPipes.Pipes.Base
         ISinkPad<TValue>? ISrcPad<TValue>.Peer => this.Peer;
 
         protected ILink<TValue>? Edge { get; set; }
-
-        ISrcElement ISrcPad.Parent => this.Parent;
 
         IElement IPad.Parent => this.Parent;
 

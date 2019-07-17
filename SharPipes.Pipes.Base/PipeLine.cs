@@ -12,6 +12,7 @@ namespace SharPipes.Pipes.Base
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using Optional;
     using SharPipes.Pipes.Base.Events;
     using SharPipes.Pipes.Base.PipeLineDefinitions;
 
@@ -113,10 +114,9 @@ namespace SharPipes.Pipes.Base
 
                     foreach (var propvalue in element.Properties)
                     {
-                        if (!pipeElement.SetPropertyValue(propvalue))
-                        {
-                            errors.Add($"Property {propvalue} could not be set.");
-                        }
+                        pipeElement
+                            .SetPropertyValue(propvalue)
+                            .MatchNone((error) => errors.Add(error));
                     }
 
                     elementCache.Add(element.Name, pipeElement);
@@ -140,26 +140,30 @@ namespace SharPipes.Pipes.Base
                     continue;
                 }
 
-                ISrcPad? srcPad = fromElement.GetSrcPad(link.FromPad);
-                ISinkPad? sinkPad = toElement.GetSinkPad(link.ToPad);
+                Option<ISrcPad> srcPad = fromElement.GetSrcPad(link.FromPad);
+                Option<ISinkPad> sinkPad = toElement.GetSinkPad(link.ToPad);
 
-                if (srcPad == null)
-                {
-                    errors.Add($"Could not Link from {link.FromElement}:{link.FromPad} because the Pad doesn't exist");
-                    continue;
-                }
 
-                if (sinkPad == null)
-                {
-                    errors.Add($"Could not Link to {link.ToElement}:{link.ToPad} because the Pad doesn't exist");
-                    continue;
-                }
-
-                if (!this.TryConnect(srcPad, sinkPad))
-                {
-                    errors.Add($"Could not Link to {link.ToElement}:{link.ToPad} because the types don't match");
-                    continue;
-                }
+                srcPad.Match(
+                    (srcPad) =>
+                    {
+                        sinkPad.Match(
+                            (sinkPad) =>
+                            {
+                                if (!this.TryConnect(srcPad, sinkPad))
+                                {
+                                    errors.Add($"Could not Link to {link.ToElement}:{link.ToPad} because the types don't match");
+                                }
+                            },
+                            () =>
+                            {
+                                errors.Add($"Could not Link to {link.ToElement}:{link.ToPad} because the Pad doesn't exist");
+                            });
+                    },
+                    () =>
+                    {
+                        errors.Add($"Could not Link from {link.FromElement}:{link.FromPad} because the Pad doesn't exist");
+                    });
             }
 
             return errors;
