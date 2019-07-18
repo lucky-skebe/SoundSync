@@ -5,7 +5,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace SharPipes.Pipes.Base.PipeLineDefinitions
+namespace CStreamer
 {
     /// <summary>
     /// The value of an element property. used for serialization/deserialization.
@@ -19,8 +19,8 @@ namespace SharPipes.Pipes.Base.PipeLineDefinitions
         /// <param name="value">The value of the property.</param>
         public PropertyValue(string propertyName, object? value)
         {
-            this.PropertyName = propertyName;
-            this.Value = value;
+            PropertyName = propertyName;
+            Value = value;
         }
 
         /// <summary>

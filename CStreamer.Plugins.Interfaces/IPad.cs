@@ -7,7 +7,7 @@
 
 using Optional;
 
-namespace SharPipes.Pipes.Base
+namespace CStreamer.Plugins.Interfaces
 {
     public interface IPad
     {

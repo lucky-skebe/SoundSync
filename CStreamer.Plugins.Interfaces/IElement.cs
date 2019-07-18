@@ -5,10 +5,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace SharPipes.Pipes.Base
+namespace CStreamer.Plugins.Interfaces
 {
     using Optional;
-    using SharPipes.Pipes.Base.PipeLineDefinitions;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 

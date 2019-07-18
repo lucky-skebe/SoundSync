@@ -5,7 +5,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace SharPipes.Pipes.Base
+namespace CStreamer
 {
     /// <summary>
     /// State of the Pipeline or Element.

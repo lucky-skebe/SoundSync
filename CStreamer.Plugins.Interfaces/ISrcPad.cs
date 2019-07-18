@@ -5,7 +5,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace SharPipes.Pipes.Base
+namespace CStreamer.Plugins.Interfaces
 {
     using Optional;
     using System;
