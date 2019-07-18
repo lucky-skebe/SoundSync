@@ -20,37 +20,10 @@
             The one output srcpad this element has.
             </value>
         </member>
-        <member name="P:SharPipes.Pipes.Basic.EnumerateElement.TypeName">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.EnumerateElement.GetSinkPad``1(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.EnumerateElement.GetSrcPad``1(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.EnumerateElement.Check">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.EnumerateElement.GetPrevNodes">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.EnumerateElement.GetSinkPads">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.EnumerateElement.GetSrcPads">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.EnumerateElement.GetSrcPad(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.EnumerateElement.GetSinkPad(System.String)">
+        <member name="M:SharPipes.Pipes.Basic.EnumerateElement.GetPads">
             <inheritdoc/>
         </member>
         <member name="M:SharPipes.Pipes.Basic.EnumerateElement.GetPropertyBindings">
-            <inheritdoc/>
-        </member>
-        <member name="P:SharPipes.Pipes.Basic.MultiplyElement.Interactions">
             <inheritdoc/>
         </member>
         <member name="P:SharPipes.Pipes.Basic.MultiplyElement.Sink">
@@ -69,31 +42,7 @@
             The one output srcpad this element has.
             </value>
         </member>
-        <member name="P:SharPipes.Pipes.Basic.MultiplyElement.TypeName">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.MultiplyElement.GetSinkPad``1(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.MultiplyElement.GetSrcPad``1(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.MultiplyElement.Check">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.MultiplyElement.GetPrevNodes">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.MultiplyElement.GetSinkPads">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.MultiplyElement.GetSrcPads">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.MultiplyElement.GetSrcPad(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.MultiplyElement.GetSinkPad(System.String)">
+        <member name="M:SharPipes.Pipes.Basic.MultiplyElement.GetPads">
             <inheritdoc/>
         </member>
         <member name="M:SharPipes.Pipes.Basic.MultiplyElement.GetPropertyBindings">
@@ -118,9 +67,6 @@
             The current average value.
             </value>
         </member>
-        <member name="P:SharPipes.Pipes.Basic.TimedAVGElement.Interactions">
-            <inheritdoc/>
-        </member>
         <member name="P:SharPipes.Pipes.Basic.TimedAVGElement.AVGMs">
             <summary>
             Gets or sets the amount of millisecods between every average calculation.
@@ -144,33 +90,6 @@
             <value>
             The one output srcpad this element has.
             </value>
-        </member>
-        <member name="P:SharPipes.Pipes.Basic.TimedAVGElement.TypeName">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.TimedAVGElement.GetSinkPad``1(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.TimedAVGElement.GetSrcPad``1(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.TimedAVGElement.Check">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.TimedAVGElement.GetPrevNodes">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.TimedAVGElement.GetSinkPads">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.TimedAVGElement.GetSrcPads">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.TimedAVGElement.GetSrcPad(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Basic.TimedAVGElement.GetSinkPad(System.String)">
-            <inheritdoc/>
         </member>
         <member name="M:SharPipes.Pipes.Basic.TimedAVGElement.TransitionReadyPlaying">
             <inheritdoc/>

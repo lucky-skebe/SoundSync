@@ -8,6 +8,7 @@
 namespace SharPipes.Pipes.Base
 {
     using System;
+    using Optional;
 
     /// <summary>
     /// Base class for all SrcPads.
@@ -22,10 +23,11 @@ namespace SharPipes.Pipes.Base
         /// </summary>
         /// <param name="parent">the element this pad is connected to.</param>
         /// <param name="name">the name of the pad.</param>
-        public SrcPad(IElement parent, string name)
+        public SrcPad(IElement parent, string name, bool mandatory)
         {
             this.Parent = parent;
             this.Name = name;
+            this.Mandatory = mandatory;
         }
 
         /// <inheritdoc/>
@@ -44,7 +46,7 @@ namespace SharPipes.Pipes.Base
         /// <value>
         /// The pad on the other side of the link of null if the pad is not linked.
         /// </value>
-        public ISinkPad<TValue>? Peer => this.Edge?.Sink;
+        public ISinkPad<TValue>? Peer { get; private set; }
 
         IPad? IPad.Peer => this.Peer;
 
@@ -52,20 +54,12 @@ namespace SharPipes.Pipes.Base
 
         ISinkPad<TValue>? ISrcPad<TValue>.Peer => this.Peer;
 
-        protected ILink<TValue>? Edge { get; set; }
-
-        IElement IPad.Parent => this.Parent;
-
-        public ILink<TValue>? Link { get; set; }
-
-        ILink<TValue>? ISrcPad<TValue>.Link { get => this.Link; set => this.Link = value; }
-
-        ILink? IPad.Link => this.Link;
+        public bool Mandatory { get; }
 
         /// <inheritdoc/>
         public bool IsLinked()
         {
-            return this.Edge != null;
+            return this.Peer != null;
         }
 
         /// <summary>
@@ -74,17 +68,17 @@ namespace SharPipes.Pipes.Base
         /// <param name="value">the value to push into towards the connected <see cref="PipeSinkPad{TValue}"/>.</param>
         public void Push(TValue value)
         {
-            if (this.Edge != null)
+            if (this.Peer != null)
             {
-                this.Edge.Push(value);
+                this.Peer?.Push(value);
             }
         }
 
         /// <inheritdoc/>
         public void Unlink()
         {
-            this.Edge?.Unlink();
-            this.Edge = null;
+            this.Peer?.Unlink();
+            this.Peer = null;
         }
 
         /// <inheritdoc/>
@@ -102,6 +96,54 @@ namespace SharPipes.Pipes.Base
         public override int GetHashCode()
         {
             return (this.Parent, this.Name).GetHashCode();
+        }
+
+        public Option<ISinkPad<TValue>, string> Link(ISinkPad<TValue> peer)
+        {
+            if (peer == this.Peer)
+            {
+                return Option.Some<ISinkPad<TValue>, string>(peer);
+            }
+
+            this.Peer = peer;
+            return Option.Some<ISinkPad<TValue>, string>(peer);
+        }
+
+        public Option<ISinkPad, string> Link(ISinkPad peer)
+        {
+            if (peer == this.Peer)
+            {
+                return Option.Some<ISinkPad, string>(peer);
+            }
+
+            if (peer is ISinkPad<TValue> truePeer)
+            {
+                this.Peer = truePeer;
+                truePeer.Link(this);
+                return Option.Some<ISinkPad, string>(peer);
+            }
+            else
+            {
+                return Option.None<ISinkPad, string>("Could not link Pads be casue the types didn't match");
+            }
+        }
+
+        public Option<IPad, string> Link(IPad peer)
+        {
+            if (peer == this.Peer)
+            {
+                return Option.Some<IPad, string>(peer);
+            }
+
+            if (peer is ISinkPad<TValue> truePeer)
+            {
+                this.Peer = truePeer;
+                return Option.Some<IPad, string>(peer);
+            }
+            else
+            {
+                return Option.None<IPad, string>("Could not link Pads be casue the types didn't match");
+            }
         }
     }
 }

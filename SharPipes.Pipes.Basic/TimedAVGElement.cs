@@ -20,7 +20,7 @@ namespace SharPipes.Pipes.Basic
     /// Takes an average over all inputdata over a given amount of time.
     /// </summary>
     [Export(typeof(IElement))]
-    public class TimedAVGElement : TransformElement
+    public class TimedAVGElement : Element
     {
         private readonly Thread backgroundThread;
 
@@ -35,7 +35,7 @@ namespace SharPipes.Pipes.Basic
         public TimedAVGElement(string? name = null)
             : base(name)
         {
-            this.Src = new SrcPad<double>(this, "src");
+            this.Src = new SrcPad<double>(this, "src", true);
             this.backgroundThread = new Thread(new ThreadStart(this.BackgroundWorker))
             {
                 IsBackground = true,
@@ -47,7 +47,7 @@ namespace SharPipes.Pipes.Basic
                     this.accumulator += Math.Abs(f);
                     this.count += 1;
                 }
-            });
+            }, true);
         }
 
         /// <summary>
@@ -70,14 +70,14 @@ namespace SharPipes.Pipes.Basic
             }
         }
 
-        /// <inheritdoc/>
-        public override IEnumerable<IInteraction> Interactions
-        {
-            get
-            {
-                yield return new IntParameterInteraction("Time (ms)", () => this.AVGMs, (value) => { this.AVGMs = value; });
-            }
-        }
+        ///// <inheritdoc/>
+        //public override IEnumerable<IInteraction> Interactions
+        //{
+        //    get
+        //    {
+        //        yield return new IntParameterInteraction("Time (ms)", () => this.AVGMs, (value) => { this.AVGMs = value; });
+        //    }
+        //}
 
         /// <summary>
         /// Gets or sets the amount of millisecods between every average calculation.
@@ -112,89 +112,6 @@ namespace SharPipes.Pipes.Basic
         }
 
         /// <inheritdoc/>
-        public override string TypeName => "Timed Average";
-
-        /// <inheritdoc/>
-        public override SinkPad<TValue>? GetSinkPad<TValue>(string name)
-        {
-            return null;
-        }
-
-        /// <inheritdoc/>
-        public override SrcPad<TValue>? GetSrcPad<TValue>(string name)
-        {
-            return null;
-        }
-
-        /// <inheritdoc/>
-        public override GraphState Check()
-        {
-            if (!this.Sink.IsLinked())
-            {
-                return GraphState.INCOMPLETE;
-            }
-            else if (!this.Src.IsLinked())
-            {
-                return GraphState.INCOMPLETE;
-            }
-            else
-            {
-                return GraphState.OK;
-            }
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<IElement> GetPrevNodes()
-        {
-            if (this.Sink.Peer != null)
-            {
-                yield return this.Sink.Peer.Parent;
-            }
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<ISinkPad> GetSinkPads()
-        {
-            yield return this.Sink;
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<ISrcPad> GetSrcPads()
-        {
-            yield return this.Src;
-        }
-
-        /// <inheritdoc/>
-        public override ISrcPad? GetSrcPad(string padName)
-        {
-            if (padName == null)
-            {
-                return null;
-            }
-
-            return padName.ToUpperInvariant() switch
-            {
-                "SRC" => this.Src,
-                _ => null
-            };
-        }
-
-        /// <inheritdoc/>
-        public override ISinkPad? GetSinkPad(string padName)
-        {
-            if (padName == null)
-            {
-                return null;
-            }
-
-            return padName.ToUpperInvariant() switch
-            {
-                "SINK" => this.Sink,
-                _ => null
-            };
-        }
-
-        /// <inheritdoc/>
         protected override Task TransitionReadyPlaying()
         {
             this.running = true;
@@ -210,7 +127,7 @@ namespace SharPipes.Pipes.Basic
         }
 
         /// <inheritdoc/>
-        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
         {
             yield return new PropertyBinding<int>(() => this.AVGMs);
         }
@@ -224,6 +141,12 @@ namespace SharPipes.Pipes.Basic
 
                 this.Src.Push(avg);
             }
+        }
+
+        public override IEnumerable<IPad> GetPads()
+        {
+            yield return this.Sink;
+            yield return this.Src;
         }
     }
 }

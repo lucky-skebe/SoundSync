@@ -44,7 +44,7 @@ namespace SharPipes.UI.GraphicalDecorators
         /// <value>
         /// The name of the element Type.
         /// </value>
-        public string Name => this.Element.TypeName;
+        public string Name => SharPipes.Pipes.Base.Element.GetName(this.Element.GetType());
 
         /// <inheritdoc/>
         public override int ZIndex => (int)ZLayer.Elements;

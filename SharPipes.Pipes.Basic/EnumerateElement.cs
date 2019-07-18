@@ -13,12 +13,12 @@ namespace SharPipes.Pipes.Basic
     using SharPipes.Pipes.Base;
 
     [Export(typeof(IElement))]
-    public class EnumerateElement : TransformElement
+    public class EnumerateElement : Element
     {
         public EnumerateElement(string? name = null)
             : base(name)
         {
-            this.Src = new SrcPad<double>(this, "src");
+            this.Src = new SrcPad<double>(this, "src", true);
             this.Sink = new SinkPad<IEnumerable<float>>(this, "sink", e =>
             {
                 if (e == null)
@@ -30,7 +30,7 @@ namespace SharPipes.Pipes.Basic
                 {
                     this.Src.Push(f);
                 }
-            });
+            }, true);
         }
 
         /// <summary>
@@ -58,90 +58,14 @@ namespace SharPipes.Pipes.Basic
         }
 
         /// <inheritdoc/>
-        public override string TypeName => "Unlist";
-
-        /// <inheritdoc/>
-        public override SinkPad<TValue>? GetSinkPad<TValue>(string name)
-        {
-            return null;
-        }
-
-        /// <inheritdoc/>
-        public override SrcPad<TValue>? GetSrcPad<TValue>(string name)
-        {
-            return null;
-        }
-
-        /// <inheritdoc/>
-        public override GraphState Check()
-        {
-            if (!this.Sink.IsLinked())
-            {
-                return GraphState.INCOMPLETE;
-            }
-            else if (!this.Src.IsLinked())
-            {
-                return GraphState.INCOMPLETE;
-            }
-            else
-            {
-                return GraphState.OK;
-            }
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<IElement> GetPrevNodes()
-        {
-            if (this.Sink.Peer != null)
-            {
-                yield return this.Sink.Peer.Parent;
-            }
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<ISinkPad> GetSinkPads()
+        public override IEnumerable<IPad> GetPads()
         {
             yield return this.Sink;
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<ISrcPad> GetSrcPads()
-        {
             yield return this.Src;
         }
 
         /// <inheritdoc/>
-        public override ISrcPad? GetSrcPad(string padName)
-        {
-            if (padName == null)
-            {
-                return null;
-            }
-
-            return padName.ToUpperInvariant() switch
-            {
-                "SRC" => this.Src,
-                _ => null
-            };
-        }
-
-        /// <inheritdoc/>
-        public override ISinkPad? GetSinkPad(string padName)
-        {
-            if (padName == null)
-            {
-                return null;
-            }
-
-            return padName.ToUpperInvariant() switch
-            {
-                "SINK" => this.Sink,
-                _ => null
-            };
-        }
-
-        /// <inheritdoc/>
-        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
         {
             return Enumerable.Empty<IPropertyBinding>();
         }

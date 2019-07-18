@@ -87,12 +87,6 @@
             The address of the server to connecto to.
             </value>
         </member>
-        <member name="P:SharPipes.Pipes.Buttplug.ButtplugSink.TypeName">
-            <inheritdoc/>
-        </member>
-        <member name="P:SharPipes.Pipes.Buttplug.ButtplugSink.Interactions">
-            <inheritdoc/>
-        </member>
         <member name="M:SharPipes.Pipes.Buttplug.ButtplugSink.StartScanning">
             <summary>
             Tell the Server to stop Scannign for new devices.
@@ -117,22 +111,7 @@
             </summary>
             <returns>A Task representing disconnection process.</returns>
         </member>
-        <member name="M:SharPipes.Pipes.Buttplug.ButtplugSink.GetSinkPad``1(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Buttplug.ButtplugSink.Check">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Buttplug.ButtplugSink.GetPrevNodes">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Buttplug.ButtplugSink.GetSinkPads">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Buttplug.ButtplugSink.GetSrcPad(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Buttplug.ButtplugSink.GetSinkPad(System.String)">
+        <member name="M:SharPipes.Pipes.Buttplug.ButtplugSink.GetPads">
             <inheritdoc/>
         </member>
         <member name="M:SharPipes.Pipes.Buttplug.ButtplugSink.TransitionStoppedReady">

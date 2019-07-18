@@ -13,28 +13,28 @@ namespace SharPipes.Pipes.Basic
     using SharPipes.Pipes.Base.InteractionInfos;
 
     [Export(typeof(IElement))]
-    public class MultiplyElement : TransformElement
+    public class MultiplyElement : Element
     {
         public MultiplyElement(string? name = null)
             : base(name)
         {
-            this.Src = new SrcPad<double>(this, "src");
-            this.Sink = new SinkPad<double>(this, "sink", (f) => this.Src.Push(f * this.Multiplier));
+            this.Src = new SrcPad<double>(this, "src", true);
+            this.Sink = new SinkPad<double>(this, "sink", (f) => this.Src.Push(f * this.Multiplier), true);
         }
 
         public double Multiplier { get; set; } = 10;
 
         /// <inheritdoc/>
-        public override IEnumerable<IInteraction> Interactions
-        {
-            get
-            {
-                yield return new DoubleParameterInteraction(
-                    "Multiplier",
-                    () => this.Multiplier,
-                    (value) => { this.Multiplier = value; });
-            }
-        }
+        //public override IEnumerable<IInteraction> Interactions
+        //{
+        //    get
+        //    {
+        //        yield return new DoubleParameterInteraction(
+        //            "Multiplier",
+        //            () => this.Multiplier,
+        //            (value) => { this.Multiplier = value; });
+        //    }
+        //}
 
         /// <summary>
         /// Gets the one input sinkpad this element has.
@@ -61,90 +61,14 @@ namespace SharPipes.Pipes.Basic
         }
 
         /// <inheritdoc/>
-        public override string TypeName => "Multiply";
-
-        /// <inheritdoc/>
-        public override SinkPad<TValue>? GetSinkPad<TValue>(string name)
-        {
-            return null;
-        }
-
-        /// <inheritdoc/>
-        public override SrcPad<TValue>? GetSrcPad<TValue>(string name)
-        {
-            return null;
-        }
-
-        /// <inheritdoc/>
-        public override GraphState Check()
-        {
-            if (!this.Sink.IsLinked())
-            {
-                return GraphState.INCOMPLETE;
-            }
-            else if (!this.Src.IsLinked())
-            {
-                return GraphState.INCOMPLETE;
-            }
-            else
-            {
-                return GraphState.OK;
-            }
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<IElement> GetPrevNodes()
-        {
-            if (this.Sink.Peer != null)
-            {
-                yield return this.Sink.Peer.Parent;
-            }
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<ISinkPad> GetSinkPads()
+        public override IEnumerable<IPad> GetPads()
         {
             yield return this.Sink;
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<ISrcPad> GetSrcPads()
-        {
             yield return this.Src;
         }
 
         /// <inheritdoc/>
-        public override ISrcPad? GetSrcPad(string padName)
-        {
-            if (padName == null)
-            {
-                return null;
-            }
-
-            return padName.ToUpperInvariant() switch
-            {
-                "SRC" => this.Src,
-                _ => null
-            };
-        }
-
-        /// <inheritdoc/>
-        public override ISinkPad? GetSinkPad(string padName)
-        {
-            if (padName == null)
-            {
-                return null;
-            }
-
-            return padName.ToUpperInvariant() switch
-            {
-                "SINK" => this.Sink,
-                _ => null
-            };
-        }
-
-        /// <inheritdoc/>
-        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
         {
             yield return new PropertyBinding<double>(() => this.Multiplier);
         }

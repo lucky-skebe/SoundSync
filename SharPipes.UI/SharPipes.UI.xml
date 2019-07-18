@@ -206,7 +206,7 @@
             Draws an element of a specific pipeline.
             </summary>
         </member>
-        <member name="M:SharPipes.UI.GraphicalDecorators.GraphicalElement.#ctor(SharPipes.Pipes.Base.IPipeElement,System.Windows.Point,SharPipes.UI.GraphicalDecorators.GraphicalPipeline)">
+        <member name="M:SharPipes.UI.GraphicalDecorators.GraphicalElement.#ctor(SharPipes.Pipes.Base.IElement,System.Windows.Point,SharPipes.UI.GraphicalDecorators.GraphicalPipeline)">
             <summary>
             Initializes a new instance of the <see cref="T:SharPipes.UI.GraphicalDecorators.GraphicalElement"/> class.
             </summary>
@@ -264,7 +264,7 @@
             </summary>
             <param name="graphicalElement">The element to remove from the pipeline.</param>
         </member>
-        <member name="M:SharPipes.UI.GraphicalDecorators.GraphicalPipeline.CreateNodeFromTemplate(SharPipes.Pipes.Base.IPipeElement,System.Windows.Point)">
+        <member name="M:SharPipes.UI.GraphicalDecorators.GraphicalPipeline.CreateNodeFromTemplate(SharPipes.Pipes.Base.IElement,System.Windows.Point)">
             <summary>
             Creates a new element from an existing template.
             Only the type gets copied.
@@ -274,7 +274,7 @@
             <param name="position">The position the element should be rendered at.</param>
             <returns>A new element of the same type as the template.</returns>
         </member>
-        <member name="M:SharPipes.UI.GraphicalDecorators.GraphicalPipeline.Add(SharPipes.Pipes.Base.IPipeElement,System.Windows.Point)">
+        <member name="M:SharPipes.UI.GraphicalDecorators.GraphicalPipeline.Add(SharPipes.Pipes.Base.IElement,System.Windows.Point)">
             <summary>
             Add an element to the pipeline to be handled.
             The pipeline handles the <see cref="T:SharPipes.Pipes.Base.State"/> of all it's elements and serielizes elements it owns when it gets serialized.
@@ -282,7 +282,7 @@
             <param name="element">The element to add to the pipeline.</param>
             <param name="position">The position the element should be rendered at.</param>
         </member>
-        <member name="M:SharPipes.UI.GraphicalDecorators.GraphicalPipeline.Connect``1(SharPipes.Pipes.Base.PipeSrcPad{``0},SharPipes.Pipes.Base.PipeSinkPad{``0})">
+        <member name="M:SharPipes.UI.GraphicalDecorators.GraphicalPipeline.Connect``1(SharPipes.Pipes.Base.SrcPad{``0},SharPipes.Pipes.Base.SinkPad{``0})">
             <summary>
             Connect two element pads, letting them send data from the src to the sink.
             </summary>
@@ -310,7 +310,7 @@
             Draws a single SinkPad of the given <see cref="P:SharPipes.UI.GraphicalDecorators.GraphicalSinkPad.Parent"/> <see cref="T:SharPipes.UI.GraphicalDecorators.GraphicalElement"/>.
             </summary>
         </member>
-        <member name="M:SharPipes.UI.GraphicalDecorators.GraphicalSinkPad.#ctor(SharPipes.Pipes.Base.IPipeSinkPad,SharPipes.UI.GraphicalDecorators.GraphicalElement,System.Int32)">
+        <member name="M:SharPipes.UI.GraphicalDecorators.GraphicalSinkPad.#ctor(SharPipes.Pipes.Base.ISinkPad,SharPipes.UI.GraphicalDecorators.GraphicalElement,System.Int32)">
             <summary>
             Initializes a new instance of the <see cref="T:SharPipes.UI.GraphicalDecorators.GraphicalSinkPad"/> class.
             </summary>
@@ -340,7 +340,7 @@
             Draws a single SrcPad of the given <see cref="P:SharPipes.UI.GraphicalDecorators.GraphicalSrcPad.Parent"/> <see cref="T:SharPipes.UI.GraphicalDecorators.GraphicalElement"/>.
             </summary>
         </member>
-        <member name="M:SharPipes.UI.GraphicalDecorators.GraphicalSrcPad.#ctor(SharPipes.Pipes.Base.IPipeSrcPad,SharPipes.UI.GraphicalDecorators.GraphicalElement,System.Int32)">
+        <member name="M:SharPipes.UI.GraphicalDecorators.GraphicalSrcPad.#ctor(SharPipes.Pipes.Base.ISrcPad,SharPipes.UI.GraphicalDecorators.GraphicalElement,System.Int32)">
             <summary>
             Initializes a new instance of the <see cref="T:SharPipes.UI.GraphicalDecorators.GraphicalSrcPad"/> class.
             </summary>
@@ -572,10 +572,10 @@
         </member>
         <member name="P:SharPipes.UI.MainWindow.PipeElements">
             <summary>
-            Gets a list of <see cref="T:SharPipes.Pipes.Base.IPipeElement"/> to use as templates.
+            Gets a list of <see cref="T:SharPipes.Pipes.Base.IElement"/> to use as templates.
             </summary>
             <value>
-            A list of <see cref="T:SharPipes.Pipes.Base.IPipeElement"/> to use as templates.
+            A list of <see cref="T:SharPipes.Pipes.Base.IElement"/> to use as templates.
             </value>
         </member>
         <member name="P:SharPipes.UI.MainWindow.Pipeline">
@@ -664,36 +664,6 @@
         <member name="T:SharPipes.UI.SettingsControl">
             <summary>
             A Controls that shows Settings/Options for all Interactions of a given element.
-            </summary>
-        </member>
-        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
-            <summary>
-            GeneratedInternalTypeHelper
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
-            <summary>
-            CreateInstance
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            GetPropertyValue
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
-            <summary>
-            SetPropertyValue
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
-            <summary>
-            CreateDelegate
-            </summary>
-        </member>
-        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
-            <summary>
-            AddEventHandler
             </summary>
         </member>
     </members>

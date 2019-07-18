@@ -79,5 +79,20 @@ namespace SharPipes.Pipes.Base
                 .GetPropertyBindings()
                 .Select(binding => binding.GetValue());
         }
+
+        public static IEnumerable<IElement> GetPrevElements(this IElement element)
+        {
+            return element.GetSinkPads().Where(p => p.Peer != null).Select(p => p.Peer.Parent);
+        }
+
+        public static bool CheckLinks (this IElement element)
+        {
+            if (element == null)
+            {
+                return true;
+            }
+
+            return element.GetPads().Where(p => p.Mandatory).Any(p => p.Peer == null);
+        }
     }
 }

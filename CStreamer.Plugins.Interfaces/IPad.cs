@@ -5,6 +5,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Optional;
+
 namespace SharPipes.Pipes.Base
 {
     public interface IPad
@@ -38,7 +40,7 @@ namespace SharPipes.Pipes.Base
         /// </value>
         IPad? Peer { get; }
 
-        ILink? Link { get; }
+        bool Mandatory { get; }
 
         /// <summary>
         /// Returns the linking status of the pad.
@@ -50,5 +52,7 @@ namespace SharPipes.Pipes.Base
         /// Unliks the pad from it's peer pad.
         /// </summary>
         void Unlink();
+
+        Option<IPad, string> Link(IPad peer);
     }
 }

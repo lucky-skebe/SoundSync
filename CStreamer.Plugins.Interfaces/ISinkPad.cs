@@ -7,6 +7,7 @@
 
 namespace SharPipes.Pipes.Base
 {
+    using Optional;
     using System;
 
     /// <summary>
@@ -22,6 +23,8 @@ namespace SharPipes.Pipes.Base
         /// The pad on the other side of the link of null if the pad is not linked.
         /// </value>
         new ISrcPad? Peer { get; }
+
+        Option<ISrcPad, string> Link(ISrcPad peer);
     }
 
     public interface ISinkPad<TValue> : ISinkPad
@@ -33,6 +36,9 @@ namespace SharPipes.Pipes.Base
         /// The pad on the other side of the link of null if the pad is not linked.
         /// </value>
         new ISrcPad<TValue>? Peer { get; }
-        new ILink<TValue>? Link { get; set; }
+
+        void Push(TValue value);
+
+        Option<ISrcPad<TValue>, string> Link(ISrcPad<TValue> peer);
     }
 }

@@ -4,31 +4,12 @@
         <name>SharPipes.Pipes.Base</name>
     </assembly>
     <members>
-        <member name="T:SharPipes.Pipes.Base.Attributes.ElementNameAttribute">
-            <summary>
-            USed to set the name an element can be retrieved by useing <see cref="M:SharPipes.Pipes.Base.PipeElementFactory.Make(System.String,System.String)"/>.
-            </summary>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.Attributes.ElementNameAttribute.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.Attributes.ElementNameAttribute"/> class.
-            </summary>
-            <param name="name">The name to register under.</param>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.Attributes.ElementNameAttribute.Name">
-            <summary>
-            Gets the name to register under.
-            </summary>
-            <value>
-            The name to register under.
-            </value>
-        </member>
         <member name="T:SharPipes.Pipes.Base.Events.ElementAddedEventArgs">
             <summary>
             Provides data for the <see cref="E:SharPipes.Pipes.Base.PipeLine.ElementAdded" /> event.
             </summary>
         </member>
-        <member name="M:SharPipes.Pipes.Base.Events.ElementAddedEventArgs.#ctor(SharPipes.Pipes.Base.IPipeElement)">
+        <member name="M:SharPipes.Pipes.Base.Events.ElementAddedEventArgs.#ctor(SharPipes.Pipes.Base.IElement)">
             <summary>
             Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.Events.ElementAddedEventArgs"/> class.
             </summary>
@@ -47,7 +28,7 @@
             Provides data for the <see cref="E:SharPipes.Pipes.Base.PipeLine.ElementRemoved" /> event.
             </summary>
         </member>
-        <member name="M:SharPipes.Pipes.Base.Events.ElementRemovedEventArgs.#ctor(SharPipes.Pipes.Base.IPipeElement)">
+        <member name="M:SharPipes.Pipes.Base.Events.ElementRemovedEventArgs.#ctor(SharPipes.Pipes.Base.IElement)">
             <summary>
             Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.Events.ElementRemovedEventArgs"/> class.
             </summary>
@@ -66,7 +47,7 @@
             Provides data for the <see cref="E:SharPipes.Pipes.Base.PipeLine.ElementsLinked" /> event.
             </summary>
         </member>
-        <member name="M:SharPipes.Pipes.Base.Events.ElementsLinkedEventArgs.#ctor(SharPipes.Pipes.Base.IPipeSrcPad,SharPipes.Pipes.Base.IPipeSinkPad)">
+        <member name="M:SharPipes.Pipes.Base.Events.ElementsLinkedEventArgs.#ctor(SharPipes.Pipes.Base.ISrcPad,SharPipes.Pipes.Base.ISinkPad)">
             <summary>
             Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.Events.ElementsLinkedEventArgs"/> class.
             </summary>
@@ -94,7 +75,7 @@
             Provides data for the <see cref="E:SharPipes.Pipes.Base.PipeLine.ElementsUnlinked" /> event.
             </summary>
         </member>
-        <member name="M:SharPipes.Pipes.Base.Events.ElementsUnlinkedEventArgs.#ctor(SharPipes.Pipes.Base.IPipeSrcPad,SharPipes.Pipes.Base.IPipeSinkPad)">
+        <member name="M:SharPipes.Pipes.Base.Events.ElementsUnlinkedEventArgs.#ctor(SharPipes.Pipes.Base.ISrcPad,SharPipes.Pipes.Base.ISinkPad)">
             <summary>
             Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.Events.ElementsUnlinkedEventArgs"/> class.
             </summary>
@@ -116,28 +97,6 @@
             <value>
             The unlinked sink pad.
             </value>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.GraphState">
-             <summary>
-             The state teh pipelines Graph is in.
-            
-             If the graph is either incomplete or containes cycles.
-             </summary>
-        </member>
-        <member name="F:SharPipes.Pipes.Base.GraphState.OK">
-            <summary>
-            The Graph is fully linked and non cyclical
-            </summary>
-        </member>
-        <member name="F:SharPipes.Pipes.Base.GraphState.INCOMPLETE">
-            <summary>
-            The Graph is not completely linked
-            </summary>
-        </member>
-        <member name="F:SharPipes.Pipes.Base.GraphState.CYCLE">
-            <summary>
-            The graph contains a cycle that needs to be resolved
-            </summary>
         </member>
         <member name="T:SharPipes.Pipes.Base.InteractionInfos.BoolParameterInteraction">
             <summary>
@@ -342,356 +301,6 @@
             The Value of the Elements Property.
             </value>
         </member>
-        <member name="T:SharPipes.Pipes.Base.IPipeElement">
-            <summary>
-            Defines what members all elements need to implement.
-            </summary>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.IPipeElement.Name">
-            <summary>
-            Gets the name of the element.
-            </summary>
-            <value>
-            The name of the element.
-            </value>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.IPipeElement.CurrentState">
-            <summary>
-            Gets the current state of the element.
-            </summary>
-            <value>
-            The current state of the element.
-            </value>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.IPipeElement.TypeName">
-            <summary>
-            Gets the name of this kind of element.
-            </summary>
-            <value>
-            The name of this kind of element.
-            </value>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.IPipeElement.Interactions">
-            <summary>
-            Gets the interactions this element supports.
-            </summary>
-            <value>
-            The interactions this element supports.
-            </value>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeElement.GoToState(SharPipes.Pipes.Base.State)">
-            <summary>
-            Tells the element to change to a specific State.
-            Changed to all the inbetween states as well.
-            </summary>
-            <param name="newState">The State to change to.</param>
-            <returns>A task that represents the state change operation.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeElement.Check">
-            <summary>
-            Checks if the element can be started.
-            </summary>
-            <returns>The connectionstate of the element.
-            <see cref="F:SharPipes.Pipes.Base.GraphState.OK"/> if all necessary pads are linked.
-            <see cref="F:SharPipes.Pipes.Base.GraphState.INCOMPLETE"/> otherwise.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeElement.GetPrevNodes">
-            <summary>
-            Gets all the elements feeding into this one.
-            </summary>
-            <returns>All the elements feeding data into this one.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeElement.GetSinkPads">
-            <summary>
-            Returns all sink pads of the element.
-            </summary>
-            <returns>All sink pads.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeElement.GetSrcPads">
-            <summary>
-            Returns all src pads of the element.
-            </summary>
-            <returns>All src pads.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeElement.GetPropertyValues">
-            <summary>
-            Gets all property values that should be serialized.
-            </summary>
-            <returns>All property values to serialize.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeElement.SetPropertyValue(SharPipes.Pipes.Base.PipeLineDefinitions.PropertyValue)">
-            <summary>
-            Sets a property based on a <see cref="T:SharPipes.Pipes.Base.PipeLineDefinitions.PropertyValue"/>.
-            </summary>
-            <param name="propertyValze">The property value providing the value.</param>
-            <returns>True if the value was able to be set. False otherwise.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeElement.GetSrcPad(System.String)">
-            <summary>
-            Retrieves a Src pad with a given name.
-            </summary>
-            <param name="name">The name of the pad to retrieve.</param>
-            <returns>The src with the given name or null if either the name wasn't found.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeElement.GetSinkPad(System.String)">
-            <summary>
-            Retrieves a Sink pad with a given name.
-            </summary>
-            <param name="name">The name of the pad to retrieve.</param>
-            <returns>The sink with the given name or null if either the name wasn't found.</returns>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.IPipeLink">
-            <summary>
-            Describes the link between two pads.
-            </summary>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.IPipeLink.Src">
-            <summary>
-            Gets the srs side pad of the link.
-            </summary>
-            <value>
-            The srs side pad of the link.
-            </value>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.IPipeLink.Sink">
-            <summary>
-            Gets the sink side pad of the link.
-            </summary>
-            <value>
-            The sink side pad of the link.
-            </value>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeLink.Unlink">
-            <summary>
-            Unlinks the elements connected by this link.
-            </summary>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.IPipeSink">
-            <summary>
-            Describes the basic interface of all elements that are a pure output.
-            For custom sink elements you should usually use the <see cref="T:SharPipes.Pipes.Base.PipeSink"/> class.
-            </summary>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeSink.GetSinkPad``1(System.String)">
-            <summary>
-            Retrieves a Sink pad with a given name.
-            </summary>
-            <typeparam name="TValue">Type of the <see cref="T:SharPipes.Pipes.Base.PipeSinkPad`1"/>.</typeparam>
-            <param name="name">The name of the pad to retrieve.</param>
-            <returns>The sink with the given name or null if either the name wasn't found or the type of the pad didn't match.</returns>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.IPipeSinkPad">
-            <summary>
-            Describes the minimum requirements for a SinkPad.
-            most of the time <see cref="T:SharPipes.Pipes.Base.PipeSinkPad`1"/> should be used.
-            </summary>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.IPipeSinkPad.Parent">
-            <summary>
-            Gets the element this pad is a part of.
-            </summary>
-            <value>
-            The element this pad is a part of.
-            </value>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.IPipeSinkPad.Name">
-            <summary>
-            Gets the Name of the pad. Usually in the format of [ElementName]-[PadName]
-            Examlple:
-            Multiply-00000000-0000-0000-0000-000000000000-Sink.
-            </summary>
-            <value>
-            The Name of the pad.
-            </value>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.IPipeSinkPad.Peer">
-            <summary>
-            Gets the pad on the other side of the link of null if the pad is not linked.
-            </summary>
-            <value>
-            The pad on the other side of the link of null if the pad is not linked.
-            </value>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeSinkPad.IsLinked">
-            <summary>
-            Returns the linking status of the pad.
-            </summary>
-            <returns>true if the pad is linked, false otherwise.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeSinkPad.Unlink">
-            <summary>
-            Unliks the pad from it's peer pad.
-            </summary>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.IPipeSrc">
-            <summary>
-            Describes the basic interface of all elements that are a pure input.
-            For custom sink elements you should usually use the <see cref="T:SharPipes.Pipes.Base.PipeSrc"/> class.
-            </summary>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeSrc.GetSrcPad``1(System.String)">
-            <summary>
-            Retrieves a Src pad with a given name.
-            </summary>
-            <typeparam name="TValue">Type of the <see cref="T:SharPipes.Pipes.Base.PipeSrcPad`1"/>.</typeparam>
-            <param name="name">The name of the pad to retrieve.</param>
-            <returns>The src with the given name or null if either the name wasn't found or the type of the pad didn't match.</returns>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.IPipeSrcPad">
-            <summary>
-            Describes the minimum requirements for a SrcPad.
-            most of the time <see cref="T:SharPipes.Pipes.Base.PipeSrcPad`1"/> should be used.
-            </summary>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.IPipeSrcPad.Parent">
-            <summary>
-            Gets the element this pad is a part of.
-            </summary>
-            <value>
-            The element this pad is a part of.
-            </value>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.IPipeSrcPad.Name">
-            <summary>
-            Gets the Name of the pad. Usually in the format of [ElementName]-[PadName]
-            Examlple:
-            Multiply-00000000-0000-0000-0000-000000000000-Sink.
-            </summary>
-            <value>
-            The Name of the pad.
-            </value>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.IPipeSrcPad.Peer">
-            <summary>
-            Gets the pad on the other side of the link of null if the pad is not linked.
-            </summary>
-            <value>
-            The pad on the other side of the link of null if the pad is not linked.
-            </value>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeSrcPad.IsLinked">
-            <summary>
-            Returns the linking status of the pad.
-            </summary>
-            <returns>true if the pad is linked, false otherwise.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPipeSrcPad.Unlink">
-            <summary>
-            Unliks the pad from it's peer pad.
-            </summary>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.IPipeTransform">
-            <summary>
-            Defines what members element with both src and sink pads should implement.
-            </summary>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.IPropertyBinding">
-            <summary>
-            Describes the methods all PropertyBinding should implement.
-            Ususally <see cref="T:SharPipes.Pipes.Base.PropertyBinding`1"/> shoule be used when writing custom bindings.
-            </summary>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPropertyBinding.TrySetValue(SharPipes.Pipes.Base.PipeLineDefinitions.PropertyValue)">
-            <summary>
-            Tries to set the value of a specified property.
-            </summary>
-            <param name="propvalue">the name and value of the property to set.</param>
-            <returns>True if the property was set. False otherwise.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.IPropertyBinding.GetValue">
-            <summary>
-            Gets the name and value of a property.
-            </summary>
-            <returns>The name and value of a property.</returns>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.PipeElement">
-            <summary>
-            Baseclass for all element.
-            </summary>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PipeElement"/> class.
-            </summary>
-            <param name="name">the name ot the element.</param>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeElement.Name">
-            <inheritdoc/>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeElement.CurrentState">
-            <inheritdoc/>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeElement.TypeName">
-            <inheritdoc/>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeElement.Interactions">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.Check">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.GetPrevNodes">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.GetSinkPads">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.GetSrcPads">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.GoToState(SharPipes.Pipes.Base.State)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.GetPropertyValues">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.GetSrcPad(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.GetSinkPad(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.SetPropertyValue(SharPipes.Pipes.Base.PipeLineDefinitions.PropertyValue)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.TransitionStoppedReady">
-             <summary>
-             Contains the logic that should run when changing from the Stopped to the Ready state.
-            
-             Usually initalization if external resources.
-             </summary>
-             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the result of the asynchronous state change.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.TransitionReadyPlaying">
-             <summary>
-             Contains the logic that should run when changing from the Ready to the Playing state.
-            
-             Usually preparing to receive data.
-             </summary>
-             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the result of the asynchronous state change.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.TransitionPlayingReady">
-             <summary>
-             Contains the logic that should run when changing from the Playing to the Ready state.
-            
-             Usually stopping data processing.
-             </summary>
-             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the result of the asynchronous state change.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.TransitionReadyStopped">
-             <summary>
-             Contains the logic that should run when changing from the Ready to the Stopped state.
-            
-             Usually freeing of external resources.
-             </summary>
-             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the result of the asynchronous state change.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElement.GetPropertyBindings">
-            <summary>
-            Gets a list of all Property bindings that should be serialized/deserialized.
-            </summary>
-            <returns>List of all the PropertyBindings of hte element.</returns>
-        </member>
         <member name="T:SharPipes.Pipes.Base.PipeElementFactory">
              <summary>
              Create elements give a factoryType name.
@@ -705,17 +314,6 @@
             Gets a list of all known factoryType names.
             </summary>
             <returns>All known factoryType names.</returns>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeElementFactory.GetName(System.Type)">
-             <summary>
-             Gets the name for a given Type.
-            
-             These names can either be registered using the <see cref="T:SharPipes.Pipes.Base.Attributes.ElementNameAttribute"/> or will be generated using the Classname.
-             Classnames ending in Src, Sink, or Element will get these parts removed.
-             </summary>
-             <param name="type">the type to resolve the name of.</param>
-             <returns>The factoryType name of the given type.</returns>
-             <exception cref="T:System.ArgumentNullException">if type is null.</exception>
         </member>
         <member name="M:SharPipes.Pipes.Base.PipeElementFactory.Make(System.String,System.String)">
             <summary>
@@ -750,7 +348,7 @@
             Occurs when two element get unlinked.
             </summary>
         </member>
-        <member name="M:SharPipes.Pipes.Base.PipeLine.CreateNodeFromTemplate(SharPipes.Pipes.Base.IPipeElement)">
+        <member name="M:SharPipes.Pipes.Base.PipeLine.CreateNodeFromTemplate(SharPipes.Pipes.Base.IElement)">
             <summary>
             Creates a new element from an existing template.
             Only the type gets copied.
@@ -774,14 +372,14 @@
             <param name="definition">the pipelinee definition.</param>
             <returns>A list of errors that occured turing the builing of the pipeline.</returns>
         </member>
-        <member name="M:SharPipes.Pipes.Base.PipeLine.Add(SharPipes.Pipes.Base.IPipeElement)">
+        <member name="M:SharPipes.Pipes.Base.PipeLine.Add(SharPipes.Pipes.Base.IElement)">
             <summary>
             Add an element to the pipeline to be handled.
             The pipeline handles the <see cref="T:SharPipes.Pipes.Base.State"/> of all it's elements and serielizes elements it owns when it gets serialized.
             </summary>
             <param name="element">The element to add to the pipeline.</param>
         </member>
-        <member name="M:SharPipes.Pipes.Base.PipeLine.Remove(SharPipes.Pipes.Base.IPipeElement)">
+        <member name="M:SharPipes.Pipes.Base.PipeLine.Remove(SharPipes.Pipes.Base.IElement)">
             <summary>
             Removes an element from the pipeline.
             This unlinks the element from all other elements.
@@ -789,7 +387,7 @@
             </summary>
             <param name="element">The element to remove from the pipeline.</param>
         </member>
-        <member name="M:SharPipes.Pipes.Base.PipeLine.Connect``1(SharPipes.Pipes.Base.PipeSrcPad{``0},SharPipes.Pipes.Base.PipeSinkPad{``0})">
+        <member name="M:SharPipes.Pipes.Base.PipeLine.Connect``1(SharPipes.Pipes.Base.SrcPad{``0},SharPipes.Pipes.Base.SinkPad{``0})">
             <summary>
             Connect two element pads, letting them send data from the src to the sink.
             </summary>
@@ -797,7 +395,7 @@
             <param name="src">The src ot the data.</param>
             <param name="sink">The destination of the data.</param>
         </member>
-        <member name="M:SharPipes.Pipes.Base.PipeLine.TryConnect(SharPipes.Pipes.Base.IPipeSrcPad,SharPipes.Pipes.Base.IPipeSinkPad)">
+        <member name="M:SharPipes.Pipes.Base.PipeLine.TryConnect(SharPipes.Pipes.Base.ISrcPad,SharPipes.Pipes.Base.ISinkPad)">
             <summary>
             Tries to Connect two pads if you don't have strongly typed pads.
             </summary>
@@ -937,195 +535,6 @@
             All links the described pipeline contains.
             </value>
         </member>
-        <member name="T:SharPipes.Pipes.Base.PipeLineDefinitions.PropertyValue">
-            <summary>
-            The value of an element property. used for serialization/deserialization.
-            </summary>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeLineDefinitions.PropertyValue.#ctor(System.String,System.Object)">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PipeLineDefinitions.PropertyValue"/> class.
-            </summary>
-            <param name="propertyName">The name of the property.</param>
-            <param name="value">The value of the property.</param>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeLineDefinitions.PropertyValue.PropertyName">
-            <summary>
-            Gets the name of the property.
-            </summary>
-            <value>
-            The name of the property.
-            </value>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeLineDefinitions.PropertyValue.Value">
-            <summary>
-            Gets the value of the property.
-            </summary>
-            <value>
-            The value of the property.
-            </value>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.PipeSink">
-            <summary>
-            Baseclass for all elements that only have sink pads.
-            </summary>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSink.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PipeSink"/> class.
-            </summary>
-            <param name="name">The name of the element.</param>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSink.GetSinkPad``1(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSink.GetSrcPads">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSink.GetPropertyBindings">
-            <inheritdoc/>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.PipeSinkPad`1">
-             <summary>
-             Base class for all SinkPads.
-            
-             Data always flows from <see cref="T:SharPipes.Pipes.Base.PipeSrcPad`1"/> to <see cref="T:SharPipes.Pipes.Base.PipeSinkPad`1"/>.
-             </summary>
-             <typeparam name="TValue">The typt of value this pad can accept.</typeparam>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSinkPad`1.#ctor(SharPipes.Pipes.Base.IPipeSink,System.String,System.Action{`0})">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PipeSinkPad`1"/> class.
-            </summary>
-            <param name="parent">the element this pad is connected to.</param>
-            <param name="name">the name of the pad.</param>
-            <param name="elementCallback">the callback inside the element to push data to.</param>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeSinkPad`1.Parent">
-            <inheritdoc/>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeSinkPad`1.Name">
-            <inheritdoc/>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeSinkPad`1.Peer">
-            <summary>
-            Gets the pad on the other side of the link of null if the pad is not linked.
-            </summary>
-            <value>
-            The pad on the other side of the link of null if the pad is not linked.
-            </value>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeSinkPad`1.ElementCallback">
-            <summary>
-            Gets or sets the element callback.
-            </summary>
-            <value>
-            The element callback.
-            this callback is called each time a value is pushed from the connected edge.
-            </value>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSinkPad`1.IsLinked">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSinkPad`1.Push(`0)">
-            <summary>
-            Pushed data along the pipeline.
-            </summary>
-            <param name="value">the value to push into the element.</param>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSinkPad`1.Unlink">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSinkPad`1.Equals(SharPipes.Pipes.Base.IPipeSinkPad)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSinkPad`1.GetHashCode">
-            <inheritdoc/>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.PipeSrc">
-            <summary>
-            Baseclass for all elements that only have src pads.
-            </summary>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSrc.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PipeSrc"/> class.
-            </summary>
-            <param name="name">the name of the element.</param>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSrc.GetSinkPads">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSrc.GetSrcPad``1(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSrc.GetPropertyBindings">
-            <inheritdoc/>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.PipeSrcPad`1">
-             <summary>
-             Base class for all SrcPads.
-            
-             Data always flows from <see cref="T:SharPipes.Pipes.Base.PipeSrcPad`1"/> to <see cref="T:SharPipes.Pipes.Base.PipeSinkPad`1"/>.
-             </summary>
-             <typeparam name="TValue">The typt of value this pad can push throu the pipeline.</typeparam>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSrcPad`1.#ctor(SharPipes.Pipes.Base.IPipeSrc,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PipeSrcPad`1"/> class.
-            </summary>
-            <param name="parent">the element this pad is connected to.</param>
-            <param name="name">the name of the pad.</param>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeSrcPad`1.Parent">
-            <inheritdoc/>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeSrcPad`1.Name">
-            <inheritdoc/>
-        </member>
-        <member name="P:SharPipes.Pipes.Base.PipeSrcPad`1.Peer">
-            <summary>
-            Gets the pad on the other side of the link of null if the pad is not linked.
-            </summary>
-            <value>
-            The pad on the other side of the link of null if the pad is not linked.
-            </value>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSrcPad`1.IsLinked">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSrcPad`1.Push(`0)">
-            <summary>
-            Pushed data along the pipeline.
-            </summary>
-            <param name="value">the value to push into towards the connected <see cref="T:SharPipes.Pipes.Base.PipeSinkPad`1"/>.</param>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSrcPad`1.Unlink">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSrcPad`1.Equals(SharPipes.Pipes.Base.IPipeSrcPad)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeSrcPad`1.GetHashCode">
-            <inheritdoc/>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.PipeTransform">
-            <summary>
-            Base class for elemnts that have both sink and src pads.
-            </summary>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeTransform.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PipeTransform"/> class.
-            </summary>
-            <param name="name">The name of the element.</param>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeTransform.GetSinkPad``1(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.Base.PipeTransform.GetSrcPad``1(System.String)">
-            <inheritdoc/>
-        </member>
         <member name="T:SharPipes.Pipes.Base.Properties.strings">
             <summary>
               Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
@@ -1162,7 +571,7 @@
             <summary>
             Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PropertyBinding`1"/> class.
             </summary>
-            <param name="name">than name of the property.</param>
+            <param name="name">The name of the property.</param>
             <param name="setValue">How to set the properties value.</param>
             <param name="getValue">How to get teh properties value.</param>
             <param name="convert">a Custom conversion logic if no generic cast can be determined.</param>
@@ -1178,32 +587,6 @@
         </member>
         <member name="M:SharPipes.Pipes.Base.PropertyBinding`1.TrySetValue(SharPipes.Pipes.Base.PipeLineDefinitions.PropertyValue)">
             <inheritdoc/>
-        </member>
-        <member name="T:SharPipes.Pipes.Base.State">
-            <summary>
-            State of the Pipeline or Element.
-            Pretty Similar to the GStreamer State.
-            </summary>
-        </member>
-        <member name="F:SharPipes.Pipes.Base.State.Playing">
-            <summary>
-            Playlist/Element is playing.
-            Data is getting pushed throu it.
-            </summary>
-        </member>
-        <member name="F:SharPipes.Pipes.Base.State.Ready">
-            <summary>
-            Playlist/Element is ready.
-            All Elements have finished their initalization.
-            But no data is flowing yet.
-            </summary>
-        </member>
-        <member name="F:SharPipes.Pipes.Base.State.Stopped">
-            <summary>
-            Playlist/Element is stopped.
-            No data is flowing
-            Elements may not be initialized yet or may have releases their resources.
-            </summary>
         </member>
     </members>
 </doc>

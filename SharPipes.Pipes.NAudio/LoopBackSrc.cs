@@ -19,11 +19,12 @@ namespace SharPipes.Pipes.NAudio
     /// Reads audiosamples from the Windows loopback device.
     /// </summary>
     [Export(typeof(IElement))]
-    public class LoopBackSrc : SrcElement, IDisposable
+    public class LoopBackSrc : Element, IDisposable
     {
         private readonly WasapiLoopbackCapture loopback;
 
-        private readonly SrcPad<float> src;
+        public SrcPad<float> Src { get; }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LoopBackSrc"/> class.
@@ -34,7 +35,7 @@ namespace SharPipes.Pipes.NAudio
         {
             this.loopback = new WasapiLoopbackCapture();
             this.loopback.DataAvailable += this.Loopback_DataAvailable;
-            this.src = new SrcPad<float>(this, "src");
+            this.Src = new SrcPad<float>(this, "src", true);
         }
 
         /// <summary>
@@ -47,57 +48,10 @@ namespace SharPipes.Pipes.NAudio
         }
 
         /// <inheritdoc/>
-        public override string TypeName => "Audio Loopback";
-
-        /// <inheritdoc/>
-        public override SrcPad<TValue>? GetSrcPad<TValue>(string name)
+        public override IEnumerable<IPad> GetPads()
         {
-            return null;
+            yield return this.Src;
         }
-
-        /// <inheritdoc/>
-        public override GraphState Check()
-        {
-            if (this.src.IsLinked())
-            {
-                return GraphState.OK;
-            }
-            else
-            {
-                return GraphState.INCOMPLETE;
-            }
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<IElement> GetPrevNodes()
-        {
-            return Enumerable.Empty<IElement>();
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<ISrcPad> GetSrcPads()
-        {
-            yield return this.src;
-        }
-
-        /// <inheritdoc/>
-        public override ISrcPad? GetSrcPad(string padName)
-        {
-            if (padName == null)
-            {
-                return null;
-            }
-
-            return padName.ToUpperInvariant() switch
-            {
-                "SRC" => this.src,
-                _ => null
-            };
-        }
-
-        /// <inheritdoc/>
-        public override ISinkPad? GetSinkPad(string toPad)
-            => null;
 
         /// <inheritdoc/>
         public void Dispose()
@@ -144,8 +98,13 @@ namespace SharPipes.Pipes.NAudio
             {
                 var sample = buffer.FloatBuffer[index];
 
-                this.src.Push(sample);
+                this.Src.Push(sample);
             }
+        }
+
+        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        {
+            return Enumerable.Empty<IPropertyBinding>();
         }
     }
 }

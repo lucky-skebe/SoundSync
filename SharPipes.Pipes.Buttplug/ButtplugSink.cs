@@ -23,7 +23,7 @@ namespace SharPipes.Pipes.Buttplug
     /// Sends the inputdata to selected Buttplug Devices as Vibrationcommands.
     /// </summary>
     [Export(typeof(IElement))]
-    public class ButtplugSink : SinkElement
+    public class ButtplugSink : Element
     {
         private readonly CommandInteraction connectInteraction;
         private readonly CommandInteraction startScanningInteraction;
@@ -32,8 +32,10 @@ namespace SharPipes.Pipes.Buttplug
         private readonly ButtplugDeviceInteraction deviceInteraction;
 
         private readonly IList<ButtPlugClientDeviceWrapper> deviceList = new List<ButtPlugClientDeviceWrapper>();
+
+        public SinkPad<double> Sink { get; }
+
         private readonly ButtplugServerStateMachine stateMachine;
-        private readonly SinkPad<double> sink;
 
         private List<string> selectedDeviceCache;
         private ButtplugClient? client;
@@ -46,7 +48,7 @@ namespace SharPipes.Pipes.Buttplug
         public ButtplugSink(string? name = null)
             : base(name)
         {
-            this.sink = new SinkPad<double>(this, "sink", (f) =>
+            this.Sink = new SinkPad<double>(this, "sink", (f) =>
             {
                 if (this.lastVal != f)
                 {
@@ -63,7 +65,7 @@ namespace SharPipes.Pipes.Buttplug
                         this.lastVal = f;
                     }
                 }
-            });
+            }, true);
 
             this.stateMachine = new ButtplugServerStateMachine();
 
@@ -111,22 +113,19 @@ namespace SharPipes.Pipes.Buttplug
         /// </value>
         public string ServerAddress { get; set; } = "ws://localhost:12345/buttplug";
 
-        /// <inheritdoc/>
-        public override string TypeName => "Buttplug";
-
-        /// <inheritdoc/>
-        public override IEnumerable<IInteraction> Interactions
-        {
-            get
-            {
-                yield return new StringParameterInteraction("ServerAddress:", () => this.ServerAddress, (serverUrl) => this.ServerAddress = serverUrl);
-                yield return this.connectInteraction;
-                yield return this.disconnectInteraction;
-                yield return this.startScanningInteraction;
-                yield return this.stopScanningInteraction;
-                yield return this.deviceInteraction;
-            }
-        }
+        ///// <inheritdoc/>
+        //public override IEnumerable<IInteraction> Interactions
+        //{
+        //    get
+        //    {
+        //        yield return new StringParameterInteraction("ServerAddress:", () => this.ServerAddress, (serverUrl) => this.ServerAddress = serverUrl);
+        //        yield return this.connectInteraction;
+        //        yield return this.disconnectInteraction;
+        //        yield return this.startScanningInteraction;
+        //        yield return this.stopScanningInteraction;
+        //        yield return this.deviceInteraction;
+        //    }
+        //}
 
         /// <summary>
         /// Tell the Server to stop Scannign for new devices.
@@ -204,56 +203,9 @@ namespace SharPipes.Pipes.Buttplug
         }
 
         /// <inheritdoc/>
-        public override SinkPad<TValue>? GetSinkPad<TValue>(string name)
+        public override IEnumerable<IPad> GetPads()
         {
-            return null;
-        }
-
-        /// <inheritdoc/>
-        public override GraphState Check()
-        {
-            if (this.sink.IsLinked())
-            {
-                return GraphState.OK;
-            }
-            else
-            {
-                return GraphState.INCOMPLETE;
-            }
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<IElement> GetPrevNodes()
-        {
-            if (this.sink.Peer != null)
-            {
-                yield return this.sink.Peer.Parent;
-            }
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<ISinkPad> GetSinkPads()
-        {
-            yield return this.sink;
-        }
-
-        /// <inheritdoc/>
-        public override ISrcPad? GetSrcPad(string fromPad)
-            => null;
-
-        /// <inheritdoc/>
-        public override ISinkPad? GetSinkPad(string padName)
-        {
-            if (padName == null)
-            {
-                return null;
-            }
-
-            return padName.ToUpperInvariant() switch
-            {
-                "SINK" => this.sink,
-                _ => null
-            };
+            yield return this.Sink;
         }
 
         /// <inheritdoc/>
@@ -269,7 +221,7 @@ namespace SharPipes.Pipes.Buttplug
         }
 
         /// <inheritdoc/>
-        protected override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
         {
             yield return new PropertyBinding<string>(() => this.ServerAddress);
             yield return new PropertyBinding<List<string>>(

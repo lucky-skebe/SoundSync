@@ -20,25 +20,7 @@
             Finalizes an instance of the <see cref="T:SharPipes.Pipes.NAudio.LoopBackSrc"/> class.
             </summary>
         </member>
-        <member name="P:SharPipes.Pipes.NAudio.LoopBackSrc.TypeName">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.NAudio.LoopBackSrc.GetSrcPad``1(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.NAudio.LoopBackSrc.Check">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.NAudio.LoopBackSrc.GetPrevNodes">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.NAudio.LoopBackSrc.GetSrcPads">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.NAudio.LoopBackSrc.GetSrcPad(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:SharPipes.Pipes.NAudio.LoopBackSrc.GetSinkPad(System.String)">
+        <member name="M:SharPipes.Pipes.NAudio.LoopBackSrc.GetPads">
             <inheritdoc/>
         </member>
         <member name="M:SharPipes.Pipes.NAudio.LoopBackSrc.Dispose">
