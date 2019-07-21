@@ -12,6 +12,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using static CStreamer.Designer.Avalonia.Views.ToolBarView;
 
 namespace CStreamer.Designer.Avalonia.Views
 {
@@ -22,22 +23,7 @@ namespace CStreamer.Designer.Avalonia.Views
         private Point offset;
         private DataObject? dragData;
 
-        public class EventObserver
-        {
-            private readonly PipelineView parent;
-
-            public EventObserver(PipelineView parent)
-            {
-                this.parent = parent;
-            }
-
-            public IObservable<EventPattern<PointerPressedEventArgs>> PointerPressed => Observable.FromEventPattern<PointerPressedEventArgs>(handler => this.parent.PointerPressed += handler, handler => this.parent.PointerPressed -= handler);
-            public IObservable<EventPattern<PointerEventArgs>> PointerMoved => Observable.FromEventPattern<PointerEventArgs>(handler => this.parent.PointerMoved += handler, handler => this.parent.PointerMoved -= handler);
-            public IObservable<EventPattern<PointerReleasedEventArgs>> PointerReleased => Observable.FromEventPattern<PointerReleasedEventArgs>(handler => this.parent.PointerReleased += handler, handler => this.parent.PointerReleased -= handler);
-
-        }
-
-        private void Canvas_Drop(object sender, DragEventArgs e)
+        private void Canvas_Drop(DragEventArgs e)
         {
             //if (e.Data.Contains("fromToolBar"))
             //{
@@ -66,16 +52,6 @@ namespace CStreamer.Designer.Avalonia.Views
             //        }
             //    }
             //}
-            //else 
-            if (e.Data.Contains("moveElement"))
-            {
-                if (e.Data.Get("moveElement") is ElementViewModel element)
-                {
-                    Point newPos = e.GetPosition(sender as IInputElement) - this.offset;
-
-                    element.MoveTo(newPos);
-                }
-            }
         }
 
         private void HandleDragStart<TItem, TViewModel>(PointerPressedEventArgs e, string format)
@@ -114,9 +90,9 @@ namespace CStreamer.Designer.Avalonia.Views
 
             var diff = this.startPoint - mousePos;
 
-            if (e.InputModifiers.HasFlag(InputModifiers.LeftMouseButton) && 
-                (Math.Abs(diff.X) > 5 ||
-                Math.Abs(diff.Y) > 5)) //TODO: create constants
+            if (e.InputModifiers.HasFlag(InputModifiers.LeftMouseButton) &&
+                (Math.Abs(diff.X) > Settings.MinDragDistance ||
+                Math.Abs(diff.Y) > Settings.MinDragDistance))
             {
                 this.isDragging = true;
 
@@ -124,7 +100,7 @@ namespace CStreamer.Designer.Avalonia.Views
             }
         }
 
-        
+
 
         protected override void OnPointerPressed(PointerPressedEventArgs e)
         {
@@ -143,22 +119,37 @@ namespace CStreamer.Designer.Avalonia.Views
 
         public PipelineView()
         {
-
-            this.WhenActivated(disposables =>
-            {
-                this.AddHandler<DragEventArgs>(DragDrop.DropEvent, Canvas_Drop);
-            });
             this.InitializeComponent();
         }
 
         private void InitializeComponent()
         {
+            this.WhenActivated(disposables =>
+            {
+                var drop = this.Events().Drop;
+
+                drop.Where(@event => @event.EventArgs.Data.Contains("moveElement"))
+                    .Select(@event => (@event.EventArgs.Data.Get("moveElement") as ElementViewModel, @event.EventArgs.GetPosition(this) - this.offset))
+                    .Subscribe((ev) => ev.Item1?.MoveTo(ev.Item2))
+                    .DisposeWith(disposables);
+
+                drop.Where(@event => @event.EventArgs.Data.Contains("newElement"))
+                    .Select(@event => new { Name = @event.EventArgs.Data.Get("newElement") as string, Position = @event.EventArgs.GetPosition(this) - new Vector(Settings.ElementWidth / 2, Settings.ElementHeight / 2) })
+                    .Subscribe((ev) => {
+                        if (ev.Name != null)
+                        {
+                            this.ViewModel.CreateElement(ev.Name, ev.Position);
+                        }
+                    })
+                    .DisposeWith(disposables);
+
+            });
             AvaloniaXamlLoader.Load(this);
         }
 
-        public EventObserver Events()
+        public EventObserver<PipelineView> Events()
         {
-            return new EventObserver(this);
+            return new EventObserver<PipelineView>(this);
         }
     }
 }

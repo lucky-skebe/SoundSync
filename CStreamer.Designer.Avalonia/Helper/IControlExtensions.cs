@@ -13,7 +13,7 @@ namespace CStreamer.Designer.Avalonia.Helper
         {
             do
             {
-                Debug.WriteLine(current);
+                // Debug.WriteLine(current);
                 if (current is T)
                 {
                     return (T)current;
