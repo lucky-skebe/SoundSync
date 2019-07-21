@@ -1,0 +1,24 @@
+﻿<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CStreamer.Designer.Avalonia"
+             x:Class="CStreamer.Designer.Avalonia.App"
+             xmlns:controls="clr-namespace:CStreamer.Designer.Avalonia.Controls;assembly=CStreamer.Designer.Avalonia">
+  <Application.DataTemplates>
+    <local:ViewLocator/>
+  </Application.DataTemplates>
+
+  <Application.Styles>
+    <Style Selector="controls|PipelineItemsControl">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <ItemsPresenter Name="PART_ItemsPresenter"
+                          Items="{TemplateBinding Items}"
+                          ItemsPanel="{TemplateBinding ItemsPanel}"
+                          ItemTemplate="{TemplateBinding ItemTemplate}"/>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+    <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
+    <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
+  </Application.Styles>
+</Application>

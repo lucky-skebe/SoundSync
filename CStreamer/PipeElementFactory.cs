@@ -32,7 +32,7 @@ namespace CStreamer
                 {
                     if (type.IsClass && !type.IsAbstract)
                     {
-                        string name = Element.GetName(type);
+                        string name = CStreamer.IElementExtensions.GetElementName(type);
                         Types.Add(name, type);
                     }
                 }

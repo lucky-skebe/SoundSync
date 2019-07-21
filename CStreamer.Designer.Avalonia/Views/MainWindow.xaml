@@ -1,0 +1,31 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:CStreamer.Designer.Avalonia.ViewModels;assembly=CStreamer.Designer.Avalonia"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CStreamer.Designer.Avalonia.Views;assembly=CStreamer.Designer.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="CStreamer.Designer.Avalonia.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="CStreamer.Designer.Avalonia">
+
+  <DockPanel>
+    <Grid DockPanel.Dock="Bottom" Height="20"/>
+
+    <local:ToolBarView Name="ToolBar" DockPanel.Dock="Left" Width="150" DataContext="{Binding ToolBar}">
+      <local:ToolBarView.Transitions>
+        <DoubleTransition Property="Width" Duration="0:0:0.2">
+        </DoubleTransition>
+      </local:ToolBarView.Transitions>
+    </local:ToolBarView>
+
+    <ListBox Name="Settings" DockPanel.Dock="Right" Width="150">
+      <ListBox.Transitions>
+        <DoubleTransition Property="Width" Duration="0:0:0.2">
+        </DoubleTransition>
+      </ListBox.Transitions>
+    </ListBox>
+    <local:PipelineView DataContext="{Binding Pipeline}" />
+  </DockPanel>
+
+</Window>

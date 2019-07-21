@@ -7,6 +7,7 @@
 
 namespace CStreamer.Plugins.Base
 {
+    using CStreamer.Base;
     using CStreamer.Plugins.Attributes;
     using CStreamer.Plugins.Interfaces;
     using System;
@@ -25,7 +26,7 @@ namespace CStreamer.Plugins.Base
         /// <param name="name">the name ot the element.</param>
         protected Element(string? name = null)
         {
-            this.Name = name ?? $"{GetName(this.GetType())}-{Guid.NewGuid()}";
+            this.Name = name ?? $"{(this.GetElementName())}-{Guid.NewGuid()}";
             this.CurrentState = State.Stopped;
         }
 
@@ -34,48 +35,6 @@ namespace CStreamer.Plugins.Base
 
         /// <inheritdoc/>
         public State CurrentState { get; private set; }
-
-        /// <summary>
-        /// Gets the name for a given Type.
-        ///
-        /// These names can either be registered using the <see cref="ElementNameAttribute"/> or will be generated using the Classname.
-        /// Classnames ending in Src, Sink, or Element will get these parts removed.
-        /// </summary>
-        /// <param name="type">the type to resolve the name of.</param>
-        /// <returns>The factoryType name of the given type.</returns>
-        /// <exception cref="ArgumentNullException">if type is null.</exception>
-        public static string GetName(Type type)
-        {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
-
-            ElementNameAttribute? attribute;
-            if ((attribute = type.GetCustomAttribute<ElementNameAttribute>()) != null)
-            {
-                return attribute.Name;
-            }
-            else
-            {
-                var typeName = type.Name;
-
-                if (TrimEnd(typeName, "element", out string trimmed))
-                {
-                    return trimmed;
-                }
-                else if (TrimEnd(typeName, "src", out trimmed))
-                {
-                    return trimmed;
-                }
-                else if (TrimEnd(typeName, "sink", out trimmed))
-                {
-                    return trimmed;
-                }
-
-                return type.Name;
-            }
-        }
 
         /// <inheritdoc/>
         public virtual async Task GoToState(State newState)
@@ -148,18 +107,7 @@ namespace CStreamer.Plugins.Base
             return Task.CompletedTask;
         }
 
-        private static bool TrimEnd(string from, string end, out string trimmed)
-        {
-            trimmed = from;
-            if (from.EndsWith(end, StringComparison.OrdinalIgnoreCase))
-            {
-                var index = from.LastIndexOf(end, StringComparison.OrdinalIgnoreCase);
-                trimmed = from.Substring(0, index);
-                return true;
-            }
-
-            return false;
-        }
+        
 
         /// <summary>
         /// Gets a list of all Property bindings that should be serialized/deserialized.

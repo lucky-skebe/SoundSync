@@ -5,7 +5,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace CStreamer.Plugins.Base
+namespace CStreamer.Base
 {
     using CStreamer.Plugins.Interfaces;
     using System.Collections.Generic;

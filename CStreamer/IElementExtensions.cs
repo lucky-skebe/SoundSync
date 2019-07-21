@@ -5,7 +5,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace CStreamer
+namespace CStreamer.Base
 {
     using CStreamer.Plugins.Interfaces;
     using Optional;

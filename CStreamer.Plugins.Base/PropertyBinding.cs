@@ -52,10 +52,9 @@ namespace CStreamer
                 throw new ArgumentNullException(nameof(property));
             }
 
-            var body = property.Body as MemberExpression;
-            if (body == null)
+            if (!(property.Body is MemberExpression body))
             {
-                throw new ArgumentException(Properties.strings.LambdaMustReturnAProperty);
+                throw new ArgumentException("Lambda must return a property.");
             }
 
             var caller = (body.Expression as ConstantExpression)?.Value;
@@ -69,7 +68,7 @@ namespace CStreamer
             }
             else
             {
-                throw new ArgumentException(Properties.strings.InvalidSetValueExpression);
+                throw new ArgumentException("Invalid SetValue Expression.");
             }
         }
 

@@ -14,9 +14,9 @@ namespace CStreamer
     using System.Threading.Tasks;
     using CStreamer.Events;
     using CStreamer.PipeLineDefinitions;
-    using CStreamer.Plugins.Base;
-    using CStreamer.Plugins.Interfaces;
+    using CStreamer.Base;
     using Optional;
+    using CStreamer.Plugins.Interfaces;
 
     /// <summary>
     /// A complete pipeline consisting of linked elements that transform data from one form to another.
@@ -76,7 +76,7 @@ namespace CStreamer
 
             foreach (var element in this.elements)
             {
-                pipeline.Elements.Add(new ElementDefinition(Element.GetName(element.GetType()), element.Name, element.GetPropertyValues().ToList()));
+                pipeline.Elements.Add(new ElementDefinition(element.GetElementName(), element.Name, element.GetPropertyValues().ToList()));
 
                 foreach (var srcPad in element.GetSrcPads())
                 {
@@ -211,7 +211,7 @@ namespace CStreamer
         /// <typeparam name="TValue">The type of data that can be sent.</typeparam>
         /// <param name="src">The src ot the data.</param>
         /// <param name="sink">The destination of the data.</param>
-        public void Connect<TValue>(SrcPad<TValue> src, SinkPad<TValue> sink)
+        public void Connect<TValue>(ISrcPad<TValue> src, ISinkPad<TValue> sink)
         {
             if (src == null)
             {
@@ -250,8 +250,8 @@ namespace CStreamer
             var srcType = src.GetType();
             var sinkType = sink.GetType();
 
-            var srcBaseType = IsInstanceOfGenericType(typeof(SrcPad<>), srcType);
-            var sinkBaseType = IsInstanceOfGenericType(typeof(SinkPad<>), sinkType);
+            var srcBaseType = IsInstanceOfGenericType(typeof(ISrcPad<>), srcType);
+            var sinkBaseType = IsInstanceOfGenericType(typeof(ISinkPad<>), sinkType);
 
             if (srcBaseType == null)
             {
