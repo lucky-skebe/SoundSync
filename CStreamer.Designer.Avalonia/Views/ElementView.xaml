@@ -2,10 +2,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helper="clr-namespace:CStreamer.Designer.Avalonia.Helper;assembly=CStreamer.Designer.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CStreamer.Designer.Avalonia.Views.ElementView"
              Background="White">
-  <Border BorderBrush="Black" BorderThickness="1" Width="100" Height="80" CornerRadius="2" >
+  <Border BorderBrush="Black" BorderThickness="1" Width="{x:Static helper:Settings.ElementWidth}" Height="{x:Static helper:Settings.ElementHeight}" CornerRadius="2" >
     <TextBlock Text="{Binding Name}"
               VerticalAlignment="Stretch"
               HorizontalAlignment="Stretch"

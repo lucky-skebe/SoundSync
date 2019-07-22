@@ -8,7 +8,7 @@ using System.Text;
 
 namespace CStreamer.Designer.Avalonia.ViewModels
 {
-    public class ElementViewModel : ViewModelBase
+    public class ElementViewModel : ViewModelBase, ICStreamerViewModel
     {
         private double x;
 
@@ -29,7 +29,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 
         public string Name => model.GetElementName();
 
-        public int ZIndex => (int)ZLayer.Elements;
+        public int ZIndex => ZLayer.Elements;
 
         public void MoveTo(Point position)
         {

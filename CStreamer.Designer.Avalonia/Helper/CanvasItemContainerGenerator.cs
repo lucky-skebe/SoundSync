@@ -23,7 +23,7 @@ namespace CStreamer.Designer.Avalonia.Helper
         {
             
             var container = base.CreateContainer(item);
-            if (item is ElementViewModel vm)
+            if (item is ICStreamerViewModel vm)
             {
                 container.Bind(Canvas.TopProperty, vm.WhenAnyValue(x => x.Y), BindingPriority.TemplatedParent);
                 container.Bind(Canvas.LeftProperty, vm.WhenAnyValue(x => x.X), BindingPriority.TemplatedParent);
