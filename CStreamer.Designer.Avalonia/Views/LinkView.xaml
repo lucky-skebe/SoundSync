@@ -4,16 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CStreamer.Designer.Avalonia.Views.LinkView"
-             Width="{Binding Width}" Height="{Binding Height}">
-  <Path Stroke="Black" StrokeThickness="1" >
-    <Path.Data>
-      <PathGeometry>
-        <PathGeometry.Figures>
-          <PathFigure StartPoint="{Binding Start}" IsClosed="false">
-            <BezierSegment Point1="{Binding Control1}" Point2="{Binding Control2}" Point3="{Binding End}" />
-          </PathFigure>
-        </PathGeometry.Figures>
-      </PathGeometry>
-    </Path.Data>
-  </Path>
+             Width="{Binding Width}" Height="{Binding Height}"
+             BorderBrush="Magenta" BorderThickness="0" IsHitTestVisible="False">
 </UserControl>

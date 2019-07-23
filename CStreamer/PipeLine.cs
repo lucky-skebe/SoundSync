@@ -250,8 +250,8 @@ namespace CStreamer
             var srcType = src.GetType();
             var sinkType = sink.GetType();
 
-            var srcBaseType = IsInstanceOfGenericType(typeof(ISrcPad<>), srcType);
-            var sinkBaseType = IsInstanceOfGenericType(typeof(ISinkPad<>), sinkType);
+            var srcBaseType = ImplementsGenericInterface(typeof(ISrcPad<>), srcType);
+            var sinkBaseType = ImplementsGenericInterface(typeof(ISinkPad<>), sinkType);
 
             if (srcBaseType == null)
             {
@@ -311,20 +311,17 @@ namespace CStreamer
             };
         }
 
-        private static Type? IsInstanceOfGenericType(Type genericType, Type instanceType)
+        private static Type? ImplementsGenericInterface(Type genericType, Type instanceType)
         {
-            while (instanceType != null)
-            {
-                if (instanceType.IsGenericType &&
-                    instanceType.GetGenericTypeDefinition() == genericType)
-                {
-                    return instanceType;
-                }
+            var interfaces = instanceType.FindInterfaces(filterGenericType, genericType);
+                
 
-                instanceType = instanceType.BaseType;
-            }
+            return interfaces.SingleOrDefault();
+        }
 
-            return null;
+        private static bool filterGenericType(Type typeObj, Object criteriaObj)
+        {
+            return typeObj.IsGenericType && typeObj.GetGenericTypeDefinition() == criteriaObj;
         }
 
         private void Clear()

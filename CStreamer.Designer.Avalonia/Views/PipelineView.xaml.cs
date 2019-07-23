@@ -23,46 +23,11 @@ namespace CStreamer.Designer.Avalonia.Views
         private Point offset;
         private DataObject? dragData;
 
-        private void Canvas_Drop(DragEventArgs e)
-        {
-            //if (e.Data.Contains("fromToolBar"))
-            //{
-            //    if (e.Data.Get("fromToolBar") is IElement template)
-            //    {
-            //        this.Pipeline.CreateNodeFromTemplate(template, e.GetPosition(sender as IInputElement) - this.offset);
-            //    }
-            //}
-            //else if (e.Data.Contains("drawEdge"))
-            //{
-            //    if (e.Data.Get("drawEdge") is GraphicalSrcPad src)
-            //    {
-            //        PipeLineItem? listViewItem =
-            //            ((DependencyObject)e.OriginalSource).FindAnchestor<PipeLineItem>();
-
-            //        if (!(sender is PipeLineRenderer listView) || listViewItem == null)
-            //        {
-            //            return;
-            //        }
-
-            //        // Find the data behind the ListViewItem
-            //        if (listView.ItemContainerGenerator.
-            //            ItemFromContainer(listViewItem) is GraphicalSinkPad sink)
-            //        {
-            //            this.Pipeline.TryConnect(src, sink);
-            //        }
-            //    }
-            //}
-        }
-
         private void HandleDragStart<TItem, TViewModel>(PointerPressedEventArgs e, string format)
             where TItem : class, IControl, IViewFor<TViewModel>
             where TViewModel : class
         {
             TItem? listViewItem = (e.Source as IControl)?.FindAnchestor<TItem>();
-
-            var presenter = (e.Source as IControl)?.FindAnchestor<Canvas>();
-
-            //Debug.WriteLine(presenter.GetValue(Canvas.TopProperty));
 
             if (listViewItem == null)
             {
@@ -107,7 +72,7 @@ namespace CStreamer.Designer.Avalonia.Views
             this.isDragging = false;
             this.dragData = null;
             this.HandleDragStart<ElementView, ElementViewModel>(e, "moveElement");
-            //this.HandleDragStart<PipeLineRenderer, PipeLineItem, GraphicalSrcPad>(e, "drawEdge");
+            this.HandleDragStart<PadView, SrcPadViewModel?>(e, "drawEdge");
             base.OnPointerPressed(e);
         }
 
@@ -141,6 +106,12 @@ namespace CStreamer.Designer.Avalonia.Views
                             this.ViewModel.CreateElement(ev.Name, ev.Position);
                         }
                     })
+                    .DisposeWith(disposables);
+
+                drop.Where(@event => @event.EventArgs.Data.Contains("drawEdge"))
+                    .Select(@event => new { Src = @event.EventArgs.Data.Get("drawEdge") as SrcPadViewModel, Sink = (@event.EventArgs.Source as IControl).FindAnchestor<PadView>()?.DataContext as SinkPadViewModel })
+                    .Where(link => link.Src != null && link.Sink!=null)
+                    .Subscribe((ev) => this.ViewModel.TryConnect(ev.Src, ev.Sink) )
                     .DisposeWith(disposables);
 
             });

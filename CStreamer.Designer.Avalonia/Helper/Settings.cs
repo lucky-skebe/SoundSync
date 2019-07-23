@@ -19,6 +19,6 @@ namespace CStreamer.Designer.Avalonia.Helper
         public static int PadDistance => 5;
         public static int PadTopOffset => 15;
 
-        public static int LinkBezierPadding => 10;
+        public static int LinkBezierPadding => 25;
     }
 }

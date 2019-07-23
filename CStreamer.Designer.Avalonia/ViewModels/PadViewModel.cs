@@ -21,8 +21,8 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             Element = element;
             PadIndex = padIndex;
 
-            this.x = this.Element.WhenAnyValue(e => e.X).Select(x => x + this.XOffset - Settings.PadRadius).ToProperty(this, x => x.X);
-            this.y = this.Element.WhenAnyValue(e => e.Y).Select(y => y + this.YOffset - Settings.PadRadius).ToProperty(this, x => x.Y);
+            this.x = this.Element.WhenAnyValue(e => e.X).Select(x => x + this.XOffset - Settings.PadRadius).ToProperty(this, pad => pad.X);
+            this.y = this.Element.WhenAnyValue(e => e.Y).Select(y => y + this.YOffset - Settings.PadRadius).ToProperty(this, pad => pad.Y);
 
             this.WhenActivated((disposables) =>
             {
