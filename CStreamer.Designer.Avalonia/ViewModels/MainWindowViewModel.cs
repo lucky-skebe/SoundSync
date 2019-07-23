@@ -6,10 +6,10 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public MainWindowViewModel(IEnumerable<string> elements)
+        public MainWindowViewModel(PipeLine pipeline, IEnumerable<string> elementTypes)
         {
-            this.ToolBar = new ToolBarViewModel(elements);
-            this.Pipeline = new PipelineViewModel();
+            this.ToolBar = new ToolBarViewModel(elementTypes);
+            this.Pipeline = new PipelineViewModel(pipeline);
         }
 
         public ToolBarViewModel ToolBar { get; }

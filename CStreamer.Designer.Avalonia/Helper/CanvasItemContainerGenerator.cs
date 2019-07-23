@@ -27,6 +27,7 @@ namespace CStreamer.Designer.Avalonia.Helper
             {
                 container.Bind(Canvas.TopProperty, vm.WhenAnyValue(x => x.Y), BindingPriority.TemplatedParent);
                 container.Bind(Canvas.LeftProperty, vm.WhenAnyValue(x => x.X), BindingPriority.TemplatedParent);
+                //container.Bind(Panel.ZIndexProperty, vm.WhenAnyValue(x => x.ZIndex), BindingPriority.TemplatedParent);
 
             }
 

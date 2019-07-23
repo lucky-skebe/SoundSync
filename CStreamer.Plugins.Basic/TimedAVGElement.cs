@@ -9,7 +9,6 @@ namespace CStreamer.Plugins.Basic
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.Composition;
     using System.Threading;
     using System.Threading.Tasks;
     using CStreamer;
@@ -19,7 +18,6 @@ namespace CStreamer.Plugins.Basic
     /// <summary>
     /// Takes an average over all inputdata over a given amount of time.
     /// </summary>
-    [Export(typeof(IElement))]
     public class TimedAVGElement : Element
     {
         private readonly Thread backgroundThread;

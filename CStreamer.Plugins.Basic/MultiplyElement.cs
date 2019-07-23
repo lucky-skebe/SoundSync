@@ -8,12 +8,10 @@
 namespace CStreamer.Plugins.Basic
 {
     using System.Collections.Generic;
-    using System.ComponentModel.Composition;
     using CStreamer.Plugins.Base;
     using CStreamer.Plugins.Interfaces;
     using CStreamer;
 
-    [Export(typeof(IElement))]
     public class MultiplyElement : Element
     {
         public MultiplyElement(string? name = null)

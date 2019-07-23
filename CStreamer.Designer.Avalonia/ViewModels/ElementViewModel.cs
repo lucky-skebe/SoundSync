@@ -14,20 +14,27 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 
         private double y;
 
-        private readonly IElement model;
+        public IElement Model { get; }
 
-        public ElementViewModel(double x, double y, IElement model)
+        public ElementViewModel(IElement model, double x, double y)
         {
             this.x = x;
             this.y = y;
-            this.model = model;
+            this.Model = model;
+        }
+
+        public ElementViewModel(IElement model, Point position )
+        {
+            this.x = position.X;
+            this.y = position.Y;
+            this.Model = model;
         }
 
         public double X { get => this.x; private set => this.RaiseAndSetIfChanged(ref this.x, value); }
 
         public double Y { get => this.y; private set => this.RaiseAndSetIfChanged(ref this.y, value); }
 
-        public string Name => model.GetElementName();
+        public string Name => this.Model.GetElementName();
 
         public int ZIndex => ZLayer.Elements;
 
@@ -44,7 +51,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
                 return false;
             }
 
-            return this.model.Equals(other.model);
+            return this.Model.Equals(other.Model);
         }
 
         //internal void Delete()

@@ -25,13 +25,8 @@ namespace CStreamer.Designer.Avalonia
         // container, etc.
         private static void AppMain(Application app, string[] args)
         {
-            var viewModel = new MainWindowViewModel(PipeElementFactory.GetFactoryTypes());
-
             var pipeline = new PipeLine();
-
-            var element = PipeElementFactory.Make("Multiply", null);
-
-            viewModel.Pipeline.Items.Add(new ElementViewModel(100, 100, element));
+            var viewModel = new MainWindowViewModel(pipeline, PipeElementFactory.GetFactoryTypes());
             
             var window = new MainWindow
             {

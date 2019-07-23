@@ -9,7 +9,8 @@ namespace CStreamer
 {
     using System;
     using System.Collections.Generic;
-    using CStreamer.Helpers;
+    using System.Reflection;
+    using CStreamer.Plugins.Attributes;
     using CStreamer.Plugins.Interfaces;
 
     /// <summary>
@@ -24,18 +25,14 @@ namespace CStreamer
 
         static PipeElementFactory()
         {
-            var parts = MEFExtensions.GetRegisteredTypes<IElement>();
+            SearchDirectory(".", false);
+            SearchDirectory("./plugins", true);
 
-            foreach (var type in parts)
+            var plugindir = System.Environment.GetEnvironmentVariable("CSTREAMER_PLUGIN_DIR");
+
+            if(plugindir != null)
             {
-                if (typeof(IElement).IsAssignableFrom(type))
-                {
-                    if (type.IsClass && !type.IsAbstract)
-                    {
-                        string name = CStreamer.IElementExtensions.GetElementName(type);
-                        Types.Add(name, type);
-                    }
-                }
+                SearchDirectory(plugindir, true);
             }
         }
 
@@ -65,6 +62,30 @@ namespace CStreamer
             else
             {
                 return null;
+            }
+        }
+
+        private static void SearchDirectory(string path, bool searchSubdirs = true)
+        {
+            var dir = new System.IO.DirectoryInfo(path);
+
+            if (!dir.Exists)
+            {
+                return;
+            }
+
+            var files = dir.GetFiles("*.dll", searchSubdirs ? System.IO.SearchOption.AllDirectories : System.IO.SearchOption.TopDirectoryOnly);
+
+            foreach (var file in files)
+            {
+                Assembly assembly = Assembly.LoadFrom(file.FullName);
+                foreach (Type type in assembly.DefinedTypes)
+                {
+                    if (typeof(IElement).IsAssignableFrom(type) && type.IsClass && !type.IsAbstract)
+                    {
+                        Types[IElementExtensions.GetElementName(type)] = type;
+                    }
+                }
             }
         }
     }

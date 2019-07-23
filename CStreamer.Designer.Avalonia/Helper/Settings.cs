@@ -12,10 +12,12 @@ namespace CStreamer.Designer.Avalonia.Helper
 
         public static int MinDragDistance => 5;
 
-        public static int PadSize => 10;
+        public static int PadRadius => 5;
+
+        public static int PadSize => 2 * PadRadius;
 
         public static int PadDistance => 5;
-        public static int PadTopOffset => 10;
+        public static int PadTopOffset => 15;
 
         public static int LinkBezierPadding => 10;
     }

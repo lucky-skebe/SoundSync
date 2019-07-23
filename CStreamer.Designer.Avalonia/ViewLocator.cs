@@ -1,6 +1,9 @@
 using System;
+using System.Linq;
+using System.Reflection;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using CStreamer.Designer.Avalonia.Helper;
 using CStreamer.Designer.Avalonia.ViewModels;
 
 namespace CStreamer.Designer.Avalonia
@@ -11,8 +14,17 @@ namespace CStreamer.Designer.Avalonia
 
         public IControl Build(object data)
         {
-            var name = data.GetType().FullName.Replace("ViewModel", "View");
-            var type = Type.GetType(name);
+            Type type;
+            if (data.GetType().GetCustomAttributes().OfType<LocateViewAttribute>().SingleOrDefault() is LocateViewAttribute attribute)
+            {
+                type = attribute.TargetType;
+            } else
+            {
+                var name = data.GetType().FullName.Replace("ViewModel", "View");
+                type = Type.GetType(name);
+            }
+            
+            
 
             if (type != null)
             {
@@ -20,7 +32,7 @@ namespace CStreamer.Designer.Avalonia
             }
             else
             {
-                return new TextBlock { Text = "Not Found: " + name };
+                return new TextBlock { Text = "Not Found: " + data.GetType().Name };
             }
         }
 

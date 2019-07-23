@@ -8,12 +8,10 @@
 namespace CStreamer.Plugins.Basic
 {
     using System.Collections.Generic;
-    using System.ComponentModel.Composition;
     using System.Linq;
     using CStreamer.Plugins.Base;
     using CStreamer.Plugins.Interfaces;
 
-    [Export(typeof(IElement))]
     public class EnumerateElement : Element
     {
         public EnumerateElement(string? name = null)
