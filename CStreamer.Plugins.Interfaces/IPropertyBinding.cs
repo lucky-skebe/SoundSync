@@ -8,6 +8,7 @@
 namespace CStreamer.Plugins.Interfaces
 {
     using Optional;
+    using System;
 
     /// <summary>
     /// Describes the methods all PropertyBinding should implement.
@@ -15,6 +16,8 @@ namespace CStreamer.Plugins.Interfaces
     /// </summary>
     public interface IPropertyBinding
     {
+        public event EventHandler<BindingValueChangedEventArgs> ValueChanged;
+
         /// <summary>
         /// Tries to set the value of a specified property.
         /// </summary>
@@ -32,5 +35,12 @@ namespace CStreamer.Plugins.Interfaces
         {
             get;
         }
+    }
+
+    public interface IPropertyBinding<TValue>: IPropertyBinding
+    {
+        public new event EventHandler<BindingValueChangedEventArgs<TValue>> ValueChanged;
+
+        public TValue Value { get; set; }
     }
 }

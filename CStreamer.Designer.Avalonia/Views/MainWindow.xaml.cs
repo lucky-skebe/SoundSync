@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using CStreamer.Designer.Avalonia.ViewModels;
+using CStreamer.Plugins.Designer.Base;
 using ReactiveUI;
 using System;
 using System.Diagnostics;
@@ -17,6 +18,7 @@ namespace CStreamer.Designer.Avalonia.Views
 
         public MainWindow()
         {
+
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();

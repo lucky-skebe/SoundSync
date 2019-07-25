@@ -18,11 +18,13 @@ namespace CStreamer
     /// Describes how to set/get a certain properties value.
     /// </summary>
     /// <typeparam name="TValue">The Type of the underlying property.</typeparam>
-    public class PropertyBinding<TValue> : IPropertyBinding
+    public class PropertyBinding<TValue> : IPropertyBinding<TValue>
     {
         private readonly Action<TValue> setValue;
         private readonly Func<TValue> getValue;
         private readonly Func<object?, Option<TValue>>? convert;
+
+        public event EventHandler<BindingValueChangedEventArgs<TValue>> ValueChanged;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyBinding{TValue}"/> class.
@@ -40,6 +42,7 @@ namespace CStreamer
         }
 
         public string Name { get; }
+        public TValue Value { get => this.getValue(); set => this.setValue(value); }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyBinding{TValue}"/> class.
@@ -70,6 +73,23 @@ namespace CStreamer
             {
                 throw new ArgumentException("Invalid SetValue Expression.");
             }
+        }
+
+        event EventHandler<BindingValueChangedEventArgs> IPropertyBinding.ValueChanged
+        {
+            add
+            {
+                this.ValueChanged += (sender, args) => value(sender, args);
+            }
+            remove
+            {
+                this.ValueChanged -= (sender, args) => value(sender, args);
+            }
+        }
+
+        public void RaiseValueChanged(TValue value)
+        {
+            this.ValueChanged?.Invoke(this, new BindingValueChangedEventArgs<TValue>(value));
         }
 
         /// <inheritdoc/>

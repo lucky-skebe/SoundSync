@@ -25,7 +25,5 @@ namespace CStreamer.Designer.Avalonia.Helper
         public IObservable<EventPattern<PointerReleasedEventArgs>> PointerReleased => Observable.FromEventPattern<PointerReleasedEventArgs>(handler => this.parent.PointerReleased += handler, handler => this.parent.PointerReleased -= handler);
 
         public IObservable<EventPattern<DragEventArgs>> Drop => Observable.FromEventPattern<DragEventArgs>(handler => this.parent.AddHandler<DragEventArgs>(DragDrop.DropEvent, handler), handler => this.parent.RemoveHandler<DragEventArgs>(DragDrop.DropEvent, handler));
-
-
     }
 }

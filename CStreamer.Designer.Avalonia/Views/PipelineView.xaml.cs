@@ -1,10 +1,12 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
+using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 using CStreamer.Designer.Avalonia.Helper;
 using CStreamer.Designer.Avalonia.ViewModels;
+using CStreamer.Plugins.Interfaces;
 using ReactiveUI;
 using System;
 using System.Diagnostics;
@@ -18,6 +20,8 @@ namespace CStreamer.Designer.Avalonia.Views
 {
     public class PipelineView : ReactiveUserControl<PipelineViewModel>
     {
+        public static readonly StyledProperty<IElement> SelectedElementProperty = AvaloniaProperty.Register<PipelineView, IElement>(nameof(SelectedElement));
+
         private Point startPoint;
         private bool isDragging;
         private Point offset;
@@ -76,6 +80,12 @@ namespace CStreamer.Designer.Avalonia.Views
             base.OnPointerPressed(e);
         }
 
+        public IElement SelectedElement
+        {
+            get => GetValue(SelectedElementProperty);
+            set => SetValue(SelectedElementProperty, value);
+        }
+
         protected override void OnPointerMoved(PointerEventArgs e)
         {
             this.HandleDragOver(e);
@@ -100,7 +110,8 @@ namespace CStreamer.Designer.Avalonia.Views
 
                 drop.Where(@event => @event.EventArgs.Data.Contains("newElement"))
                     .Select(@event => new { Name = @event.EventArgs.Data.Get("newElement") as string, Position = @event.EventArgs.GetPosition(this) - new Vector(Settings.ElementWidth / 2, Settings.ElementHeight / 2) })
-                    .Subscribe((ev) => {
+                    .Subscribe((ev) =>
+                    {
                         if (ev.Name != null)
                         {
                             this.ViewModel.CreateElement(ev.Name, ev.Position);
@@ -110,10 +121,15 @@ namespace CStreamer.Designer.Avalonia.Views
 
                 drop.Where(@event => @event.EventArgs.Data.Contains("drawEdge"))
                     .Select(@event => new { Src = @event.EventArgs.Data.Get("drawEdge") as SrcPadViewModel, Sink = (@event.EventArgs.Source as IControl).FindAnchestor<PadView>()?.DataContext as SinkPadViewModel })
-                    .Where(link => link.Src != null && link.Sink!=null)
-                    .Subscribe((ev) => this.ViewModel.TryConnect(ev.Src, ev.Sink) )
+                    .Where(link => link.Src != null && link.Sink != null)
+                    .Subscribe((ev) => this.ViewModel.TryConnect(ev.Src, ev.Sink))
                     .DisposeWith(disposables);
 
+                this.Events().PointerReleased
+                    .Select(@event => (@event.EventArgs.Source as IControl)?.FindAnchestor<ElementView>()?.ViewModel?.Model)
+                    .Where(element => element != null)
+                    .Subscribe((val) => SetValue(SelectedElementProperty, val, BindingPriority.LocalValue))
+                    .DisposeWith(disposables);
             });
             AvaloniaXamlLoader.Load(this);
         }

@@ -33,9 +33,9 @@
     <None Remove="Views\ToolBarView.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.8.0" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.8.0" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.8.0" />
+    <PackageReference Include="Avalonia" Version="0.8.1" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.8.1" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.8.1" />
     <PackageReference Include="NSubsys" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -69,6 +69,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CStreamer.Plugins.Basic\CStreamer.Plugins.Basic.csproj" />
     <ProjectReference Include="..\CStreamer.Plugins.Buttplug\CStreamer.Plugins.Buttplug.csproj" />
+    <ProjectReference Include="..\CStreamer.Plugins.Designer.Base\CStreamer.Plugins.Designer.Base.csproj" />
     <ProjectReference Include="..\CStreamer.Plugins.Interfaces\CStreamer.Plugins.Interfaces.csproj" />
     <ProjectReference Include="..\CStreamer.Plugins.NAudio\CStreamer.Plugins.NAudio.csproj" />
     <ProjectReference Include="..\CStreamer\CStreamer.csproj" />

@@ -23,8 +23,6 @@ namespace CStreamer.Designer.Avalonia
                 var name = data.GetType().FullName.Replace("ViewModel", "View");
                 type = Type.GetType(name);
             }
-            
-            
 
             if (type != null)
             {
