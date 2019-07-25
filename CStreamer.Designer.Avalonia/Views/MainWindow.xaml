@@ -10,25 +10,30 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="CStreamer.Designer.Avalonia">
 
-  <DockPanel>
+  <DockPanel Background="AliceBlue">
     <Grid DockPanel.Dock="Bottom" Height="20"/>
 
-    <local:ToolBarView Name="ToolBar" DockPanel.Dock="Left" Width="150" DataContext="{Binding ToolBar}">
-      <local:ToolBarView.Transitions>
-        <DoubleTransition Property="Width" Duration="0:0:0.2">
-        </DoubleTransition>
-      </local:ToolBarView.Transitions>
-    </local:ToolBarView>
+    <Border DockPanel.Dock="Left" Width="150" DataContext="{Binding ToolBar}" Background="White">
+      <local:ToolBarView>
+        <local:ToolBarView.Transitions>
+          <DoubleTransition Property="Width" Duration="0:0:0.2">
+          </DoubleTransition>
+        </local:ToolBarView.Transitions>
+      </local:ToolBarView>
+    </Border>
 
-    <designerPlugins:FallbackSettingsView  DockPanel.Dock="Right" Width="150"/>
-
+    <local:SettingsView DockPanel.Dock="Right" DataContext="{Binding Pipeline.SelectedElement}" >
+  </local:SettingsView>
+    
+    
     <!--<ListBox Name="Settings" DockPanel.Dock="Right" Width="150">
       <ListBox.Transitions>
         <DoubleTransition Property="Width" Duration="0:0:0.2">
         </DoubleTransition>
       </ListBox.Transitions>
     </ListBox>-->
-    <local:PipelineView DataContext="{Binding Pipeline}" />
+    <local:PipelineView x:Name="pipeline" DataContext="{Binding Pipeline}" SelectedElement="{Binding Mode=TwoWay, Path=SelectedElement}" />
+
   </DockPanel>
 
 </Window>

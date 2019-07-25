@@ -20,9 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Remove="FallbackSettingsView.xaml" />
+    <AvaloniaResource Remove="Views\Settings\StringSettingView.xaml" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="FallbackSettingsView.xaml" />
+    <None Remove="Views\Settings\StringSettingView.xaml" />
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -45,5 +47,15 @@
     <None Update="Views\FallbackSettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Settings\StringSettingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\Settings\StringSettingView.xaml.cs">
+      <DependentUpon>StringSettingView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

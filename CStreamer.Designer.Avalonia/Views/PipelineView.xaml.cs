@@ -127,8 +127,9 @@ namespace CStreamer.Designer.Avalonia.Views
 
                 this.Events().PointerReleased
                     .Select(@event => (@event.EventArgs.Source as IControl)?.FindAnchestor<ElementView>()?.ViewModel?.Model)
-                    .Where(element => element != null)
-                    .Subscribe((val) => SetValue(SelectedElementProperty, val, BindingPriority.LocalValue))
+                    .Subscribe((val) => {
+                        SetValue(SelectedElementProperty, val, BindingPriority.LocalValue);
+                    })
                     .DisposeWith(disposables);
             });
             AvaloniaXamlLoader.Load(this);

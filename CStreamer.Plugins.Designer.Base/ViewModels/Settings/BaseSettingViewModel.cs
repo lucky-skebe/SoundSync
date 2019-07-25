@@ -15,6 +15,7 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
             this.binding = binding;
 
             this.binding.ValueChanged += Binding_ValueChanged;
+            this.Name = binding.Name;
         }
 
         private void Binding_ValueChanged(object sender, BindingValueChangedEventArgs<TValue> e)

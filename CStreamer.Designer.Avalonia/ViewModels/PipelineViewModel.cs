@@ -7,6 +7,7 @@ using Avalonia;
 using CStreamer.Base;
 using CStreamer.Events;
 using CStreamer.Plugins.Interfaces;
+using ReactiveUI;
 
 namespace CStreamer.Designer.Avalonia.ViewModels
 {
@@ -212,6 +213,13 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             {
                 this.Add(element, position);
             }
+        }
+
+        private IElement element;
+        public IElement SelectedElement
+        {
+            get => this.element;
+            set => this.RaiseAndSetIfChanged(ref element, value);
         }
     }
 }

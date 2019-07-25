@@ -14,8 +14,6 @@ namespace CStreamer.Designer.Avalonia.Views
 {
     public class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
-        public ToolBarView ToolBar => this.FindControl<ToolBarView>("ToolBar");
-
         public MainWindow()
         {
 
