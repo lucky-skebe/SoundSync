@@ -17,7 +17,7 @@ namespace CStreamer.Plugins.Basic
         public EnumerateElement(string? name = null)
             : base(name)
         {
-            this.Src = new SrcPad<double>(this, "src", true);
+            this.Src = new SrcPad<float>(this, "src", true);
             this.Sink = new SinkPad<IEnumerable<float>>(this, "sink", e =>
             {
                 if (e == null)
@@ -50,7 +50,7 @@ namespace CStreamer.Plugins.Basic
         /// <value>
         /// The one output srcpad this element has.
         /// </value>
-        public SrcPad<double> Src
+        public SrcPad<float> Src
         {
             get;
             private set;

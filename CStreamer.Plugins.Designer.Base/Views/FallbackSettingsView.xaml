@@ -11,6 +11,11 @@
   <ScrollViewer>
     <Border Margin="0,5" Padding="4" VerticalAlignment="Top" CornerRadius="3,0,0,3" Background="White">
       <ItemsControl Items="{Binding Settings}" >
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <ContentPresenter Content="{Binding}" Width="250" Height="30" Padding="0"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
         <ItemsControl.ItemsPanel>
           <ItemsPanelTemplate>
               <VirtualizingStackPanel />

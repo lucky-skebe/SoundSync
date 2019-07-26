@@ -22,7 +22,7 @@ namespace CStreamer.Plugins.NAudio
     {
         private readonly WasapiLoopbackCapture loopback;
 
-        public SrcPad<float> Src { get; }
+        public SrcPad<IEnumerable<float>> Src { get; }
 
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace CStreamer.Plugins.NAudio
         {
             loopback = new WasapiLoopbackCapture();
             loopback.DataAvailable += Loopback_DataAvailable;
-            Src = new SrcPad<float>(this, "src", true);
+            Src = new SrcPad<IEnumerable<float>>(this, "src", true);
         }
 
         /// <summary>
@@ -93,12 +93,7 @@ namespace CStreamer.Plugins.NAudio
         {
             var buffer = new WaveBuffer(args.Buffer);
 
-            for (int index = 0; index < args.BytesRecorded / 4; index++)
-            {
-                var sample = buffer.FloatBuffer[index];
-
-                Src.Push(sample);
-            }
+            Src.Push(buffer.FloatBuffer.Take(args.BytesRecorded / 4));
         }
 
         public override IEnumerable<IPropertyBinding> GetPropertyBindings()

@@ -7,5 +7,9 @@
              x:Class="CStreamer.Designer.Avalonia.Views.PadView"
              Width="{x:Static helper:Settings.PadSize}" Height="{x:Static helper:Settings.PadSize}">
 
-  <Ellipse Width="{x:Static helper:Settings.PadSize}" Height="{x:Static helper:Settings.PadSize}" Fill="Black" />
+  <Ellipse Width="{x:Static helper:Settings.PadSize}" Height="{x:Static helper:Settings.PadSize}" Fill="Black">
+    <ToolTip.Tip>
+      <TextBlock Text="{Binding Name}" />
+    </ToolTip.Tip>
+  </Ellipse>
 </UserControl>

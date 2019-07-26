@@ -78,8 +78,9 @@ namespace CStreamer.Plugins.Base
         /// <inheritdoc/>
         public void Unlink()
         {
-            this.Peer?.Unlink();
+            var peer = this.Peer;
             this.Peer = null;
+            peer?.Unlink();
         }
 
         /// <inheritdoc/>
@@ -107,6 +108,9 @@ namespace CStreamer.Plugins.Base
             }
 
             this.Peer = peer;
+
+            this.Peer.Link(this);
+
             return Option.Some<ISinkPad<TValue>, string>(peer);
         }
 

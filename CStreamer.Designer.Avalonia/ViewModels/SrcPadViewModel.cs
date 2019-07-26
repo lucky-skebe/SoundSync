@@ -10,10 +10,17 @@ namespace CStreamer.Designer.Avalonia.ViewModels
         public SrcPadViewModel(ISrcPad model, ElementViewModel element, int padIndex) : base(element, padIndex)
         {
             Model = model;
+            this.Type = "double";
+            this.Info = "";
         }
 
         public ISrcPad Model { get; }
-        public double Settins { get; private set; }
+
+        public string Name => this.Model.Name;
+
+        public string Type { get; }
+
+        public string Info { get; }
 
         protected override double XOffset => Settings.ElementWidth;
     }

@@ -22,7 +22,7 @@ namespace CStreamer.Plugins.Basic
     {
         private readonly Thread backgroundThread;
 
-        private float accumulator = 0;
+        private double accumulator = 0;
         private int count = 0;
         private bool running = false;
 
@@ -38,7 +38,7 @@ namespace CStreamer.Plugins.Basic
             {
                 IsBackground = true,
             };
-            Sink = new SinkPad<float>(this, "sink", (f) =>
+            Sink = new SinkPad<double>(this, "sink", (f) =>
             {
                 lock (this)
                 {
@@ -91,7 +91,7 @@ namespace CStreamer.Plugins.Basic
         /// <value>
         /// The one output input this element has.
         /// </value>
-        public SinkPad<float> Sink
+        public SinkPad<double> Sink
         {
             get;
             private set;

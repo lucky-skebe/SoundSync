@@ -20,10 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Remove="FallbackSettingsView.xaml" />
+    <AvaloniaResource Remove="Views\Settings\DoubleSettingView.xaml" />
+    <AvaloniaResource Remove="Views\Settings\IntSettingView.xaml" />
     <AvaloniaResource Remove="Views\Settings\StringSettingView.xaml" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="FallbackSettingsView.xaml" />
+    <None Remove="Views\Settings\DoubleSettingView.xaml" />
+    <None Remove="Views\Settings\IntSettingView.xaml" />
     <None Remove="Views\Settings\StringSettingView.xaml" />
     <None Include="..\LICENSE">
       <Pack>True</Pack>
@@ -50,6 +54,16 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\Settings\StringSettingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Settings\DoubleSettingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Settings\IntSettingView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

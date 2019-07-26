@@ -190,7 +190,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             int padNr = 0;
             foreach (var sink in e.Element.GetSinkPads())
             {
-                var graphicalSinkPad = new SinkPadViewModel(sink, element, padNr);
+                var graphicalSinkPad = new SinkPadViewModel(sink, element, padNr++);
                 this.sinkPadLookup.Add(sink, graphicalSinkPad);
                 this.Items.Add(graphicalSinkPad);
             }
@@ -198,7 +198,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             padNr = 0;
             foreach (var src in e.Element.GetSrcPads())
             {
-                var graphicalSrcPad = new SrcPadViewModel(src, element, padNr);
+                var graphicalSrcPad = new SrcPadViewModel(src, element, padNr++);
                 this.srcPadLookup.Add(src, graphicalSrcPad);
                 this.Items.Add(graphicalSrcPad);
             }

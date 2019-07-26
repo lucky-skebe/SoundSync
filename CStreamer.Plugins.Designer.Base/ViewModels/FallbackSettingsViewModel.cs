@@ -20,6 +20,8 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels
                     bind switch
                     {
                         IPropertyBinding<string> b => (ISettingViewModel)new StringSettingViewModel(b),
+                        IPropertyBinding<double> b => (ISettingViewModel)new DoubleSettingViewModel(b),
+                        IPropertyBinding<int> b => (ISettingViewModel)new IntSettingViewModel(b),
                         IPropertyBinding b => new ObjectSettingsViewModel(b)
                     }
                 ));

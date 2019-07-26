@@ -24,7 +24,7 @@ namespace CStreamer.Plugins.Base
         /// Initializes a new instance of the <see cref="PipeElement"/> class.
         /// </summary>
         /// <param name="name">the name ot the element.</param>
-        protected Element(string? name = null)
+        protected Element(string? name)
         {
             this.Name = name ?? $"{(this.GetElementName())}-{Guid.NewGuid()}";
             this.CurrentState = State.Stopped;

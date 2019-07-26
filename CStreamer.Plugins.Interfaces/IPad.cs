@@ -23,9 +23,7 @@ namespace CStreamer.Plugins.Interfaces
         }
 
         /// <summary>
-        /// Gets the Name of the pad. Usually in the format of [ElementName]-[PadName]
-        /// Examlple:
-        /// Multiply-00000000-0000-0000-0000-000000000000-Sink.
+        /// Gets the Name of the pad.
         /// </summary>
         /// <value>
         /// The Name of the pad.
