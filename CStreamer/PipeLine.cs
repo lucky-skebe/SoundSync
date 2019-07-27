@@ -61,7 +61,7 @@ namespace CStreamer
                 throw new ArgumentNullException(nameof(template));
             }
 
-            IElement node = (IElement)template.GetType().GetConstructor(new Type[] { typeof(string?) }).Invoke(new object?[] { null });
+            IElement node = (IElement)template.GetType().GetConstructor(new Type[] { typeof(string) }).Invoke(new object?[] { null });
             return node;
         }
 
@@ -250,8 +250,8 @@ namespace CStreamer
             var srcType = src.GetType();
             var sinkType = sink.GetType();
 
-            var srcBaseType = ImplementsGenericInterface(typeof(ISrcPad<>), srcType);
-            var sinkBaseType = ImplementsGenericInterface(typeof(ISinkPad<>), sinkType);
+            var srcBaseType = srcType.GetGenericInterfaceImplementation(typeof(ISrcPad<>));
+            var sinkBaseType = sinkType.GetGenericInterfaceImplementation(typeof(ISinkPad<>));
 
             if (srcBaseType == null)
             {
@@ -311,18 +311,7 @@ namespace CStreamer
             };
         }
 
-        private static Type? ImplementsGenericInterface(Type genericType, Type instanceType)
-        {
-            var interfaces = instanceType.FindInterfaces(filterGenericType, genericType);
-                
-
-            return interfaces.SingleOrDefault();
-        }
-
-        private static bool filterGenericType(Type typeObj, Object criteriaObj)
-        {
-            return typeObj.IsGenericType && typeObj.GetGenericTypeDefinition() == criteriaObj;
-        }
+        
 
         private void Clear()
         {

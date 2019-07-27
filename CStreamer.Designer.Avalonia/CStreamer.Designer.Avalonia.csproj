@@ -3,6 +3,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFrameworks>netcoreapp3.0</TargetFrameworks>
     <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
     <NullableContextOptions>enable</NullableContextOptions>
     <CodeAnalysisRuleSet>../custom.ruleset</CodeAnalysisRuleSet>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -77,6 +78,7 @@
     <ProjectReference Include="..\CStreamer.Plugins.Basic\CStreamer.Plugins.Basic.csproj" />
     <ProjectReference Include="..\CStreamer.Plugins.Buttplug\CStreamer.Plugins.Buttplug.csproj" />
     <ProjectReference Include="..\CStreamer.Plugins.Designer.Base\CStreamer.Plugins.Designer.Base.csproj" />
+    <ProjectReference Include="..\CStreamer.Plugins.Designer.Buttplug\CStreamer.Plugins.Designer.Buttplug.csproj" />
     <ProjectReference Include="..\CStreamer.Plugins.Interfaces\CStreamer.Plugins.Interfaces.csproj" />
     <ProjectReference Include="..\CStreamer.Plugins.NAudio\CStreamer.Plugins.NAudio.csproj" />
     <ProjectReference Include="..\CStreamer\CStreamer.csproj" />

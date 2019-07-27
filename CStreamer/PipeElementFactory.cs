@@ -9,8 +9,10 @@ namespace CStreamer
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
     using CStreamer.Plugins.Attributes;
+    using CStreamer.Plugins.Base;
     using CStreamer.Plugins.Interfaces;
 
     /// <summary>
@@ -21,20 +23,11 @@ namespace CStreamer
     /// </summary>
     public static class PipeElementFactory
     {
-        private static readonly Dictionary<string, Type> Types = new Dictionary<string, Type>();
+        private static readonly Dictionary<string, Type> Types = PluginCatalog
+            .PluginTypes()
+            .Where((type) => typeof(IElement).IsAssignableFrom(type) && type.IsClass && !type.IsAbstract)
+            .ToDictionary(type => IElementExtensions.GetElementName(type));
 
-        static PipeElementFactory()
-        {
-            SearchDirectory(".", false);
-            SearchDirectory("./plugins", true);
-
-            var plugindir = System.Environment.GetEnvironmentVariable("CSTREAMER_PLUGIN_DIR");
-
-            if(plugindir != null)
-            {
-                SearchDirectory(plugindir, true);
-            }
-        }
 
         /// <summary>
         /// Gets a list of all known factoryType names.
@@ -62,30 +55,6 @@ namespace CStreamer
             else
             {
                 return null;
-            }
-        }
-
-        private static void SearchDirectory(string path, bool searchSubdirs = true)
-        {
-            var dir = new System.IO.DirectoryInfo(path);
-
-            if (!dir.Exists)
-            {
-                return;
-            }
-
-            var files = dir.GetFiles("*.dll", searchSubdirs ? System.IO.SearchOption.AllDirectories : System.IO.SearchOption.TopDirectoryOnly);
-
-            foreach (var file in files)
-            {
-                Assembly assembly = Assembly.LoadFrom(file.FullName);
-                foreach (Type type in assembly.DefinedTypes)
-                {
-                    if (typeof(IElement).IsAssignableFrom(type) && type.IsClass && !type.IsAbstract)
-                    {
-                        Types[IElementExtensions.GetElementName(type)] = type;
-                    }
-                }
             }
         }
     }

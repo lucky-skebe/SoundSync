@@ -31,7 +31,7 @@ namespace CStreamer.Designer.Avalonia.Views
             where TItem : class, IControl, IViewFor<TViewModel>
             where TViewModel : class
         {
-            TItem? listViewItem = (e.Source as IControl)?.FindAnchestor<TItem>();
+            TItem listViewItem = (e.Source as IControl)?.FindAnchestor<TItem>();
 
             if (listViewItem == null)
             {

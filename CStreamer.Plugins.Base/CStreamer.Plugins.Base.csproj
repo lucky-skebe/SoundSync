@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>preview</LangVersion>
     <NullableContextOptions>enable</NullableContextOptions>
+    <Nullable>enable</Nullable>
     <CodeAnalysisRuleSet>../custom.ruleset</CodeAnalysisRuleSet>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Copyright>LuckySkebe</Copyright>
@@ -12,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Optional" Version="4.0.0" />
+    <PackageReference Include="System.Reflection.Metadata" Version="1.6.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Designer.Avalonia
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Base", "CStreamer.Base\CStreamer.Base.csproj", "{86171F7A-B791-469E-89A4-D9A943C0A44E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CStreamer.Plugins.Designer.Base", "CStreamer.Plugins.Designer.Base\CStreamer.Plugins.Designer.Base.csproj", "{557E439E-487D-4058-B59E-1B5EDB6FB98C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Plugins.Designer.Base", "CStreamer.Plugins.Designer.Base\CStreamer.Plugins.Designer.Base.csproj", "{557E439E-487D-4058-B59E-1B5EDB6FB98C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CStreamer.Plugins.Designer.Buttplug", "CStreamer.Plugins.Designer.Buttplug\CStreamer.Plugins.Designer.Buttplug.csproj", "{4A02572C-6022-4138-B50F-20C6E09B0BB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,6 +159,18 @@ Global
 		{557E439E-487D-4058-B59E-1B5EDB6FB98C}.Release|x64.Build.0 = Release|Any CPU
 		{557E439E-487D-4058-B59E-1B5EDB6FB98C}.Release|x86.ActiveCfg = Release|Any CPU
 		{557E439E-487D-4058-B59E-1B5EDB6FB98C}.Release|x86.Build.0 = Release|Any CPU
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3}.Debug|x64.Build.0 = Debug|Any CPU
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3}.Debug|x86.Build.0 = Debug|Any CPU
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3}.Release|x64.ActiveCfg = Release|Any CPU
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3}.Release|x64.Build.0 = Release|Any CPU
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3}.Release|x86.ActiveCfg = Release|Any CPU
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -168,6 +182,7 @@ Global
 		{9F8FFAEF-FACD-4228-98B1-BF3E884D5B66} = {BDF56C5D-5949-4C29-AD07-81C4C3EBA8E3}
 		{D164EB7E-C3A3-42DF-BA56-70C1FB065791} = {BDF56C5D-5949-4C29-AD07-81C4C3EBA8E3}
 		{557E439E-487D-4058-B59E-1B5EDB6FB98C} = {8E6EBE7D-B87A-40EC-A4FE-9D127A7CF734}
+		{4A02572C-6022-4138-B50F-20C6E09B0BB3} = {8E6EBE7D-B87A-40EC-A4FE-9D127A7CF734}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5E6E87E2-EF2D-418E-A8A4-4627A6B2B513}

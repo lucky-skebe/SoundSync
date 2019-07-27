@@ -8,8 +8,7 @@ namespace CStreamer.Designer.Avalonia.Helper
 {
     static class IControlExtensions
     {
-        public static T? FindAnchestor<T>(this IControl current)
-            where T : class, IControl
+        public static T? FindAnchestor<T>(this IControl current) where T : class, IControl 
         {
             do
             {

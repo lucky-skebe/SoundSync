@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFrameworks>netstandard2.1</TargetFrameworks>
@@ -12,6 +13,7 @@
     <Nullable>enable</Nullable>
     <CodeAnalysisRuleSet>../custom.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
@@ -20,60 +22,39 @@
       <SubType>Designer</SubType>
     </AvaloniaResource>
   </ItemGroup>
+
   <ItemGroup>
-    <AvaloniaResource Remove="FallbackSettingsView.xaml" />
-    <AvaloniaResource Remove="Views\Settings\DoubleSettingView.xaml" />
-    <AvaloniaResource Remove="Views\Settings\IntSettingView.xaml" />
-    <AvaloniaResource Remove="Views\Settings\StringSettingView.xaml" />
+    <AvaloniaResource Remove="ButtPlugSettingsView.xaml" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Remove="FallbackSettingsView.xaml" />
-    <None Remove="Views\Settings\DoubleSettingView.xaml" />
-    <None Remove="Views\Settings\IntSettingView.xaml" />
-    <None Remove="Views\Settings\StringSettingView.xaml" />
+    <None Remove="ButtPlugSettingsView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.8.0" />
     <PackageReference Include="Avalonia.Desktop" Version="0.8.0" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.8.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <EmbeddedResource Include="Views\FallbackSettingsView.xaml">
+    <EmbeddedResource Include="ButtPlugSettingsView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\CStreamer.Base\CStreamer.Base.csproj" />
     <ProjectReference Include="..\CStreamer.Plugins.Base\CStreamer.Plugins.Base.csproj" />
+    <ProjectReference Include="..\CStreamer.Plugins.Buttplug\CStreamer.Plugins.Buttplug.csproj" />
     <ProjectReference Include="..\CStreamer.Plugins.Interfaces\CStreamer.Plugins.Interfaces.csproj" />
+    <ProjectReference Include="..\CStreamer.Plugins.Designer.Base\CStreamer.Plugins.Designer.Base.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="Views\FallbackSettingsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Settings\StringSettingView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Settings\DoubleSettingView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\Settings\IntSettingView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Views\Settings\StringSettingView.xaml.cs">
-      <DependentUpon>StringSettingView.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
+
 </Project>

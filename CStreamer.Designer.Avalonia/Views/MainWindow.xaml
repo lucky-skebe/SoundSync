@@ -11,7 +11,13 @@
         Title="CStreamer.Designer.Avalonia">
 
   <DockPanel Background="AliceBlue">
-    <Grid DockPanel.Dock="Bottom" Height="20"/>
+    <Grid DockPanel.Dock="Bottom" ColumnDefinitions="*,auto">
+      <StackPanel Orientation="Horizontal" Grid.Column="1">
+        <Button Command="{Binding Stop}">Stop</Button>
+        <Button Command="{Binding Pause}">Pause"</Button>
+        <Button Command="{Binding Play}">Play"</Button>
+      </StackPanel>
+    </Grid>
 
     <Border DockPanel.Dock="Left" Width="150" DataContext="{Binding ToolBar}" Background="White">
       <local:ToolBarView>
@@ -22,16 +28,8 @@
       </local:ToolBarView>
     </Border>
 
-    <local:SettingsView DockPanel.Dock="Right" DataContext="{Binding Pipeline.SelectedElement}" >
-  </local:SettingsView>
+    <local:SettingsView DockPanel.Dock="Right" DataContext="{Binding Pipeline.SelectedElement}" />
     
-    
-    <!--<ListBox Name="Settings" DockPanel.Dock="Right" Width="150">
-      <ListBox.Transitions>
-        <DoubleTransition Property="Width" Duration="0:0:0.2">
-        </DoubleTransition>
-      </ListBox.Transitions>
-    </ListBox>-->
     <local:PipelineView x:Name="pipeline" DataContext="{Binding Pipeline}" SelectedElement="{Binding Mode=TwoWay, Path=SelectedElement}" />
 
   </DockPanel>

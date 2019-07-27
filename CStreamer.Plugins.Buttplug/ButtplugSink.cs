@@ -9,6 +9,8 @@ namespace CStreamer.Plugins.Buttplug
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Threading.Tasks;
     using CStreamer.Plugins.Base;
     using CStreamer.Plugins.Interfaces;
@@ -22,13 +24,7 @@ namespace CStreamer.Plugins.Buttplug
     /// </summary>
     public class ButtplugSink : Element
     {
-        //private readonly CommandInteraction connectInteraction;
-        //private readonly CommandInteraction startScanningInteraction;
-        //private readonly CommandInteraction stopScanningInteraction;
-        //private readonly CommandInteraction disconnectInteraction;
-        //private readonly ButtplugDeviceInteraction deviceInteraction;
-
-        //private readonly IList<ButtPlugClientDeviceWrapper> deviceList = new List<ButtPlugClientDeviceWrapper>();
+        private readonly ObservableCollection<ButtplugSinkDevice> devices = new ObservableCollection<ButtplugSinkDevice>();
 
         public SinkPad<double> Sink { get; }
 
@@ -51,13 +47,13 @@ namespace CStreamer.Plugins.Buttplug
                 {
                     if (this.Client != null && this.Client.Connected)
                     {
-                        //foreach (var d in this.deviceList)
-                        //{
-                        //    if (d.Selected)
-                        //    {
-                        //        d.Value.SendVibrateCmd(f);
-                        //    }
-                        //}
+                        foreach (var d in this.devices)
+                        {
+                            if (d.Selected)
+                            {
+                                d.Device.SendVibrateCmd(f);
+                            }
+                        }
 
                         this.lastVal = f;
                     }
@@ -66,13 +62,10 @@ namespace CStreamer.Plugins.Buttplug
 
             this.stateMachine = new ButtplugServerStateMachine();
 
-            //this.startScanningInteraction = new CommandInteraction("Start Scanning", async () => await this.StartScanning().ConfigureAwait(true), this.stateMachine.CanStartScanning);
-            //this.stopScanningInteraction = new CommandInteraction("Stop Scanning", async () => await this.StopScanning().ConfigureAwait(true), this.stateMachine.CanStopScanning);
-            //this.connectInteraction = new CommandInteraction("Connect", async () => await this.Connect().ConfigureAwait(true), this.stateMachine.CanConnect);
-            //this.disconnectInteraction = new CommandInteraction("Disconnect", async () => await this.Disconnect().ConfigureAwait(true), this.stateMachine.CanDisonnect);
-            //this.deviceInteraction = new ButtplugDeviceInteraction();
             this.selectedDeviceCache = new List<string>();
         }
+
+        public ReadOnlyObservableCollection<ButtplugSinkDevice> Devices => new ReadOnlyObservableCollection<ButtplugSinkDevice>(this.devices);
 
         /// <summary>
         /// Gets or sets the Client used to communicating with a Buttplug server.
@@ -110,20 +103,6 @@ namespace CStreamer.Plugins.Buttplug
         /// </value>
         public string ServerAddress { get; set; } = "ws://localhost:12345/buttplug";
 
-        ///// <inheritdoc/>
-        //public override IEnumerable<IInteraction> Interactions
-        //{
-        //    get
-        //    {
-        //        yield return new StringParameterInteraction("ServerAddress:", () => this.ServerAddress, (serverUrl) => this.ServerAddress = serverUrl);
-        //        yield return this.connectInteraction;
-        //        yield return this.disconnectInteraction;
-        //        yield return this.startScanningInteraction;
-        //        yield return this.stopScanningInteraction;
-        //        yield return this.deviceInteraction;
-        //    }
-        //}
-
         /// <summary>
         /// Tell the Server to stop Scannign for new devices.
         /// </summary>
@@ -137,10 +116,7 @@ namespace CStreamer.Plugins.Buttplug
 
             if (this.stateMachine.StartScanning())
             {
-                //this.startScanningInteraction.SetCanExecute(false);
                 await this.Client.StartScanningAsync().ConfigureAwait(true);
-
-                this.UpdateCommands();
             }
         }
 
@@ -154,13 +130,9 @@ namespace CStreamer.Plugins.Buttplug
             {
                 return;
             }
-
             if (this.stateMachine.StopScanning())
             {
-                //this.stopScanningInteraction.SetCanExecute(false);
                 await this.Client.StopScanningAsync().ConfigureAwait(true);
-
-                this.UpdateCommands();
             }
         }
 
@@ -175,8 +147,6 @@ namespace CStreamer.Plugins.Buttplug
                 IButtplugClientConnector connector = new ButtplugWebsocketConnector(new Uri(this.ServerAddress));
                 this.Client = new ButtplugClient("SoundSync", connector);
                 await this.Client.ConnectAsync().ConfigureAwait(true);
-
-                this.UpdateCommands();
             }
         }
 
@@ -194,8 +164,6 @@ namespace CStreamer.Plugins.Buttplug
             if (this.stateMachine.Disonnect())
             {
                 await this.Client.DisconnectAsync().ConfigureAwait(true);
-
-                this.UpdateCommands();
             }
         }
 
@@ -203,6 +171,17 @@ namespace CStreamer.Plugins.Buttplug
         public override IEnumerable<IPad> GetPads()
         {
             yield return this.Sink;
+        }
+
+        /// <inheritdoc/>
+        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        {
+            yield return new PropertyBinding<string>(() => this.ServerAddress);
+            yield return new PropertyBinding<List<string>>(
+                "SelectedDevices",
+                (s) => { this.selectedDeviceCache = s; },
+                this.devices.Where(d => d.Selected).Select(w => GetDeviceId(w.Device)).ToList,
+                this.ParseSelectedDeviceCache);
         }
 
         /// <inheritdoc/>
@@ -217,60 +196,29 @@ namespace CStreamer.Plugins.Buttplug
             return this.Disconnect();
         }
 
-        /// <inheritdoc/>
-        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
-        {
-            yield return new PropertyBinding<string>(() => this.ServerAddress);
-            //yield return new PropertyBinding<List<string>>(
-            //    "SelectedDevices",
-            //    (s) => { this.selectedDeviceCache = s; },
-            //    this.deviceList.Where(d => d.Selected).Select(w => GetDeviceId(w.Value)).ToList,
-            //    this.ParseSelectedDeviceCache);
-        }
-
         private static string GetDeviceId(ButtplugClientDevice device)
         {
             return device.Name;
         }
 
-        private void UpdateCommands()
-        {
-            //this.startScanningInteraction.SetCanExecute(this.stateMachine.CanStartScanning);
-            //this.stopScanningInteraction.SetCanExecute(this.stateMachine.CanStopScanning);
-            //this.connectInteraction.SetCanExecute(this.stateMachine.CanConnect);
-            //this.disconnectInteraction.SetCanExecute(this.stateMachine.CanDisonnect);
-        }
-
         private void Client_ScanningFinished(object sender, EventArgs e)
         {
             this.stateMachine.ScanningFinished();
-            this.UpdateCommands();
         }
 
         private void Client_DeviceRemoved(object sender, DeviceRemovedEventArgs e)
         {
-            //var device = new ButtPlugClientDeviceWrapper(e.Device);
-            //this.deviceList.Remove(device);
-            //this.deviceInteraction.Options.Remove(device);
+            var device = new ButtplugSinkDevice(e.Device);
+            while (this.devices.Remove(device))
+            {
+            }
         }
 
         private void Client_DeviceAdded(object sender, DeviceAddedEventArgs e)
         {
-            //bool selected = this.selectedDeviceCache.Remove(GetDeviceId(e.Device));
+            bool selected = this.selectedDeviceCache.Remove(GetDeviceId(e.Device));
 
-            //var device = new ButtPlugClientDeviceWrapper(e.Device, selected, (self, selected) =>
-            //{
-            //    if (selected)
-            //    {
-            //        self.Value.SendVibrateCmd(this.lastVal);
-            //    }
-            //    else
-            //    {
-            //        self.Value.SendVibrateCmd(0);
-            //    }
-            //});
-            //this.deviceList.Add(device);
-            //this.deviceInteraction.Options.Add(device);
+            this.devices.Add(new ButtplugSinkDevice(e.Device, selected));
         }
 
         private Option<List<string>> ParseSelectedDeviceCache(object? value)
