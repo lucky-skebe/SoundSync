@@ -2,6 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="CStreamer.Designer.Avalonia.Views.SettingsView" Content="{Binding}" >
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="250"
+             x:Class="CStreamer.Designer.Avalonia.Views.SettingsView" Content="{Binding}" MaxWidth="250" Background="White" >
 </UserControl>

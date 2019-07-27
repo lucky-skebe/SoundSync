@@ -10,7 +10,6 @@ namespace CStreamer.Designer.Avalonia
         {
             this.DataTemplates.Add(SettingsViewLocator.Instance);
             AvaloniaXamlLoader.Load(this);
-
         }
     }
 }

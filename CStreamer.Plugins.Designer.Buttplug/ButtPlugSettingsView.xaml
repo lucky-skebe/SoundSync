@@ -5,11 +5,19 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CStreamer.Plugins.Designer.Buttplug.ButtPlugSettingsView">
   <Border Background="White" CornerRadius="3" VerticalAlignment="top">
-    <Grid ColumnDefinitions="100,*" RowDefinitions="Auto,Auto">
+    <Grid ColumnDefinitions="100,*" RowDefinitions="Auto,Auto,Auto">
       <TextBlock Text="ServerAddress:" />
       <TextBox Grid.Column="1" Text="{Binding Mode=TwoWay, Path=ServerAddress}" />
-      <ItemsControl Items="{Binding Devices}">
-        
+      <Grid Grid.ColumnSpan="2" ColumnDefinitions="*,*" Grid.Row="1">
+        <Button Command="{Binding StartScanning}" >Start</Button>
+        <Button Command="{Binding StopScanning}" Grid.Column="1" >Stop</Button>
+      </Grid>
+      <ItemsControl Items="{Binding Devices}" Grid.Row="2" Grid.ColumnSpan="2">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <CheckBox Content="{Binding Name}" IsChecked="{Binding Mode=TwoWay, Path=Selected}"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
       </ItemsControl>
     </Grid>
   </Border>

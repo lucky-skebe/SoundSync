@@ -9,11 +9,11 @@
     <local:SettingsItemViewLocator />
   </UserControl.DataTemplates>
   <ScrollViewer>
-    <Border Margin="0,5" Padding="4" VerticalAlignment="Top" CornerRadius="3,0,0,3" Background="White">
+    <Border Margin="0,5" VerticalAlignment="Top" Background="White">
       <ItemsControl Items="{Binding Settings}" >
         <ItemsControl.ItemTemplate>
           <DataTemplate>
-            <ContentPresenter Content="{Binding}" Width="250" Height="30" Padding="0"/>
+            <ContentPresenter Content="{Binding}" Width="250" Padding="5,2"/>
           </DataTemplate>
         </ItemsControl.ItemTemplate>
         <ItemsControl.ItemsPanel>

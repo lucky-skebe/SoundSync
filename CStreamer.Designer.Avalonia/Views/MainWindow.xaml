@@ -11,7 +11,7 @@
         Title="CStreamer.Designer.Avalonia">
 
   <DockPanel Background="AliceBlue">
-    <Grid DockPanel.Dock="Bottom" ColumnDefinitions="*,auto">
+    <Grid DockPanel.Dock="Bottom" ColumnDefinitions="*,auto" Background="LightSkyBlue">
       <StackPanel Orientation="Horizontal" Grid.Column="1">
         <Button Command="{Binding Stop}">Stop</Button>
         <Button Command="{Binding Pause}">Pause"</Button>
@@ -29,8 +29,12 @@
     </Border>
 
     <local:SettingsView DockPanel.Dock="Right" DataContext="{Binding Pipeline.SelectedElement}" />
-    
-    <local:PipelineView x:Name="pipeline" DataContext="{Binding Pipeline}" SelectedElement="{Binding Mode=TwoWay, Path=SelectedElement}" />
+
+    <Grid>
+      <local:PipelineView x:Name="pipeline" DataContext="{Binding Pipeline}" SelectedElement="{Binding Mode=TwoWay, Path=SelectedElement}" />
+      <local:NotificationAreaView DataContext="{Binding Notifications}" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+    </Grid>
+
 
   </DockPanel>
 

@@ -2,6 +2,9 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using CStreamer.Plugins.Buttplug;
+using ReactiveUI;
+using System;
+using System.Linq;
 
 namespace CStreamer.Plugins.Designer.Buttplug
 {
@@ -15,6 +18,10 @@ namespace CStreamer.Plugins.Designer.Buttplug
 
         private void InitializeComponent()
         {
+            this.WhenActivated(() =>
+            {
+                return Enumerable.Empty<IDisposable>();
+            });
             AvaloniaXamlLoader.Load(this);
         }
     }

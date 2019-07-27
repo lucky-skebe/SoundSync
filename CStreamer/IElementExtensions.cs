@@ -92,7 +92,7 @@ namespace CStreamer.Base
                 return true;
             }
 
-            return element.GetPads().Where(p => p.Mandatory).Any(p => p.Peer == null);
+            return !element.GetPads().Where(p => p.Mandatory).Any(p => p.Peer == null);
         }
     }
 }

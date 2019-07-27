@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CStreamer.Plugins.Designer.Base.Views.Settings.StringSettingView">
-    <Grid ColumnDefinitions="100,150">
+    <Grid ColumnDefinitions="100,150" >
       <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
       <TextBox Text="{Binding Path=Value, Mode=TwoWay}" Grid.Column="1" />
     </Grid>

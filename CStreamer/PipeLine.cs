@@ -287,7 +287,7 @@ namespace CStreamer
         /// Moves the pipeline and all it's elements to the <see cref="State.Playing"/> state.
         /// </summary>
         /// <returns>A task that represents the state change operation.</returns>
-        public Task Start()
+        public Task<Option<State, IEnumerable<string>>> Start()
         {
             return this.GoToState(State.Playing);
         }
@@ -296,7 +296,7 @@ namespace CStreamer
         /// Moves the pipeline and all it's elements to the <see cref="State.Stopped"/> state.
         /// </summary>
         /// <returns>A task that represents the state change operation.</returns>
-        public Task Stop()
+        public Task<Option<State, IEnumerable<string>>> Stop()
         {
             return this.GoToState(State.Stopped);
         }
@@ -451,7 +451,7 @@ namespace CStreamer
             }
         }
 
-        private async Task GoToState(State state)
+        private async Task<Option<State, IEnumerable<string>>> GoToState(State state)
         {
             var transitions = StateManager.GetTransitions(this.currentState, state);
 
@@ -462,31 +462,34 @@ namespace CStreamer
 
             bool shouldReverse = IsReverseOrder(this.currentState, state);
 
-            if (orderedElementOptions.HasValue)
-            {
-                var orderedElements = orderedElementOptions.ValueOr(new List<IElement>());
-
-                if (shouldReverse)
+            return await orderedElementOptions.Match<Task<Option<State, IEnumerable<string>>>>(
+                async orderedElements =>
                 {
-                    orderedElements.Reverse();
-                }
-
-                int step = 0;
-                foreach (State transition in transitions)
-                {
-                    foreach (var elem in orderedElements)
+                    if (shouldReverse)
                     {
-                        var stateIndex = transitions.IndexOf(elem.CurrentState);
-                        if (stateIndex < step)
-                        {
-                            await elem.GoToState(transition).ConfigureAwait(true);
-                        }
+                        orderedElements.Reverse();
                     }
 
-                    step++;
-                    this.currentState = transition;
-                }
-            }
+                    int step = 0;
+                    foreach (State transition in transitions)
+                    {
+                        foreach (var elem in orderedElements)
+                        {
+                            var stateIndex = transitions.IndexOf(elem.CurrentState);
+                            if (stateIndex < step)
+                            {
+                                await elem.GoToState(transition).ConfigureAwait(true);
+                            }
+                        }
+
+                        step++;
+                        this.currentState = transition;
+                    }
+
+                    return Option.Some<State, IEnumerable<string>>(state);
+                },
+                (errors) => Task.FromResult(Option.None<State, IEnumerable<string>>(errors))).ConfigureAwait(true);
+
         }
     }
 }

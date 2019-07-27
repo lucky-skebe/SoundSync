@@ -11,25 +11,25 @@ namespace CStreamer.Plugins.Basic
     {
         public ConvertElement(string? name = null) : base(name)
         {
-            SrcInt = new SrcPad<int>(this, "srcInt", true);
-            SrcDouble = new SrcPad<double>(this, "srcDouble", true);
-            SrcFloat = new SrcPad<float>(this, "srcFloat", true);
+            SrcInt = new SrcPad<int>(this, "srcInt", false);
+            SrcDouble = new SrcPad<double>(this, "srcDouble", false);
+            SrcFloat = new SrcPad<float>(this, "srcFloat", false);
 
             SinkInt = new SinkPad<int>(this, "sinkInt", (f) => {
                 SrcInt.Push(f);
                 SrcDouble.Push(f);
                 SrcFloat.Push(f);
-                }, true);
+                }, false);
             SinkDouble = new SinkPad<double>(this, "sinkDouble", (f) => {
                 SrcInt.Push((int)f);
                 SrcDouble.Push(f);
                 SrcFloat.Push((float)f);
-            }, true);
+            }, false);
             SinkFloat = new SinkPad<float>(this, "sinkFloat", (f) => {
                 SrcInt.Push((int)f);
                 SrcDouble.Push(f);
                 SrcFloat.Push(f);
-            }, true);
+            }, false);
         }
 
         /// <summary>

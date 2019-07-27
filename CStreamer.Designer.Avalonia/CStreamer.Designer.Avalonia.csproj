@@ -83,4 +83,12 @@
     <ProjectReference Include="..\CStreamer.Plugins.NAudio\CStreamer.Plugins.NAudio.csproj" />
     <ProjectReference Include="..\CStreamer\CStreamer.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Views\NotificationAreaView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\NotificationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
 </Project>
