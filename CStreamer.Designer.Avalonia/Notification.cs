@@ -1,10 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
+﻿// -----------------------------------------------------------------------
+// <copyright file="Notification.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Designer.Avalonia
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
     public struct Notification : IEquatable<Notification>
     {
         public Notification(string text)
@@ -13,6 +18,16 @@ namespace CStreamer.Designer.Avalonia
         }
 
         public string Text { get; }
+
+        public static bool operator ==(Notification left, Notification right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Notification left, Notification right)
+        {
+            return !(left == right);
+        }
 
         public bool Equals([AllowNull] Notification other)
         {
@@ -33,17 +48,7 @@ namespace CStreamer.Designer.Avalonia
 
         public override int GetHashCode()
         {
-            return (this.Text).GetHashCode(StringComparison.InvariantCulture);
-        }
-
-        public static bool operator ==(Notification left, Notification right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(Notification left, Notification right)
-        {
-            return !(left == right);
+            return this.Text.GetHashCode(StringComparison.InvariantCulture);
         }
     }
 }

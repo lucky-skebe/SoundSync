@@ -1,22 +1,24 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ToolBarViewModel.cs" company="LuckySkebe (fmann12345@gmail.com)">
+// <copyright file="BindingValueChangedEventArgs.cs" company="LuckySkebe (fmann12345@gmail.com)">
 //     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
 //     Licensed under the MIT license. See LICENSE file in the project root for full license information.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace CStreamer.Designer.Avalonia.ViewModels
+namespace CStreamer.Plugins.Interfaces
 {
+    using System;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
+    using System.Text;
 
-    public class ToolBarViewModel : ViewModelBase
+    public class BindingValueChangedEventArgs<TValue> : BindingValueChangedEventArgs
     {
-        public ToolBarViewModel(IEnumerable<string> elements)
+        public BindingValueChangedEventArgs(TValue newValue)
+            : base(newValue)
         {
-            this.Elements = new ObservableCollection<string>(elements);
+            this.NewValue = newValue;
         }
 
-        public ObservableCollection<string> Elements { get; }
+        public new TValue NewValue { get; }
     }
 }

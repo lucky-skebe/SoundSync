@@ -11,15 +11,19 @@ namespace CStreamer.Plugins.Designer.Base
     using global::Avalonia.Controls;
     using global::Avalonia.Controls.Templates;
 
-    public abstract class ElementSettingsDataTemplate : IDataTemplate
+    public abstract class ElementSettingsDataTemplate<TElement> : ElementSettingsDataTemplate
+        where TElement : IElement
     {
-        public bool SupportsRecycling => false;
+        public abstract IControl Build(TElement element);
 
-        public abstract IControl Build(object element);
-
-        public virtual bool Match(object data)
+        public override IControl Build(object param)
         {
-            return data is IElement;
+            return this.Build((TElement)param);
+        }
+
+        public override bool Match(object data)
+        {
+            return data is TElement;
         }
     }
 }

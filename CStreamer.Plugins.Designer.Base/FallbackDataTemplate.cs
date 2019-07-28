@@ -1,22 +1,27 @@
-﻿using Avalonia.Controls;
-using Avalonia.Controls.Templates;
-using CStreamer.Plugins.Designer.Base.ViewModels;
-using CStreamer.Plugins.Designer.Base.Views;
-using CStreamer.Plugins.Interfaces;
-using System;
+﻿// -----------------------------------------------------------------------
+// <copyright file="FallbackDataTemplate.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Plugins.Designer.Base
 {
-    class FallbackDataTemplate : IDataTemplate
+    using Avalonia.Controls;
+    using Avalonia.Controls.Templates;
+    using CStreamer.Plugins.Designer.Base.ViewModels;
+    using CStreamer.Plugins.Designer.Base.Views;
+    using CStreamer.Plugins.Interfaces;
+
+    public class FallbackDataTemplate : IDataTemplate
     {
         public bool SupportsRecycling => false;
 
         public IControl Build(object data)
         {
-            Type type = data.GetType();
-
+#pragma warning disable CS8604 // Mögliches Nullverweisargument.
             return new FallbackSettingsView() { DataContext = new FallbackSettingsViewModel(data as IElement) };
-            
+#pragma warning restore CS8604 // Mögliches Nullverweisargument.
         }
 
         public bool Match(object data)

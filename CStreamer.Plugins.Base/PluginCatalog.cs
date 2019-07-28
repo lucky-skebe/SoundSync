@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.IO;
-using System.Diagnostics;
+﻿// -----------------------------------------------------------------------
+// <copyright file="PluginCatalog.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Plugins.Base
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
     public static class PluginCatalog
     {
-        private static List<Assembly> plugins = new List<Assembly>();
+        private static readonly List<Assembly> Plugins = new List<Assembly>();
 
         static PluginCatalog()
         {
-            
-
             AddDirectory(".", false);
             AddDirectory("./plugins", true);
 
@@ -26,6 +27,11 @@ namespace CStreamer.Plugins.Base
             {
                 AddDirectory(plugindir, true);
             }
+        }
+
+        public static IEnumerable<Type> PluginTypes()
+        {
+            return Plugins.SelectMany(plugin => plugin.DefinedTypes);
         }
 
         private static void AddDirectory(string path, bool searchSubdirs = true)
@@ -41,20 +47,14 @@ namespace CStreamer.Plugins.Base
 
             foreach (var file in files)
             {
-                // TODO don't load all data of all assemblies
-
+                // TODO don't load all data of all assemblies using SystemReflection.Metadata
                 var assembly = Assembly.LoadFrom(file.FullName);
 
                 if (assembly.GetCustomAttribute<PluginAssemblyAttribute>() != null)
                 {
-                    plugins.Add(assembly);
+                    Plugins.Add(assembly);
                 }
             }
-        }
-
-        public static IEnumerable<Type> PluginTypes ()
-        {
-            return plugins.SelectMany(plugin => plugin.DefinedTypes);
         }
     }
 }

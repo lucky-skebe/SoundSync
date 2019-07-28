@@ -1,13 +1,13 @@
-using System;
-using System.Linq;
-using System.Reflection;
-using Avalonia.Controls;
-using Avalonia.Controls.Templates;
-using CStreamer.Designer.Avalonia.Helper;
-using CStreamer.Designer.Avalonia.ViewModels;
-
-namespace CStreamer.Designer.Avalonia
+﻿namespace CStreamer.Designer.Avalonia
 {
+    using System;
+    using System.Linq;
+    using System.Reflection;
+    using CStreamer.Designer.Avalonia.Helper;
+    using CStreamer.Designer.Avalonia.ViewModels;
+    using global::Avalonia.Controls;
+    using global::Avalonia.Controls.Templates;
+
     public class ViewLocator : IDataTemplate
     {
         public bool SupportsRecycling => false;
@@ -18,7 +18,8 @@ namespace CStreamer.Designer.Avalonia
             if (data?.GetType()?.GetCustomAttributes()?.OfType<LocateViewAttribute>()?.SingleOrDefault() is LocateViewAttribute attribute)
             {
                 type = attribute.TargetType;
-            } else
+            }
+            else
             {
                 var name = data?.GetType()?.FullName?.Replace("ViewModel", "View", StringComparison.InvariantCulture);
                 if (name != null)

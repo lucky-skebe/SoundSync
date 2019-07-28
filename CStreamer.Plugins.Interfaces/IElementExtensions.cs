@@ -1,21 +1,28 @@
-﻿using CStreamer.Plugins.Attributes;
-using CStreamer.Plugins.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
+﻿// -----------------------------------------------------------------------
+// <copyright file="IElementExtensions.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Text;
+    using CStreamer.Plugins.Attributes;
+    using CStreamer.Plugins.Interfaces;
+
     public static class IElementExtensions
     {
         /// <summary>
-        /// Gets the name for a given Type.
+        /// Gets the name for a given Elements type.
         ///
         /// These names can either be registered using the <see cref="ElementNameAttribute"/> or will be generated using the Classname.
         /// Classnames ending in Src, Sink, or Element will get these parts removed.
         /// </summary>
-        /// <param name="type">the type to resolve the name of.</param>
+        /// <param name="element">the element to resolve the name of.</param>
         /// <returns>The factoryType name of the given type.</returns>
         /// <exception cref="ArgumentNullException">if type is null.</exception>
         public static string GetElementName(this IElement element)

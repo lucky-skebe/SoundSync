@@ -53,6 +53,14 @@ namespace CStreamer.Plugins.Base
 
         ISrcPad? ISinkPad.Peer => this.Peer;
 
+        ISrcPad<TValue>? ISinkPad<TValue>.Peer => this.Peer;
+
+        IElement IPad.Parent => this.Parent;
+
+        IPad? IPad.Peer => this.Peer;
+
+        public bool Mandatory { get; }
+
         /// <summary>
         /// Gets or sets the element callback.
         /// </summary>
@@ -65,14 +73,6 @@ namespace CStreamer.Plugins.Base
             get;
             set;
         }
-
-        ISrcPad<TValue>? ISinkPad<TValue>.Peer => this.Peer;
-
-        IElement IPad.Parent => this.Parent;
-
-        IPad? IPad.Peer => this.Peer;
-
-        public bool Mandatory { get; }
 
         /// <inheritdoc/>
         public bool IsLinked()

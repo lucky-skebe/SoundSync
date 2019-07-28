@@ -1,16 +1,19 @@
-﻿using Avalonia;
-using CStreamer.Designer.Avalonia.Helper;
-using ReactiveUI;
-using Splat;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reactive.Disposables;
-using System.Reactive.Linq;
-using System.Text;
+﻿// -----------------------------------------------------------------------
+// <copyright file="LinkViewModel.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Designer.Avalonia.ViewModels
 {
+    using System;
+    using System.Reactive.Disposables;
+    using System.Reactive.Linq;
+    using CStreamer.Designer.Avalonia.Helper;
+    using global::Avalonia;
+    using ReactiveUI;
+
     public class LinkViewModel : ViewModelBase, ICStreamerViewModel
     {
         private readonly ObservableAsPropertyHelper<double> x;
@@ -38,19 +41,19 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             this.x = x.ToProperty(this, x => x.X);
             this.y = y.ToProperty(this, x => x.Y);
 
-            var width = srcX.CombineLatest(sinkX, (srcX, sinkX) => Math.Max(1, Math.Abs(sinkX - srcX)) + 2 * Settings.LinkBezierPadding);
-            var height = srcY.CombineLatest(sinkY, (srcY, sinkY) => Math.Max(1, Math.Abs(sinkY - srcY)) + 2 * Settings.LinkBezierPadding);
+            var width = srcX.CombineLatest(sinkX, (srcX, sinkX) => Math.Max(1, Math.Abs(sinkX - srcX)) + (2 * Settings.LinkBezierPadding));
+            var height = srcY.CombineLatest(sinkY, (srcY, sinkY) => Math.Max(1, Math.Abs(sinkY - srcY)) + (2 * Settings.LinkBezierPadding));
 
             this.width = width.ToProperty(this, pad => pad.Width);
             this.height = height.ToProperty(this, pad => pad.Height);
 
-            var srcXOffset = x.CombineLatest(srcX, (x, srcX) => srcX + Settings.PadRadius - x).Where(offset => offset >=0);
+            var srcXOffset = x.CombineLatest(srcX, (x, srcX) => srcX + Settings.PadRadius - x).Where(offset => offset >= 0);
             var srcYOffset = y.CombineLatest(srcY, (y, srcY) => srcY + Settings.PadRadius - y).Where(offset => offset >= 0);
             var sinkXOffset = x.CombineLatest(sinkX, (x, sinkX) => sinkX + Settings.PadRadius - x).Where(offset => offset >= 0);
             var sinkYOffset = y.CombineLatest(sinkY, (y, sinkY) => sinkY + Settings.PadRadius - y).Where(offset => offset >= 0);
 
-            var start = srcXOffset.CombineLatest(srcYOffset, (x, y) => new Point(x, y)); 
-            var end = sinkXOffset.CombineLatest(sinkYOffset, (x, y) => new Point(x, y)); 
+            var start = srcXOffset.CombineLatest(srcYOffset, (x, y) => new Point(x, y));
+            var end = sinkXOffset.CombineLatest(sinkYOffset, (x, y) => new Point(x, y));
 
             this.start = start.ToProperty(this, pad => pad.Start);
             this.end = end.ToProperty(this, pad => pad.End);
@@ -59,7 +62,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             {
                 return start + new Vector(Math.Max(width / 2, 25), 0);
             });
-            var control2 = end.CombineLatest(width, (end, width) => 
+            var control2 = end.CombineLatest(width, (end, width) =>
             {
                 return end + new Vector(-Math.Max(width / 2, 25), 0);
             });
@@ -141,6 +144,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
         public Point Control2 => this.control2.Value;
 
         internal PadViewModel Src { get; }
+
         internal PadViewModel Sink { get; }
     }
 }

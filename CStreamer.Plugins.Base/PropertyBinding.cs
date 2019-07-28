@@ -24,8 +24,6 @@ namespace CStreamer
         private readonly Func<TValue> getValue;
         private readonly Func<object?, Option<TValue>>? convert;
 
-        public event EventHandler<BindingValueChangedEventArgs<TValue>> ValueChanged;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyBinding{TValue}"/> class.
         /// </summary>
@@ -40,9 +38,6 @@ namespace CStreamer
             this.getValue = getValue;
             this.convert = convert;
         }
-
-        public string Name { get; }
-        public TValue Value { get => this.getValue(); set => this.setValue(value); }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyBinding{TValue}"/> class.
@@ -75,17 +70,24 @@ namespace CStreamer
             }
         }
 
+        public event EventHandler<BindingValueChangedEventArgs<TValue>> ValueChanged;
+
         event EventHandler<BindingValueChangedEventArgs> IPropertyBinding.ValueChanged
         {
             add
             {
                 this.ValueChanged += (sender, args) => value(sender, args);
             }
+
             remove
             {
                 this.ValueChanged -= (sender, args) => value(sender, args);
             }
         }
+
+        public string Name { get; }
+
+        public TValue Value { get => this.getValue(); set => this.setValue(value); }
 
         public void RaiseValueChanged(TValue value)
         {

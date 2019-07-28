@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// -----------------------------------------------------------------------
+// <copyright file="TypeExtensions.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Base
 {
+    using System;
+    using System.Linq;
+
     public static class TypeExtensions
     {
-        private static bool FilterGenericType(Type typeObj, Object criteriaObj)
-        {
-            return typeObj.IsGenericType && typeObj.GetGenericTypeDefinition() == (Type)criteriaObj;
-        }
-
         public static Type? GetGenericTypeImplementation(this Type instanceType, Type genericType)
         {
             while (instanceType != null)
@@ -28,14 +28,16 @@ namespace CStreamer.Base
             return null;
         }
 
-
         public static Type? GetGenericInterfaceImplementation(this Type instanceType, Type genericType)
         {
             var interfaces = instanceType.FindInterfaces(FilterGenericType, genericType);
 
-
             return interfaces.FirstOrDefault();
         }
 
+        private static bool FilterGenericType(Type typeObj, object criteriaObj)
+        {
+            return typeObj.IsGenericType && typeObj.GetGenericTypeDefinition() == (Type)criteriaObj;
+        }
     }
 }

@@ -1,25 +1,27 @@
-﻿using CStreamer.Designer.Avalonia.Helper;
-using ReactiveUI;
-using System;
-using System.Collections.Generic;
-using System.Reactive.Disposables;
-using System.Reactive.Linq;
-using System.Text;
+﻿// -----------------------------------------------------------------------
+// <copyright file="PadViewModel.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Designer.Avalonia.ViewModels
 {
+    using System.Reactive.Disposables;
+    using System.Reactive.Linq;
+    using CStreamer.Designer.Avalonia.Helper;
+    using ReactiveUI;
+
     public abstract class PadViewModel : ViewModelBase, ICStreamerViewModel
     {
-        public ElementViewModel Element { get; }
-        public int PadIndex { get; }
-
         private readonly ObservableAsPropertyHelper<double> x;
-        private ObservableAsPropertyHelper<double> y;
+
+        private readonly ObservableAsPropertyHelper<double> y;
 
         protected PadViewModel(ElementViewModel element, int padIndex)
         {
-            Element = element;
-            PadIndex = padIndex;
+            this.Element = element;
+            this.PadIndex = padIndex;
 
             this.x = this.Element.WhenAnyValue(e => e.X).Select(x => x + this.XOffset - Settings.PadRadius).ToProperty(this, pad => pad.X);
             this.y = this.Element.WhenAnyValue(e => e.Y).Select(y => y + this.YOffset - Settings.PadRadius).ToProperty(this, pad => pad.Y);
@@ -31,16 +33,18 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             });
         }
 
+        public ElementViewModel Element { get; }
+
+        public int PadIndex { get; }
 
         public int ZIndex => ZLayer.Pads;
-
-        protected abstract double XOffset { get; }
-
-        private double YOffset => (this.PadIndex * (Settings.PadDistance + Settings.PadSize)) + Settings.PadTopOffset;
 
         public double X => this.x.Value;
 
         public double Y => this.y.Value;
 
+        protected abstract double XOffset { get; }
+
+        private double YOffset => (this.PadIndex * (Settings.PadDistance + Settings.PadSize)) + Settings.PadTopOffset;
     }
 }

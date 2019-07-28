@@ -1,31 +1,28 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Input;
-using Avalonia.Markup.Xaml;
-using CStreamer.Designer.Avalonia.ViewModels;
-using CStreamer.Plugins.Designer.Base;
-using ReactiveUI;
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Reactive.Disposables;
-using System.Reactive.Linq;
+﻿// -----------------------------------------------------------------------
+// <copyright file="MainWindow.xaml.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Designer.Avalonia.Views
 {
+    using System;
+    using System.Linq;
+    using CStreamer.Designer.Avalonia.ViewModels;
+    using global::Avalonia;
+    using global::Avalonia.Markup.Xaml;
+    using ReactiveUI;
+
     public class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         public MainWindow()
         {
-
-            InitializeComponent();
+            this.InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
 #endif
-            
         }
-
-
 
         private void InitializeComponent()
         {

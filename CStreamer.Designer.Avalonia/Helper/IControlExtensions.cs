@@ -1,18 +1,21 @@
-﻿using Avalonia.Controls;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
+﻿// -----------------------------------------------------------------------
+// <copyright file="IControlExtensions.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Designer.Avalonia.Helper
 {
-    static class IControlExtensions
+    using global::Avalonia.Controls;
+
+    public static class IControlExtensions
     {
-        public static T? FindAnchestor<T>(this IControl current) where T : class, IControl 
+        public static T? FindAnchestor<T>(this IControl current)
+            where T : class, IControl
         {
             do
             {
-                // Debug.WriteLine(current);
                 if (current is T)
                 {
                     return (T)current;

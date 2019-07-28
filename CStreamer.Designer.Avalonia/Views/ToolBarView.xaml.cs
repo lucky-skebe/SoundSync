@@ -1,16 +1,23 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
-using Avalonia.Input;
-using Avalonia.LogicalTree;
-using Avalonia.Markup.Xaml;
-using CStreamer.Designer.Avalonia.Helper;
-using CStreamer.Designer.Avalonia.ViewModels;
-using ReactiveUI;
-using System;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ToolBarView.xaml.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Designer.Avalonia.Views
 {
+    using System;
+    using CStreamer.Designer.Avalonia.Helper;
+    using CStreamer.Designer.Avalonia.ViewModels;
+    using global::Avalonia;
+    using global::Avalonia.Controls;
+    using global::Avalonia.Controls.Presenters;
+    using global::Avalonia.Input;
+    using global::Avalonia.LogicalTree;
+    using global::Avalonia.Markup.Xaml;
+    using ReactiveUI;
+
     public class ToolBarView : ReactiveUserControl<ToolBarViewModel>
     {
         private bool isDragging;
@@ -20,6 +27,31 @@ namespace CStreamer.Designer.Avalonia.Views
         public ToolBarView()
         {
             this.InitializeComponent();
+        }
+
+        public EventObserver<ToolBarView> Events()
+        {
+            return new EventObserver<ToolBarView>(this);
+        }
+
+        protected override void OnPointerPressed(PointerPressedEventArgs e)
+        {
+            this.isDragging = false;
+            this.dragData = null;
+            this.HandleDragStart<string>(e, "newElement");
+            base.OnPointerPressed(e);
+        }
+
+        protected override void OnPointerMoved(PointerEventArgs e)
+        {
+            this.HandleDragOver(e);
+            base.OnPointerMoved(e);
+        }
+
+        protected override void OnPointerLeave(PointerEventArgs e)
+        {
+            this.HandleDragLeave(e);
+            base.OnPointerLeave(e);
         }
 
         private void HandleDragStart<TViewModel>(PointerPressedEventArgs e, string format)
@@ -67,8 +99,6 @@ namespace CStreamer.Designer.Avalonia.Views
                 return;
             }
 
-
-
             if (e.InputModifiers.HasFlag(InputModifiers.LeftMouseButton))
             {
                 this.isDragging = true;
@@ -77,38 +107,12 @@ namespace CStreamer.Designer.Avalonia.Views
             }
         }
 
-        protected override void OnPointerPressed(PointerPressedEventArgs e)
-        {
-            this.isDragging = false;
-            this.dragData = null;
-            this.HandleDragStart<string>(e, "newElement");
-            base.OnPointerPressed(e);
-        }
-
-        protected override void OnPointerMoved(PointerEventArgs e)
-        {
-            this.HandleDragOver(e);
-            base.OnPointerMoved(e);
-        }
-
-        protected override void OnPointerLeave(PointerEventArgs e)
-        {
-            this.HandleDragLeave(e);
-            base.OnPointerLeave(e);
-        }
-
         private void InitializeComponent()
         {
             this.WhenActivated(disposables =>
             {
-
             });
             AvaloniaXamlLoader.Load(this);
-        }
-
-        public EventObserver<ToolBarView> Events()
-        {
-            return new EventObserver<ToolBarView>(this);
         }
     }
 }

@@ -7,7 +7,6 @@
 
 namespace CStreamer.Base
 {
-    using CStreamer.Plugins.Interfaces;
     using System.Collections.Generic;
 
     public static class StateManager

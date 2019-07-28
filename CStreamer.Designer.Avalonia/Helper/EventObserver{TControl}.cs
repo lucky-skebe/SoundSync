@@ -1,16 +1,21 @@
-﻿using Avalonia.Controls;
-using Avalonia.Input;
-using System;
-using System.Collections.Generic;
-using System.Reactive;
-using System.Reactive.Linq;
-using System.Text;
+﻿// -----------------------------------------------------------------------
+// <copyright file="EventObserver{TControl}.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Designer.Avalonia.Helper
 {
-    public class EventObserver<TControl> where TControl: IControl
+    using System;
+    using System.Reactive;
+    using System.Reactive.Linq;
+    using global::Avalonia.Controls;
+    using global::Avalonia.Input;
+
+    public class EventObserver<TControl>
+        where TControl : IControl
     {
-        
         private readonly TControl parent;
 
         public EventObserver(TControl parent)

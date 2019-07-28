@@ -7,8 +7,8 @@
 
 namespace CStreamer.Plugins.Interfaces
 {
-    using Optional;
     using System;
+    using Optional;
 
     /// <summary>
     /// Describes the minimum requirements for a SinkPad.

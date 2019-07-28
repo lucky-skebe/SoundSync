@@ -1,28 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Avalonia;
-using CStreamer.Base;
-using CStreamer.Events;
-using CStreamer.Plugins.Interfaces;
-using ReactiveUI;
+﻿// -----------------------------------------------------------------------
+// <copyright file="PipelineViewModel.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Designer.Avalonia.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Threading.Tasks;
+    using CStreamer.Base;
+    using CStreamer.Events;
+    using CStreamer.Plugins.Interfaces;
+    using global::Avalonia;
+    using ReactiveUI;
+
     public class PipelineViewModel : ViewModelBase
     {
         private readonly PipeLine pipeline;
 
-        public ObservableCollection<ICStreamerViewModel> Items { get; }
-
         private readonly Dictionary<IElement, ElementViewModel> elementLookup;
+
         private readonly Dictionary<ISinkPad, PadViewModel> sinkPadLookup;
+
         private readonly Dictionary<ISrcPad, PadViewModel> srcPadLookup;
+
         private readonly Dictionary<(ISrcPad, ISinkPad), LinkViewModel> linkLookup;
 
         private readonly Dictionary<string, Point> positionCache;
+
+        private IElement? selectedElement;
 
         public PipelineViewModel(PipeLine pipeline)
         {
@@ -38,6 +47,14 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             this.pipeline.ElementRemoved += this.Pipeline_ElementRemoved;
             this.pipeline.ElementsLinked += this.Pipeline_ElementsLinked;
             this.pipeline.ElementsUnlinked += this.Pipeline_ElementsUnlinked;
+        }
+
+        public ObservableCollection<ICStreamerViewModel> Items { get; }
+
+        public IElement? SelectedElement
+        {
+            get => this.selectedElement;
+            set => this.RaiseAndSetIfChanged(ref this.selectedElement, value);
         }
 
         /// <summary>
@@ -105,6 +122,15 @@ namespace CStreamer.Designer.Avalonia.ViewModels
         internal void TryConnect(SrcPadViewModel src, SinkPadViewModel sink)
         {
             this.pipeline.TryConnect(src.Model, sink.Model);
+        }
+
+        internal void CreateElement(string name, Point position)
+        {
+            var element = PipeElementFactory.Make(name, null);
+            if (element != null)
+            {
+                this.Add(element, position);
+            }
         }
 
         //internal GraphicalPipeLineDefinition GetDefinition()
@@ -202,24 +228,6 @@ namespace CStreamer.Designer.Avalonia.ViewModels
                 this.srcPadLookup.Add(src, graphicalSrcPad);
                 this.Items.Add(graphicalSrcPad);
             }
-
-            
-        }
-
-        internal void CreateElement(string name, Point position)
-        {
-            var element = PipeElementFactory.Make(name, null);
-            if (element != null)
-            {
-                this.Add(element, position);
-            }
-        }
-
-        private IElement? selectedElement;
-        public IElement? SelectedElement
-        {
-            get => this.selectedElement;
-            set => this.RaiseAndSetIfChanged(ref selectedElement, value);
         }
     }
 }

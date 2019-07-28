@@ -19,8 +19,8 @@ namespace CStreamer
         /// <param name="value">The value of the property.</param>
         public PropertyValue(string propertyName, object? value)
         {
-            PropertyName = propertyName;
-            Value = value;
+            this.PropertyName = propertyName;
+            this.Value = value;
         }
 
         /// <summary>

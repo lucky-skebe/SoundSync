@@ -1,31 +1,71 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
-using Avalonia.Data;
-using Avalonia.Input;
-using Avalonia.Markup.Xaml;
-using CStreamer.Designer.Avalonia.Helper;
-using CStreamer.Designer.Avalonia.ViewModels;
-using CStreamer.Plugins.Interfaces;
-using ReactiveUI;
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Reactive;
-using System.Reactive.Disposables;
-using System.Reactive.Linq;
-using static CStreamer.Designer.Avalonia.Views.ToolBarView;
+﻿// -----------------------------------------------------------------------
+// <copyright file="PipelineView.xaml.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Designer.Avalonia.Views
 {
+    using System;
+    using System.Linq;
+    using System.Reactive;
+    using System.Reactive.Disposables;
+    using System.Reactive.Linq;
+    using CStreamer.Designer.Avalonia.Helper;
+    using CStreamer.Designer.Avalonia.ViewModels;
+    using CStreamer.Plugins.Interfaces;
+    using global::Avalonia;
+    using global::Avalonia.Controls;
+    using global::Avalonia.Controls.Presenters;
+    using global::Avalonia.Data;
+    using global::Avalonia.Input;
+    using global::Avalonia.Markup.Xaml;
+    using ReactiveUI;
+    using static CStreamer.Designer.Avalonia.Views.ToolBarView;
+
     public class PipelineView : ReactiveUserControl<PipelineViewModel>
     {
         public static readonly StyledProperty<IElement?> SelectedElementProperty = AvaloniaProperty.Register<PipelineView, IElement?>(nameof(SelectedElement));
 
         private Point startPoint;
+
         private bool isDragging;
+
         private Point offset;
+
         private DataObject? dragData;
+
+        public PipelineView()
+        {
+            this.InitializeComponent();
+        }
+
+        public IElement? SelectedElement
+        {
+            get => this.GetValue(SelectedElementProperty);
+            set => this.SetValue(SelectedElementProperty, value);
+        }
+
+        public EventObserver<PipelineView> Events()
+        {
+            return new EventObserver<PipelineView>(this);
+        }
+
+        protected override void OnPointerPressed(PointerPressedEventArgs e)
+        {
+            this.isDragging = false;
+            this.dragData = null;
+            this.HandleDragStart<ElementView, ElementViewModel>(e, "moveElement");
+            this.HandleDragStart<PadView, SrcPadViewModel?>(e, "drawEdge");
+            base.OnPointerPressed(e);
+        }
+
+        protected override void OnPointerMoved(PointerEventArgs e)
+        {
+            this.HandleDragOver(e);
+            base.OnPointerMoved(e);
+        }
 
         private void HandleDragStart<TItem, TViewModel>(PointerPressedEventArgs e, string format)
             where TItem : class, IControl, IViewFor<TViewModel>
@@ -40,7 +80,6 @@ namespace CStreamer.Designer.Avalonia.Views
 
             this.startPoint = e.GetPosition(this);
             this.isDragging = false;
-
 
             this.offset = e.GetPosition(listViewItem);
 
@@ -69,34 +108,6 @@ namespace CStreamer.Designer.Avalonia.Views
             }
         }
 
-
-
-        protected override void OnPointerPressed(PointerPressedEventArgs e)
-        {
-            this.isDragging = false;
-            this.dragData = null;
-            this.HandleDragStart<ElementView, ElementViewModel>(e, "moveElement");
-            this.HandleDragStart<PadView, SrcPadViewModel?>(e, "drawEdge");
-            base.OnPointerPressed(e);
-        }
-
-        public IElement? SelectedElement
-        {
-            get => GetValue(SelectedElementProperty);
-            set => SetValue(SelectedElementProperty, value);
-        }
-
-        protected override void OnPointerMoved(PointerEventArgs e)
-        {
-            this.HandleDragOver(e);
-            base.OnPointerMoved(e);
-        }
-
-        public PipelineView()
-        {
-            this.InitializeComponent();
-        }
-
         private void InitializeComponent()
         {
             this.WhenActivated(disposables =>
@@ -120,24 +131,22 @@ namespace CStreamer.Designer.Avalonia.Views
                     .DisposeWith(disposables);
 
                 drop.Where(@event => @event.EventArgs.Data.Contains("drawEdge"))
-                    .Select(@event => new { Src = @event.EventArgs.Data.Get("drawEdge") as SrcPadViewModel, Sink = (@event.EventArgs.Source as IControl).FindAnchestor<PadView>()?.DataContext as SinkPadViewModel })
+                    .Select(@event => new { Src = @event.EventArgs.Data.Get("drawEdge") as SrcPadViewModel, Sink = (@event.EventArgs.Source as IControl)?.FindAnchestor<PadView>()?.DataContext as SinkPadViewModel })
                     .Where(link => link.Src != null && link.Sink != null)
+#pragma warning disable CS8604 // Mögliches Nullverweisargument.
                     .Subscribe((ev) => this.ViewModel.TryConnect(ev.Src, ev.Sink))
+#pragma warning restore CS8604 // Mögliches Nullverweisargument.
                     .DisposeWith(disposables);
 
                 this.Events().PointerReleased
                     .Select(@event => (@event.EventArgs.Source as IControl)?.FindAnchestor<ElementView>()?.ViewModel?.Model)
-                    .Subscribe((val) => {
-                        SetValue(SelectedElementProperty, val, BindingPriority.LocalValue);
+                    .Subscribe((val) =>
+                    {
+                        this.SetValue(SelectedElementProperty, val, BindingPriority.LocalValue);
                     })
                     .DisposeWith(disposables);
             });
             AvaloniaXamlLoader.Load(this);
-        }
-
-        public EventObserver<PipelineView> Events()
-        {
-            return new EventObserver<PipelineView>(this);
         }
     }
 }

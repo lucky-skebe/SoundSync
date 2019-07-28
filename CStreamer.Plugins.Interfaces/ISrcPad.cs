@@ -7,8 +7,8 @@
 
 namespace CStreamer.Plugins.Interfaces
 {
-    using Optional;
     using System;
+    using Optional;
 
     /// <summary>
     /// Describes the minimum requirements for a SrcPad.
@@ -30,6 +30,7 @@ namespace CStreamer.Plugins.Interfaces
     public interface ISrcPad<TValue> : ISrcPad
     {
         new ISinkPad<TValue>? Peer { get; }
+
         Option<ISinkPad<TValue>, string> Link(ISinkPad<TValue> peer);
     }
 }

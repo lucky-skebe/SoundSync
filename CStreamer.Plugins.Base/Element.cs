@@ -7,13 +7,11 @@
 
 namespace CStreamer.Plugins.Base
 {
-    using CStreamer.Base;
-    using CStreamer.Plugins.Attributes;
-    using CStreamer.Plugins.Interfaces;
     using System;
     using System.Collections.Generic;
-    using System.Reflection;
     using System.Threading.Tasks;
+    using CStreamer.Base;
+    using CStreamer.Plugins.Interfaces;
 
     /// <summary>
     /// Baseclass for all element.
@@ -21,12 +19,12 @@ namespace CStreamer.Plugins.Base
     public abstract class Element : IElement
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipeElement"/> class.
+        /// Initializes a new instance of the <see cref="Element"/> class.
         /// </summary>
         /// <param name="name">the name ot the element.</param>
         protected Element(string? name)
         {
-            this.Name = name ?? $"{(this.GetElementName())}-{Guid.NewGuid()}";
+            this.Name = name ?? $"{this.GetElementName()}-{Guid.NewGuid()}";
             this.CurrentState = State.Stopped;
         }
 
@@ -62,6 +60,14 @@ namespace CStreamer.Plugins.Base
                 this.CurrentState = transition;
             }
         }
+
+        /// <summary>
+        /// Gets a list of all Property bindings that should be serialized/deserialized.
+        /// </summary>
+        /// <returns>List of all the PropertyBindings of hte element.</returns>
+        public abstract IEnumerable<IPropertyBinding> GetPropertyBindings();
+
+        public abstract IEnumerable<IPad> GetPads();
 
         /// <summary>
         /// Contains the logic that should run when changing from the Stopped to the Ready state.
@@ -106,14 +112,5 @@ namespace CStreamer.Plugins.Base
         {
             return Task.CompletedTask;
         }
-
-        
-
-        /// <summary>
-        /// Gets a list of all Property bindings that should be serialized/deserialized.
-        /// </summary>
-        /// <returns>List of all the PropertyBindings of hte element.</returns>
-        public abstract IEnumerable<IPropertyBinding> GetPropertyBindings();
-        public abstract IEnumerable<IPad> GetPads();
     }
 }

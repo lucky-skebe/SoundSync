@@ -5,10 +5,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Optional;
-
 namespace CStreamer.Plugins.Interfaces
 {
+    using Optional;
+
     public interface IPad
     {
         /// <summary>

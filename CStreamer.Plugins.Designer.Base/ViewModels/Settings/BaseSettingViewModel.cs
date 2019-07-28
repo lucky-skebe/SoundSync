@@ -1,12 +1,18 @@
-﻿using CStreamer.Plugins.Interfaces;
-using ReactiveUI;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// -----------------------------------------------------------------------
+// <copyright file="BaseSettingViewModel.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
 {
-    public abstract class BaseSettingViewModel<TValue> : ViewModelBase, ISettingViewModel where TValue : IEquatable<TValue>
+    using System;
+    using CStreamer.Plugins.Interfaces;
+    using ReactiveUI;
+
+    public abstract class BaseSettingViewModel<TValue> : ViewModelBase, ISettingViewModel
+        where TValue : IEquatable<TValue>
     {
         private readonly IPropertyBinding<TValue> binding;
 
@@ -14,13 +20,8 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
         {
             this.binding = binding;
 
-            this.binding.ValueChanged += Binding_ValueChanged;
+            this.binding.ValueChanged += this.Binding_ValueChanged;
             this.Name = binding.Name;
-        }
-
-        private void Binding_ValueChanged(object sender, BindingValueChangedEventArgs<TValue> e)
-        {
-            this.RaisePropertyChanged(nameof(this.Value));
         }
 
         public TValue Value
@@ -28,7 +29,7 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
             get => this.binding.Value;
             private set
             {
-                if(!Value.Equals(value))
+                if (!this.Value.Equals(value))
                 {
                     this.RaisePropertyChanging();
                     this.binding.Value = value;
@@ -40,6 +41,11 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
         public string Name
         {
             get;
+        }
+
+        private void Binding_ValueChanged(object sender, BindingValueChangedEventArgs<TValue> e)
+        {
+            this.RaisePropertyChanged(nameof(this.Value));
         }
     }
 }

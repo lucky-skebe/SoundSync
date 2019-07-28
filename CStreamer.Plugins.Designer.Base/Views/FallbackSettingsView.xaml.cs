@@ -1,9 +1,16 @@
-﻿using Avalonia;
-using Avalonia.Markup.Xaml;
-using CStreamer.Plugins.Designer.Base.ViewModels;
+﻿// -----------------------------------------------------------------------
+// <copyright file="FallbackSettingsView.xaml.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Plugins.Designer.Base.Views
 {
+    using CStreamer.Plugins.Designer.Base.ViewModels;
+    using global::Avalonia;
+    using global::Avalonia.Markup.Xaml;
+
     public class FallbackSettingsView : ReactiveUserControl<FallbackSettingsViewModel>
     {
         public FallbackSettingsView()
