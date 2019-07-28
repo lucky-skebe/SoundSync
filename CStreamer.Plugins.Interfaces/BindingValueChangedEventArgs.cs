@@ -6,12 +6,12 @@ namespace CStreamer.Plugins.Interfaces
 {
     public class BindingValueChangedEventArgs
     {
-        public BindingValueChangedEventArgs(object newValue)
+        public BindingValueChangedEventArgs(object? newValue)
         {
             this.NewValue = newValue;
         }
 
-        public object NewValue { get; }
+        public object? NewValue { get; }
     }
 
     public class BindingValueChangedEventArgs<TValue> : BindingValueChangedEventArgs

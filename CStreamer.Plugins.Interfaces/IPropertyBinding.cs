@@ -23,7 +23,7 @@ namespace CStreamer.Plugins.Interfaces
         /// </summary>
         /// <param name="propvalue">the name and value of the property to set.</param>
         /// <returns>True if the property was set. False otherwise.</returns>
-        Option<object, string> TrySetValue(PropertyValue propvalue);
+        Option<object?, string> TrySetValue(PropertyValue propvalue);
 
         /// <summary>
         /// Gets the name and value of a property.

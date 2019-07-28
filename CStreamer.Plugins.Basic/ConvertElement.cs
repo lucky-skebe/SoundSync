@@ -1,35 +1,56 @@
-﻿using CStreamer.Plugins.Base;
-using CStreamer.Plugins.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ConvertElement.cs" company="LuckySkebe (fmann12345@gmail.com)">
+//     Copyright (c) LuckySkebe (fmann12345@gmail.com). All rights reserved.
+//     Licensed under the MIT license. See LICENSE file in the project root for full license information.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace CStreamer.Plugins.Basic
 {
-    class ConvertElement : Element
-    {
-        public ConvertElement(string? name = null) : base(name)
-        {
-            SrcInt = new SrcPad<int>(this, "srcInt", false);
-            SrcDouble = new SrcPad<double>(this, "srcDouble", false);
-            SrcFloat = new SrcPad<float>(this, "srcFloat", false);
+    using System.Collections.Generic;
+    using System.Linq;
+    using CStreamer.Plugins.Base;
+    using CStreamer.Plugins.Interfaces;
 
-            SinkInt = new SinkPad<int>(this, "sinkInt", (f) => {
-                SrcInt.Push(f);
-                SrcDouble.Push(f);
-                SrcFloat.Push(f);
-                }, false);
-            SinkDouble = new SinkPad<double>(this, "sinkDouble", (f) => {
-                SrcInt.Push((int)f);
-                SrcDouble.Push(f);
-                SrcFloat.Push((float)f);
-            }, false);
-            SinkFloat = new SinkPad<float>(this, "sinkFloat", (f) => {
-                SrcInt.Push((int)f);
-                SrcDouble.Push(f);
-                SrcFloat.Push(f);
-            }, false);
+    public class ConvertElement : Element
+    {
+        public ConvertElement(string? name = null)
+            : base(name)
+        {
+            this.SrcInt = new SrcPad<int>(this, "srcInt", false);
+            this.SrcDouble = new SrcPad<double>(this, "srcDouble", false);
+            this.SrcFloat = new SrcPad<float>(this, "srcFloat", false);
+
+            this.SinkInt = new SinkPad<int>(
+                this,
+                "sinkInt",
+                (f) =>
+                {
+                    this.SrcInt.Push(f);
+                    this.SrcDouble.Push(f);
+                    this.SrcFloat.Push(f);
+                },
+                false);
+            this.SinkDouble = new SinkPad<double>(
+                this,
+                "sinkDouble",
+                (f) =>
+                {
+                    this.SrcInt.Push((int)f);
+                    this.SrcDouble.Push(f);
+                    this.SrcFloat.Push((float)f);
+                },
+                false);
+            this.SinkFloat = new SinkPad<float>(
+                this,
+                "sinkFloat",
+                (f) =>
+                {
+                    this.SrcInt.Push((int)f);
+                    this.SrcDouble.Push(f);
+                    this.SrcFloat.Push(f);
+                },
+                false);
         }
 
         /// <summary>
@@ -104,15 +125,14 @@ namespace CStreamer.Plugins.Basic
             private set;
         }
 
-
         public override IEnumerable<IPad> GetPads()
         {
-            yield return SrcDouble;
-            yield return SrcFloat;
-            yield return SrcInt;
-            yield return SinkDouble;
-            yield return SinkFloat;
-            yield return SinkInt;
+            yield return this.SrcDouble;
+            yield return this.SrcFloat;
+            yield return this.SrcInt;
+            yield return this.SinkDouble;
+            yield return this.SinkFloat;
+            yield return this.SinkInt;
         }
 
         public override IEnumerable<IPropertyBinding> GetPropertyBindings()

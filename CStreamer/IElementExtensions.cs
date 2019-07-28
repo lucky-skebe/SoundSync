@@ -7,11 +7,12 @@
 
 namespace CStreamer.Base
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using CStreamer.Plugins.Interfaces;
     using Optional;
     using Optional.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public static class IElementExtensions
     {
@@ -55,8 +56,18 @@ namespace CStreamer.Base
             return element.GetSinkPads<TValue>().SingleOrNone(p => p.Name == name);
         }
 
-        public static Option<object, string> SetPropertyValue(this IElement element, PropertyValue propertyValue)
+        public static Option<object?, string> SetPropertyValue(this IElement element, PropertyValue propertyValue)
         {
+            if (propertyValue == null)
+            {
+                throw new ArgumentNullException(nameof(propertyValue));
+            }
+
+            if (element == null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             return element
                 .GetPropertyBindings()
                 .FirstOrNone(binding => binding.Name == propertyValue.PropertyName)
@@ -66,6 +77,11 @@ namespace CStreamer.Base
 
         public static Option<object?, string> GetPropertyValue(this IElement element, string name)
         {
+            if (element == null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             return element
                 .GetPropertyBindings()
                 .FirstOrNone(binding => binding.Name == name)
@@ -75,6 +91,11 @@ namespace CStreamer.Base
 
         public static IEnumerable<PropertyValue> GetPropertyValues(this IElement element)
         {
+            if (element == null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             return element
                 .GetPropertyBindings()
                 .Select(binding => binding.GetValue());
@@ -82,10 +103,12 @@ namespace CStreamer.Base
 
         public static IEnumerable<IElement> GetPrevElements(this IElement element)
         {
-            return element.GetSinkPads().Where(p => p.Peer != null).Select(p => p.Peer.Parent);
+#pragma warning disable CS8602 // Dereferenzierung eines möglichen Nullverweises.
+            return element.GetSinkPads().Select(p => p.Peer).Where(peer => peer != null).Select(p => p.Parent);
+#pragma warning restore CS8602 // Dereferenzierung eines möglichen Nullverweises.
         }
 
-        public static bool CheckLinks (this IElement element)
+        public static bool CheckLinks(this IElement element)
         {
             if (element == null)
             {

@@ -26,8 +26,6 @@ namespace CStreamer.Plugins.Buttplug
     {
         private readonly ObservableCollection<ButtplugSinkDevice> devices = new ObservableCollection<ButtplugSinkDevice>();
 
-        public SinkPad<double> Sink { get; }
-
         private readonly ButtplugServerStateMachine stateMachine;
 
         private List<string> selectedDeviceCache;
@@ -41,24 +39,28 @@ namespace CStreamer.Plugins.Buttplug
         public ButtplugSink(string? name = null)
             : base(name)
         {
-            this.Sink = new SinkPad<double>(this, "sink", (f) =>
-            {
-                if (this.lastVal != f)
+            this.Sink = new SinkPad<double>(
+                this,
+                "sink",
+                (f) =>
                 {
-                    if (this.Client != null && this.Client.Connected)
+                    if (this.lastVal != f)
                     {
-                        foreach (var d in this.devices)
+                        if (this.Client != null && this.Client.Connected)
                         {
-                            if (d.Selected)
+                            foreach (var d in this.devices)
                             {
-                                d.Device.SendVibrateCmd(f);
+                                if (d.Selected)
+                                {
+                                    d.Device.SendVibrateCmd(f);
+                                }
                             }
-                        }
 
-                        this.lastVal = f;
+                            this.lastVal = f;
+                        }
                     }
-                }
-            }, true);
+                },
+                true);
 
             this.stateMachine = new ButtplugServerStateMachine();
 
@@ -66,6 +68,8 @@ namespace CStreamer.Plugins.Buttplug
         }
 
         public ReadOnlyObservableCollection<ButtplugSinkDevice> Devices => new ReadOnlyObservableCollection<ButtplugSinkDevice>(this.devices);
+
+        public SinkPad<double> Sink { get; }
 
         /// <summary>
         /// Gets or sets the Client used to communicating with a Buttplug server.
@@ -130,6 +134,7 @@ namespace CStreamer.Plugins.Buttplug
             {
                 return;
             }
+
             if (this.stateMachine.StopScanning())
             {
                 await this.Client.StopScanningAsync().ConfigureAwait(true);

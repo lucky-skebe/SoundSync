@@ -22,9 +22,6 @@ namespace CStreamer.Plugins.NAudio
     {
         private readonly WasapiLoopbackCapture loopback;
 
-        public SrcPad<IEnumerable<float>> Src { get; }
-
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LoopBackSrc"/> class.
         /// </summary>
@@ -32,9 +29,9 @@ namespace CStreamer.Plugins.NAudio
         public LoopBackSrc(string? name = null)
             : base(name)
         {
-            loopback = new WasapiLoopbackCapture();
-            loopback.DataAvailable += Loopback_DataAvailable;
-            Src = new SrcPad<IEnumerable<float>>(this, "src", true);
+            this.loopback = new WasapiLoopbackCapture();
+            this.loopback.DataAvailable += this.Loopback_DataAvailable;
+            this.Src = new SrcPad<IEnumerable<float>>(this, "src", true);
         }
 
         /// <summary>
@@ -43,33 +40,40 @@ namespace CStreamer.Plugins.NAudio
         ~LoopBackSrc()
         {
             // Finalizer calls Dispose(false)
-            Dispose(false);
+            this.Dispose(false);
         }
+
+        public SrcPad<IEnumerable<float>> Src { get; }
 
         /// <inheritdoc/>
         public override IEnumerable<IPad> GetPads()
         {
-            yield return Src;
+            yield return this.Src;
         }
 
         /// <inheritdoc/>
         public void Dispose()
         {
-            Dispose(true);
+            this.Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        {
+            return Enumerable.Empty<IPropertyBinding>();
         }
 
         /// <inheritdoc/>
         protected override Task TransitionReadyPlaying()
         {
-            loopback.StartRecording();
+            this.loopback.StartRecording();
             return Task.CompletedTask;
         }
 
         /// <inheritdoc/>
         protected override Task TransitionPlayingReady()
         {
-            loopback.StopRecording();
+            this.loopback.StopRecording();
             return Task.CompletedTask;
         }
 
@@ -82,9 +86,9 @@ namespace CStreamer.Plugins.NAudio
             if (disposing)
             {
                 // free managed resources
-                if (loopback != null)
+                if (this.loopback != null)
                 {
-                    loopback.Dispose();
+                    this.loopback.Dispose();
                 }
             }
         }
@@ -93,12 +97,7 @@ namespace CStreamer.Plugins.NAudio
         {
             var buffer = new WaveBuffer(args.Buffer);
 
-            Src.Push(buffer.FloatBuffer.Take(args.BytesRecorded / 4));
-        }
-
-        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
-        {
-            return Enumerable.Empty<IPropertyBinding>();
+            this.Src.Push(buffer.FloatBuffer.Take(args.BytesRecorded / 4));
         }
     }
 }

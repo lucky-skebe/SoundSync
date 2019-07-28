@@ -8,14 +8,15 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
 {
     class ObjectSettingsViewModel : ViewModelBase, ISettingViewModel
     {
-        private object value;
+        private object? value;
 
         public ObjectSettingsViewModel(IPropertyBinding binding)
         {
-
+            this.value = binding.GetValue().Value;
+            this.Name = binding.Name;
         }
 
-        public object Value
+        public object? Value
         {
             get => this.value;
             private set => this.RaiseAndSetIfChanged(ref this.value, value);

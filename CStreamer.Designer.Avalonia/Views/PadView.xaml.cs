@@ -14,7 +14,7 @@ namespace CStreamer.Designer.Avalonia.Views
         }
 
         public SrcPadViewModel? ViewModel { get => this.DataContext as SrcPadViewModel; set => this.DataContext = value; }
-        object IViewFor.ViewModel { get => this.DataContext as SrcPadViewModel; set => this.DataContext = value; }
+        object IViewFor.ViewModel { get => this.DataContext; set => this.DataContext = value; }
 
         private void InitializeComponent()
         {

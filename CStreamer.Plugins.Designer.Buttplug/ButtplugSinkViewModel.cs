@@ -14,14 +14,15 @@ namespace CStreamer.Plugins.Designer.Buttplug
 {
     public class ButtplugSinkViewModel : ReactiveObject, ISupportsActivation
     {
-        private ButtplugSink sink;
+        private readonly ButtplugSink sink;
 
-        private ReadOnlyObservableCollection<ButtplugSinkDevice> devices;
+        private ReadOnlyObservableCollection<ButtplugSinkDevice>? devices;
 
         public ViewModelActivator Activator { get; }
 
         public ButtplugSinkViewModel(ButtplugSink sink)
         {
+            this.devices = null;
             this.sink = sink;
             this.Activator = new ViewModelActivator();
 
@@ -36,7 +37,7 @@ namespace CStreamer.Plugins.Designer.Buttplug
             this.StopScanning = ReactiveCommand.CreateFromTask(sink.StopScanning);
         }
 
-        public ReadOnlyObservableCollection<ButtplugSinkDevice> Devices => this.devices;
+        public ReadOnlyObservableCollection<ButtplugSinkDevice>? Devices => this.devices;
 
         public string ServerAddress
         {

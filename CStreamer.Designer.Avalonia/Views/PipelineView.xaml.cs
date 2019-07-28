@@ -20,7 +20,7 @@ namespace CStreamer.Designer.Avalonia.Views
 {
     public class PipelineView : ReactiveUserControl<PipelineViewModel>
     {
-        public static readonly StyledProperty<IElement> SelectedElementProperty = AvaloniaProperty.Register<PipelineView, IElement>(nameof(SelectedElement));
+        public static readonly StyledProperty<IElement?> SelectedElementProperty = AvaloniaProperty.Register<PipelineView, IElement?>(nameof(SelectedElement));
 
         private Point startPoint;
         private bool isDragging;
@@ -31,7 +31,7 @@ namespace CStreamer.Designer.Avalonia.Views
             where TItem : class, IControl, IViewFor<TViewModel>
             where TViewModel : class
         {
-            TItem listViewItem = (e.Source as IControl)?.FindAnchestor<TItem>();
+            TItem? listViewItem = (e.Source as IControl)?.FindAnchestor<TItem>();
 
             if (listViewItem == null)
             {
@@ -80,7 +80,7 @@ namespace CStreamer.Designer.Avalonia.Views
             base.OnPointerPressed(e);
         }
 
-        public IElement SelectedElement
+        public IElement? SelectedElement
         {
             get => GetValue(SelectedElementProperty);
             set => SetValue(SelectedElementProperty, value);

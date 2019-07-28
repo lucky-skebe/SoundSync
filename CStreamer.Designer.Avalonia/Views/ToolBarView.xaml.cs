@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Presenters;
 using Avalonia.Input;
+using Avalonia.LogicalTree;
 using Avalonia.Markup.Xaml;
 using CStreamer.Designer.Avalonia.Helper;
 using CStreamer.Designer.Avalonia.ViewModels;

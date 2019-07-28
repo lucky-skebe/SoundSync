@@ -12,25 +12,28 @@ namespace CStreamer.Designer.Avalonia
     {
         public bool SupportsRecycling => false;
 
-        public IControl Build(object data)
+        public IControl? Build(object data)
         {
-            Type type;
-            if (data.GetType().GetCustomAttributes().OfType<LocateViewAttribute>().SingleOrDefault() is LocateViewAttribute attribute)
+            Type? type = null;
+            if (data?.GetType()?.GetCustomAttributes()?.OfType<LocateViewAttribute>()?.SingleOrDefault() is LocateViewAttribute attribute)
             {
                 type = attribute.TargetType;
             } else
             {
-                var name = data.GetType().FullName.Replace("ViewModel", "View");
-                type = Type.GetType(name);
+                var name = data?.GetType()?.FullName?.Replace("ViewModel", "View", StringComparison.InvariantCulture);
+                if (name != null)
+                {
+                    type = Type.GetType(name);
+                }
             }
 
             if (type != null)
             {
-                return (Control)Activator.CreateInstance(type);
+                return (IControl?)Activator.CreateInstance(type);
             }
             else
             {
-                return new TextBlock { Text = "Not Found: " + data.GetType().Name };
+                return new TextBlock { Text = "Not Found: " + data?.GetType()?.Name };
             }
         }
 

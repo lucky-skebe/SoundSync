@@ -130,7 +130,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 
         private void Pipeline_ElementsUnlinked(object sender, ElementsUnlinkedEventArgs e)
         {
-            if (this.linkLookup.Remove((e.Src, e.Sink), out LinkViewModel link))
+            if (this.linkLookup.Remove((e.Src, e.Sink), out LinkViewModel? link))
             {
                 this.Items.Remove(link);
             }
@@ -138,8 +138,8 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 
         private void Pipeline_ElementsLinked(object sender, ElementsLinkedEventArgs e)
         {
-            if (this.srcPadLookup.TryGetValue(e.Src, out PadViewModel src) &&
-                this.sinkPadLookup.TryGetValue(e.Sink, out PadViewModel sink))
+            if (this.srcPadLookup.TryGetValue(e.Src, out PadViewModel? src) &&
+                this.sinkPadLookup.TryGetValue(e.Sink, out PadViewModel? sink))
             {
                 var index = (e.Src, e.Sink);
                 LinkViewModel link = new LinkViewModel(src, sink);
@@ -150,24 +150,24 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 
         private void Pipeline_ElementRemoved(object sender, ElementRemovedEventArgs e)
         {
-            if (this.elementLookup.Remove(e.Element, out ElementViewModel element))
+            if (this.elementLookup.Remove(e.Element, out ElementViewModel? element))
             {
                 this.Items.Remove(element);
             }
 
             foreach (var sink in e.Element.GetSinkPads())
             {
-                if (this.sinkPadLookup.Remove(sink, out PadViewModel graphicalSinkPad))
+                if (this.sinkPadLookup.Remove(sink, out PadViewModel? sinkPadViewModel))
                 {
-                    this.Items.Remove(graphicalSinkPad);
+                    this.Items.Remove(sinkPadViewModel);
                 }
             }
 
             foreach (var src in e.Element.GetSrcPads())
             {
-                if (this.srcPadLookup.Remove(src, out PadViewModel graphicalSrcPad))
+                if (this.srcPadLookup.Remove(src, out PadViewModel? srcPadViewModel))
                 {
-                    this.Items.Remove(graphicalSrcPad);
+                    this.Items.Remove(srcPadViewModel);
                 }
             }
         }
@@ -215,11 +215,11 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             }
         }
 
-        private IElement element;
-        public IElement SelectedElement
+        private IElement? selectedElement;
+        public IElement? SelectedElement
         {
-            get => this.element;
-            set => this.RaiseAndSetIfChanged(ref element, value);
+            get => this.selectedElement;
+            set => this.RaiseAndSetIfChanged(ref selectedElement, value);
         }
     }
 }

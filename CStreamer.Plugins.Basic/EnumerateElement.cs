@@ -18,18 +18,21 @@ namespace CStreamer.Plugins.Basic
             : base(name)
         {
             this.Src = new SrcPad<float>(this, "src", true);
-            this.Sink = new SinkPad<IEnumerable<float>>(this, "sink", e =>
-            {
-                if (e == null)
+            this.Sink = new SinkPad<IEnumerable<float>>(
+                this,
+                "sink",
+                e =>
                 {
-                    return;
-                }
+                    if (e == null)
+                    {
+                        return;
+                    }
 
-                foreach (var f in e)
-                {
-                    this.Src.Push(f);
-                }
-            }, true);
+                    foreach (var f in e)
+                    {
+                        this.Src.Push(f);
+                    }
+                }, true);
         }
 
         /// <summary>

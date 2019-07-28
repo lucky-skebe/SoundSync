@@ -33,19 +33,23 @@ namespace CStreamer.Plugins.Basic
         public TimedAVGElement(string? name = null)
             : base(name)
         {
-            Src = new SrcPad<double>(this, "src", true);
-            backgroundThread = new Thread(new ThreadStart(BackgroundWorker))
+            this.Src = new SrcPad<double>(this, "src", true);
+            this.backgroundThread = new Thread(new ThreadStart(this.BackgroundWorker))
             {
                 IsBackground = true,
             };
-            Sink = new SinkPad<double>(this, "sink", (f) =>
-            {
-                lock (this)
+            this.Sink = new SinkPad<double>(
+                this,
+                "sink",
+                (f) =>
                 {
-                    accumulator += Math.Abs(f);
-                    count += 1;
-                }
-            }, true);
+                    lock (this)
+                    {
+                        this.accumulator += Math.Abs(f);
+                        this.count += 1;
+                    }
+                },
+                true);
         }
 
         /// <summary>
@@ -60,22 +64,13 @@ namespace CStreamer.Plugins.Basic
             {
                 lock (this)
                 {
-                    double avg = accumulator / count;
-                    count = 0;
-                    accumulator = 0.0f;
+                    double avg = this.accumulator / this.count;
+                    this.count = 0;
+                    this.accumulator = 0.0f;
                     return avg;
                 }
             }
         }
-
-        ///// <inheritdoc/>
-        //public override IEnumerable<IInteraction> Interactions
-        //{
-        //    get
-        //    {
-        //        yield return new IntParameterInteraction("Time (ms)", () => this.AVGMs, (value) => { this.AVGMs = value; });
-        //    }
-        //}
 
         /// <summary>
         /// Gets or sets the amount of millisecods between every average calculation.
@@ -110,41 +105,42 @@ namespace CStreamer.Plugins.Basic
         }
 
         /// <inheritdoc/>
+        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
+        {
+            yield return new PropertyBinding<int>(() => this.AVGMs);
+        }
+
+        /// <inheritdoc/>
+        public override IEnumerable<IPad> GetPads()
+        {
+            yield return this.Sink;
+            yield return this.Src;
+        }
+
+        /// <inheritdoc/>
         protected override Task TransitionReadyPlaying()
         {
-            running = true;
-            backgroundThread.Start();
+            this.running = true;
+            this.backgroundThread.Start();
             return Task.CompletedTask;
         }
 
         /// <inheritdoc/>
         protected override Task TransitionPlayingReady()
         {
-            running = false;
+            this.running = false;
             return Task.CompletedTask;
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
-        {
-            yield return new PropertyBinding<int>(() => AVGMs);
         }
 
         private void BackgroundWorker()
         {
-            while (running)
+            while (this.running)
             {
-                Thread.Sleep(AVGMs);
-                double avg = AverageSample;
+                Thread.Sleep(this.AVGMs);
+                double avg = this.AverageSample;
 
-                Src.Push(avg);
+                this.Src.Push(avg);
             }
-        }
-
-        public override IEnumerable<IPad> GetPads()
-        {
-            yield return Sink;
-            yield return Src;
         }
     }
 }

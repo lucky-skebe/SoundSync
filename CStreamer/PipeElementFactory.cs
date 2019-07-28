@@ -28,7 +28,6 @@ namespace CStreamer
             .Where((type) => typeof(IElement).IsAssignableFrom(type) && type.IsClass && !type.IsAbstract)
             .ToDictionary(type => IElementExtensions.GetElementName(type));
 
-
         /// <summary>
         /// Gets a list of all known factoryType names.
         /// </summary>

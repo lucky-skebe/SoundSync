@@ -19,12 +19,14 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             this.ToolBar = new ToolBarViewModel(elementTypes);
             this.Pipeline = new PipelineViewModel(pipeline);
 
-            this.Play = ReactiveCommand.CreateFromTask(pipeline.Start);
-            this.Stop = ReactiveCommand.CreateFromTask(pipeline.Stop);
+            this.Play = ReactiveCommand.CreateFromTask(() => pipeline.GoToState(State.Playing));
+            this.Pause = ReactiveCommand.CreateFromTask(() => pipeline.GoToState(State.Ready));
+            this.Stop = ReactiveCommand.CreateFromTask(() => pipeline.GoToState(State.Stopped));
 
             this.WhenActivated(disposables =>
             {
                 this.Play.Subscribe(result => result.MatchNone( errors => { foreach (var error in errors) { this.Notifications.AddNotification(new Notification(error)); } })).DisposeWith(disposables);
+                this.Pause.Subscribe(result => result.MatchNone(errors => { foreach (var error in errors) { this.Notifications.AddNotification(new Notification(error)); } })).DisposeWith(disposables);
                 this.Stop.Subscribe(result => result.MatchNone(errors => { foreach (var error in errors) { this.Notifications.AddNotification(new Notification(error)); } })).DisposeWith(disposables);
             });
 

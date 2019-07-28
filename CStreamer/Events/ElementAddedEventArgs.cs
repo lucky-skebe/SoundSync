@@ -5,11 +5,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
-using CStreamer.Plugins.Interfaces;
-
 namespace CStreamer.Events
 {
+    using CStreamer.Plugins.Interfaces;
+
     /// <summary>
     /// Provides data for the <see cref="PipeLine.ElementAdded" /> event.
     /// </summary>

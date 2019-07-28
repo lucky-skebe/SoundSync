@@ -7,7 +7,6 @@
 
 namespace CStreamer.PipeLineDefinitions
 {
-    using CStreamer.Plugins.Interfaces;
     using System.Collections.Generic;
 
     /// <summary>

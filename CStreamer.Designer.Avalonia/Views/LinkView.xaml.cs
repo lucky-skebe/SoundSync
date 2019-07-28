@@ -16,7 +16,6 @@ namespace CStreamer.Designer.Avalonia.Views
     {
         public LinkView()
         {
-            Path p;
             this.InitializeComponent();
         }
 
@@ -35,7 +34,7 @@ namespace CStreamer.Designer.Avalonia.Views
                 Point2 = this.points.Item3,
                 Point3 = this.points.Item4 });
 
-            context.DrawGeometry(new SolidColorBrush(), pen, geometry);
+            context?.DrawGeometry(new SolidColorBrush(), pen, geometry);
         }
 
         void Redraw((Point, Point, Point, Point) points)

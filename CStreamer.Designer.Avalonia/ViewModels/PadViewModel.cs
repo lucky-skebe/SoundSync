@@ -13,10 +13,10 @@ namespace CStreamer.Designer.Avalonia.ViewModels
         public ElementViewModel Element { get; }
         public int PadIndex { get; }
 
-        private ObservableAsPropertyHelper<double> x;
+        private readonly ObservableAsPropertyHelper<double> x;
         private ObservableAsPropertyHelper<double> y;
 
-        public PadViewModel(ElementViewModel element, int padIndex)
+        protected PadViewModel(ElementViewModel element, int padIndex)
         {
             Element = element;
             PadIndex = padIndex;

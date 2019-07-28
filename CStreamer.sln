@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Base", "CStreamer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Plugins.Designer.Base", "CStreamer.Plugins.Designer.Base\CStreamer.Plugins.Designer.Base.csproj", "{557E439E-487D-4058-B59E-1B5EDB6FB98C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CStreamer.Plugins.Designer.Buttplug", "CStreamer.Plugins.Designer.Buttplug\CStreamer.Plugins.Designer.Buttplug.csproj", "{4A02572C-6022-4138-B50F-20C6E09B0BB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Plugins.Designer.Buttplug", "CStreamer.Plugins.Designer.Buttplug\CStreamer.Plugins.Designer.Buttplug.csproj", "{4A02572C-6022-4138-B50F-20C6E09B0BB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

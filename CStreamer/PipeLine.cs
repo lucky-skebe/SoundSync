@@ -12,11 +12,11 @@ namespace CStreamer
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
+    using CStreamer.Base;
     using CStreamer.Events;
     using CStreamer.PipeLineDefinitions;
-    using CStreamer.Base;
-    using Optional;
     using CStreamer.Plugins.Interfaces;
+    using Optional;
 
     /// <summary>
     /// A complete pipeline consisting of linked elements that transform data from one form to another.
@@ -145,7 +145,6 @@ namespace CStreamer
 
                 Option<ISrcPad> srcPad = fromElement.GetSrcPad(link.FromPad);
                 Option<ISinkPad> sinkPad = toElement.GetSinkPad(link.ToPad);
-
 
                 srcPad.Match(
                     (srcPad) =>
@@ -301,6 +300,46 @@ namespace CStreamer
             return this.GoToState(State.Stopped);
         }
 
+        public async Task<Option<State, IEnumerable<string>>> GoToState(State state)
+        {
+            var transitions = StateManager.GetTransitions(this.currentState, state);
+
+            // Sync All elements to current state without resetting if they are already in a future state
+            transitions.Insert(0, this.currentState);
+
+            var orderedElementOptions = this.GetOrderedElements();
+
+            bool shouldReverse = IsReverseOrder(this.currentState, state);
+
+            return await orderedElementOptions.Match<Task<Option<State, IEnumerable<string>>>>(
+                async orderedElements =>
+                {
+                    if (shouldReverse)
+                    {
+                        orderedElements.Reverse();
+                    }
+
+                    int step = 0;
+                    foreach (State transition in transitions)
+                    {
+                        foreach (var elem in orderedElements)
+                        {
+                            var stateIndex = transitions.IndexOf(elem.CurrentState);
+                            if (stateIndex < step)
+                            {
+                                await elem.GoToState(transition).ConfigureAwait(true);
+                            }
+                        }
+
+                        step++;
+                        this.currentState = transition;
+                    }
+
+                    return Option.Some<State, IEnumerable<string>>(state);
+                },
+                (errors) => Task.FromResult(Option.None<State, IEnumerable<string>>(errors))).ConfigureAwait(true);
+        }
+
         private static bool IsReverseOrder(State from, State to)
         {
             return (from, to) switch
@@ -310,8 +349,6 @@ namespace CStreamer
                 _ => false
             };
         }
-
-        
 
         private void Clear()
         {
@@ -449,47 +486,6 @@ namespace CStreamer
                 sinkPad.Unlink();
                 this.OnElementsUnlinked(peer, sinkPad);
             }
-        }
-
-        private async Task<Option<State, IEnumerable<string>>> GoToState(State state)
-        {
-            var transitions = StateManager.GetTransitions(this.currentState, state);
-
-            // Sync All elements to current state without resetting if they are already in a future state
-            transitions.Insert(0, this.currentState);
-
-            var orderedElementOptions = this.GetOrderedElements();
-
-            bool shouldReverse = IsReverseOrder(this.currentState, state);
-
-            return await orderedElementOptions.Match<Task<Option<State, IEnumerable<string>>>>(
-                async orderedElements =>
-                {
-                    if (shouldReverse)
-                    {
-                        orderedElements.Reverse();
-                    }
-
-                    int step = 0;
-                    foreach (State transition in transitions)
-                    {
-                        foreach (var elem in orderedElements)
-                        {
-                            var stateIndex = transitions.IndexOf(elem.CurrentState);
-                            if (stateIndex < step)
-                            {
-                                await elem.GoToState(transition).ConfigureAwait(true);
-                            }
-                        }
-
-                        step++;
-                        this.currentState = transition;
-                    }
-
-                    return Option.Some<State, IEnumerable<string>>(state);
-                },
-                (errors) => Task.FromResult(Option.None<State, IEnumerable<string>>(errors))).ConfigureAwait(true);
-
         }
     }
 }
