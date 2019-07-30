@@ -12,7 +12,6 @@ namespace CStreamer.Plugins.Interfaces
 
     /// <summary>
     /// Describes the minimum requirements for a SinkPad.
-    /// most of the time <see cref="PipeSinkPad{TValue}"/> should be used.
     /// </summary>
     public interface ISinkPad : IPad, IEquatable<ISinkPad>
     {

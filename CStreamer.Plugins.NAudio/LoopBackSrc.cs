@@ -43,6 +43,12 @@ namespace CStreamer.Plugins.NAudio
             this.Dispose(false);
         }
 
+        /// <summary>
+        /// Gets the one output srcpad this element has.
+        /// </summary>
+        /// <value>
+        /// The one output srcpad this element has.
+        /// </value>
         public SrcPad<IEnumerable<float>> Src { get; }
 
         /// <inheritdoc/>
@@ -58,6 +64,7 @@ namespace CStreamer.Plugins.NAudio
             GC.SuppressFinalize(this);
         }
 
+        /// <inheritdoc/>
         public override IEnumerable<IPropertyBinding> GetPropertyBindings()
         {
             return Enumerable.Empty<IPropertyBinding>();

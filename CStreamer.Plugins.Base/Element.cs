@@ -67,6 +67,7 @@ namespace CStreamer.Plugins.Base
         /// <returns>List of all the PropertyBindings of hte element.</returns>
         public abstract IEnumerable<IPropertyBinding> GetPropertyBindings();
 
+        /// <inheritdoc/>
         public abstract IEnumerable<IPad> GetPads();
 
         /// <summary>

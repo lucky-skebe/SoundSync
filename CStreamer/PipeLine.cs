@@ -300,6 +300,14 @@ namespace CStreamer
             return this.GoToState(State.Stopped);
         }
 
+        /// <summary>
+        /// Tries to change the pipelines state to the state given
+        ///
+        /// Going throu all the states inbetween in order and sets the state
+        /// of all contained elements.
+        /// </summary>
+        /// <param name="state">The desired State.</param>
+        /// <returns>The new State after the change or a List of Errors that need to be fixed.</returns>
         public async Task<Option<State, IEnumerable<string>>> GoToState(State state)
         {
             var transitions = StateManager.GetTransitions(this.currentState, state);

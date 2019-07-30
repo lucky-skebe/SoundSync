@@ -13,16 +13,12 @@ namespace CStreamer.Designer.Avalonia.Views
     using global::Avalonia.Markup.Xaml;
     using ReactiveUI;
 
-    public class PadView : UserControl, IViewFor<SrcPadViewModel?>
+    public class PadView : ReactiveUserControl<PadViewModel>
     {
         public PadView()
         {
             this.InitializeComponent();
         }
-
-        public SrcPadViewModel? ViewModel { get => this.DataContext as SrcPadViewModel; set => this.DataContext = value; }
-
-        object IViewFor.ViewModel { get => this.DataContext; set => this.DataContext = value; }
 
         private void InitializeComponent()
         {

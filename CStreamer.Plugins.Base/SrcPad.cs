@@ -14,7 +14,7 @@ namespace CStreamer.Plugins.Base
     /// <summary>
     /// Base class for all SrcPads.
     ///
-    /// Data always flows from <see cref="SrcPad{TValue}"/> to <see cref="PipeSinkPad{TValue}"/>.
+    /// Data always flows from <see cref="SrcPad{TValue}"/> to <see cref="SinkPad{TValue}"/>.
     /// </summary>
     /// <typeparam name="TValue">The typt of value this pad can push throu the pipeline.</typeparam>
     public class SrcPad<TValue> : ISrcPad<TValue>
@@ -24,6 +24,7 @@ namespace CStreamer.Plugins.Base
         /// </summary>
         /// <param name="parent">the element this pad is connected to.</param>
         /// <param name="name">the name of the pad.</param>
+        /// <param name="mandatory"></param>
         public SrcPad(IElement parent, string name, bool mandatory)
         {
             this.Parent = parent;
@@ -55,6 +56,7 @@ namespace CStreamer.Plugins.Base
 
         ISinkPad<TValue>? ISrcPad<TValue>.Peer => this.Peer;
 
+        /// <inheritdoc/>
         public bool Mandatory { get; }
 
         /// <inheritdoc/>
@@ -66,7 +68,7 @@ namespace CStreamer.Plugins.Base
         /// <summary>
         /// Pushed data along the pipeline.
         /// </summary>
-        /// <param name="value">the value to push into towards the connected <see cref="PipeSinkPad{TValue}"/>.</param>
+        /// <param name="value">the value to push into towards the connected <see cref="SinkPad{TValue}"/>.</param>
         public void Push(TValue value)
         {
             if (this.Peer != null)
@@ -100,6 +102,7 @@ namespace CStreamer.Plugins.Base
             return (this.Parent, this.Name).GetHashCode();
         }
 
+        /// <inheritdoc/>
         public Option<ISinkPad<TValue>, string> Link(ISinkPad<TValue> peer)
         {
             if (peer == this.Peer)
@@ -114,6 +117,7 @@ namespace CStreamer.Plugins.Base
             return Option.Some<ISinkPad<TValue>, string>(peer);
         }
 
+        /// <inheritdoc/>
         public Option<ISinkPad, string> Link(ISinkPad peer)
         {
             if (peer == this.Peer)
@@ -133,6 +137,7 @@ namespace CStreamer.Plugins.Base
             }
         }
 
+        /// <inheritdoc/>
         public Option<IPad, string> Link(IPad peer)
         {
             if (peer == this.Peer)

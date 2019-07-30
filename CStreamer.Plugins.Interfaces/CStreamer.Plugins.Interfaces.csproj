@@ -11,6 +11,10 @@
     <Version>0.2.0.0</Version>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\Fritz\Documents\Projects\CStreamer\CStreamer.Plugins.Interfaces\CStreamer.Plugins.Interfaces.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <AdditionalFiles Include="../stylecop.json" />
   </ItemGroup>

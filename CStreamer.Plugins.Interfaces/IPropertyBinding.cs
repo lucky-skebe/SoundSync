@@ -12,12 +12,18 @@ namespace CStreamer.Plugins.Interfaces
 
     /// <summary>
     /// Describes the methods all PropertyBinding should implement.
-    /// Ususally <see cref="PropertyBinding{TValue}"/> shoule be used when writing custom bindings.
+    /// Ususally <see cref="IPropertyBinding{TValue}"/> shoule be used when writing custom bindings.
     /// </summary>
     public interface IPropertyBinding
     {
         public event EventHandler<BindingValueChangedEventArgs> ValueChanged;
 
+        /// <summary>
+        /// Gets the name of the Property.
+        /// </summary>
+        /// <value>
+        /// The name of the Property.
+        /// </value>
         string Name
         {
             get;

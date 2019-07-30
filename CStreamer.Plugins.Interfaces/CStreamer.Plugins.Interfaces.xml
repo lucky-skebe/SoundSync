@@ -1,0 +1,241 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CStreamer.Plugins.Interfaces</name>
+    </assembly>
+    <members>
+        <member name="T:CStreamer.Plugins.Attributes.ElementNameAttribute">
+            <summary>
+            USed to set the name an element can be retrieved by useing <see cref="!:PipeElementFactory.Make(string, string)"/>.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Attributes.ElementNameAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Attributes.ElementNameAttribute"/> class.
+            </summary>
+            <param name="name">The name to register under.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Attributes.ElementNameAttribute.Name">
+            <summary>
+            Gets the name to register under.
+            </summary>
+            <value>
+            The name to register under.
+            </value>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.IElement">
+            <summary>
+            Defines what members all elements need to implement.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.IElement.Name">
+            <summary>
+            Gets the name of the element.
+            </summary>
+            <value>
+            The name of the element.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.IElement.CurrentState">
+            <summary>
+            Gets the current state of the element.
+            </summary>
+            <value>
+            The current state of the element.
+            </value>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.IElement.GoToState(CStreamer.State)">
+            <summary>
+            Tells the element to change to a specific State.
+            Changed to all the inbetween states as well.
+            </summary>
+            <param name="newState">The State to change to.</param>
+            <returns>A task that represents the state change operation.</returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.IElement.GetPropertyBindings">
+            <summary>
+            Gets a list of all Property bindings that should be serialized/deserialized.
+            </summary>
+            <returns>List of all the PropertyBindings of hte element.</returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.IElement.GetPads">
+            <summary>
+            Returns all pads of the element.
+            </summary>
+            <returns>All pads.</returns>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.IPad.Parent">
+            <summary>
+            Gets the element this pad is a part of.
+            </summary>
+            <value>
+            The element this pad is a part of.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.IPad.Name">
+            <summary>
+            Gets the Name of the pad.
+            </summary>
+            <value>
+            The Name of the pad.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.IPad.Peer">
+            <summary>
+            Gets the pad on the other side of the link of null if the pad is not linked.
+            </summary>
+            <value>
+            The pad on the other side of the link of null if the pad is not linked.
+            </value>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.IPad.IsLinked">
+            <summary>
+            Returns the linking status of the pad.
+            </summary>
+            <returns>true if the pad is linked, false otherwise.</returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.IPad.Unlink">
+            <summary>
+            Unliks the pad from it's peer pad.
+            </summary>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.IPropertyBinding">
+            <summary>
+            Describes the methods all PropertyBinding should implement.
+            Ususally <see cref="T:CStreamer.Plugins.Interfaces.IPropertyBinding`1"/> shoule be used when writing custom bindings.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.IPropertyBinding.Name">
+            <summary>
+            Gets the name of the Property.
+            </summary>
+            <value>
+            The name of the Property.
+            </value>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.IPropertyBinding.TrySetValue(CStreamer.PropertyValue)">
+            <summary>
+            Tries to set the value of a specified property.
+            </summary>
+            <param name="propvalue">the name and value of the property to set.</param>
+            <returns>True if the property was set. False otherwise.</returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.IPropertyBinding.GetValue">
+            <summary>
+            Gets the name and value of a property.
+            </summary>
+            <returns>The name and value of a property.</returns>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.ISinkPad">
+            <summary>
+            Describes the minimum requirements for a SinkPad.
+            most of the time <see cref="!:PipeSinkPad&lt;TValue&gt;"/> should be used.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.ISinkPad.Peer">
+            <summary>
+            Gets the pad on the other side of the link of null if the pad is not linked.
+            </summary>
+            <value>
+            The pad on the other side of the link of null if the pad is not linked.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.ISinkPad`1.Peer">
+            <summary>
+            Gets the pad on the other side of the link of null if the pad is not linked.
+            </summary>
+            <value>
+            The pad on the other side of the link of null if the pad is not linked.
+            </value>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.ISrcPad">
+            <summary>
+            Describes the minimum requirements for a SrcPad.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.ISrcPad.Peer">
+            <summary>
+            Gets the pad on the other side of the link of null if the pad is not linked.
+            </summary>
+            <value>
+            The pad on the other side of the link of null if the pad is not linked.
+            </value>
+        </member>
+        <member name="M:CStreamer.IElementExtensions.GetElementName(CStreamer.Plugins.Interfaces.IElement)">
+             <summary>
+             Gets the name for a given Elements type.
+            
+             These names can either be registered using the <see cref="T:CStreamer.Plugins.Attributes.ElementNameAttribute"/> or will be generated using the Classname.
+             Classnames ending in Src, Sink, or Element will get these parts removed.
+             </summary>
+             <param name="element">the element to resolve the name of.</param>
+             <returns>The factoryType name of the given type.</returns>
+             <exception cref="T:System.ArgumentNullException">if type is null.</exception>
+        </member>
+        <member name="M:CStreamer.IElementExtensions.GetElementName(System.Type)">
+             <summary>
+             Gets the name for a given Type.
+            
+             These names can either be registered using the <see cref="T:CStreamer.Plugins.Attributes.ElementNameAttribute"/> or will be generated using the Classname.
+             Classnames ending in Src, Sink, or Element will get these parts removed.
+             </summary>
+             <param name="type">the type to resolve the name of.</param>
+             <returns>The factoryType name of the given type.</returns>
+             <exception cref="T:System.ArgumentNullException">if type is null.</exception>
+        </member>
+        <member name="T:CStreamer.PropertyValue">
+            <summary>
+            The value of an element property. used for serialization/deserialization.
+            </summary>
+        </member>
+        <member name="M:CStreamer.PropertyValue.#ctor(System.String,System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.PropertyValue"/> class.
+            </summary>
+            <param name="propertyName">The name of the property.</param>
+            <param name="value">The value of the property.</param>
+        </member>
+        <member name="P:CStreamer.PropertyValue.PropertyName">
+            <summary>
+            Gets the name of the property.
+            </summary>
+            <value>
+            The name of the property.
+            </value>
+        </member>
+        <member name="P:CStreamer.PropertyValue.Value">
+            <summary>
+            Gets the value of the property.
+            </summary>
+            <value>
+            The value of the property.
+            </value>
+        </member>
+        <member name="T:CStreamer.State">
+            <summary>
+            State of the Pipeline or Element.
+            Pretty Similar to the GStreamer State.
+            </summary>
+        </member>
+        <member name="F:CStreamer.State.Playing">
+            <summary>
+            Playlist/Element is playing.
+            Data is getting pushed throu it.
+            </summary>
+        </member>
+        <member name="F:CStreamer.State.Ready">
+            <summary>
+            Playlist/Element is ready.
+            All Elements have finished their initalization.
+            But no data is flowing yet.
+            </summary>
+        </member>
+        <member name="F:CStreamer.State.Stopped">
+            <summary>
+            Playlist/Element is stopped.
+            No data is flowing
+            Elements may not be initialized yet or may have releases their resources.
+            </summary>
+        </member>
+    </members>
+</doc>

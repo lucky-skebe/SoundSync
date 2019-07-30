@@ -13,7 +13,6 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 
         double Y { get; }
 
-
         int ZIndex { get; }
     }
 }

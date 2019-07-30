@@ -14,7 +14,7 @@ namespace CStreamer.Plugins.Base
     /// <summary>
     /// Base class for all SinkPads.
     ///
-    /// Data always flows from <see cref="PipeSrcPad{TValue}"/> to <see cref=SinkPad{TValue}"/>.
+    /// Data always flows from <see cref="SrcPad{TValue}"/> to <see cref="SinkPad{TValue}"/>.
     /// </summary>
     /// <typeparam name="TValue">The typt of value this pad can accept.</typeparam>
     public class SinkPad<TValue> : ISinkPad<TValue>
@@ -25,6 +25,7 @@ namespace CStreamer.Plugins.Base
         /// <param name="parent">the element this pad is connected to.</param>
         /// <param name="name">the name of the pad.</param>
         /// <param name="elementCallback">the callback inside the element to push data to.</param>
+        /// <param name="mandatory"></param>
         public SinkPad(IElement parent, string name, Action<TValue> elementCallback, bool mandatory)
         {
             this.Name = name;
@@ -33,7 +34,6 @@ namespace CStreamer.Plugins.Base
             this.Mandatory = mandatory;
         }
 
-        /// <inheritdoc/>
         public IElement Parent
         {
             get;
@@ -59,6 +59,7 @@ namespace CStreamer.Plugins.Base
 
         IPad? IPad.Peer => this.Peer;
 
+        /// <inheritdoc/>
         public bool Mandatory { get; }
 
         /// <summary>
@@ -117,6 +118,7 @@ namespace CStreamer.Plugins.Base
             return (this.Parent, this.Name).GetHashCode();
         }
 
+        /// <inheritdoc/>
         public Option<ISrcPad<TValue>, string> Link(ISrcPad<TValue> peer)
         {
             if (peer == this.Peer)
@@ -131,6 +133,7 @@ namespace CStreamer.Plugins.Base
             return Option.Some<ISrcPad<TValue>, string>(peer);
         }
 
+        /// <inheritdoc/>
         public Option<ISrcPad, string> Link(ISrcPad peer)
         {
             if (peer == this.Peer)
@@ -149,6 +152,7 @@ namespace CStreamer.Plugins.Base
             }
         }
 
+        /// <inheritdoc/>
         public Option<IPad, string> Link(IPad peer)
         {
             if (peer == this.Peer)

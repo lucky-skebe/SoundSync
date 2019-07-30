@@ -12,7 +12,6 @@ namespace CStreamer.Plugins.Interfaces
 
     /// <summary>
     /// Describes the minimum requirements for a SrcPad.
-    /// most of the time <see cref="PipeSrcPad{TValue}"/> should be used.
     /// </summary>
     public interface ISrcPad : IPad, IEquatable<ISrcPad>
     {

@@ -15,7 +15,6 @@ namespace CStreamer.Designer.Avalonia.Helper
         /// <summary>
         /// Initializes a new instance of the <see cref="LocateViewAttribute"/> class.
         /// </summary>
-        /// <param name="name">The name to register under.</param>
         public LocateViewAttribute(Type targetType)
         {
             this.TargetType = targetType;

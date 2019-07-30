@@ -12,8 +12,15 @@ namespace CStreamer.Plugins.Basic
     using CStreamer.Plugins.Base;
     using CStreamer.Plugins.Interfaces;
 
+    /// <summary>
+    /// An Element that enumerates an input <see cref="IEnumerable{T}"/> and pusches out the single values.
+    /// </summary>
     public class EnumerateElement : Element
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumerateElement"/> class.
+        /// </summary>
+        /// <param name="name">The name of the element or null to autogenerate.</param>
         public EnumerateElement(string? name = null)
             : base(name)
         {
@@ -39,7 +46,7 @@ namespace CStreamer.Plugins.Basic
         /// Gets the one input sinkpad this element has.
         /// </summary>
         /// <value>
-        /// The one output input this element has.
+        /// The one input this element has.
         /// </value>
         public SinkPad<IEnumerable<float>> Sink
         {

@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CStreamer.Designer.Avalonia</name>
+    </assembly>
+    <members>
+        <member name="M:CStreamer.Designer.Avalonia.Helper.LocateViewAttribute.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Designer.Avalonia.Helper.LocateViewAttribute"/> class.
+            </summary>
+            <param name="name">The name to register under.</param>
+        </member>
+        <member name="P:CStreamer.Designer.Avalonia.Helper.LocateViewAttribute.TargetType">
+            <summary>
+            Gets the name to register under.
+            </summary>
+            <value>
+            The name to register under.
+            </value>
+        </member>
+        <member name="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.X">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.Y">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.Width">
+            <summary>
+            Gets the Width.
+            </summary>
+            <value>
+            The Width.
+            </value>
+        </member>
+        <member name="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.Height">
+            <summary>
+            Gets the Height.
+            </summary>
+            <value>
+            The Height.
+            </value>
+        </member>
+        <member name="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.Start">
+            <summary>
+            Gets the startpoint of the Bezier Curve connecting two elements.
+            </summary>
+            <value>
+            The startpoint of the Bezier Curve connecting two elements.
+            Relative to the position defined by <see cref="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.X"/> and <see cref="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.Y"/>.
+            </value>
+        </member>
+        <member name="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.End">
+            <summary>
+            Gets the endpoint of the Bezier Curve connecting two elements.
+            </summary>
+            <value>
+            The endpoint of the Bezier Curve connecting two elements.
+            Relative to the position defined by <see cref="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.X"/> and <see cref="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.Y"/>.
+            </value>
+        </member>
+        <member name="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.Control1">
+            <summary>
+            Gets the first controlpoint of the Bezier Curve connecting two elements.
+            </summary>
+            <value>
+            The first controlpoint of the Bezier Curve connecting two elements.
+            Relative to the position defined by <see cref="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.X"/> and <see cref="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.Y"/>.
+            </value>
+        </member>
+        <member name="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.Control2">
+            <summary>
+            Gets the second controlpoint of the Bezier Curve connecting two elements.
+            </summary>
+            <value>
+            The second controlpoint of the Bezier Curve connecting two elements.
+            Relative to the position defined by <see cref="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.X"/> and <see cref="P:CStreamer.Designer.Avalonia.ViewModels.LinkViewModel.Y"/>.
+            </value>
+        </member>
+        <member name="M:CStreamer.Designer.Avalonia.ViewModels.PipelineViewModel.Remove(CStreamer.Designer.Avalonia.ViewModels.ElementViewModel)">
+            <summary>
+            Removes an element from the pipeline.
+            This unlinks the element from all other elements.
+            Afterwars this element won't be handled by the pipleline.
+            </summary>
+            <param name="graphicalElement">The element to remove from the pipeline.</param>
+        </member>
+        <member name="M:CStreamer.Designer.Avalonia.ViewModels.PipelineViewModel.Add(CStreamer.Plugins.Interfaces.IElement,Avalonia.Point)">
+            <summary>
+            Add an element to the pipeline to be handled.
+            The pipeline handles the <see cref="T:CStreamer.State"/> of all it's elements and serielizes elements it owns when it gets serialized.
+            </summary>
+            <param name="element">The element to add to the pipeline.</param>
+            <param name="position">The position the element should be rendered at.</param>
+        </member>
+        <member name="M:CStreamer.Designer.Avalonia.ViewModels.PipelineViewModel.Connect``1(CStreamer.Plugins.Interfaces.ISrcPad{``0},CStreamer.Plugins.Interfaces.ISinkPad{``0})">
+            <summary>
+            Connect two element pads, letting them send data from the src to the sink.
+            </summary>
+            <typeparam name="TValue">The type of data that can be sent.</typeparam>
+            <param name="src">The src ot the data.</param>
+            <param name="sink">The destination of the data.</param>
+        </member>
+        <member name="M:CStreamer.Designer.Avalonia.ViewModels.PipelineViewModel.Start">
+            <summary>
+            Moves the pipeline and all it's elements to the <see cref="F:CStreamer.State.Playing"/> state.
+            </summary>
+            <returns>A task that represents the state change operation.</returns>
+        </member>
+        <member name="M:CStreamer.Designer.Avalonia.ViewModels.PipelineViewModel.Stop">
+            <summary>
+            Moves the pipeline and all it's elements to the <see cref="F:CStreamer.State.Stopped"/> state.
+            </summary>
+            <returns>A task that represents the state change operation.</returns>
+        </member>
+    </members>
+</doc>

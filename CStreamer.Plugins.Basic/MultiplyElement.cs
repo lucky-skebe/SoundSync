@@ -12,8 +12,15 @@ namespace CStreamer.Plugins.Basic
     using CStreamer.Plugins.Base;
     using CStreamer.Plugins.Interfaces;
 
+    /// <summary>
+    /// An Element that multiplies the input by a fixed value.
+    /// </summary>
     public class MultiplyElement : Element
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MultiplyElement"/> class.
+        /// </summary>
+        /// <param name="name">The Name of hte element.</param>
         public MultiplyElement(string? name = null)
             : base(name)
         {
@@ -21,6 +28,12 @@ namespace CStreamer.Plugins.Basic
             this.Sink = new SinkPad<double>(this, "sink", (f) => this.Src.Push(f * this.Multiplier), true);
         }
 
+        /// <summary>
+        /// Gets or sets the amount the input gets multiplied by.
+        /// </summary>
+        /// <value>
+        /// the amount the input gets multiplied by.
+        /// </value>
         public double Multiplier { get; set; } = 10;
 
         /// <summary>

@@ -10,8 +10,19 @@ namespace CStreamer.Base
     using System;
     using System.Linq;
 
+    /// <summary>
+    /// Extension Methods for the Type type.
+    /// </summary>
     public static class TypeExtensions
     {
+        /// <summary>
+        /// Gets a Generic type implementation of a given type.
+        ///
+        /// So if instanceType inherits genericType{} it returns genericType{T}.
+        /// </summary>
+        /// <param name="instanceType">The type to check.</param>
+        /// <param name="genericType">The generic type to check for as opengeneric.</param>
+        /// <returns>The specific type implementation or null if it doesn't inherit that type.</returns>
         public static Type? GetGenericTypeImplementation(this Type instanceType, Type genericType)
         {
             while (instanceType != null)
@@ -28,6 +39,14 @@ namespace CStreamer.Base
             return null;
         }
 
+        /// <summary>
+        /// Gets a Generic type interface of a given type.
+        ///
+        /// So if instanceType or any of it's parents implements genericType{} it returns genericType{T}.
+        /// </summary>
+        /// <param name="instanceType">The type to check.</param>
+        /// <param name="genericType">The generic type to check for as opengeneric.</param>
+        /// <returns>The specific type interface or null if it doesn't implement that type.</returns>
         public static Type? GetGenericInterfaceImplementation(this Type instanceType, Type genericType)
         {
             var interfaces = instanceType.FindInterfaces(FilterGenericType, genericType);

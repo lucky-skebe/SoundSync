@@ -10,6 +10,9 @@
     <Copyright>LuckySkebe</Copyright>
     <Version>0.2.0.0</Version>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netcoreapp3.0|AnyCPU'">
+    <DocumentationFile>C:\Users\Fritz\Documents\Projects\CStreamer\CStreamer.Designer.Avalonia\CStreamer.Designer.Avalonia.xml</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>

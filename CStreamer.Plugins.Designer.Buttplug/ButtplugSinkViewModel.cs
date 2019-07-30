@@ -25,15 +25,13 @@ namespace CStreamer.Plugins.Designer.Buttplug
         public ButtplugSinkViewModel(ButtplugSink sink)
         {
             this.devices = null;
-            this.sink = sink;
+            this.sink = sink ?? throw new ArgumentNullException(nameof(sink));
             this.Activator = new ViewModelActivator();
-
 
             this.WhenActivated((disposables) =>
             {
                 sink.Devices.ToObservableChangeSet().ObserveOn(RxApp.MainThreadScheduler).Bind(out this.devices).Subscribe().DisposeWith(disposables);
             });
-
 
             this.StartScanning = ReactiveCommand.CreateFromTask(sink.StartScanning);
             this.StopScanning = ReactiveCommand.CreateFromTask(sink.StopScanning);
@@ -57,7 +55,6 @@ namespace CStreamer.Plugins.Designer.Buttplug
         }
 
         public ReactiveCommand StartScanning { get; }
-
 
         public ReactiveCommand StopScanning { get; }
     }

@@ -14,6 +14,10 @@
     <CodeAnalysisRuleSet>../custom.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
+    <DocumentationFile>C:\Users\Fritz\Documents\Projects\CStreamer\CStreamer.Plugins.Designer.Buttplug\CStreamer.Plugins.Designer.Buttplug.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <AdditionalFiles Include="../stylecop.json" />
   </ItemGroup>

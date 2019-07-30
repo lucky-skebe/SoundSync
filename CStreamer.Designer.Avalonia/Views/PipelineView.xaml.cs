@@ -54,15 +54,25 @@ namespace CStreamer.Designer.Avalonia.Views
 
         protected override void OnPointerPressed(PointerPressedEventArgs e)
         {
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
             this.isDragging = false;
             this.dragData = null;
             this.HandleDragStart<ElementView, ElementViewModel>(e, "moveElement");
-            this.HandleDragStart<PadView, SrcPadViewModel?>(e, "drawEdge");
+            this.HandleDragStart<PadView, PadViewModel>(e, "drawEdge");
             base.OnPointerPressed(e);
         }
 
         protected override void OnPointerMoved(PointerEventArgs e)
         {
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
+
             this.HandleDragOver(e);
             base.OnPointerMoved(e);
         }

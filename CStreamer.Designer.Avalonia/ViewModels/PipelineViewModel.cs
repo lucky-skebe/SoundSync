@@ -133,28 +133,28 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             }
         }
 
-        //internal GraphicalPipeLineDefinition GetDefinition()
-        //{
-        //    var rawDefinition = this.pipeline.GetDefinition();
+        ////internal GraphicalPipeLineDefinition GetDefinition()
+        ////{
+        ////    var rawDefinition = this.pipeline.GetDefinition();
+        ////
+        ////    var positions = this.elementLookup.ToDictionary(e => e.Key.Name, e => new Point(e.Value.X, e.Value.Y));
+        ////
+        ////    var graphicalDefinition = new GraphicalPipeLineDefinition(rawDefinition, positions);
+        ////
+        ////    return graphicalDefinition;
+        ////}
 
-        //    var positions = this.elementLookup.ToDictionary(e => e.Key.Name, e => new Point(e.Value.X, e.Value.Y));
+        ////internal IList<string> FromDefinition(GraphicalPipeLineDefinition definition)
+        ////{
+        ////    foreach (var kvp in definition.Positions)
+        ////    {
+        ////        this.positionCache.Add(kvp.Key, kvp.Value);
+        ////    }
+        ////
+        ////    return this.pipeline.FromDefinition(definition);
+        ////}
 
-        //    var graphicalDefinition = new GraphicalPipeLineDefinition(rawDefinition, positions);
-
-        //    return graphicalDefinition;
-        //}
-
-        //internal IList<string> FromDefinition(GraphicalPipeLineDefinition definition)
-        //{
-        //    foreach (var kvp in definition.Positions)
-        //    {
-        //        this.positionCache.Add(kvp.Key, kvp.Value);
-        //    }
-
-        //    return this.pipeline.FromDefinition(definition);
-        //}
-
-        private void Pipeline_ElementsUnlinked(object sender, ElementsUnlinkedEventArgs e)
+        private void Pipeline_ElementsUnlinked(object? sender, ElementsUnlinkedEventArgs e)
         {
             if (this.linkLookup.Remove((e.Src, e.Sink), out LinkViewModel? link))
             {
@@ -162,7 +162,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             }
         }
 
-        private void Pipeline_ElementsLinked(object sender, ElementsLinkedEventArgs e)
+        private void Pipeline_ElementsLinked(object? sender, ElementsLinkedEventArgs e)
         {
             if (this.srcPadLookup.TryGetValue(e.Src, out PadViewModel? src) &&
                 this.sinkPadLookup.TryGetValue(e.Sink, out PadViewModel? sink))
@@ -174,7 +174,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             }
         }
 
-        private void Pipeline_ElementRemoved(object sender, ElementRemovedEventArgs e)
+        private void Pipeline_ElementRemoved(object? sender, ElementRemovedEventArgs e)
         {
             if (this.elementLookup.Remove(e.Element, out ElementViewModel? element))
             {
@@ -198,7 +198,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             }
         }
 
-        private void Pipeline_ElementAdded(object sender, ElementAddedEventArgs e)
+        private void Pipeline_ElementAdded(object? sender, ElementAddedEventArgs e)
         {
             ElementViewModel element;
             if (this.positionCache.Remove(e.Element.Name, out Point position))

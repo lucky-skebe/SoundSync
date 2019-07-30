@@ -9,8 +9,17 @@ namespace CStreamer.Base
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// A helperclass that returns all <see cref="State">States</see> a State treansition should go throu.
+    /// </summary>
     public static class StateManager
     {
+        /// <summary>
+        /// Gets a list of all states that should be gone throu to reach the given state.
+        /// </summary>
+        /// <param name="from">The original State.</param>
+        /// <param name="to">The desired State.</param>
+        /// <returns>A list of all states that should be gone throu.</returns>
         public static IList<State> GetTransitions(State from, State to)
         {
             return (from, to) switch

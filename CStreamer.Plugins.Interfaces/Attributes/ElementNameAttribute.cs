@@ -10,7 +10,7 @@ namespace CStreamer.Plugins.Attributes
     using System;
 
     /// <summary>
-    /// USed to set the name an element can be retrieved by useing <see cref="PipeElementFactory.Make(string, string)"/>.
+    /// Ueed to set the name an element can be retrieved as.
     /// </summary>
     [System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = false)]
     public class ElementNameAttribute : Attribute

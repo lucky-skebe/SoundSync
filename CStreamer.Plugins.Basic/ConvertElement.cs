@@ -12,8 +12,15 @@ namespace CStreamer.Plugins.Basic
     using CStreamer.Plugins.Base;
     using CStreamer.Plugins.Interfaces;
 
+    /// <summary>
+    /// An element to convert between different numeric types.
+    /// </summary>
     public class ConvertElement : Element
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConvertElement"/> class.
+        /// </summary>
+        /// <param name="name">The name of the element or null to autogenerate one.</param>
         public ConvertElement(string? name = null)
             : base(name)
         {
@@ -125,6 +132,7 @@ namespace CStreamer.Plugins.Basic
             private set;
         }
 
+        /// <inheritdoc/>
         public override IEnumerable<IPad> GetPads()
         {
             yield return this.SrcDouble;
@@ -135,6 +143,7 @@ namespace CStreamer.Plugins.Basic
             yield return this.SinkInt;
         }
 
+        /// <inheritdoc/>
         public override IEnumerable<IPropertyBinding> GetPropertyBindings()
         {
             return Enumerable.Empty<IPropertyBinding>();

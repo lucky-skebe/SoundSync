@@ -13,10 +13,13 @@ namespace CStreamer.Plugins.Designer.Base
 
     public abstract class ElementSettingsDataTemplate : IDataTemplate
     {
+        /// <inheritdoc/>
         public bool SupportsRecycling => false;
 
+        /// <inheritdoc/>
         public abstract IControl Build(object element);
 
+        /// <inheritdoc/>
         public virtual bool Match(object data)
         {
             return data is IElement;

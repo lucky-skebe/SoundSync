@@ -67,8 +67,20 @@ namespace CStreamer.Plugins.Buttplug
             this.selectedDeviceCache = new List<string>();
         }
 
+        /// <summary>
+        /// Gets a list of selectable <see cref="ButtplugClientDevice">ButtplugClientDevices</see>.
+        /// </summary>
+        /// <value>
+        /// A list of selectable <see cref="ButtplugClientDevice">ButtplugClientDevices</see>.
+        /// </value>
         public ReadOnlyObservableCollection<ButtplugSinkDevice> Devices => new ReadOnlyObservableCollection<ButtplugSinkDevice>(this.devices);
 
+        /// <summary>
+        /// Gets the one input sinkpad this element has.
+        /// </summary>
+        /// <value>
+        /// The one input this element has.
+        /// </value>
         public SinkPad<double> Sink { get; }
 
         /// <summary>

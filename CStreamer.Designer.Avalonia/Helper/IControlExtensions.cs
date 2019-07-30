@@ -14,6 +14,11 @@ namespace CStreamer.Designer.Avalonia.Helper
         public static T? FindAnchestor<T>(this IControl current)
             where T : class, IControl
         {
+            if (current == null)
+            {
+                return null;
+            }
+
             do
             {
                 if (current is T)
