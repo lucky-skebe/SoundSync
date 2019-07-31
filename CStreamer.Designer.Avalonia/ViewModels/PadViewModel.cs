@@ -12,7 +12,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
     using CStreamer.Designer.Avalonia.Helper;
     using ReactiveUI;
 
-    public abstract class PadViewModel : ViewModelBase, ICStreamerViewModel
+    internal abstract class PadViewModel : ViewModelBase, ICStreamerViewModel
     {
         private readonly ObservableAsPropertyHelper<double> x;
 

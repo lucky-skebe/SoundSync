@@ -10,7 +10,7 @@ namespace CStreamer.Designer.Avalonia
     using System;
     using System.Diagnostics.CodeAnalysis;
 
-    public struct Notification : IEquatable<Notification>
+    internal struct Notification : IEquatable<Notification>
     {
         public Notification(string text)
         {

@@ -9,7 +9,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 {
     using System.Collections.ObjectModel;
 
-    public class NotificationAreaViewModel : ViewModelBase
+    internal class NotificationAreaViewModel : ViewModelBase
     {
         private readonly ObservableCollection<NotificationViewModel> notifications;
 

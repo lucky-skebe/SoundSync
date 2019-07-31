@@ -12,6 +12,16 @@ namespace CStreamer.Plugins.Base
     using System.Linq;
     using System.Reflection;
 
+    /// <summary>
+    /// Loads all the assemblies marked with the <see cref="PluginAssemblyAttribute"/>.
+    ///
+    /// It looks for assemblies in:
+    /// <list type="number">
+    /// <item>The current path (".")</item>
+    /// <item>The plugin directory if it exists ("./plugins")(</item>
+    /// <item>A directory accoring to the "CSTREAMER_PLUGIN_DIR" environment variable if it exists.</item>
+    /// </list>
+    /// </summary>
     public static class PluginCatalog
     {
         private static readonly List<Assembly> Plugins = new List<Assembly>();
@@ -29,9 +39,13 @@ namespace CStreamer.Plugins.Base
             }
         }
 
+        /// <summary>
+        /// Returns a list of all exposed types inside the plugin assemblies.
+        /// </summary>
+        /// <returns>A list of all exposed types inside the plugin assemblies.</returns>
         public static IEnumerable<Type> PluginTypes()
         {
-            return Plugins.SelectMany(plugin => plugin.DefinedTypes);
+            return Plugins.SelectMany(plugin => plugin.ExportedTypes);
         }
 
         private static void AddDirectory(string path, bool searchSubdirs = true)

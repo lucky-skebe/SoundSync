@@ -12,7 +12,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
     using global::Avalonia;
     using ReactiveUI;
 
-    class ElementViewModel : ViewModelBase, ICStreamerViewModel
+    internal class ElementViewModel : ViewModelBase, ICStreamerViewModel
     {
         private double x;
 

@@ -17,7 +17,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
     using global::Avalonia;
     using ReactiveUI;
 
-    public class PipelineViewModel : ViewModelBase
+    internal class PipelineViewModel : ViewModelBase
     {
         private readonly PipeLine pipeline;
 

@@ -10,7 +10,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
-    public class ToolBarViewModel : ViewModelBase
+    internal class ToolBarViewModel : ViewModelBase
     {
         public ToolBarViewModel(IEnumerable<string> elements)
         {

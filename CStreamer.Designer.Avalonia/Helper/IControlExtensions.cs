@@ -9,7 +9,7 @@ namespace CStreamer.Designer.Avalonia.Helper
 {
     using global::Avalonia.Controls;
 
-    public static class IControlExtensions
+    internal static class IControlExtensions
     {
         public static T? FindAnchestor<T>(this IControl current)
             where T : class, IControl

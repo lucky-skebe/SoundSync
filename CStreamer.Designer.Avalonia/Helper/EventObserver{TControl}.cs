@@ -13,7 +13,7 @@ namespace CStreamer.Designer.Avalonia.Helper
     using global::Avalonia.Controls;
     using global::Avalonia.Input;
 
-    public class EventObserver<TControl>
+    internal class EventObserver<TControl>
         where TControl : IControl
     {
         private readonly TControl parent;

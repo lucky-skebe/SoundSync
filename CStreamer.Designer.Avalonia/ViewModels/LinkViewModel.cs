@@ -14,7 +14,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
     using global::Avalonia;
     using ReactiveUI;
 
-    public class LinkViewModel : ViewModelBase, ICStreamerViewModel
+    internal class LinkViewModel : ViewModelBase, ICStreamerViewModel
     {
         private readonly ObservableAsPropertyHelper<double> x;
         private readonly ObservableAsPropertyHelper<double> y;

@@ -12,7 +12,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
     using CStreamer.Plugins.Interfaces;
 
     [LocateView(typeof(PadView))]
-    public class SrcPadViewModel : PadViewModel
+    internal class SrcPadViewModel : PadViewModel
     {
         public SrcPadViewModel(ISrcPad model, ElementViewModel element, int padIndex)
             : base(element, padIndex)

@@ -14,7 +14,7 @@ namespace CStreamer.Designer.Avalonia.Views
     using global::Avalonia.Markup.Xaml;
     using ReactiveUI;
 
-    public class MainWindow : ReactiveWindow<MainWindowViewModel>
+    internal class MainWindow : ReactiveWindow<MainWindowViewModel>
     {
         public MainWindow()
         {

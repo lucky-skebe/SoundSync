@@ -16,7 +16,9 @@ namespace CStreamer.Designer.Avalonia.Views
     using global::Avalonia.Media;
     using ReactiveUI;
 
-    public class LinkView : ReactiveUserControl<LinkViewModel>
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes.
+    internal class LinkView : ReactiveUserControl<LinkViewModel>
+#pragma warning enable CA1812 // Avoid uninstantiated internal classes.
     {
         private (Point, Point, Point, Point) points;
 

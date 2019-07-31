@@ -23,6 +23,45 @@
             The name to register under.
             </value>
         </member>
+        <member name="T:CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs">
+            <summary>
+            Describes a change in one of an elements properties.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs"/> class.
+            </summary>
+            <param name="newValue">The new value of the Property.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs.NewValue">
+            <summary>
+            Gets the new value of the Property.
+            </summary>
+            <value>
+            The new value of the Property.
+            </value>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs`1">
+            <summary>
+            Describes a change in one of an elements properties.
+            </summary>
+            <typeparam name="TValue" >The Type contained in the Property.</typeparam>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs`1"/> class.
+            </summary>
+            <param name="newValue">The new value of the Property.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs`1.NewValue">
+            <summary>
+            Gets the new value of the Property.
+            </summary>
+            <value>
+            The new value of the Property.
+            </value>
+        </member>
         <member name="T:CStreamer.Plugins.Interfaces.IElement">
             <summary>
             Defines what members all elements need to implement.
@@ -125,6 +164,11 @@
             Ususally <see cref="T:CStreamer.Plugins.Interfaces.IPropertyBinding`1"/> shoule be used when writing custom bindings.
             </summary>
         </member>
+        <member name="E:CStreamer.Plugins.Interfaces.IPropertyBinding.ValueChanged">
+            <summary>
+            Occurs when the Value of the bound property changes.
+            </summary>
+        </member>
         <member name="P:CStreamer.Plugins.Interfaces.IPropertyBinding.Name">
             <summary>
             Gets the name of the Property.
@@ -145,6 +189,25 @@
             Gets the name and value of a property.
             </summary>
             <returns>The name and value of a property.</returns>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.IPropertyBinding`1">
+            <summary>
+            Describes the methods all PropertyBinding should implement.
+            </summary>
+            <typeparam name="TValue">The Type of the bound property.</typeparam>
+        </member>
+        <member name="E:CStreamer.Plugins.Interfaces.IPropertyBinding`1.ValueChanged">
+            <summary>
+            Occurs when the Value of the bound property changes.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.IPropertyBinding`1.Value">
+            <summary>
+            Gets or sets the current Value of the bound Property.
+            </summary>
+            <value>
+            The current Value of the bound Property.
+            </value>
         </member>
         <member name="T:CStreamer.Plugins.Interfaces.ISinkPad">
             <summary>
@@ -205,6 +268,39 @@
             <value>
             The pad on the other side of the link of null if the pad is not linked.
             </value>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.ISrcPad.Link(CStreamer.Plugins.Interfaces.ISinkPad)">
+            <summary>
+            Links this Pad to the provided peer pad.
+            </summary>
+            <param name="peer">the peerpad to link to.</param>
+            <returns>An <see cref="T:Optional.Option`2"/> contianing either the new peer or an error message.</returns>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.ISrcPad`1">
+            <summary>
+            Describes the minimum requirements for a SrcPad that produces a certein type.
+            </summary>
+            <typeparam name="TValue" >The type this SrcPad produces.</typeparam>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.ISrcPad`1.Peer">
+            <summary>
+            Gets the pad on the other side of the link of null if the pad is not linked.
+            </summary>
+            <value>
+            The pad on the other side of the link of null if the pad is not linked.
+            </value>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.ISrcPad`1.Link(CStreamer.Plugins.Interfaces.ISinkPad{`0})">
+            <summary>
+            Links this Pad to the provided peer pad.
+            </summary>
+            <param name="peer">the peerpad to link to.</param>
+            <returns>An <see cref="T:Optional.Option`2"/> contianing either the new peer or an error message.</returns>
+        </member>
+        <member name="T:CStreamer.IElementExtensions">
+            <summary>
+            Extension Methods for all objects implementing IElement.
+            </summary>
         </member>
         <member name="M:CStreamer.IElementExtensions.GetElementName(CStreamer.Plugins.Interfaces.IElement)">
              <summary>

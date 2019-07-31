@@ -15,7 +15,9 @@ namespace CStreamer.Designer.Avalonia
     using global::Avalonia.Controls;
     using global::Avalonia.Controls.Templates;
 
-    public class ViewLocator : IDataTemplate
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes.
+    internal class ViewLocator : IDataTemplate
+#pragma warning enable CA1812 // Avoid uninstantiated internal classes.
     {
         public bool SupportsRecycling => false;
 

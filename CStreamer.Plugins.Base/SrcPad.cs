@@ -24,7 +24,7 @@ namespace CStreamer.Plugins.Base
         /// </summary>
         /// <param name="parent">the element this pad is connected to.</param>
         /// <param name="name">the name of the pad.</param>
-        /// <param name="mandatory"></param>
+        /// <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
         public SrcPad(IElement parent, string name, bool mandatory)
         {
             this.Parent = parent;

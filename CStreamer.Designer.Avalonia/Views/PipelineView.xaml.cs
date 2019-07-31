@@ -24,7 +24,9 @@ namespace CStreamer.Designer.Avalonia.Views
     using ReactiveUI;
     using static CStreamer.Designer.Avalonia.Views.ToolBarView;
 
-    public class PipelineView : ReactiveUserControl<PipelineViewModel>
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes.
+    internal class PipelineView : ReactiveUserControl<PipelineViewModel>
+#pragma warning enable CA1812 // Avoid uninstantiated internal classes.
     {
         public static readonly StyledProperty<IElement?> SelectedElementProperty = AvaloniaProperty.Register<PipelineView, IElement?>(nameof(SelectedElement));
 

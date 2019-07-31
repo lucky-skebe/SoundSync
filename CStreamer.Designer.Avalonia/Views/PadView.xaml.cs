@@ -13,7 +13,9 @@ namespace CStreamer.Designer.Avalonia.Views
     using global::Avalonia.Markup.Xaml;
     using ReactiveUI;
 
-    public class PadView : ReactiveUserControl<PadViewModel>
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes.
+    internal class PadView : ReactiveUserControl<PadViewModel>
+#pragma warning enable CA1812 // Avoid uninstantiated internal classes.
     {
         public PadView()
         {

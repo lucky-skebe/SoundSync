@@ -15,7 +15,7 @@ namespace CStreamer.Designer.Avalonia.Helper
     using global::Avalonia.Data;
     using ReactiveUI;
 
-    public class CanvasItemContainerGenerator : ItemContainerGenerator
+    internal class CanvasItemContainerGenerator : ItemContainerGenerator
     {
         public CanvasItemContainerGenerator(IControl owner)
             : base(owner)

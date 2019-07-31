@@ -10,7 +10,9 @@ namespace CStreamer.Designer.Avalonia.Views
     using global::Avalonia.Controls;
     using global::Avalonia.Markup.Xaml;
 
-    public class NotificationAreaView : UserControl
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes.
+    internal class NotificationAreaView : UserControl
+#pragma warning enable CA1812 // Avoid uninstantiated internal classes.
     {
         public NotificationAreaView()
         {

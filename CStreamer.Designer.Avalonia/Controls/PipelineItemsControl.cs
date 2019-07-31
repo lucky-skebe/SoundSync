@@ -11,7 +11,10 @@ namespace CStreamer.Designer.Avalonia.Controls
     using global::Avalonia.Controls;
     using global::Avalonia.Controls.Generators;
 
-    public class PipelineItemsControl : ItemsControl
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes.
+    internal class PipelineItemsControl : ItemsControl
+
+#pragma warning restore CA1812 // Avoid uninstantiated internal classes.
     {
         public PipelineItemsControl()
             : base()

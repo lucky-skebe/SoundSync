@@ -14,7 +14,9 @@ namespace CStreamer.Designer.Avalonia.Views
     using global::Avalonia.Markup.Xaml;
     using ReactiveUI;
 
-    public class NotificationView : ReactiveUserControl<NotificationViewModel>
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes.
+    internal class NotificationView : ReactiveUserControl<NotificationViewModel>
+#pragma warning enable CA1812 // Avoid uninstantiated internal classes.
     {
         public NotificationView()
         {

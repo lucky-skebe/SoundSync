@@ -25,7 +25,7 @@ namespace CStreamer.Plugins.Base
         /// <param name="parent">the element this pad is connected to.</param>
         /// <param name="name">the name of the pad.</param>
         /// <param name="elementCallback">the callback inside the element to push data to.</param>
-        /// <param name="mandatory"></param>
+        /// <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
         public SinkPad(IElement parent, string name, Action<TValue> elementCallback, bool mandatory)
         {
             this.Name = name;
@@ -34,6 +34,7 @@ namespace CStreamer.Plugins.Base
             this.Mandatory = mandatory;
         }
 
+        /// <inheritdoc/>
         public IElement Parent
         {
             get;
@@ -54,8 +55,6 @@ namespace CStreamer.Plugins.Base
         ISrcPad? ISinkPad.Peer => this.Peer;
 
         ISrcPad<TValue>? ISinkPad<TValue>.Peer => this.Peer;
-
-        IElement IPad.Parent => this.Parent;
 
         IPad? IPad.Peer => this.Peer;
 

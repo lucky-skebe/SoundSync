@@ -70,6 +70,7 @@ namespace CStreamer
             }
         }
 
+        /// <inheritdoc/>
         public event EventHandler<BindingValueChangedEventArgs<TValue>> ValueChanged;
 
         event EventHandler<BindingValueChangedEventArgs> IPropertyBinding.ValueChanged
@@ -85,10 +86,17 @@ namespace CStreamer
             }
         }
 
+        /// <inheritdoc/>
         public string Name { get; }
 
+        /// <inheritdoc/>
         public TValue Value { get => this.getValue(); set => this.setValue(value); }
 
+        /// <summary>
+        /// Raises a <see cref="ValueChanged"/> Event.
+        /// Use this in your Elements when property values change.
+        /// </summary>
+        /// <param name="value">The new value of the Property.</param>
         public void RaiseValueChanged(TValue value)
         {
             this.ValueChanged?.Invoke(this, new BindingValueChangedEventArgs<TValue>(value));

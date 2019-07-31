@@ -11,7 +11,9 @@ namespace CStreamer.Designer.Avalonia.Views
     using global::Avalonia;
     using global::Avalonia.Markup.Xaml;
 
-    public class ElementView : ReactiveUserControl<ElementViewModel>
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes.
+    internal class ElementView : ReactiveUserControl<ElementViewModel>
+#pragma warning enable CA1812 // Avoid uninstantiated internal classes.
     {
         public ElementView()
         {

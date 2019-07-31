@@ -16,7 +16,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 
     using Notification = CStreamer.Designer.Avalonia.Notification;
 
-    public class MainWindowViewModel : ViewModelBase
+    internal class MainWindowViewModel : ViewModelBase
     {
         public MainWindowViewModel(PipeLine pipeline, IEnumerable<string> elementTypes)
         {

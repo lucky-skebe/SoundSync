@@ -18,7 +18,9 @@ namespace CStreamer.Designer.Avalonia.Views
     using global::Avalonia.Markup.Xaml;
     using ReactiveUI;
 
-    public class ToolBarView : ReactiveUserControl<ToolBarViewModel>
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes.
+    internal class ToolBarView : ReactiveUserControl<ToolBarViewModel>
+#pragma warning enable CA1812 // Avoid uninstantiated internal classes.
     {
         private bool isDragging;
         private DataObject? dragData;

@@ -10,22 +10,13 @@ namespace CStreamer.Designer.Avalonia.Helper
     using System;
 
     [System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = false)]
-    public class LocateViewAttribute : Attribute
+    internal class LocateViewAttribute : Attribute
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="LocateViewAttribute"/> class.
-        /// </summary>
         public LocateViewAttribute(Type targetType)
         {
             this.TargetType = targetType;
         }
 
-        /// <summary>
-        /// Gets the name to register under.
-        /// </summary>
-        /// <value>
-        /// The name to register under.
-        /// </value>
         public Type TargetType { get; }
     }
 }

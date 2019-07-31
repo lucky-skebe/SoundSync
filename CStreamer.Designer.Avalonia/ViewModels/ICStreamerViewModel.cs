@@ -7,7 +7,7 @@
 
 namespace CStreamer.Designer.Avalonia.ViewModels
 {
-    public interface ICStreamerViewModel
+    internal interface ICStreamerViewModel
     {
         double X { get; }
 

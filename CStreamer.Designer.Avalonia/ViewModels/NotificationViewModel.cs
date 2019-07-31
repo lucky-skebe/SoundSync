@@ -15,7 +15,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 
     using Notification = CStreamer.Designer.Avalonia.Notification;
 
-    public class NotificationViewModel : ViewModelBase
+    internal class NotificationViewModel : ViewModelBase
     {
         private readonly Notification notification;
         private double opacity = 0;

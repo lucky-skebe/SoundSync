@@ -65,6 +65,29 @@
              </summary>
              <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the result of the asynchronous state change.</returns>
         </member>
+        <member name="T:CStreamer.Plugins.Base.PluginAssemblyAttribute">
+            <summary>
+            Marks an assembly as a plugin to reduce unneccesary loading of non plugin libraries on startup.
+            </summary>
+        </member>
+        <member name="T:CStreamer.Plugins.Base.PluginCatalog">
+             <summary>
+             Loads all the assemblies marked with the <see cref="T:CStreamer.Plugins.Base.PluginAssemblyAttribute"/>.
+            
+             It looks for assemblies in:
+             <list type="number">
+             <item>The current path (".")</item>
+             <item>The plugin directory if it exists ("./plugins")(</item>
+             <item>A directory accoring to the "CSTREAMER_PLUGIN_DIR" environment variable if it exists.</item>
+             </list>
+             </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.PluginCatalog.PluginTypes">
+            <summary>
+            Returns a list of all exposed types inside the plugin assemblies.
+            </summary>
+            <returns>A list of all exposed types inside the plugin assemblies.</returns>
+        </member>
         <member name="T:CStreamer.Plugins.Base.SinkPad`1">
              <summary>
              Base class for all SinkPads.
@@ -80,7 +103,10 @@
             <param name="parent">the element this pad is connected to.</param>
             <param name="name">the name of the pad.</param>
             <param name="elementCallback">the callback inside the element to push data to.</param>
-            <param name="mandatory"></param>
+            <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SinkPad`1.Parent">
+            <inheritdoc/>
         </member>
         <member name="P:CStreamer.Plugins.Base.SinkPad`1.Name">
             <inheritdoc/>
@@ -146,7 +172,7 @@
             </summary>
             <param name="parent">the element this pad is connected to.</param>
             <param name="name">the name of the pad.</param>
-            <param name="mandatory"></param>
+            <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
         </member>
         <member name="P:CStreamer.Plugins.Base.SrcPad`1.Parent">
             <inheritdoc/>

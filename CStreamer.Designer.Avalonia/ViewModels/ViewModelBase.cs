@@ -9,7 +9,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 {
     using ReactiveUI;
 
-    public class ViewModelBase : ReactiveObject, ISupportsActivation
+    internal class ViewModelBase : ReactiveObject, ISupportsActivation
     {
         public ViewModelBase()
         {

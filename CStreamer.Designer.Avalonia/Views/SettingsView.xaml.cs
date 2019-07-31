@@ -13,7 +13,9 @@ namespace CStreamer.Designer.Avalonia.Views
     using global::Avalonia.Data;
     using global::Avalonia.Markup.Xaml;
 
-    public class SettingsView : UserControl
+#pragma warning disable CA1812 // Avoid uninstantiated internal classes.
+    internal class SettingsView : UserControl
+#pragma warning enable CA1812 // Avoid uninstantiated internal classes.
     {
         public SettingsView()
         {
