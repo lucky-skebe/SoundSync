@@ -16,6 +16,9 @@ namespace CStreamer.Plugins.Interfaces
     /// </summary>
     public interface IPropertyBinding
     {
+        /// <summary>
+        /// Occurs when the Value of the bound property changes.
+        /// </summary>
         public event EventHandler<BindingValueChangedEventArgs> ValueChanged;
 
         /// <summary>
@@ -43,10 +46,23 @@ namespace CStreamer.Plugins.Interfaces
         PropertyValue GetValue();
     }
 
+    /// <summary>
+    /// Describes the methods all PropertyBinding should implement.
+    /// </summary>
+    /// <typeparam name="TValue">The Type of the bound property.</typeparam>
     public interface IPropertyBinding<TValue> : IPropertyBinding
     {
+        /// <summary>
+        /// Occurs when the Value of the bound property changes.
+        /// </summary>
         public new event EventHandler<BindingValueChangedEventArgs<TValue>> ValueChanged;
 
+        /// <summary>
+        /// Gets or sets the current Value of the bound Property.
+        /// </summary>
+        /// <value>
+        /// The current Value of the bound Property.
+        /// </value>
         public TValue Value { get; set; }
     }
 }

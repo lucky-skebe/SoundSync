@@ -4,5 +4,20 @@
         <name>CStreamer.Plugins.Designer.Base</name>
     </assembly>
     <members>
+        <member name="P:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate.SupportsRecycling">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate.Build(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate.Match(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate`1.Build(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate`1.Match(System.Object)">
+            <inheritdoc/>
+        </member>
     </members>
 </doc>

@@ -9,6 +9,9 @@ namespace CStreamer.Plugins.Interfaces
 {
     using Optional;
 
+    /// <summary>
+    /// Describes the minimal requirements of a pad.
+    /// </summary>
     public interface IPad
     {
         /// <summary>
@@ -38,6 +41,12 @@ namespace CStreamer.Plugins.Interfaces
         /// </value>
         IPad? Peer { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether the Pad needs to be linked for the element to be functional.
+        /// </summary>
+        /// <value>
+        /// A value indicating whether the Pad needs to be linked for the element to be functional.
+        /// </value>
         bool Mandatory { get; }
 
         /// <summary>
@@ -51,6 +60,11 @@ namespace CStreamer.Plugins.Interfaces
         /// </summary>
         void Unlink();
 
+        /// <summary>
+        /// Links this Pad to the provided peer pad.
+        /// </summary>
+        /// <param name="peer">the peerpad to link to.</param>
+        /// <returns>An <see cref="Option{T, TException}"/> contianing either the new peer or an error message.</returns>
         Option<IPad, string> Link(IPad peer);
     }
 }

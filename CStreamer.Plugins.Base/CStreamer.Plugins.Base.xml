@@ -30,6 +30,9 @@
             </summary>
             <returns>List of all the PropertyBindings of hte element.</returns>
         </member>
+        <member name="M:CStreamer.Plugins.Base.Element.GetPads">
+            <inheritdoc/>
+        </member>
         <member name="M:CStreamer.Plugins.Base.Element.TransitionStoppedReady">
              <summary>
              Contains the logic that should run when changing from the Stopped to the Ready state.
@@ -62,7 +65,14 @@
              </summary>
              <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the result of the asynchronous state change.</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:CStreamer.Plugins.Base.SinkPad`1" -->
+        <member name="T:CStreamer.Plugins.Base.SinkPad`1">
+             <summary>
+             Base class for all SinkPads.
+            
+             Data always flows from <see cref="T:CStreamer.Plugins.Base.SrcPad`1"/> to <see cref="T:CStreamer.Plugins.Base.SinkPad`1"/>.
+             </summary>
+             <typeparam name="TValue">The typt of value this pad can accept.</typeparam>
+        </member>
         <member name="M:CStreamer.Plugins.Base.SinkPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Action{`0},System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.SinkPad`1"/> class.
@@ -70,6 +80,7 @@
             <param name="parent">the element this pad is connected to.</param>
             <param name="name">the name of the pad.</param>
             <param name="elementCallback">the callback inside the element to push data to.</param>
+            <param name="mandatory"></param>
         </member>
         <member name="P:CStreamer.Plugins.Base.SinkPad`1.Name">
             <inheritdoc/>
@@ -81,6 +92,9 @@
             <value>
             The pad on the other side of the link of null if the pad is not linked.
             </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SinkPad`1.Mandatory">
+            <inheritdoc/>
         </member>
         <member name="P:CStreamer.Plugins.Base.SinkPad`1.ElementCallback">
             <summary>
@@ -109,11 +123,20 @@
         <member name="M:CStreamer.Plugins.Base.SinkPad`1.GetHashCode">
             <inheritdoc/>
         </member>
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Link(CStreamer.Plugins.Interfaces.ISrcPad{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Link(CStreamer.Plugins.Interfaces.ISrcPad)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Link(CStreamer.Plugins.Interfaces.IPad)">
+            <inheritdoc/>
+        </member>
         <member name="T:CStreamer.Plugins.Base.SrcPad`1">
              <summary>
              Base class for all SrcPads.
             
-             Data always flows from <see cref="T:CStreamer.Plugins.Base.SrcPad`1"/> to <see cref="!:PipeSinkPad&lt;TValue&gt;"/>.
+             Data always flows from <see cref="T:CStreamer.Plugins.Base.SrcPad`1"/> to <see cref="T:CStreamer.Plugins.Base.SinkPad`1"/>.
              </summary>
              <typeparam name="TValue">The typt of value this pad can push throu the pipeline.</typeparam>
         </member>
@@ -123,6 +146,7 @@
             </summary>
             <param name="parent">the element this pad is connected to.</param>
             <param name="name">the name of the pad.</param>
+            <param name="mandatory"></param>
         </member>
         <member name="P:CStreamer.Plugins.Base.SrcPad`1.Parent">
             <inheritdoc/>
@@ -138,6 +162,9 @@
             The pad on the other side of the link of null if the pad is not linked.
             </value>
         </member>
+        <member name="P:CStreamer.Plugins.Base.SrcPad`1.Mandatory">
+            <inheritdoc/>
+        </member>
         <member name="M:CStreamer.Plugins.Base.SrcPad`1.IsLinked">
             <inheritdoc/>
         </member>
@@ -145,7 +172,7 @@
             <summary>
             Pushed data along the pipeline.
             </summary>
-            <param name="value">the value to push into towards the connected <see cref="!:PipeSinkPad&lt;TValue&gt;"/>.</param>
+            <param name="value">the value to push into towards the connected <see cref="T:CStreamer.Plugins.Base.SinkPad`1"/>.</param>
         </member>
         <member name="M:CStreamer.Plugins.Base.SrcPad`1.Unlink">
             <inheritdoc/>
@@ -154,6 +181,15 @@
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.SrcPad`1.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Link(CStreamer.Plugins.Interfaces.ISinkPad{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Link(CStreamer.Plugins.Interfaces.ISinkPad)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Link(CStreamer.Plugins.Interfaces.IPad)">
             <inheritdoc/>
         </member>
         <member name="T:CStreamer.PropertyBinding`1">

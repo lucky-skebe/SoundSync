@@ -23,9 +23,18 @@ namespace CStreamer.Plugins.Interfaces
         /// </value>
         new ISrcPad? Peer { get; }
 
+        /// <summary>
+        /// Links this Pad to the provided peer pad.
+        /// </summary>
+        /// <param name="peer">the peerpad to link to.</param>
+        /// <returns>An <see cref="Option{T, TException}"/> contianing either the new peer or an error message.</returns>
         Option<ISrcPad, string> Link(ISrcPad peer);
     }
 
+    /// <summary>
+    /// Describes the minimum requirements for a SinkPad that accepts a certein type.
+    /// </summary>
+    /// <typeparam name="TValue" >The type this SinkPad accepts.</typeparam>
     public interface ISinkPad<TValue> : ISinkPad
     {
         /// <summary>
@@ -36,8 +45,17 @@ namespace CStreamer.Plugins.Interfaces
         /// </value>
         new ISrcPad<TValue>? Peer { get; }
 
+        /// <summary>
+        /// Consumes a Value and sends it to it's parent element.
+        /// </summary>
+        /// <param name="value">The value to send to it's parent.</param>
         void Push(TValue value);
 
+        /// <summary>
+        /// Links this Pad to the provided peer pad.
+        /// </summary>
+        /// <param name="peer">the peerpad to link to.</param>
+        /// <returns>An <see cref="Option{T, TException}"/> contianing either the new peer or an error message.</returns>
         Option<ISrcPad<TValue>, string> Link(ISrcPad<TValue> peer);
     }
 }

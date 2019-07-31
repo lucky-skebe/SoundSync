@@ -8,12 +8,13 @@
 namespace CStreamer
 {
     using System;
-    using System.Collections.Generic;
     using System.Reflection;
-    using System.Text;
     using CStreamer.Plugins.Attributes;
     using CStreamer.Plugins.Interfaces;
 
+    /// <summary>
+    /// Extension Methods for all objects implementing IElement.
+    /// </summary>
     public static class IElementExtensions
     {
         /// <summary>

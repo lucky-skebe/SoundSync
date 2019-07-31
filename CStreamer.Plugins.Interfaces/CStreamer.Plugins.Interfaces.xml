@@ -6,7 +6,7 @@
     <members>
         <member name="T:CStreamer.Plugins.Attributes.ElementNameAttribute">
             <summary>
-            USed to set the name an element can be retrieved by useing <see cref="!:PipeElementFactory.Make(string, string)"/>.
+            Ueed to set the name an element can be retrieved as.
             </summary>
         </member>
         <member name="M:CStreamer.Plugins.Attributes.ElementNameAttribute.#ctor(System.String)">
@@ -64,6 +64,11 @@
             </summary>
             <returns>All pads.</returns>
         </member>
+        <member name="T:CStreamer.Plugins.Interfaces.IPad">
+            <summary>
+            Describes the minimal requirements of a pad.
+            </summary>
+        </member>
         <member name="P:CStreamer.Plugins.Interfaces.IPad.Parent">
             <summary>
             Gets the element this pad is a part of.
@@ -88,6 +93,14 @@
             The pad on the other side of the link of null if the pad is not linked.
             </value>
         </member>
+        <member name="P:CStreamer.Plugins.Interfaces.IPad.Mandatory">
+            <summary>
+            Gets a value indicating whether the Pad needs to be linked for the element to be functional.
+            </summary>
+            <value>
+            A value indicating whether the Pad needs to be linked for the element to be functional.
+            </value>
+        </member>
         <member name="M:CStreamer.Plugins.Interfaces.IPad.IsLinked">
             <summary>
             Returns the linking status of the pad.
@@ -98,6 +111,13 @@
             <summary>
             Unliks the pad from it's peer pad.
             </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.IPad.Link(CStreamer.Plugins.Interfaces.IPad)">
+            <summary>
+            Links this Pad to the provided peer pad.
+            </summary>
+            <param name="peer">the peerpad to link to.</param>
+            <returns>An <see cref="T:Optional.Option`2"/> contianing either the new peer or an error message.</returns>
         </member>
         <member name="T:CStreamer.Plugins.Interfaces.IPropertyBinding">
             <summary>
@@ -129,7 +149,6 @@
         <member name="T:CStreamer.Plugins.Interfaces.ISinkPad">
             <summary>
             Describes the minimum requirements for a SinkPad.
-            most of the time <see cref="!:PipeSinkPad&lt;TValue&gt;"/> should be used.
             </summary>
         </member>
         <member name="P:CStreamer.Plugins.Interfaces.ISinkPad.Peer">
@@ -140,6 +159,19 @@
             The pad on the other side of the link of null if the pad is not linked.
             </value>
         </member>
+        <member name="M:CStreamer.Plugins.Interfaces.ISinkPad.Link(CStreamer.Plugins.Interfaces.ISrcPad)">
+            <summary>
+            Links this Pad to the provided peer pad.
+            </summary>
+            <param name="peer">the peerpad to link to.</param>
+            <returns>An <see cref="T:Optional.Option`2"/> contianing either the new peer or an error message.</returns>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.ISinkPad`1">
+            <summary>
+            Describes the minimum requirements for a SinkPad that accepts a certein type.
+            </summary>
+            <typeparam name="TValue" >The type this SinkPad accepts.</typeparam>
+        </member>
         <member name="P:CStreamer.Plugins.Interfaces.ISinkPad`1.Peer">
             <summary>
             Gets the pad on the other side of the link of null if the pad is not linked.
@@ -147,6 +179,19 @@
             <value>
             The pad on the other side of the link of null if the pad is not linked.
             </value>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.ISinkPad`1.Push(`0)">
+            <summary>
+            Consumes a Value and sends it to it's parent element.
+            </summary>
+            <param name="value">The value to send to it's parent.</param>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.ISinkPad`1.Link(CStreamer.Plugins.Interfaces.ISrcPad{`0})">
+            <summary>
+            Links this Pad to the provided peer pad.
+            </summary>
+            <param name="peer">the peerpad to link to.</param>
+            <returns>An <see cref="T:Optional.Option`2"/> contianing either the new peer or an error message.</returns>
         </member>
         <member name="T:CStreamer.Plugins.Interfaces.ISrcPad">
             <summary>

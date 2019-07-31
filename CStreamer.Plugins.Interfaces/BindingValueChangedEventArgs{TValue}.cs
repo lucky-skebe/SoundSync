@@ -7,14 +7,28 @@
 
 namespace CStreamer.Plugins.Interfaces
 {
+    /// <summary>
+    /// Describes a change in one of an elements properties.
+    /// </summary>
+    /// <typeparam name="TValue" >The Type contained in the Property.</typeparam>
     public class BindingValueChangedEventArgs<TValue> : BindingValueChangedEventArgs
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BindingValueChangedEventArgs{TValue}"/> class.
+        /// </summary>
+        /// <param name="newValue">The new value of the Property.</param>
         public BindingValueChangedEventArgs(TValue newValue)
             : base(newValue)
         {
             this.NewValue = newValue;
         }
 
+        /// <summary>
+        /// Gets the new value of the Property.
+        /// </summary>
+        /// <value>
+        /// The new value of the Property.
+        /// </value>
         public new TValue NewValue { get; }
     }
 }
