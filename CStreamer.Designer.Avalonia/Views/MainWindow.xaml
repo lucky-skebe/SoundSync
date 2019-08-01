@@ -14,8 +14,8 @@
     <Grid DockPanel.Dock="Bottom" ColumnDefinitions="*,auto" Background="LightSkyBlue">
       <StackPanel Orientation="Horizontal" Grid.Column="1">
         <Button Command="{Binding Stop}">Stop</Button>
-        <Button Command="{Binding Pause}">Pause"</Button>
-        <Button Command="{Binding Play}">Play"</Button>
+        <Button Command="{Binding Pause}">Pause</Button>
+        <Button Command="{Binding Play}">Play</Button>
       </StackPanel>
     </Grid>
 
