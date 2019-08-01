@@ -11,8 +11,12 @@ namespace CStreamer.Plugins.Designer.Buttplug
     using CStreamer.Plugins.Designer.Base;
     using global::Avalonia.Controls;
 
+    /// <summary>
+    /// A DataTemplate that shows a ButtplugSettingsView.
+    /// </summary>
     public class ButtplugDataTemplate : ElementSettingsDataTemplate<ButtplugSink>
     {
+        /// <inheritdoc/>
         public override IControl Build(ButtplugSink element)
         {
             return new ButtPlugSettingsView { DataContext = new ButtplugSinkViewModel(element) };

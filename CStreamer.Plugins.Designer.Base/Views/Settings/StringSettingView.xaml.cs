@@ -10,8 +10,14 @@ namespace CStreamer.Plugins.Designer.Base.Views.Settings
     using global::Avalonia.Controls;
     using global::Avalonia.Markup.Xaml;
 
+    /// <summary>
+    /// A simple view for changing <see cref="string"/> values.
+    /// </summary>
     public class StringSettingView : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StringSettingView"/> class.
+        /// </summary>
         public StringSettingView()
         {
             this.InitializeComponent();

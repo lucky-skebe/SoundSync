@@ -10,8 +10,14 @@ namespace CStreamer.Plugins.Designer.Base.Views.Settings
     using global::Avalonia.Controls;
     using global::Avalonia.Markup.Xaml;
 
+    /// <summary>
+    /// A simple view for changing <see cref="int"/> values.
+    /// </summary>
     public class IntSettingView : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IntSettingView"/> class.
+        /// </summary>
         public IntSettingView()
         {
             this.InitializeComponent();

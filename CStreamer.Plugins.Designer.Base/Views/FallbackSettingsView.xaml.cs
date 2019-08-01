@@ -11,7 +11,7 @@ namespace CStreamer.Plugins.Designer.Base.Views
     using global::Avalonia;
     using global::Avalonia.Markup.Xaml;
 
-    public class FallbackSettingsView : ReactiveUserControl<FallbackSettingsViewModel>
+    internal class FallbackSettingsView : ReactiveUserControl<FallbackSettingsViewModel>
     {
         public FallbackSettingsView()
         {

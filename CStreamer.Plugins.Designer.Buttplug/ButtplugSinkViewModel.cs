@@ -16,12 +16,19 @@ namespace CStreamer.Plugins.Designer.Buttplug
     using DynamicData.Binding;
     using ReactiveUI;
 
+    /// <summary>
+    /// A ViewModel that uses a <see cref="ButtplugSink" /> as it's Model.
+    /// </summary>
     public class ButtplugSinkViewModel : ReactiveObject, ISupportsActivation
     {
         private readonly ButtplugSink sink;
 
         private ReadOnlyObservableCollection<ButtplugSinkDevice>? devices;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ButtplugSinkViewModel"/> class.
+        /// </summary>
+        /// <param name="sink">The <see cref="ButtplugSink"/> used as model.</param>
         public ButtplugSinkViewModel(ButtplugSink sink)
         {
             this.devices = null;
@@ -37,10 +44,23 @@ namespace CStreamer.Plugins.Designer.Buttplug
             this.StopScanning = ReactiveCommand.CreateFromTask(sink.StopScanning);
         }
 
+        /// <inheritdoc/>
         public ViewModelActivator Activator { get; }
 
+        /// <summary>
+        /// Gets a list of all Devices known to the Server and whether they should be controlled or not.
+        /// </summary>
+        /// <value>
+        /// A list of all Devices known to the Server and whether they should be controlled or not.
+        /// </value>
         public ReadOnlyObservableCollection<ButtplugSinkDevice>? Devices => this.devices;
 
+        /// <summary>
+        /// Gets or sets the Address of the Buttplug Server.
+        /// </summary>
+        /// <value>
+        /// The Address of the Buttplug Server.
+        /// </value>
         public string ServerAddress
         {
             get => this.sink.ServerAddress;
@@ -54,8 +74,20 @@ namespace CStreamer.Plugins.Designer.Buttplug
             }
         }
 
+        /// <summary>
+        /// Gets a Command to let the Server start scanning for new devices.
+        /// </summary>
+        /// <value>
+        /// A Command to let the Server start scanning for new devices.
+        /// </value>
         public ReactiveCommand StartScanning { get; }
 
+        /// <summary>
+        /// Gets a Command to let the Server stop scanning for new devices.
+        /// </summary>
+        /// <value>
+        /// A Command to let the Server stop scanning for new devices.
+        /// </value>
         public ReactiveCommand StopScanning { get; }
     }
 }

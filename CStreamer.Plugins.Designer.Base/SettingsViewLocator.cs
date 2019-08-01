@@ -15,6 +15,9 @@ namespace CStreamer.Plugins.Designer.Base
     using global::Avalonia.Controls;
     using global::Avalonia.Controls.Templates;
 
+    /// <summary>
+    /// Picks one of the registered <see cref="IDataTemplate">DataTemplates</see> based on the registered Priority.
+    /// </summary>
     public class SettingsViewLocator : IDataTemplate
     {
         private static readonly SortedList<int, List<IDataTemplate>> ChildTemplates = new SortedList<int, List<IDataTemplate>>();

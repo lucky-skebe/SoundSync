@@ -7,6 +7,9 @@
 
 namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
 {
+    /// <summary>
+    /// A MArker interface to find all SettingsViewModels.
+    /// </summary>
     public interface ISettingViewModel
     {
     }

@@ -239,6 +239,22 @@
             </summary>
             <param name="property">An expression thast is used to automatically create a nes proprety binding.</param>
         </member>
+        <member name="E:CStreamer.PropertyBinding`1.ValueChanged">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.PropertyBinding`1.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.PropertyBinding`1.Value">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.PropertyBinding`1.RaiseValueChanged(`0)">
+            <summary>
+            Raises a <see cref="E:CStreamer.PropertyBinding`1.ValueChanged"/> Event.
+            Use this in your Elements when property values change.
+            </summary>
+            <param name="value">The new value of the Property.</param>
+        </member>
         <member name="M:CStreamer.PropertyBinding`1.GetValue">
             <inheritdoc/>
         </member>

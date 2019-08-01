@@ -13,8 +13,14 @@ namespace CStreamer.Plugins.Designer.Buttplug
     using global::Avalonia.Markup.Xaml;
     using ReactiveUI;
 
+    /// <summary>
+    /// A SettingsView that let'S you controll the connection to a Buttplug Server.
+    /// </summary>
     public class ButtPlugSettingsView : ReactiveUserControl<ButtplugSinkViewModel>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ButtPlugSettingsView"/> class.
+        /// </summary>
         public ButtPlugSettingsView()
         {
             this.InitializeComponent();

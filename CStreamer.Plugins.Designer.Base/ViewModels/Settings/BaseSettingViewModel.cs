@@ -11,11 +11,20 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
     using CStreamer.Plugins.Interfaces;
     using ReactiveUI;
 
-    public abstract class BaseSettingViewModel<TValue> : ViewModelBase, ISettingViewModel
+    /// <summary>
+    /// A Simple ViewModel that contains a Name and a Value.
+    /// Used for presenting a simple Settings Control.
+    /// </summary>
+    /// <typeparam name="TValue">The Type of the <see cref="Value"/> Property.</typeparam>
+    internal abstract class BaseSettingViewModel<TValue> : ViewModelBase, ISettingViewModel
         where TValue : IEquatable<TValue>
     {
         private readonly IPropertyBinding<TValue> binding;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseSettingViewModel{TValue}"/> class.
+        /// </summary>
+        /// <param name="binding">The underlying PropertyBinding.</param>
         protected BaseSettingViewModel(IPropertyBinding<TValue> binding)
         {
             this.binding = binding;
@@ -24,6 +33,12 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
             this.Name = binding.Name;
         }
 
+        /// <summary>
+        /// Gets the Value of the underlying PropertyBinding.
+        /// </summary>
+        /// <value>
+        /// The Value of the underlying PropertyBinding.
+        /// </value>
         public TValue Value
         {
             get => this.binding.Value;
@@ -38,6 +53,13 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
             }
         }
 
+        /// <summary>
+        /// Gets the name of the Property.
+        /// Used to present a label in the UI.
+        /// </summary>
+        /// <value>
+        /// The name of the Property.
+        /// </value>
         public string Name
         {
             get;

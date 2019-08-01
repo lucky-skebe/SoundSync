@@ -15,7 +15,7 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels
     using CStreamer.Plugins.Designer.Base.ViewModels.Settings;
     using CStreamer.Plugins.Interfaces;
 
-    public class FallbackSettingsViewModel
+    internal class FallbackSettingsViewModel
     {
         public FallbackSettingsViewModel(IElement element)
         {

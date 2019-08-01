@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Plugins.Buttplug"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Plugins.NAudio", "CStreamer.Plugins.NAudio\CStreamer.Plugins.NAudio.csproj", "{9F8FFAEF-FACD-4228-98B1-BF3E884D5B66}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Designer.WPF", "CStreamer.Designer\CStreamer.Designer.WPF.csproj", "{CEB314AC-98D3-4D74-815A-70EC44FA20FF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Plugins.Basic", "CStreamer.Plugins.Basic\CStreamer.Plugins.Basic.csproj", "{D164EB7E-C3A3-42DF-BA56-70C1FB065791}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{BDF56C5D-5949-4C29-AD07-81C4C3EBA8E3}"
@@ -99,18 +97,6 @@ Global
 		{9F8FFAEF-FACD-4228-98B1-BF3E884D5B66}.Release|x64.Build.0 = Release|Any CPU
 		{9F8FFAEF-FACD-4228-98B1-BF3E884D5B66}.Release|x86.ActiveCfg = Release|Any CPU
 		{9F8FFAEF-FACD-4228-98B1-BF3E884D5B66}.Release|x86.Build.0 = Release|Any CPU
-		{CEB314AC-98D3-4D74-815A-70EC44FA20FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEB314AC-98D3-4D74-815A-70EC44FA20FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEB314AC-98D3-4D74-815A-70EC44FA20FF}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{CEB314AC-98D3-4D74-815A-70EC44FA20FF}.Debug|x64.Build.0 = Debug|Any CPU
-		{CEB314AC-98D3-4D74-815A-70EC44FA20FF}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CEB314AC-98D3-4D74-815A-70EC44FA20FF}.Debug|x86.Build.0 = Debug|Any CPU
-		{CEB314AC-98D3-4D74-815A-70EC44FA20FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEB314AC-98D3-4D74-815A-70EC44FA20FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CEB314AC-98D3-4D74-815A-70EC44FA20FF}.Release|x64.ActiveCfg = Release|Any CPU
-		{CEB314AC-98D3-4D74-815A-70EC44FA20FF}.Release|x64.Build.0 = Release|Any CPU
-		{CEB314AC-98D3-4D74-815A-70EC44FA20FF}.Release|x86.ActiveCfg = Release|Any CPU
-		{CEB314AC-98D3-4D74-815A-70EC44FA20FF}.Release|x86.Build.0 = Release|Any CPU
 		{D164EB7E-C3A3-42DF-BA56-70C1FB065791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D164EB7E-C3A3-42DF-BA56-70C1FB065791}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D164EB7E-C3A3-42DF-BA56-70C1FB065791}.Debug|x64.ActiveCfg = Debug|Any CPU

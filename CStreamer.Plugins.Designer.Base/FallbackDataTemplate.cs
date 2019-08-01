@@ -13,7 +13,7 @@ namespace CStreamer.Plugins.Designer.Base
     using CStreamer.Plugins.Designer.Base.Views;
     using CStreamer.Plugins.Interfaces;
 
-    public class FallbackDataTemplate : IDataTemplate
+    internal class FallbackDataTemplate : IDataTemplate
     {
         public bool SupportsRecycling => false;
 

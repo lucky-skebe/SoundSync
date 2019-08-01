@@ -10,9 +10,20 @@ namespace CStreamer.Plugins.Designer.Base
     using CStreamer.Plugins.Interfaces;
     using global::Avalonia.Controls;
 
+    /// <summary>
+    /// A Baseclass to generate custom settingsviews for entire elements.
+    ///
+    /// Use this if you need a more complex settings view than a list of textboxes/numericinputs.
+    /// </summary>
+    /// <typeparam name="TElement">The type of Element this creates SettingsViews for.</typeparam>
     public abstract class ElementSettingsDataTemplate<TElement> : ElementSettingsDataTemplate
         where TElement : IElement
     {
+        /// <summary>
+        /// Creates a SettingView given an Element.
+        /// </summary>
+        /// <param name="element">The Element to create teh SettingView for.</param>
+        /// <returns>The created SettingsView.</returns>
         public abstract IControl Build(TElement element);
 
         /// <inheritdoc/>

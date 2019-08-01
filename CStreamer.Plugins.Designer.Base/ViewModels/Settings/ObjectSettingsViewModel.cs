@@ -10,10 +10,18 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
     using CStreamer.Plugins.Interfaces;
     using ReactiveUI;
 
-    public class ObjectSettingsViewModel : ViewModelBase, ISettingViewModel
+    /// <summary>
+    /// A Simple ViewModel that contains a Name and a Value.
+    /// Used for presenting a simple Settings Control.
+    /// </summary>
+    internal class ObjectSettingsViewModel : ViewModelBase, ISettingViewModel
     {
         private object? value;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectSettingsViewModel"/> class.
+        /// </summary>
+        /// <param name="binding">The underlying PropertyBinding.</param>
         public ObjectSettingsViewModel(IPropertyBinding binding)
         {
             this.value = binding.GetValue().Value;

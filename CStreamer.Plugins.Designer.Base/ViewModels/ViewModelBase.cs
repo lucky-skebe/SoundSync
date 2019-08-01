@@ -9,13 +9,17 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels
 {
     using ReactiveUI;
 
-    public class ViewModelBase : ReactiveObject, ISupportsActivation
+    internal class ViewModelBase : ReactiveObject, ISupportsActivation
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ViewModelBase"/> class.
+        /// </summary>
         public ViewModelBase()
         {
             this.Activator = new ViewModelActivator();
         }
 
+        /// <inheritdoc/>
         public ViewModelActivator Activator { get; }
     }
 }

@@ -11,6 +11,10 @@ namespace CStreamer.Plugins.Designer.Base
     using global::Avalonia.Controls;
     using global::Avalonia.Controls.Templates;
 
+    /// <summary>
+    /// A Baseclass used for all simple Properties.
+    /// Inherit this if your element uses a property that isn't Covered by the pre implemented SettingViewModels.
+    /// </summary>
     public abstract class ElementSettingsDataTemplate : IDataTemplate
     {
         /// <inheritdoc/>
