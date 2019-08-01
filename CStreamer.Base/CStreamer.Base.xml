@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CStreamer.Base</name>
+    </assembly>
+    <members>
+        <member name="T:CStreamer.Base.StateManager">
+            <summary>
+            A helperclass that returns all <see cref="T:CStreamer.State">States</see> a State treansition should go throu.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Base.StateManager.GetTransitions(CStreamer.State,CStreamer.State)">
+            <summary>
+            Gets a list of all states that should be gone throu to reach the given state.
+            </summary>
+            <param name="from">The original State.</param>
+            <param name="to">The desired State.</param>
+            <returns>A list of all states that should be gone throu.</returns>
+        </member>
+        <member name="T:CStreamer.Base.TypeExtensions">
+            <summary>
+            Extension Methods for the Type type.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Base.TypeExtensions.GetGenericTypeImplementation(System.Type,System.Type)">
+             <summary>
+             Gets a Generic type implementation of a given type.
+            
+             So if instanceType inherits genericType{} it returns genericType{T}.
+             </summary>
+             <param name="instanceType">The type to check.</param>
+             <param name="genericType">The generic type to check for as opengeneric.</param>
+             <returns>The specific type implementation or null if it doesn't inherit that type.</returns>
+        </member>
+        <member name="M:CStreamer.Base.TypeExtensions.GetGenericInterfaceImplementation(System.Type,System.Type)">
+             <summary>
+             Gets a Generic type interface of a given type.
+            
+             So if instanceType or any of it's parents implements genericType{} it returns genericType{T}.
+             </summary>
+             <param name="instanceType">The type to check.</param>
+             <param name="genericType">The generic type to check for as opengeneric.</param>
+             <returns>The specific type interface or null if it doesn't implement that type.</returns>
+        </member>
+    </members>
+</doc>

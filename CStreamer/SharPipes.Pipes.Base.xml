@@ -1,0 +1,592 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SharPipes.Pipes.Base</name>
+    </assembly>
+    <members>
+        <member name="T:SharPipes.Pipes.Base.Events.ElementAddedEventArgs">
+            <summary>
+            Provides data for the <see cref="E:SharPipes.Pipes.Base.PipeLine.ElementAdded" /> event.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.Events.ElementAddedEventArgs.#ctor(SharPipes.Pipes.Base.IElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.Events.ElementAddedEventArgs"/> class.
+            </summary>
+            <param name="element">The added element.</param>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.Events.ElementAddedEventArgs.Element">
+            <summary>
+            Gets wich element was added.
+            </summary>
+            <value>
+            the added element.
+            </value>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.Events.ElementRemovedEventArgs">
+            <summary>
+            Provides data for the <see cref="E:SharPipes.Pipes.Base.PipeLine.ElementRemoved" /> event.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.Events.ElementRemovedEventArgs.#ctor(SharPipes.Pipes.Base.IElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.Events.ElementRemovedEventArgs"/> class.
+            </summary>
+            <param name="element">The removed element.</param>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.Events.ElementRemovedEventArgs.Element">
+            <summary>
+            Gets wich element was removed.
+            </summary>
+            <value>
+            the removed element.
+            </value>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.Events.ElementsLinkedEventArgs">
+            <summary>
+            Provides data for the <see cref="E:SharPipes.Pipes.Base.PipeLine.ElementsLinked" /> event.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.Events.ElementsLinkedEventArgs.#ctor(SharPipes.Pipes.Base.ISrcPad,SharPipes.Pipes.Base.ISinkPad)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.Events.ElementsLinkedEventArgs"/> class.
+            </summary>
+            <param name="src">The src pad that was linked.</param>
+            <param name="sink">The sink pad that was linked.</param>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.Events.ElementsLinkedEventArgs.Src">
+            <summary>
+            Gets the linked src pad.
+            </summary>
+            <value>
+            The linked src pad.
+            </value>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.Events.ElementsLinkedEventArgs.Sink">
+            <summary>
+            Gets the linked sink pad.
+            </summary>
+            <value>
+            The linked sink pad.
+            </value>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.Events.ElementsUnlinkedEventArgs">
+            <summary>
+            Provides data for the <see cref="E:SharPipes.Pipes.Base.PipeLine.ElementsUnlinked" /> event.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.Events.ElementsUnlinkedEventArgs.#ctor(SharPipes.Pipes.Base.ISrcPad,SharPipes.Pipes.Base.ISinkPad)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.Events.ElementsUnlinkedEventArgs"/> class.
+            </summary>
+            <param name="src">The src pad that was unlinked.</param>
+            <param name="sink">The sink pad that was unlinked.</param>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.Events.ElementsUnlinkedEventArgs.Src">
+            <summary>
+            Gets the unlinked src pad.
+            </summary>
+            <value>
+            The unlinked src pad.
+            </value>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.Events.ElementsUnlinkedEventArgs.Sink">
+            <summary>
+            Gets the unlinked sink pad.
+            </summary>
+            <value>
+            The unlinked sink pad.
+            </value>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.InteractionInfos.BoolParameterInteraction">
+            <summary>
+            Describes the Interaction with an Elements Property of type <see cref="T:System.Boolean"/>.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.InteractionInfos.BoolParameterInteraction.#ctor(System.String,System.Func{System.Boolean},System.Action{System.Boolean})">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.InteractionInfos.BoolParameterInteraction"/> class.
+            </summary>
+            <param name="name">The name of the Interaction.</param>
+            <param name="getValue">The method get get the propertys value.</param>
+            <param name="setValue">The method get set the propertys value.</param>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.InteractionInfos.CommandInteraction">
+            <summary>
+            An interaction that works similar to a WPF <see cref="T:System.Windows.Input.ICommand"/>.
+            This can be used for buttons.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.InteractionInfos.CommandInteraction.#ctor(System.String,System.Action,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.InteractionInfos.CommandInteraction"/> class.
+            </summary>
+            <param name="name">The name of the command. Used for labeing Buttons...</param>
+            <param name="action">the ction that should happen when the button is pressed.</param>
+            <param name="canExecute">True is the command can be executed immideatly otherwise False.</param>
+        </member>
+        <member name="E:SharPipes.Pipes.Base.InteractionInfos.CommandInteraction.CanExecuteChanged">
+            <inheritdoc/>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.InteractionInfos.CommandInteraction.Name">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.InteractionInfos.CommandInteraction.SetCanExecute(System.Boolean)">
+            <summary>
+            Sets whenever the command can currently be executed.
+            </summary>
+            <param name="canExecute">If the command can be executed.</param>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.InteractionInfos.CommandInteraction.CanExecute(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.InteractionInfos.CommandInteraction.Execute(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.InteractionInfos.DoubleParameterInteraction">
+            <summary>
+            Describes the Interaction with an Elements Property of type <see cref="T:System.Double"/>.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.InteractionInfos.DoubleParameterInteraction.#ctor(System.String,System.Func{System.Double},System.Action{System.Double})">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.InteractionInfos.DoubleParameterInteraction"/> class.
+            </summary>
+            <param name="name">The name of the Interaction.</param>
+            <param name="getValue">The method get get the propertys value.</param>
+            <param name="setValue">The method get set the propertys value.</param>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.InteractionInfos.IInteraction">
+            <summary>
+            Defines an Interaction with an Element.
+            Examples:
+            Properties
+            Connecting to a Server.
+            ...
+            </summary>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.InteractionInfos.IInteraction.Name">
+            <summary>
+            Gets the name of the Interaction.
+            This name could be used to Label a button for Example.
+            </summary>
+            <value>
+            The name of the Interaction.
+            </value>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.InteractionInfos.IntParameterInteraction">
+            <summary>
+            Describes the Interaction with an Elements Property of type <see cref="T:System.Int32"/>.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.InteractionInfos.IntParameterInteraction.#ctor(System.String,System.Func{System.Int32},System.Action{System.Int32})">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.InteractionInfos.IntParameterInteraction"/> class.
+            </summary>
+            <param name="name">The name of the Interaction.</param>
+            <param name="getValue">The method get get the propertys value.</param>
+            <param name="setValue">The method get set the propertys value.</param>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.InteractionInfos.ISelectable`1">
+            <summary>
+            Describes an Entry in a <see cref="T:SharPipes.Pipes.Base.InteractionInfos.MultiSelectionInteraction`2"/>.
+            It Contains a Value and information if that value is Selected.
+            </summary>
+            <typeparam name="T">The of the underlying Value.</typeparam>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.InteractionInfos.ISelectable`1.Selected">
+            <summary>
+            Gets or sets a value indicating whether the Option is selected.
+            </summary>
+            <value>
+            A value indicating whether the Option is selected.
+            </value>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.InteractionInfos.ISelectable`1.Value">
+            <summary>
+            Gets the underlying Value.
+            </summary>
+            <value>
+            The underlying Value.
+            </value>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.InteractionInfos.MultiSelectionInteraction`2">
+            <summary>
+            An interaction that contains multiple selectable items.
+            Usually shown in a listbox wich a checkbox for each item.
+            </summary>
+            <typeparam name="TSelect">type of the selectable.</typeparam>
+            <typeparam name="TValue">type of the selecables inner element.</typeparam>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.InteractionInfos.MultiSelectionInteraction`2.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.InteractionInfos.MultiSelectionInteraction`2"/> class.
+            </summary>
+            <param name="name">the name of the interaction.</param>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.InteractionInfos.MultiSelectionInteraction`2.Options">
+            <summary>
+            Gets a list of <see cref="T:SharPipes.Pipes.Base.InteractionInfos.ISelectable`1"/> items.
+            </summary>
+            <value>
+            A list of <see cref="T:SharPipes.Pipes.Base.InteractionInfos.ISelectable`1"/> items.
+            </value>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.InteractionInfos.MultiSelectionInteraction`2.Name">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.InteractionInfos.Selectable`1">
+            <summary>
+            Describes an Entry in a <see cref="T:SharPipes.Pipes.Base.InteractionInfos.MultiSelectionInteraction`2"/>.
+            It Contains a Value and information if that value is Selected.
+            </summary>
+            <typeparam name="T">The of the underlying Value.</typeparam>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.InteractionInfos.Selectable`1.#ctor(`0,System.Action{SharPipes.Pipes.Base.InteractionInfos.Selectable{`0},System.Boolean})">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.InteractionInfos.Selectable`1"/> class.
+            </summary>
+            <param name="value">The underlying Value.</param>
+            <param name="setSelectedCallback">A callback that is called each time the IsSelected Property Changes.</param>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.InteractionInfos.Selectable`1.#ctor(`0,System.Boolean,System.Action{SharPipes.Pipes.Base.InteractionInfos.Selectable{`0},System.Boolean})">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.InteractionInfos.Selectable`1"/> class.
+            </summary>
+            <param name="value">The underlying Value.</param>
+            <param name="selected">the initial selection state.</param>
+            <param name="setSelectedCallback">A callback that is called each time the IsSelected Property Changes.</param>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.InteractionInfos.Selectable`1.Selected">
+            <inheritdoc/>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.InteractionInfos.Selectable`1.Value">
+            <inheritdoc/>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.InteractionInfos.StringParameterInteraction">
+            <summary>
+            Describes the Interaction with an Elements Property of type <see cref="T:System.String"/>.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.InteractionInfos.StringParameterInteraction.#ctor(System.String,System.Func{System.String},System.Action{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.InteractionInfos.StringParameterInteraction"/> class.
+            </summary>
+            <param name="name">The name of the Interaction.</param>
+            <param name="getValue">The method get get the propertys value.</param>
+            <param name="setValue">The method get set the propertys value.</param>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.InteractionInfos.ValuePropertyInteraction`1">
+            <summary>
+            Describes the Interaction with an Elements Property.
+            </summary>
+            <typeparam name="TValue">The Type of the underlying Property.</typeparam>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.InteractionInfos.ValuePropertyInteraction`1.#ctor(System.String,System.Func{`0},System.Action{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.InteractionInfos.ValuePropertyInteraction`1"/> class.
+            </summary>
+            <param name="name">The name of the Interaction.</param>
+            <param name="getValue">The method get get the propertys value.</param>
+            <param name="setValue">The method get set the propertys value.</param>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.InteractionInfos.ValuePropertyInteraction`1.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.InteractionInfos.ValuePropertyInteraction`1.Value">
+            <summary>
+            Gets or sets the Value of the Elements Property.
+            </summary>
+            <value>
+            The Value of the Elements Property.
+            </value>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.PipeElementFactory">
+             <summary>
+             Create elements give a factoryType name.
+            
+             These names can either be registered using the <see cref="T:SharPipes.Pipes.Base.Attributes.ElementNameAttribute"/> or will be generated using the Classname.
+             Classnames ending in Src, Sink, or Element will get these parts removed.
+             </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeElementFactory.GetFactoryTypes">
+            <summary>
+            Gets a list of all known factoryType names.
+            </summary>
+            <returns>All known factoryType names.</returns>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeElementFactory.Make(System.String,System.String)">
+            <summary>
+            Creates a new element given a factoryType name and the name the element should get.
+            </summary>
+            <param name="factoryType">The type of element to create.</param>
+            <param name="name">the name the element should receive.</param>
+            <returns>The newly created element or Null if the name was not found.</returns>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.PipeLine">
+            <summary>
+            A complete pipeline consisting of linked elements that transform data from one form to another.
+            </summary>
+        </member>
+        <member name="E:SharPipes.Pipes.Base.PipeLine.ElementAdded">
+            <summary>
+            Occurs when an element gets added to the pipeline.
+            </summary>
+        </member>
+        <member name="E:SharPipes.Pipes.Base.PipeLine.ElementRemoved">
+            <summary>
+            Occurs when an element gets removed to the pipeline.
+            </summary>
+        </member>
+        <member name="E:SharPipes.Pipes.Base.PipeLine.ElementsLinked">
+            <summary>
+            Occurs when two element get linked.
+            </summary>
+        </member>
+        <member name="E:SharPipes.Pipes.Base.PipeLine.ElementsUnlinked">
+            <summary>
+            Occurs when two element get unlinked.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLine.CreateNodeFromTemplate(SharPipes.Pipes.Base.IElement)">
+            <summary>
+            Creates a new element from an existing template.
+            Only the type gets copied.
+            Properties need to be initialized manually.
+            </summary>
+            <param name="template">The template element.</param>
+            <returns>A new element of the same type as the template.</returns>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLine.GetDefinition">
+            <summary>
+            Gets a description of the current pipeline including all off the pipelines elements, element properties and links.
+            Used for serializing the pipeline.
+            </summary>
+            <returns>The pipelines desciption.</returns>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLine.FromDefinition(SharPipes.Pipes.Base.PipeLineDefinitions.PipeLineDefinition)">
+            <summary>
+            Clears the pipeline and recreates itself using the given description.
+            USed for deserializing the pipeline.
+            </summary>
+            <param name="definition">the pipelinee definition.</param>
+            <returns>A list of errors that occured turing the builing of the pipeline.</returns>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLine.Add(SharPipes.Pipes.Base.IElement)">
+            <summary>
+            Add an element to the pipeline to be handled.
+            The pipeline handles the <see cref="T:SharPipes.Pipes.Base.State"/> of all it's elements and serielizes elements it owns when it gets serialized.
+            </summary>
+            <param name="element">The element to add to the pipeline.</param>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLine.Remove(SharPipes.Pipes.Base.IElement)">
+            <summary>
+            Removes an element from the pipeline.
+            This unlinks the element from all other elements.
+            Afterwars this element won't be handled by the pipleline.
+            </summary>
+            <param name="element">The element to remove from the pipeline.</param>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLine.Connect``1(SharPipes.Pipes.Base.SrcPad{``0},SharPipes.Pipes.Base.SinkPad{``0})">
+            <summary>
+            Connect two element pads, letting them send data from the src to the sink.
+            </summary>
+            <typeparam name="TValue">The type of data that can be sent.</typeparam>
+            <param name="src">The src ot the data.</param>
+            <param name="sink">The destination of the data.</param>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLine.TryConnect(SharPipes.Pipes.Base.ISrcPad,SharPipes.Pipes.Base.ISinkPad)">
+            <summary>
+            Tries to Connect two pads if you don't have strongly typed pads.
+            </summary>
+            <param name="src">The src pad sending data.</param>
+            <param name="sink">The sink pad receiving the data.</param>
+            <returns>True if the elements were linked. False otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">If either parameters were null.</exception>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLine.Start">
+            <summary>
+            Moves the pipeline and all it's elements to the <see cref="F:SharPipes.Pipes.Base.State.Playing"/> state.
+            </summary>
+            <returns>A task that represents the state change operation.</returns>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLine.Stop">
+            <summary>
+            Moves the pipeline and all it's elements to the <see cref="F:SharPipes.Pipes.Base.State.Stopped"/> state.
+            </summary>
+            <returns>A task that represents the state change operation.</returns>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.PipeLineDefinitions.ElementDefinition">
+            <summary>
+            This class is the description of one element used for serializing and deserializing elements.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLineDefinitions.ElementDefinition.#ctor(System.String,System.String,System.Collections.Generic.IList{SharPipes.Pipes.Base.PipeLineDefinitions.PropertyValue})">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PipeLineDefinitions.ElementDefinition"/> class.
+            </summary>
+            <param name="typeFactory">The name used to recreate the element this object describes.</param>
+            <param name="name">The name of the element.</param>
+            <param name="properties">All the properties of the described element.</param>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.PipeLineDefinitions.ElementDefinition.TypeFactory">
+            <summary>
+            Gets the name used to recreate the element this object describes.
+            </summary>
+            <value>
+            The name used to recreate the element this object describes.
+            A new element of the same Type can be created using the <see cref="M:SharPipes.Pipes.Base.PipeElementFactory.Make(System.String,System.String)"/> method.
+            </value>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.PipeLineDefinitions.ElementDefinition.Name">
+            <summary>
+            Gets the name of the element this object describes.
+            </summary>
+            <value>
+            The name of the element this object describes.
+            </value>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.PipeLineDefinitions.ElementDefinition.Properties">
+            <summary>
+            Gets all properties of the element this object describes.
+            </summary>
+            <value>
+            All properties of the element this object describes.
+            </value>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition">
+            <summary>
+            Describes a link between two pads.
+            Used for serialization / deserialization.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition"/> class.
+            </summary>
+            <param name="fromElement">The name of the element this link connects from.</param>
+            <param name="fromPad">The name of the <see cref="P:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition.FromElement"/> pad.</param>
+            <param name="toElement">The name of the element this link connects to.</param>
+            <param name="toPad">The name of the <see cref="P:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition.ToElement"/> element pad.</param>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition.FromElement">
+            <summary>
+            Gets the name of the element this link connects from.
+            </summary>
+            <value>
+            The name of the element this link connects from.
+            </value>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition.FromPad">
+            <summary>
+            Gets the name of the <see cref="P:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition.FromElement"/> pad.
+            </summary>
+            <value>
+            The name of the <see cref="P:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition.FromElement"/> pad.
+            </value>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition.ToElement">
+            <summary>
+            Gets the name of the element this link connects to.
+            </summary>
+            <value>
+            The name of the element this link connects to.
+            </value>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition.ToPad">
+            <summary>
+            Gets the name of the <see cref="P:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition.ToElement"/> element pad.
+            </summary>
+            <value>
+            The name of the <see cref="P:SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition.ToElement"/> element pad.
+            </value>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.PipeLineDefinitions.PipeLineDefinition">
+            <summary>
+            Describes the structure of an entire <see cref="T:SharPipes.Pipes.Base.PipeLine"/>.
+            Used for serialization/deserialization.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLineDefinitions.PipeLineDefinition.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PipeLineDefinitions.PipeLineDefinition"/> class.
+            </summary>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PipeLineDefinitions.PipeLineDefinition.#ctor(System.Collections.Generic.IList{SharPipes.Pipes.Base.PipeLineDefinitions.ElementDefinition},System.Collections.Generic.IList{SharPipes.Pipes.Base.PipeLineDefinitions.LinkDefinition})">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PipeLineDefinitions.PipeLineDefinition"/> class.
+            </summary>
+            <param name="elements">All element the described pipeline contains.</param>
+            <param name="links">All links the described pipeline contains.</param>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.PipeLineDefinitions.PipeLineDefinition.Elements">
+            <summary>
+            Gets all element the described pipeline contains.
+            </summary>
+            <value>
+            All element the described pipeline contains.
+            </value>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.PipeLineDefinitions.PipeLineDefinition.Links">
+            <summary>
+            Gets all links the described pipeline contains.
+            </summary>
+            <value>
+            All links the described pipeline contains.
+            </value>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.Properties.strings">
+            <summary>
+              Eine stark typisierte Ressourcenklasse zum Suchen von lokalisierten Zeichenfolgen usw.
+            </summary>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.Properties.strings.ResourceManager">
+            <summary>
+              Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
+            </summary>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.Properties.strings.Culture">
+            <summary>
+              Überschreibt die CurrentUICulture-Eigenschaft des aktuellen Threads für alle
+              Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
+            </summary>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.Properties.strings.InvalidSetValueExpression">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Invalid SetValue Expression. ähnelt.
+            </summary>
+        </member>
+        <member name="P:SharPipes.Pipes.Base.Properties.strings.LambdaMustReturnAProperty">
+            <summary>
+              Sucht eine lokalisierte Zeichenfolge, die Lambda must return a property. ähnelt.
+            </summary>
+        </member>
+        <member name="T:SharPipes.Pipes.Base.PropertyBinding`1">
+            <summary>
+            Describes how to set/get a certain properties value.
+            </summary>
+            <typeparam name="TValue">The Type of the underlying property.</typeparam>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PropertyBinding`1.#ctor(System.String,System.Action{`0},System.Func{`0},System.Func{System.Object,Optional.Option{`0}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PropertyBinding`1"/> class.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <param name="setValue">How to set the properties value.</param>
+            <param name="getValue">How to get teh properties value.</param>
+            <param name="convert">a Custom conversion logic if no generic cast can be determined.</param>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PropertyBinding`1.#ctor(System.Linq.Expressions.Expression{System.Func{`0}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharPipes.Pipes.Base.PropertyBinding`1"/> class.
+            </summary>
+            <param name="property">An expression thast is used to automatically create a nes proprety binding.</param>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PropertyBinding`1.GetValue">
+            <inheritdoc/>
+        </member>
+        <member name="M:SharPipes.Pipes.Base.PropertyBinding`1.TrySetValue(SharPipes.Pipes.Base.PipeLineDefinitions.PropertyValue)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

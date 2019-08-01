@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CStreamer.Plugins.Designer.Buttplug</name>
+    </assembly>
+    <members>
+        <member name="T:CStreamer.Plugins.Designer.Buttplug.ButtplugDataTemplate">
+            <summary>
+            A DataTemplate that shows a ButtplugSettingsView.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Buttplug.ButtplugDataTemplate.Build(CStreamer.Plugins.Buttplug.ButtplugSink)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Buttplug.ButtPlugSettingsView">
+            <summary>
+            A SettingsView that let'S you controll the connection to a Buttplug Server.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Buttplug.ButtPlugSettingsView.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Buttplug.ButtPlugSettingsView"/> class.
+            </summary>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Buttplug.ButtplugSinkViewModel">
+            <summary>
+            A ViewModel that uses a <see cref="T:CStreamer.Plugins.Buttplug.ButtplugSink" /> as it's Model.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Buttplug.ButtplugSinkViewModel.#ctor(CStreamer.Plugins.Buttplug.ButtplugSink)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Buttplug.ButtplugSinkViewModel"/> class.
+            </summary>
+            <param name="sink">The <see cref="T:CStreamer.Plugins.Buttplug.ButtplugSink"/> used as model.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Designer.Buttplug.ButtplugSinkViewModel.Activator">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Designer.Buttplug.ButtplugSinkViewModel.Devices">
+            <summary>
+            Gets a list of all Devices known to the Server and whether they should be controlled or not.
+            </summary>
+            <value>
+            A list of all Devices known to the Server and whether they should be controlled or not.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Designer.Buttplug.ButtplugSinkViewModel.ServerAddress">
+            <summary>
+            Gets or sets the Address of the Buttplug Server.
+            </summary>
+            <value>
+            The Address of the Buttplug Server.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Designer.Buttplug.ButtplugSinkViewModel.StartScanning">
+            <summary>
+            Gets a Command to let the Server start scanning for new devices.
+            </summary>
+            <value>
+            A Command to let the Server start scanning for new devices.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Designer.Buttplug.ButtplugSinkViewModel.StopScanning">
+            <summary>
+            Gets a Command to let the Server stop scanning for new devices.
+            </summary>
+            <value>
+            A Command to let the Server stop scanning for new devices.
+            </value>
+        </member>
+    </members>
+</doc>

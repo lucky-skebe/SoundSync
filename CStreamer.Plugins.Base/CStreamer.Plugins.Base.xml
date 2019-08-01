@@ -1,0 +1,265 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CStreamer.Plugins.Base</name>
+    </assembly>
+    <members>
+        <member name="T:CStreamer.Plugins.Base.Element">
+            <summary>
+            Baseclass for all element.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.Element.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.Element"/> class.
+            </summary>
+            <param name="name">the name ot the element.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.Element.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.Element.CurrentState">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.Element.GoToState(CStreamer.State)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.Element.GetPropertyBindings">
+            <summary>
+            Gets a list of all Property bindings that should be serialized/deserialized.
+            </summary>
+            <returns>List of all the PropertyBindings of hte element.</returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.Element.GetPads">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.Element.TransitionStoppedReady">
+             <summary>
+             Contains the logic that should run when changing from the Stopped to the Ready state.
+            
+             Usually initalization if external resources.
+             </summary>
+             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the result of the asynchronous state change.</returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.Element.TransitionReadyPlaying">
+             <summary>
+             Contains the logic that should run when changing from the Ready to the Playing state.
+            
+             Usually preparing to receive data.
+             </summary>
+             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the result of the asynchronous state change.</returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.Element.TransitionPlayingReady">
+             <summary>
+             Contains the logic that should run when changing from the Playing to the Ready state.
+            
+             Usually stopping data processing.
+             </summary>
+             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the result of the asynchronous state change.</returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.Element.TransitionReadyStopped">
+             <summary>
+             Contains the logic that should run when changing from the Ready to the Stopped state.
+            
+             Usually freeing of external resources.
+             </summary>
+             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the result of the asynchronous state change.</returns>
+        </member>
+        <member name="T:CStreamer.Plugins.Base.PluginAssemblyAttribute">
+            <summary>
+            Marks an assembly as a plugin to reduce unneccesary loading of non plugin libraries on startup.
+            </summary>
+        </member>
+        <member name="T:CStreamer.Plugins.Base.PluginCatalog">
+             <summary>
+             Loads all the assemblies marked with the <see cref="T:CStreamer.Plugins.Base.PluginAssemblyAttribute"/>.
+            
+             It looks for assemblies in:
+             <list type="number">
+             <item>The current path (".")</item>
+             <item>The plugin directory if it exists ("./plugins")(</item>
+             <item>A directory accoring to the "CSTREAMER_PLUGIN_DIR" environment variable if it exists.</item>
+             </list>
+             </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.PluginCatalog.PluginTypes">
+            <summary>
+            Returns a list of all exposed types inside the plugin assemblies.
+            </summary>
+            <returns>A list of all exposed types inside the plugin assemblies.</returns>
+        </member>
+        <member name="T:CStreamer.Plugins.Base.SinkPad`1">
+             <summary>
+             Base class for all SinkPads.
+            
+             Data always flows from <see cref="T:CStreamer.Plugins.Base.SrcPad`1"/> to <see cref="T:CStreamer.Plugins.Base.SinkPad`1"/>.
+             </summary>
+             <typeparam name="TValue">The typt of value this pad can accept.</typeparam>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Action{`0},System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.SinkPad`1"/> class.
+            </summary>
+            <param name="parent">the element this pad is connected to.</param>
+            <param name="name">the name of the pad.</param>
+            <param name="elementCallback">the callback inside the element to push data to.</param>
+            <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SinkPad`1.Parent">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SinkPad`1.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SinkPad`1.Peer">
+            <summary>
+            Gets the pad on the other side of the link of null if the pad is not linked.
+            </summary>
+            <value>
+            The pad on the other side of the link of null if the pad is not linked.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SinkPad`1.Mandatory">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SinkPad`1.ElementCallback">
+            <summary>
+            Gets or sets the element callback.
+            </summary>
+            <value>
+            The element callback.
+            this callback is called each time a value is pushed from the connected edge.
+            </value>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.IsLinked">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Push(`0)">
+            <summary>
+            Pushed data along the pipeline.
+            </summary>
+            <param name="value">the value to push into the element.</param>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Unlink">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Equals(CStreamer.Plugins.Interfaces.ISinkPad)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Link(CStreamer.Plugins.Interfaces.ISrcPad{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Link(CStreamer.Plugins.Interfaces.ISrcPad)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Link(CStreamer.Plugins.Interfaces.IPad)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CStreamer.Plugins.Base.SrcPad`1">
+             <summary>
+             Base class for all SrcPads.
+            
+             Data always flows from <see cref="T:CStreamer.Plugins.Base.SrcPad`1"/> to <see cref="T:CStreamer.Plugins.Base.SinkPad`1"/>.
+             </summary>
+             <typeparam name="TValue">The typt of value this pad can push throu the pipeline.</typeparam>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.SrcPad`1"/> class.
+            </summary>
+            <param name="parent">the element this pad is connected to.</param>
+            <param name="name">the name of the pad.</param>
+            <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SrcPad`1.Parent">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SrcPad`1.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SrcPad`1.Peer">
+            <summary>
+            Gets the pad on the other side of the link of null if the pad is not linked.
+            </summary>
+            <value>
+            The pad on the other side of the link of null if the pad is not linked.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SrcPad`1.Mandatory">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.IsLinked">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Push(`0)">
+            <summary>
+            Pushed data along the pipeline.
+            </summary>
+            <param name="value">the value to push into towards the connected <see cref="T:CStreamer.Plugins.Base.SinkPad`1"/>.</param>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Unlink">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Equals(CStreamer.Plugins.Interfaces.ISrcPad)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Link(CStreamer.Plugins.Interfaces.ISinkPad{`0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Link(CStreamer.Plugins.Interfaces.ISinkPad)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Link(CStreamer.Plugins.Interfaces.IPad)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CStreamer.PropertyBinding`1">
+            <summary>
+            Describes how to set/get a certain properties value.
+            </summary>
+            <typeparam name="TValue">The Type of the underlying property.</typeparam>
+        </member>
+        <member name="M:CStreamer.PropertyBinding`1.#ctor(System.String,System.Action{`0},System.Func{`0},System.Func{System.Object,Optional.Option{`0}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.PropertyBinding`1"/> class.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <param name="setValue">How to set the properties value.</param>
+            <param name="getValue">How to get teh properties value.</param>
+            <param name="convert">a Custom conversion logic if no generic cast can be determined.</param>
+        </member>
+        <member name="M:CStreamer.PropertyBinding`1.#ctor(System.Linq.Expressions.Expression{System.Func{`0}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.PropertyBinding`1"/> class.
+            </summary>
+            <param name="property">An expression thast is used to automatically create a nes proprety binding.</param>
+        </member>
+        <member name="E:CStreamer.PropertyBinding`1.ValueChanged">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.PropertyBinding`1.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.PropertyBinding`1.Value">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.PropertyBinding`1.RaiseValueChanged(`0)">
+            <summary>
+            Raises a <see cref="E:CStreamer.PropertyBinding`1.ValueChanged"/> Event.
+            Use this in your Elements when property values change.
+            </summary>
+            <param name="value">The new value of the Property.</param>
+        </member>
+        <member name="M:CStreamer.PropertyBinding`1.GetValue">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.PropertyBinding`1.TrySetValue(CStreamer.PropertyValue)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

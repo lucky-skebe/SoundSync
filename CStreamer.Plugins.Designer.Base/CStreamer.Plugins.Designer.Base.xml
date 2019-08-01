@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CStreamer.Plugins.Designer.Base</name>
+    </assembly>
+    <members>
+        <member name="T:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate">
+            <summary>
+            A Baseclass used for all simple Properties.
+            Inherit this if your element uses a property that isn't Covered by the pre implemented SettingViewModels.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate.SupportsRecycling">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate.Build(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate.Match(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate`1">
+             <summary>
+             A Baseclass to generate custom settingsviews for entire elements.
+            
+             Use this if you need a more complex settings view than a list of textboxes/numericinputs.
+             </summary>
+             <typeparam name="TElement">The type of Element this creates SettingsViews for.</typeparam>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate`1.Build(`0)">
+            <summary>
+            Creates a SettingView given an Element.
+            </summary>
+            <param name="element">The Element to create teh SettingView for.</param>
+            <returns>The created SettingsView.</returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate`1.Build(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ElementSettingsDataTemplate`1.Match(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.SettingsViewLocator">
+            <summary>
+            Picks one of the registered <see cref="T:Avalonia.Controls.Templates.IDataTemplate">DataTemplates</see> based on the registered Priority.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Plugins.Designer.Base.SettingsViewLocator.Instance">
+            <summary>
+            Gets the Singelton SettingsViewLocator.
+            </summary>
+            <value>
+            The Singelton SettingsViewLocator.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Designer.Base.SettingsViewLocator.SupportsRecycling">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.SettingsViewLocator.GetMatchingTemplates(System.Object)">
+            <summary>
+            Returns a list of all matching DataTemplates ordered by priority.
+            </summary>
+            <param name="data">The data to generate a DataTemplate for.</param>
+            <returns>A list of all matching DataTemplates ordered by priority.</returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.SettingsViewLocator.RegisterTemplate(Avalonia.Controls.Templates.IDataTemplate,System.Int32)">
+            <summary>
+            Registers a new IDataTemplate using a given <see cref="T:CStreamer.Plugins.Designer.Base.SettingsViewLocator.Priority"/>.
+            </summary>
+            <param name="template">The DataTemplate to register.</param>
+            <param name="priority">the Priority with wich the DataTemlpate gets registered.</param>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.SettingsViewLocator.Build(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.SettingsViewLocator.Match(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.SettingsViewLocator.Priority">
+            <summary>
+            Default Priorities for DataTemplates.
+            </summary>
+        </member>
+        <member name="F:CStreamer.Plugins.Designer.Base.SettingsViewLocator.Priority.FALLBACK">
+            <summary>
+            If no other templates are found there is always one with the Fallback priority.
+            </summary>
+        </member>
+        <member name="F:CStreamer.Plugins.Designer.Base.SettingsViewLocator.Priority.LOWEST">
+            <summary>
+            A low priority.
+            Use this if your template can't use a restrictive type check.
+            This way more specific ones can overwrite it.
+            </summary>
+        </member>
+        <member name="F:CStreamer.Plugins.Designer.Base.SettingsViewLocator.Priority.NORMAL">
+            <summary>
+            Default Priority if no priority is specified.
+            Use this if your type restriction is normal like a class and all it's descendants.
+            </summary>
+        </member>
+        <member name="F:CStreamer.Plugins.Designer.Base.SettingsViewLocator.Priority.HIGH">
+            <summary>
+            If your Template uses a really restricting condition like for example one specific type.
+            </summary>
+        </member>
+        <member name="F:CStreamer.Plugins.Designer.Base.SettingsViewLocator.Priority.FORCE">
+            <summary>
+            If you want to Force your datatemplate do be used. (Mainly during development).
+            </summary>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.BaseSettingViewModel`1">
+            <summary>
+            A Simple ViewModel that contains a Name and a Value.
+            Used for presenting a simple Settings Control.
+            </summary>
+            <typeparam name="TValue">The Type of the <see cref="P:CStreamer.Plugins.Designer.Base.ViewModels.Settings.BaseSettingViewModel`1.Value"/> Property.</typeparam>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.BaseSettingViewModel`1.#ctor(CStreamer.Plugins.Interfaces.IPropertyBinding{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.BaseSettingViewModel`1"/> class.
+            </summary>
+            <param name="binding">The underlying PropertyBinding.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Designer.Base.ViewModels.Settings.BaseSettingViewModel`1.Value">
+            <summary>
+            Gets the Value of the underlying PropertyBinding.
+            </summary>
+            <value>
+            The Value of the underlying PropertyBinding.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Designer.Base.ViewModels.Settings.BaseSettingViewModel`1.Name">
+            <summary>
+            Gets the name of the Property.
+            Used to present a label in the UI.
+            </summary>
+            <value>
+            The name of the Property.
+            </value>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.DoubleSettingViewModel">
+            <summary>
+            A Simple ViewModel that contains a Name and a Value.
+            Used for presenting a simple Settings Control.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.DoubleSettingViewModel.#ctor(CStreamer.Plugins.Interfaces.IPropertyBinding{System.Double})">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.DoubleSettingViewModel"/> class.
+            </summary>
+            <param name="binding">The underlying PropertyBinding.</param>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.IntSettingViewModel">
+            <summary>
+            A Simple ViewModel that contains a Name and a Value.
+            Used for presenting a simple Settings Control.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.IntSettingViewModel.#ctor(CStreamer.Plugins.Interfaces.IPropertyBinding{System.Int32})">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.IntSettingViewModel"/> class.
+            </summary>
+            <param name="binding">The underlying PropertyBinding.</param>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.ISettingViewModel">
+            <summary>
+            A MArker interface to find all SettingsViewModels.
+            </summary>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.ObjectSettingsViewModel">
+            <summary>
+            A Simple ViewModel that contains a Name and a Value.
+            Used for presenting a simple Settings Control.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.ObjectSettingsViewModel.#ctor(CStreamer.Plugins.Interfaces.IPropertyBinding)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.ObjectSettingsViewModel"/> class.
+            </summary>
+            <param name="binding">The underlying PropertyBinding.</param>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.StringSettingViewModel">
+            <summary>
+            A Simple ViewModel that contains a Name and a Value.
+            Used for presenting a simple Settings Control.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.StringSettingViewModel.#ctor(CStreamer.Plugins.Interfaces.IPropertyBinding{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.StringSettingViewModel"/> class.
+            </summary>
+            <param name="binding">The underlying PropertyBinding.</param>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.ViewModelBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.ViewModels.ViewModelBase"/> class.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Plugins.Designer.Base.ViewModels.ViewModelBase.Activator">
+            <inheritdoc/>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.Views.Settings.DoubleSettingView">
+            <summary>
+            A simple view for changing <see cref="T:System.Double"/> values.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.Views.Settings.DoubleSettingView.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.Views.Settings.DoubleSettingView"/> class.
+            </summary>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.Views.Settings.IntSettingView">
+            <summary>
+            A simple view for changing <see cref="T:System.Int32"/> values.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.Views.Settings.IntSettingView.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.Views.Settings.IntSettingView"/> class.
+            </summary>
+        </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.Views.Settings.StringSettingView">
+            <summary>
+            A simple view for changing <see cref="T:System.String"/> values.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.Views.Settings.StringSettingView.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.Views.Settings.StringSettingView"/> class.
+            </summary>
+        </member>
+    </members>
+</doc>

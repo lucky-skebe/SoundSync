@@ -1,0 +1,28 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:CStreamer.Plugins.Designer.Base;assembly=CStreamer.Plugins.Designer.Base"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="CStreamer.Plugins.Designer.Base.Views.FallbackSettingsView">
+  <UserControl.DataTemplates>
+    <local:SettingsItemViewLocator />
+  </UserControl.DataTemplates>
+  <ScrollViewer>
+    <Border Margin="0,5" VerticalAlignment="Top" Background="White">
+      <ItemsControl Items="{Binding Settings}" >
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <ContentPresenter Content="{Binding}" Width="250" Padding="5,2"/>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+              <VirtualizingStackPanel />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+      </ItemsControl>
+    </Border>
+  </ScrollViewer>
+    
+</UserControl>

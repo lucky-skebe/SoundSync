@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <NullableContextOptions>enable</NullableContextOptions>
+    <Nullable>enable</Nullable>
+    <CodeAnalysisRuleSet>../custom.ruleset</CodeAnalysisRuleSet>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Copyright>LuckySkebe</Copyright>
+    <Version>0.2.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\Fritz\Documents\Projects\SharPipes\SharPipes.Pipes.Base\SharPipes.Pipes.Base.xml</DocumentationFile>
+    <NoWarn />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="../stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Optional" Version="4.0.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CStreamer.Base\CStreamer.Base.csproj" />
+    <ProjectReference Include="..\CStreamer.Plugins.Base\CStreamer.Plugins.Base.csproj" />
+    <ProjectReference Include="..\CStreamer.Plugins.Interfaces\CStreamer.Plugins.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

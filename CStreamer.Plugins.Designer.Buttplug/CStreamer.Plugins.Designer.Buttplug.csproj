@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
+    <AssemblyVersion>0.2.0.0</AssemblyVersion>
+    <FileVersion>0.2.0.0</FileVersion>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Version>0.2.0.0</Version>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <LangVersion>Preview</LangVersion>
+    <NullableContextOptions>enable</NullableContextOptions>
+    <Nullable>enable</Nullable>
+    <CodeAnalysisRuleSet>../custom.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">
+    <DocumentationFile>C:\Users\Fritz\Documents\Projects\CStreamer\CStreamer.Plugins.Designer.Buttplug\CStreamer.Plugins.Designer.Buttplug.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="../stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Remove="ButtPlugSettingsView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ButtPlugSettingsView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.8.0" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.8.0" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.8.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="ButtPlugSettingsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CStreamer.Plugins.Base\CStreamer.Plugins.Base.csproj" />
+    <ProjectReference Include="..\CStreamer.Plugins.Buttplug\CStreamer.Plugins.Buttplug.csproj" />
+    <ProjectReference Include="..\CStreamer.Plugins.Interfaces\CStreamer.Plugins.Interfaces.csproj" />
+    <ProjectReference Include="..\CStreamer.Plugins.Designer.Base\CStreamer.Plugins.Designer.Base.csproj" />
+  </ItemGroup>
+
+</Project>
