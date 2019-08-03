@@ -13,6 +13,8 @@
   <DockPanel Background="AliceBlue">
     <Grid DockPanel.Dock="Bottom" ColumnDefinitions="*,auto" Background="LightSkyBlue">
       <StackPanel Orientation="Horizontal" Grid.Column="1">
+        <Button Command="{Binding Load}">Load</Button>
+        <Button Command="{Binding Save}">Save</Button>
         <Button Command="{Binding Stop}">Stop</Button>
         <Button Command="{Binding Pause}">Pause</Button>
         <Button Command="{Binding Play}">Play</Button>

@@ -10,8 +10,10 @@ namespace CStreamer.Designer.Avalonia.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Threading.Tasks;
     using CStreamer.Base;
+    using CStreamer.Designer.Avalonia.Helper;
     using CStreamer.Events;
     using CStreamer.Plugins.Interfaces;
     using global::Avalonia;
@@ -119,6 +121,27 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             return this.pipeline.Stop();
         }
 
+        internal IList<string> LoadPipeline(DesignerPipelineDefinition definition)
+        {
+            foreach (var kvp in definition.Positions)
+            {
+                this.positionCache.Add(kvp.Key, kvp.Value);
+            }
+
+            return this.pipeline.FromDefinition(definition);
+        }
+
+        internal DesignerPipelineDefinition SavePipeline()
+        {
+            var rawDefinition = this.pipeline.GetDefinition();
+
+            var positions = this.elementLookup.ToDictionary(e => e.Key.Name, e => new Point(e.Value.X, e.Value.Y));
+
+            var graphicalDefinition = new DesignerPipelineDefinition(rawDefinition, positions);
+
+            return graphicalDefinition;
+        }
+
         internal void TryConnect(SrcPadViewModel src, SinkPadViewModel sink)
         {
             this.pipeline.TryConnect(src.Model, sink.Model);
@@ -132,27 +155,6 @@ namespace CStreamer.Designer.Avalonia.ViewModels
                 this.Add(element, position);
             }
         }
-
-        ////internal GraphicalPipeLineDefinition GetDefinition()
-        ////{
-        ////    var rawDefinition = this.pipeline.GetDefinition();
-        ////
-        ////    var positions = this.elementLookup.ToDictionary(e => e.Key.Name, e => new Point(e.Value.X, e.Value.Y));
-        ////
-        ////    var graphicalDefinition = new GraphicalPipeLineDefinition(rawDefinition, positions);
-        ////
-        ////    return graphicalDefinition;
-        ////}
-
-        ////internal IList<string> FromDefinition(GraphicalPipeLineDefinition definition)
-        ////{
-        ////    foreach (var kvp in definition.Positions)
-        ////    {
-        ////        this.positionCache.Add(kvp.Key, kvp.Value);
-        ////    }
-        ////
-        ////    return this.pipeline.FromDefinition(definition);
-        ////}
 
         private void Pipeline_ElementsUnlinked(object? sender, ElementsUnlinkedEventArgs e)
         {
