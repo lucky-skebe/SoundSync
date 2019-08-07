@@ -21,7 +21,7 @@ namespace CStreamer.Plugins.NAudio
     public class LoopBackSrc : Element, IDisposable
     {
         private readonly WasapiLoopbackCapture loopback;
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="LoopBackSrc"/> class.
         /// </summary>

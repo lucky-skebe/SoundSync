@@ -57,12 +57,14 @@ namespace CStreamer.Plugins.Base
         public string Name { get; }
 
         /// <inheritdoc/>
-        public bool Mandatory { get; }
+        public bool Mandatory { get; } 
 
         IPad? IPad.Peer => this.Peer;
 
         /// <inheritdoc/>
         public string Caps => this.ChildPads.Select(pad => pad.Caps).Aggregate<string, StringBuilder>(new StringBuilder(), (sb, s) => sb.AppendLine(s)).ToString();
+
+        public PadOutput Output => new PadOutput { Format = PadFormat.Any(), Content = PadContent.Any() };
 
         /// <inheritdoc/>
         public bool Equals(ISrcPad other)

@@ -200,7 +200,7 @@
              </summary>
              <typeparam name="TValue">The typt of value this pad can accept.</typeparam>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SinkPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Action{`0},System.Boolean)">
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Action{`0},System.Boolean,CStreamer.Plugins.Interfaces.PadFilter)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.SinkPad`1"/> class.
             </summary>
@@ -273,7 +273,7 @@
              </summary>
              <typeparam name="TValue">The typt of value this pad can push throu the pipeline.</typeparam>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SrcPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Boolean)">
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Boolean,CStreamer.Plugins.Interfaces.PadOutput)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.SrcPad`1"/> class.
             </summary>

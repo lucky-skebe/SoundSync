@@ -26,11 +26,13 @@ namespace CStreamer.Plugins.Base
         /// <param name="parent">the element this pad is connected to.</param>
         /// <param name="name">the name of the pad.</param>
         /// <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
-        public SrcPad(IElement parent, string name, bool mandatory)
+        public SrcPad(IElement parent, string name, bool mandatory, PadOutput? output = null)
         {
             this.Parent = parent;
             this.Name = name;
             this.Mandatory = mandatory;
+
+            this.Output = output ?? new PadOutput { Content = PadContent.Any(), Format = PadFormat.Any() };
         }
 
         /// <inheritdoc/>
@@ -61,7 +63,9 @@ namespace CStreamer.Plugins.Base
         public bool Mandatory { get; }
 
         /// <inheritdoc/>
-        public string Caps => typeof(TValue).Name;
+        public string Caps => $"{typeof(TValue).Name} ({this.Output.ToString()})";
+
+        public PadOutput Output { get; }
 
         /// <inheritdoc/>
         public bool IsLinked()
@@ -112,6 +116,11 @@ namespace CStreamer.Plugins.Base
             if (peer == this.Peer)
             {
                 return Option.Some<ISinkPad<TValue>, string>(peer);
+            }
+
+            if (!peer.Filter.CanAccept(this.Output))
+            {
+                return Option.None<ISinkPad<TValue>, string>("Format not Supported");
             }
 
             this.Peer = peer;

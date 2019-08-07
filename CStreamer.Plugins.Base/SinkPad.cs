@@ -27,12 +27,15 @@ namespace CStreamer.Plugins.Base
         /// <param name="name">the name of the pad.</param>
         /// <param name="elementCallback">the callback inside the element to push data to.</param>
         /// <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
-        public SinkPad(IElement parent, string name, Action<TValue> elementCallback, bool mandatory)
+        public SinkPad(IElement parent, string name, Action<TValue> elementCallback, bool mandatory, PadFilter? filter = null)
         {
             this.Name = name;
             this.ElementCallback = elementCallback;
             this.Parent = parent;
             this.Mandatory = mandatory;
+
+            this.Filter = filter ?? new PadFilter { Content = PadContent.Any(), Format = PadFormat.Any() };
+
         }
 
         /// <inheritdoc/>
@@ -76,7 +79,9 @@ namespace CStreamer.Plugins.Base
         }
 
         /// <inheritdoc/>
-        public string Caps => typeof(TValue).Name;
+        public string Caps => $"{typeof(TValue).Name} ({Filter.ToString()})";
+
+        public PadFilter Filter { get; }
 
         /// <inheritdoc/>
         public bool IsLinked()
@@ -129,6 +134,11 @@ namespace CStreamer.Plugins.Base
                 return Option.Some<ISrcPad<TValue>, string>(peer);
             }
 
+            if (!this.Filter.CanAccept(peer.Output))
+            {
+                return Option.None<ISrcPad<TValue>, string>("Format not Supported");
+            }
+
             this.Peer = peer;
             this.Parent.SendMessage(new PadsLinkedMessage(peer, this));
 
@@ -175,7 +185,8 @@ namespace CStreamer.Plugins.Base
             if (peer is ISrcPad srcPeer)
             {
                 return this.Link(srcPeer).Map<IPad>(p => p);
-            } else
+            }
+            else
             {
                 return Option.None<IPad, string>("Could not link Pads be casue the types didn't match");
             }
