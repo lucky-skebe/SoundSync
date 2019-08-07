@@ -24,6 +24,8 @@ namespace CStreamer.Plugins.Interfaces
         /// </value>
         string Name { get; }
 
+        IBin? Parent { get; set; }
+
         /// <summary>
         /// Gets the current state of the element.
         /// </summary>
@@ -51,5 +53,11 @@ namespace CStreamer.Plugins.Interfaces
         /// </summary>
         /// <returns>All pads.</returns>
         IEnumerable<IPad> GetPads();
+
+        /// <summary>
+        /// Sends a Message to the Containing Bin/Pipeline.
+        /// </summary>
+        /// <param name="message">The message to send.</param>
+        void SendMessage(Message message);
     }
 }

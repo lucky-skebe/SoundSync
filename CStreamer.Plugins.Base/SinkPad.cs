@@ -108,7 +108,7 @@ namespace CStreamer.Plugins.Base
                 return false;
             }
 
-            return this.Parent.Equals(other.Parent) && this.Name.Equals(other.Name, StringComparison.Ordinal);
+            return this.Parent.Equals(other.Parent) && this.Name.Equals(other.Name, StringComparison.CurrentCultureIgnoreCase);
         }
 
         /// <inheritdoc/>
@@ -145,6 +145,19 @@ namespace CStreamer.Plugins.Base
                 this.Peer = truePeer;
                 return Option.Some<ISrcPad, string>(peer);
             }
+            else if (peer is ICompositeSrcPad composite)
+            {
+                foreach (var childPad in composite.ChildPads)
+                {
+                    if (childPad is ISrcPad<TValue> trueChildPeer)
+                    {
+                        this.Peer = trueChildPeer;
+                        return Option.Some<ISrcPad, string>(peer);
+                    }
+                }
+
+                return Option.None<ISrcPad, string>("Could not link Pads be casue the there was no matching ChildPad");
+            }
             else
             {
                 return Option.None<ISrcPad, string>("Could not link Pads be casue the types didn't match");
@@ -163,6 +176,19 @@ namespace CStreamer.Plugins.Base
             {
                 this.Peer = truePeer;
                 return Option.Some<IPad, string>(peer);
+            }
+            else if (peer is ICompositeSrcPad composite)
+            {
+                foreach (var childPad in composite.ChildPads)
+                {
+                    if (childPad is ISrcPad<TValue> trueChildPeer)
+                    {
+                        this.Peer = trueChildPeer;
+                        return Option.Some<IPad, string>(peer);
+                    }
+                }
+
+                return Option.None<IPad, string>("Could not link Pads be casue the there was no matching ChildPad");
             }
             else
             {

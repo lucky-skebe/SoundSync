@@ -34,6 +34,12 @@ namespace CStreamer.Plugins.Base
         /// <inheritdoc/>
         public State CurrentState { get; private set; }
 
+        public IBin? Parent
+        {
+            get;
+            set; // TODO: Think of a better way so this can only be set by a pipeline / bin
+        }
+
         /// <inheritdoc/>
         public virtual async Task GoToState(State newState)
         {
@@ -69,6 +75,11 @@ namespace CStreamer.Plugins.Base
 
         /// <inheritdoc/>
         public abstract IEnumerable<IPad> GetPads();
+
+        public void SendMessage(Message message)
+        {
+            this.Parent?.ReceiveMessage(message);
+        }
 
         /// <summary>
         /// Contains the logic that should run when changing from the Stopped to the Ready state.

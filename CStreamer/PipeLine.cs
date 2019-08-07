@@ -21,7 +21,7 @@ namespace CStreamer
     /// <summary>
     /// A complete pipeline consisting of linked elements that transform data from one form to another.
     /// </summary>
-    public class PipeLine
+    public class PipeLine : IBin
     {
         private readonly IList<IElement> elements = new List<IElement>();
 
@@ -179,6 +179,7 @@ namespace CStreamer
         public void Add(IElement element)
         {
             this.elements.Add(element);
+            element.Parent = this;
             this.OnElementAdded(element);
         }
 
@@ -201,6 +202,7 @@ namespace CStreamer
             }
 
             this.elements.Remove(element);
+            element.Parent = null;
             this.OnElementRemoved(element);
         }
 
@@ -494,6 +496,11 @@ namespace CStreamer
                 sinkPad.Unlink();
                 this.OnElementsUnlinked(peer, sinkPad);
             }
+        }
+
+        public void ReceiveMessage(Message message)
+        {
+            throw new NotImplementedException();
         }
     }
 }
