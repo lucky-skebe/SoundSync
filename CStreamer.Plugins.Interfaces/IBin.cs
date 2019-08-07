@@ -1,8 +1,6 @@
 ﻿namespace CStreamer.Plugins.Interfaces
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
+    using CStreamer.Plugins.Interfaces.Messages;
 
     public interface IBin
     {

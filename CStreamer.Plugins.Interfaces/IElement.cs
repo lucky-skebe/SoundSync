@@ -9,6 +9,7 @@ namespace CStreamer.Plugins.Interfaces
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using CStreamer.Plugins.Interfaces.Messages;
     using Optional;
 
     /// <summary>

@@ -16,6 +16,7 @@ namespace CStreamer
     using CStreamer.Events;
     using CStreamer.PipeLineDefinitions;
     using CStreamer.Plugins.Interfaces;
+    using CStreamer.Plugins.Interfaces.Messages;
     using Optional;
 
     /// <summary>
@@ -350,6 +351,23 @@ namespace CStreamer
                 (errors) => Task.FromResult(Option.None<State, IEnumerable<string>>(errors))).ConfigureAwait(true);
         }
 
+        /// <inheritdoc/>
+        public void ReceiveMessage(Message message)
+        {
+            if (message is PadsLinkedMessage padsLinked)
+            {
+                this.OnElementsLinked(padsLinked.SrcPad, padsLinked.SinkPad);
+            }
+            else if (message is PadsUnlinkedMessage padsUnlinked)
+            {
+                this.OnElementsUnlinked(padsUnlinked.SrcPad, padsUnlinked.SinkPad);
+            }
+            else if (message is ErrorMessage error)
+            {
+                // this.OnElementsLinked(padsLinked.SrcPad, padsLinked.SinkPad);
+            }
+        }
+
         private static bool IsReverseOrder(State from, State to)
         {
             return (from, to) switch
@@ -496,11 +514,6 @@ namespace CStreamer
                 sinkPad.Unlink();
                 this.OnElementsUnlinked(peer, sinkPad);
             }
-        }
-
-        public void ReceiveMessage(Message message)
-        {
-            throw new NotImplementedException();
         }
     }
 }
