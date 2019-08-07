@@ -11,6 +11,7 @@ namespace CStreamer.Plugins.Base
     using System.Collections.Generic;
     using System.Linq;
     using CStreamer.Plugins.Interfaces;
+    using CStreamer.Plugins.Interfaces.Messages;
     using Optional;
 
     /// <summary>
@@ -84,6 +85,7 @@ namespace CStreamer.Plugins.Base
                 var result = childPad.Link(peer);
                 if (result.HasValue)
                 {
+                    this.Parent.SendMessage(new PadsLinkedMessage(peer, this));
                     return result;
                 }
             }
@@ -99,6 +101,7 @@ namespace CStreamer.Plugins.Base
                 var result = childPad.Link(peer);
                 if (result.HasValue)
                 {
+                    this.Parent.SendMessage(new PadsLinkedMessage((ISrcPad)peer, this));
                     return result;
                 }
             }
@@ -111,7 +114,12 @@ namespace CStreamer.Plugins.Base
         {
             foreach (var pad in this.ChildPads)
             {
-                pad.Unlink();
+                var peer = pad.Peer;
+                if (peer != null)
+                {
+                    pad.Unlink();
+                    this.Parent.SendMessage(new PadsUnlinkedMessage(peer, this));
+                }
             }
         }
     }

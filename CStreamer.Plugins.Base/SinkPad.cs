@@ -9,6 +9,7 @@ namespace CStreamer.Plugins.Base
 {
     using System;
     using CStreamer.Plugins.Interfaces;
+    using CStreamer.Plugins.Interfaces.Messages;
     using Optional;
 
     /// <summary>
@@ -126,6 +127,7 @@ namespace CStreamer.Plugins.Base
             }
 
             this.Peer = peer;
+            this.Parent.SendMessage(new PadsLinkedMessage(peer, this));
 
             this.Peer.Link(this);
 
@@ -142,17 +144,17 @@ namespace CStreamer.Plugins.Base
 
             if (peer is ISrcPad<TValue> truePeer)
             {
-                this.Peer = truePeer;
-                return Option.Some<ISrcPad, string>(peer);
+                return this.Link(truePeer).Map<ISrcPad>(p => p);
             }
             else if (peer is ICompositeSrcPad composite)
             {
                 foreach (var childPad in composite.ChildPads)
                 {
-                    if (childPad is ISrcPad<TValue> trueChildPeer)
+                    var result = this.Link(childPad);
+                    if (result.HasValue)
                     {
-                        this.Peer = trueChildPeer;
-                        return Option.Some<ISrcPad, string>(peer);
+                        this.Parent.SendMessage(new PadsLinkedMessage(composite, this));
+                        return result;
                     }
                 }
 
@@ -167,30 +169,10 @@ namespace CStreamer.Plugins.Base
         /// <inheritdoc/>
         public Option<IPad, string> Link(IPad peer)
         {
-            if (peer == this.Peer)
+            if (peer is ISrcPad srcPeer)
             {
-                return Option.Some<IPad, string>(peer);
-            }
-
-            if (peer is ISrcPad<TValue> truePeer)
-            {
-                this.Peer = truePeer;
-                return Option.Some<IPad, string>(peer);
-            }
-            else if (peer is ICompositeSrcPad composite)
-            {
-                foreach (var childPad in composite.ChildPads)
-                {
-                    if (childPad is ISrcPad<TValue> trueChildPeer)
-                    {
-                        this.Peer = trueChildPeer;
-                        return Option.Some<IPad, string>(peer);
-                    }
-                }
-
-                return Option.None<IPad, string>("Could not link Pads be casue the there was no matching ChildPad");
-            }
-            else
+                return this.Link(srcPeer).Map<IPad>(p => p);
+            } else
             {
                 return Option.None<IPad, string>("Could not link Pads be casue the types didn't match");
             }

@@ -103,7 +103,7 @@
             </summary>
             <returns>All pads.</returns>
         </member>
-        <member name="M:CStreamer.Plugins.Interfaces.IElement.SendMessage(CStreamer.Plugins.Interfaces.Message)">
+        <member name="M:CStreamer.Plugins.Interfaces.IElement.SendMessage(CStreamer.Plugins.Interfaces.Messages.Message)">
             <summary>
             Sends a Message to the Containing Bin/Pipeline.
             </summary>

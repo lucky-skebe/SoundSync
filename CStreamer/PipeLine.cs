@@ -249,40 +249,14 @@ namespace CStreamer
                 throw new ArgumentNullException(nameof(sink));
             }
 
-            var srcType = src.GetType();
-            var sinkType = sink.GetType();
-
-            var srcBaseType = srcType.GetGenericInterfaceImplementation(typeof(ISrcPad<>));
-            var sinkBaseType = sinkType.GetGenericInterfaceImplementation(typeof(ISinkPad<>));
-
-            if (srcBaseType == null)
-            {
-                return false;
-            }
-
-            if (sinkBaseType == null)
-            {
-                return false;
-            }
-
-            if (!srcBaseType.GenericTypeArguments.SequenceEqual(sinkBaseType.GenericTypeArguments))
-            {
-                return false;
-            }
-
-            MethodInfo? genericConnect = typeof(PipeLine).GetMethod(nameof(this.Connect));
-            if (genericConnect == null)
-            {
-                return false;
-            }
-
-            var specificConnect = genericConnect.MakeGenericMethod(srcBaseType.GenericTypeArguments);
-
             this.Unlink(sink);
             this.Unlink(src);
-            specificConnect.Invoke(this, new object[] { src, sink });
 
-            return true;
+            var result = src.Link(sink);
+
+            result.MatchNone(s => this.ReceiveMessage(new ErrorMessage(s)));
+
+            return result.HasValue;
         }
 
         /// <summary>

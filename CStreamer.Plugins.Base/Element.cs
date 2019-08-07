@@ -12,6 +12,7 @@ namespace CStreamer.Plugins.Base
     using System.Threading.Tasks;
     using CStreamer.Base;
     using CStreamer.Plugins.Interfaces;
+    using CStreamer.Plugins.Interfaces.Messages;
 
     /// <summary>
     /// Baseclass for all element.
@@ -67,6 +68,11 @@ namespace CStreamer.Plugins.Base
             }
         }
 
+        public void SendMessage(Message message)
+        {
+            this.Parent?.ReceiveMessage(message);
+        }
+
         /// <summary>
         /// Gets a list of all Property bindings that should be serialized/deserialized.
         /// </summary>
@@ -75,11 +81,6 @@ namespace CStreamer.Plugins.Base
 
         /// <inheritdoc/>
         public abstract IEnumerable<IPad> GetPads();
-
-        public void SendMessage(Message message)
-        {
-            this.Parent?.ReceiveMessage(message);
-        }
 
         /// <summary>
         /// Contains the logic that should run when changing from the Stopped to the Ready state.

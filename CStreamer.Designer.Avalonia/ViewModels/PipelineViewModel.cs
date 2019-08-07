@@ -166,10 +166,15 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 
         private void Pipeline_ElementsLinked(object? sender, ElementsLinkedEventArgs e)
         {
+            var index = (e.Src, e.Sink);
+            if (this.linkLookup.ContainsKey(index))
+            {
+                return;
+            }
+
             if (this.srcPadLookup.TryGetValue(e.Src, out PadViewModel? src) &&
                 this.sinkPadLookup.TryGetValue(e.Sink, out PadViewModel? sink))
             {
-                var index = (e.Src, e.Sink);
                 LinkViewModel link = new LinkViewModel(src, sink);
                 this.linkLookup.Add(index, link);
                 this.Items.Add(link);
