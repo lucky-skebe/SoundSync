@@ -130,6 +130,14 @@
             The Name of the pad.
             </value>
         </member>
+        <member name="P:CStreamer.Plugins.Interfaces.IPad.Caps">
+            <summary>
+            Gets the Capabilities of the Pad.
+            </summary>
+            <value>
+            The Capabilities of the Pad.
+            </value>
+        </member>
         <member name="P:CStreamer.Plugins.Interfaces.IPad.Peer">
             <summary>
             Gets the pad on the other side of the link of null if the pad is not linked.

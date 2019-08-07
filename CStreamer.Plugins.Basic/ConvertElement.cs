@@ -24,40 +24,58 @@ namespace CStreamer.Plugins.Basic
         public ConvertElement(string? name = null)
             : base(name)
         {
-            this.SrcInt = new SrcPad<int>(this, "srcInt", false);
-            this.SrcDouble = new SrcPad<double>(this, "srcDouble", false);
-            this.SrcFloat = new SrcPad<float>(this, "srcFloat", false);
+            var srcInt = new SrcPad<int>(this, "srcInt", false);
+            var srcDouble = new SrcPad<double>(this, "srcDouble", false);
+            var srcFloat = new SrcPad<float>(this, "srcFloat", false);
 
-            this.SinkInt = new SinkPad<int>(
+            this.Src = new CompositeSrcPad(
                 this,
-                "sinkInt",
-                (f) =>
+                "src",
+                new List<ISrcPad>
                 {
-                    this.SrcInt.Push(f);
-                    this.SrcDouble.Push(f);
-                    this.SrcFloat.Push(f);
+                    srcInt,
+                    srcDouble,
+                    srcFloat,
                 },
-                false);
-            this.SinkDouble = new SinkPad<double>(
+                true);
+
+            this.Sink = new CompositeSinkPad(
                 this,
-                "sinkDouble",
-                (f) =>
+                "sink",
+                new List<ISinkPad>
                 {
-                    this.SrcInt.Push((int)f);
-                    this.SrcDouble.Push(f);
-                    this.SrcFloat.Push((float)f);
+                    new SinkPad<int>(
+                        this,
+                        "sinkInt",
+                        (f) =>
+                        {
+                            srcInt.Push(f);
+                            srcDouble.Push(f);
+                            srcFloat.Push(f);
+                        },
+                        false),
+                    new SinkPad<double>(
+                        this,
+                        "sinkDouble",
+                        (f) =>
+                        {
+                            srcInt.Push((int)f);
+                            srcDouble.Push(f);
+                            srcFloat.Push((float)f);
+                        },
+                        false),
+                    new SinkPad<float>(
+                        this,
+                        "sinkFloat",
+                        (f) =>
+                        {
+                            srcInt.Push((int)f);
+                            srcDouble.Push(f);
+                            srcFloat.Push(f);
+                        },
+                        false),
                 },
-                false);
-            this.SinkFloat = new SinkPad<float>(
-                this,
-                "sinkFloat",
-                (f) =>
-                {
-                    this.SrcInt.Push((int)f);
-                    this.SrcDouble.Push(f);
-                    this.SrcFloat.Push(f);
-                },
-                false);
+                true);
         }
 
         /// <summary>
@@ -66,67 +84,13 @@ namespace CStreamer.Plugins.Basic
         /// <value>
         /// The one output input this element has.
         /// </value>
-        public SinkPad<int> SinkInt
+        public CompositeSinkPad Sink
         {
             get;
             private set;
         }
 
-        /// <summary>
-        /// Gets the one output srcpad this element has.
-        /// </summary>
-        /// <value>
-        /// The one output srcpad this element has.
-        /// </value>
-        public SrcPad<int> SrcInt
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets the one input sinkpad this element has.
-        /// </summary>
-        /// <value>
-        /// The one output input this element has.
-        /// </value>
-        public SinkPad<double> SinkDouble
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets the one output srcpad this element has.
-        /// </summary>
-        /// <value>
-        /// The one output srcpad this element has.
-        /// </value>
-        public SrcPad<double> SrcDouble
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets the one input sinkpad this element has.
-        /// </summary>
-        /// <value>
-        /// The one output input this element has.
-        /// </value>
-        public SinkPad<float> SinkFloat
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets the one output srcpad this element has.
-        /// </summary>
-        /// <value>
-        /// The one output srcpad this element has.
-        /// </value>
-        public SrcPad<float> SrcFloat
+        public CompositeSrcPad Src
         {
             get;
             private set;
@@ -135,12 +99,8 @@ namespace CStreamer.Plugins.Basic
         /// <inheritdoc/>
         public override IEnumerable<IPad> GetPads()
         {
-            yield return this.SrcDouble;
-            yield return this.SrcFloat;
-            yield return this.SrcInt;
-            yield return this.SinkDouble;
-            yield return this.SinkFloat;
-            yield return this.SinkInt;
+            yield return this.Src;
+            yield return this.Sink;
         }
 
         /// <inheritdoc/>

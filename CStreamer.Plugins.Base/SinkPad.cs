@@ -76,6 +76,9 @@ namespace CStreamer.Plugins.Base
         }
 
         /// <inheritdoc/>
+        public string Caps => typeof(TValue).Name;
+
+        /// <inheritdoc/>
         public bool IsLinked()
         {
             return this.Peer != null;

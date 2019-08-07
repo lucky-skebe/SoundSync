@@ -38,6 +38,9 @@
         <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.Mandatory">
             <inheritdoc/>
         </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.Caps">
+            <inheritdoc/>
+        </member>
         <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Equals(CStreamer.Plugins.Interfaces.ISinkPad)">
             <inheritdoc/>
         </member>
@@ -85,6 +88,9 @@
             <inheritdoc/>
         </member>
         <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.Mandatory">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.Caps">
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Equals(CStreamer.Plugins.Interfaces.ISrcPad)">
@@ -229,6 +235,9 @@
             this callback is called each time a value is pushed from the connected edge.
             </value>
         </member>
+        <member name="P:CStreamer.Plugins.Base.SinkPad`1.Caps">
+            <inheritdoc/>
+        </member>
         <member name="M:CStreamer.Plugins.Base.SinkPad`1.IsLinked">
             <inheritdoc/>
         </member>
@@ -287,6 +296,9 @@
             </value>
         </member>
         <member name="P:CStreamer.Plugins.Base.SrcPad`1.Mandatory">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SrcPad`1.Caps">
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.SrcPad`1.IsLinked">

@@ -10,6 +10,7 @@ namespace CStreamer.Plugins.Base
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using CStreamer.Plugins.Interfaces;
     using CStreamer.Plugins.Interfaces.Messages;
     using Optional;
@@ -59,6 +60,9 @@ namespace CStreamer.Plugins.Base
         public bool Mandatory { get; }
 
         IPad? IPad.Peer => this.Peer;
+
+        /// <inheritdoc/>
+        public string Caps => this.ChildPads.Select(pad => pad.Caps).Aggregate<string, StringBuilder>(new StringBuilder(), (sb, s) => sb.AppendLine(s)).ToString();
 
         /// <inheritdoc/>
         public bool Equals(ISinkPad other)
