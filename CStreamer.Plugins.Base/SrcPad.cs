@@ -26,13 +26,14 @@ namespace CStreamer.Plugins.Base
         /// <param name="parent">the element this pad is connected to.</param>
         /// <param name="name">the name of the pad.</param>
         /// <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
+        /// <param name="output">Can be used to signal this pad producing a specific format. null if there is no specific format.</param>
         public SrcPad(IElement parent, string name, bool mandatory, PadOutput? output = null)
         {
             this.Parent = parent;
             this.Name = name;
             this.Mandatory = mandatory;
 
-            this.Output = output ?? new PadOutput { Content = PadContent.Any(), Format = PadFormat.Any() };
+            this.Output = output ?? new PadOutput();
         }
 
         /// <inheritdoc/>
@@ -65,6 +66,7 @@ namespace CStreamer.Plugins.Base
         /// <inheritdoc/>
         public string Caps => $"{typeof(TValue).Name} ({this.Output.ToString()})";
 
+        /// <inheritdoc/>
         public PadOutput Output { get; }
 
         /// <inheritdoc/>

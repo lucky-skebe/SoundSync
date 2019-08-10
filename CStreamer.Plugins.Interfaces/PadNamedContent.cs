@@ -5,13 +5,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace CStreamer.Plugins.Base
+namespace CStreamer.Plugins.Interfaces
 {
-    using CStreamer.Plugins.Interfaces;
-
     internal class PadNamedContent : IPadContent
     {
-        private string contentName;
+        private readonly string contentName;
 
         public PadNamedContent(string contentName)
         {

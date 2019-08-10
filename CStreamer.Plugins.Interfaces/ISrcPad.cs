@@ -23,6 +23,12 @@ namespace CStreamer.Plugins.Interfaces
         /// </value>
         new ISinkPad? Peer { get; }
 
+        /// <summary>
+        /// Gets the output type this pad can produce.
+        /// </summary>
+        /// <value>
+        /// The output type this pad can produce.
+        /// </value>
         PadOutput Output { get; }
 
         /// <summary>

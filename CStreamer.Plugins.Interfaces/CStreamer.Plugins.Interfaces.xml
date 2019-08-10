@@ -62,6 +62,45 @@
             The new value of the Property.
             </value>
         </member>
+        <member name="T:CStreamer.Plugins.Interfaces.IBin">
+            <summary>
+            A Collection of Elements wich can be used like one complete element.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.IBin.ReceiveMessage(CStreamer.Plugins.Interfaces.Messages.Message)">
+            <summary>
+            Receives a message.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.ICompositeSinkPad">
+            <summary>
+            An Interface for all Pads that can be composed of multiple child pads.
+            </summary>
+            <seealso cref="T:CStreamer.Plugins.Interfaces.ISinkPad" />
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.ICompositeSinkPad.ChildPads">
+            <summary>
+            Gets the child pads of this pad.
+            </summary>
+            <value>
+            The child pads of this pad.
+            </value>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.ICompositeSrcPad">
+            <summary>
+            An Interface for all Pads that can be composed of multiple child pads.
+            </summary>
+            <seealso cref="T:CStreamer.Plugins.Interfaces.ISrcPad" />
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.ICompositeSrcPad.ChildPads">
+            <summary>
+            Gets the child pads of this pad.
+            </summary>
+            <value>
+            The child pads of this pad.
+            </value>
+        </member>
         <member name="T:CStreamer.Plugins.Interfaces.IElement">
             <summary>
             Defines what members all elements need to implement.
@@ -73,6 +112,14 @@
             </summary>
             <value>
             The name of the element.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.IElement.Parent">
+            <summary>
+            Gets or sets the parent bin / pipeline of this element.
+            </summary>
+            <value>
+            The parent bin / pipeline of this element.
             </value>
         </member>
         <member name="P:CStreamer.Plugins.Interfaces.IElement.CurrentState">
@@ -172,6 +219,34 @@
             <param name="peer">the peerpad to link to.</param>
             <returns>An <see cref="T:Optional.Option`2"/> contianing either the new peer or an error message.</returns>
         </member>
+        <member name="T:CStreamer.Plugins.Interfaces.IPadContent">
+            <summary>
+            Interface for all pad contents.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.IPadContent.CanAccept(CStreamer.Plugins.Interfaces.IPadContent)">
+            <summary>
+            Determines whether this instance can accept the specified input.
+            </summary>
+            <param name="input">The input.</param>
+            <returns>
+              <c>true</c> if this instance can accept the specified input; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.IPadFormat">
+            <summary>
+            Interface for all Pad Formats.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.IPadFormat.CanAccept(CStreamer.Plugins.Interfaces.IPadFormat)">
+            <summary>
+            Determines whether this instance can accept the specified format.
+            </summary>
+            <param name="format">The format.</param>
+            <returns>
+              <c>true</c> if this instance can accept the specified format; otherwise, <c>false</c>.
+            </returns>
+        </member>
         <member name="T:CStreamer.Plugins.Interfaces.IPropertyBinding">
             <summary>
             Describes the methods all PropertyBinding should implement.
@@ -236,6 +311,14 @@
             The pad on the other side of the link of null if the pad is not linked.
             </value>
         </member>
+        <member name="P:CStreamer.Plugins.Interfaces.ISinkPad.Filter">
+            <summary>
+            Gets the filter on the type of content this pad can consume.
+            </summary>
+            <value>
+            The filter on the type of content this pad can consume.
+            </value>
+        </member>
         <member name="M:CStreamer.Plugins.Interfaces.ISinkPad.Link(CStreamer.Plugins.Interfaces.ISrcPad)">
             <summary>
             Links this Pad to the provided peer pad.
@@ -283,6 +366,14 @@
             The pad on the other side of the link of null if the pad is not linked.
             </value>
         </member>
+        <member name="P:CStreamer.Plugins.Interfaces.ISrcPad.Output">
+            <summary>
+            Gets the output type this pad can produce.
+            </summary>
+            <value>
+            The output type this pad can produce.
+            </value>
+        </member>
         <member name="M:CStreamer.Plugins.Interfaces.ISrcPad.Link(CStreamer.Plugins.Interfaces.ISinkPad)">
             <summary>
             Links this Pad to the provided peer pad.
@@ -310,6 +401,182 @@
             </summary>
             <param name="peer">the peerpad to link to.</param>
             <returns>An <see cref="T:Optional.Option`2"/> contianing either the new peer or an error message.</returns>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.Messages.ErrorMessage">
+            <summary>
+            A <see cref="T:CStreamer.Plugins.Interfaces.Messages.Message"/> that some kind of Error has occured.
+            </summary>
+            <seealso cref="T:CStreamer.Plugins.Interfaces.Messages.Message" />
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.Messages.ErrorMessage.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Interfaces.Messages.ErrorMessage"/> class.
+            </summary>
+            <param name="errorText">The error text.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.Messages.ErrorMessage.ErrorText">
+            <summary>
+            Gets the error text.
+            </summary>
+            <value>
+            The error text.
+            </value>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.Messages.Message">
+            <summary>
+            An abstract base class to all messages that can be sent to a Bin / Pipeline.
+            </summary>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.Messages.PadsLinkedMessage">
+            <summary>
+            A Message signaling two pads being linked.
+            </summary>
+            <seealso cref="T:CStreamer.Plugins.Interfaces.Messages.Message" />
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.Messages.PadsLinkedMessage.#ctor(CStreamer.Plugins.Interfaces.ISrcPad,CStreamer.Plugins.Interfaces.ISinkPad)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Interfaces.Messages.PadsLinkedMessage"/> class.
+            </summary>
+            <param name="srcPad">The source pad.</param>
+            <param name="sinkPad">The sink pad.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.Messages.PadsLinkedMessage.SrcPad">
+            <summary>
+            Gets the source pad.
+            </summary>
+            <value>
+            The source pad.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.Messages.PadsLinkedMessage.SinkPad">
+            <summary>
+            Gets the sink pad.
+            </summary>
+            <value>
+            The sink pad.
+            </value>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.Messages.PadsUnlinkedMessage">
+            <summary>
+            A message signaling two pads being unlinked.
+            </summary>
+            <seealso cref="T:CStreamer.Plugins.Interfaces.Messages.Message" />
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.Messages.PadsUnlinkedMessage.#ctor(CStreamer.Plugins.Interfaces.ISrcPad,CStreamer.Plugins.Interfaces.ISinkPad)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Interfaces.Messages.PadsUnlinkedMessage"/> class.
+            </summary>
+            <param name="srcPad">The source pad.</param>
+            <param name="sinkPad">The sink pad.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.Messages.PadsUnlinkedMessage.SrcPad">
+            <summary>
+            Gets the source pad.
+            </summary>
+            <value>
+            The source pad.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.Messages.PadsUnlinkedMessage.SinkPad">
+            <summary>
+            Gets the sink pad.
+            </summary>
+            <value>
+            The sink pad.
+            </value>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.PadContent">
+            <summary>
+            Describes a content type a pad can either consume of produce.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.PadContent.Any">
+            <summary>
+            Creates a non specified content type.
+            </summary>
+            <returns>The created content type.</returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.PadContent.OfName(System.String)">
+            <summary>
+            Creates a content type with a specific name.
+            </summary>
+            <param name="formatName">Name of the content type.</param>
+            <returns>The created Format.</returns>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.PadFilter">
+            <summary>
+            Describes a filter on a format / contenttype pair.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.PadFilter.Format">
+            <summary>
+            Gets or sets the format filter.
+            </summary>
+            <value>
+            The format filter.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.PadFilter.Content">
+            <summary>
+            Gets or sets the content filter.
+            </summary>
+            <value>
+            The content filter.
+            </value>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.PadFilter.CanAccept(CStreamer.Plugins.Interfaces.PadOutput)">
+            <summary>
+            Determines whether this instance can accept the specified pad output.
+            </summary>
+            <param name="padOutput">The pad output.</param>
+            <returns>
+              <c>true</c> if this instance can accept the specified pad output; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.PadFilter.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.PadFormat">
+            <summary>
+            Describes a format a pad can either consume of produce.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.PadFormat.Any">
+            <summary>
+            Creates a non specified format.
+            </summary>
+            <returns>The created Format.</returns>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.PadFormat.OfName(System.String)">
+            <summary>
+            Creates a format with a specific name.
+            </summary>
+            <param name="formatName">Name of the format.</param>
+            <returns>The created Format.</returns>
+        </member>
+        <member name="T:CStreamer.Plugins.Interfaces.PadOutput">
+            <summary>
+            Describes a Output format / content a pad can produce.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.PadOutput.Format">
+            <summary>
+            Gets or sets the format description.
+            </summary>
+            <value>
+            The format description.
+            </value>
+        </member>
+        <member name="P:CStreamer.Plugins.Interfaces.PadOutput.Content">
+            <summary>
+            Gets or sets the content description.
+            </summary>
+            <value>
+            The content description.
+            </value>
+        </member>
+        <member name="M:CStreamer.Plugins.Interfaces.PadOutput.ToString">
+            <inheritdoc/>
         </member>
         <member name="T:CStreamer.IElementExtensions">
             <summary>

@@ -7,6 +7,9 @@
 
 namespace CStreamer.Plugins.Interfaces.Messages
 {
+    /// <summary>
+    /// An abstract base class to all messages that can be sent to a Bin / Pipeline.
+    /// </summary>
     public abstract class Message
     {
     }

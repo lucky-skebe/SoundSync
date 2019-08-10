@@ -5,21 +5,30 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace CStreamer.Plugins.Base
+namespace CStreamer.Plugins.Interfaces
 {
-    using CStreamer.Plugins.Interfaces;
-
+    /// <summary>
+    /// Describes a content type a pad can either consume of produce.
+    /// </summary>
     public static class PadContent
     {
+        /// <summary>
+        /// Creates a non specified content type.
+        /// </summary>
+        /// <returns>The created content type.</returns>
         public static IPadContent Any()
         {
             return new PadAnyContent();
         }
 
+        /// <summary>
+        /// Creates a content type with a specific name.
+        /// </summary>
+        /// <param name="formatName">Name of the content type.</param>
+        /// <returns>The created Format.</returns>
         public static IPadContent OfName(string formatName)
         {
             return new PadNamedContent(formatName);
         }
-
     }
 }

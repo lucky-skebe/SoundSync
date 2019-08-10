@@ -35,6 +35,7 @@ namespace CStreamer.Plugins.Base
         /// <inheritdoc/>
         public State CurrentState { get; private set; }
 
+        /// <inheritdoc/>
         public IBin? Parent
         {
             get;
@@ -68,6 +69,7 @@ namespace CStreamer.Plugins.Base
             }
         }
 
+        /// <inheritdoc/>
         public void SendMessage(Message message)
         {
             this.Parent?.ReceiveMessage(message);

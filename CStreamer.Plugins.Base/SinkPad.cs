@@ -27,6 +27,7 @@ namespace CStreamer.Plugins.Base
         /// <param name="name">the name of the pad.</param>
         /// <param name="elementCallback">the callback inside the element to push data to.</param>
         /// <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
+        /// <param name="filter">Can be used to Filter on a specific kind of format. null if any format can be accepted.</param>
         public SinkPad(IElement parent, string name, Action<TValue> elementCallback, bool mandatory, PadFilter? filter = null)
         {
             this.Name = name;
@@ -34,8 +35,7 @@ namespace CStreamer.Plugins.Base
             this.Parent = parent;
             this.Mandatory = mandatory;
 
-            this.Filter = filter ?? new PadFilter { Content = PadContent.Any(), Format = PadFormat.Any() };
-
+            this.Filter = filter ?? new PadFilter();
         }
 
         /// <inheritdoc/>
@@ -65,6 +65,12 @@ namespace CStreamer.Plugins.Base
         /// <inheritdoc/>
         public bool Mandatory { get; }
 
+        /// <inheritdoc/>
+        public string Caps => $"{typeof(TValue).Name} ({this.Filter.ToString()})";
+
+        /// <inheritdoc/>
+        public PadFilter Filter { get; }
+
         /// <summary>
         /// Gets or sets the element callback.
         /// </summary>
@@ -77,11 +83,6 @@ namespace CStreamer.Plugins.Base
             get;
             set;
         }
-
-        /// <inheritdoc/>
-        public string Caps => $"{typeof(TValue).Name} ({Filter.ToString()})";
-
-        public PadFilter Filter { get; }
 
         /// <inheritdoc/>
         public bool IsLinked()

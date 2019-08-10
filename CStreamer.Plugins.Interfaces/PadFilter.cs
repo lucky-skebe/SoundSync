@@ -7,20 +7,43 @@
 
 namespace CStreamer.Plugins.Interfaces
 {
+    /// <summary>
+    /// Describes a filter on a format / contenttype pair.
+    /// </summary>
     public class PadFilter
     {
-        public IPadFormat Format { get; set; }
+        /// <summary>
+        /// Gets or sets the format filter.
+        /// </summary>
+        /// <value>
+        /// The format filter.
+        /// </value>
+        public IPadFormat Format { get; set; } = PadFormat.Any();
 
-        public IPadContent Content { get; set; }
+        /// <summary>
+        /// Gets or sets the content filter.
+        /// </summary>
+        /// <value>
+        /// The content filter.
+        /// </value>
+        public IPadContent Content { get; set; } = PadContent.Any();
 
+        /// <summary>
+        /// Determines whether this instance can accept the specified pad output.
+        /// </summary>
+        /// <param name="padOutput">The pad output.</param>
+        /// <returns>
+        ///   <c>true</c> if this instance can accept the specified pad output; otherwise, <c>false</c>.
+        /// </returns>
         public bool CanAccept(PadOutput padOutput)
         {
-            return Format.CanAccept(padOutput.Format) && Content.CanAccept(padOutput.Content);
+            return this.Format.CanAccept(padOutput.Format) && this.Content.CanAccept(padOutput.Content);
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
-            return $"{Format.ToString()}/{Content.ToString()}";
+            return $"{this.Format.ToString()}/{this.Content.ToString()}";
         }
     }
 }

@@ -41,6 +41,9 @@
         <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.Caps">
             <inheritdoc/>
         </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.Filter">
+            <inheritdoc/>
+        </member>
         <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Equals(CStreamer.Plugins.Interfaces.ISinkPad)">
             <inheritdoc/>
         </member>
@@ -93,6 +96,9 @@
         <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.Caps">
             <inheritdoc/>
         </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.Output">
+            <inheritdoc/>
+        </member>
         <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Equals(CStreamer.Plugins.Interfaces.ISrcPad)">
             <inheritdoc/>
         </member>
@@ -125,7 +131,13 @@
         <member name="P:CStreamer.Plugins.Base.Element.CurrentState">
             <inheritdoc/>
         </member>
+        <member name="P:CStreamer.Plugins.Base.Element.Parent">
+            <inheritdoc/>
+        </member>
         <member name="M:CStreamer.Plugins.Base.Element.GoToState(CStreamer.State)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.Element.SendMessage(CStreamer.Plugins.Interfaces.Messages.Message)">
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.Element.GetPropertyBindings">
@@ -208,6 +220,7 @@
             <param name="name">the name of the pad.</param>
             <param name="elementCallback">the callback inside the element to push data to.</param>
             <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
+            <param name="filter">Can be used to Filter on a specific kind of format. null if any format can be accepted.</param>
         </member>
         <member name="P:CStreamer.Plugins.Base.SinkPad`1.Parent">
             <inheritdoc/>
@@ -226,6 +239,12 @@
         <member name="P:CStreamer.Plugins.Base.SinkPad`1.Mandatory">
             <inheritdoc/>
         </member>
+        <member name="P:CStreamer.Plugins.Base.SinkPad`1.Caps">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SinkPad`1.Filter">
+            <inheritdoc/>
+        </member>
         <member name="P:CStreamer.Plugins.Base.SinkPad`1.ElementCallback">
             <summary>
             Gets or sets the element callback.
@@ -234,9 +253,6 @@
             The element callback.
             this callback is called each time a value is pushed from the connected edge.
             </value>
-        </member>
-        <member name="P:CStreamer.Plugins.Base.SinkPad`1.Caps">
-            <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.SinkPad`1.IsLinked">
             <inheritdoc/>
@@ -280,6 +296,7 @@
             <param name="parent">the element this pad is connected to.</param>
             <param name="name">the name of the pad.</param>
             <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
+            <param name="output">Can be used to signal this pad producing a specific format. null if there is no specific format.</param>
         </member>
         <member name="P:CStreamer.Plugins.Base.SrcPad`1.Parent">
             <inheritdoc/>
@@ -299,6 +316,9 @@
             <inheritdoc/>
         </member>
         <member name="P:CStreamer.Plugins.Base.SrcPad`1.Caps">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SrcPad`1.Output">
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.SrcPad`1.IsLinked">

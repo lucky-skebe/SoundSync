@@ -7,8 +7,18 @@
 
 namespace CStreamer.Plugins.Interfaces
 {
+    /// <summary>
+    /// Interface for all pad contents.
+    /// </summary>
     public interface IPadContent
     {
+        /// <summary>
+        /// Determines whether this instance can accept the specified input.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>
+        ///   <c>true</c> if this instance can accept the specified input; otherwise, <c>false</c>.
+        /// </returns>
         public bool CanAccept(IPadContent input);
     }
 }

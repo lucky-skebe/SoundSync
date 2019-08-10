@@ -7,15 +7,31 @@
 
 namespace CStreamer.Plugins.Interfaces
 {
+    /// <summary>
+    /// Describes a Output format / content a pad can produce.
+    /// </summary>
     public class PadOutput
     {
-        public IPadFormat Format { get; set; }
+        /// <summary>
+        /// Gets or sets the format description.
+        /// </summary>
+        /// <value>
+        /// The format description.
+        /// </value>
+        public IPadFormat Format { get; set; } = PadFormat.Any();
 
-        public IPadContent Content { get; set; }
+        /// <summary>
+        /// Gets or sets the content description.
+        /// </summary>
+        /// <value>
+        /// The content description.
+        /// </value>
+        public IPadContent Content { get; set; } = PadContent.Any();
 
+        /// <inheritdoc/>
         public override string ToString()
         {
-            return $"{Format.ToString()}/{Content.ToString()}";
+            return $"{this.Format.ToString()}/{this.Content.ToString()}";
         }
     }
 }

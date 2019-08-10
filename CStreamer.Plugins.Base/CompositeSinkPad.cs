@@ -64,7 +64,8 @@ namespace CStreamer.Plugins.Base
         /// <inheritdoc/>
         public string Caps => this.ChildPads.Select(pad => pad.Caps).Aggregate<string, StringBuilder>(new StringBuilder(), (sb, s) => sb.AppendLine(s)).ToString();
 
-        public PadFilter Filter => new PadFilter { Format = PadFormat.Any(), Content = PadContent.Any() };
+        /// <inheritdoc/>
+        public PadFilter Filter => new PadFilter();
 
         /// <inheritdoc/>
         public bool Equals(ISinkPad other)

@@ -5,10 +5,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace CStreamer.Plugins.Base
+namespace CStreamer.Plugins.Interfaces
 {
-    using CStreamer.Plugins.Interfaces;
-
     internal class PadAnyFormat : IPadFormat
     {
         public bool CanAccept(IPadFormat format)

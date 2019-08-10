@@ -5,21 +5,30 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace CStreamer.Plugins.Base
+namespace CStreamer.Plugins.Interfaces
 {
-    using CStreamer.Plugins.Interfaces;
-
+    /// <summary>
+    /// Describes a format a pad can either consume of produce.
+    /// </summary>
     public static class PadFormat
     {
+        /// <summary>
+        /// Creates a non specified format.
+        /// </summary>
+        /// <returns>The created Format.</returns>
         public static IPadFormat Any()
         {
             return new PadAnyFormat();
         }
 
+        /// <summary>
+        /// Creates a format with a specific name.
+        /// </summary>
+        /// <param name="formatName">Name of the format.</param>
+        /// <returns>The created Format.</returns>
         public static IPadFormat OfName(string formatName)
         {
             return new PadNamedFormat(formatName);
         }
-
     }
 }

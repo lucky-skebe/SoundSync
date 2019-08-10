@@ -179,6 +179,11 @@ namespace CStreamer
         /// <param name="element">The element to add to the pipeline.</param>
         public void Add(IElement element)
         {
+            if (element == null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             this.elements.Add(element);
             element.Parent = this;
             this.OnElementAdded(element);

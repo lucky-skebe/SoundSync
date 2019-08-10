@@ -90,6 +90,12 @@ namespace CStreamer.Plugins.Basic
             private set;
         }
 
+        /// <summary>
+        /// Gets the source.
+        /// </summary>
+        /// <value>
+        /// The source.
+        /// </value>
         public CompositeSrcPad Src
         {
             get;

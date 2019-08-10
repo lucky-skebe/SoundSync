@@ -5,13 +5,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace CStreamer.Plugins.Base
+namespace CStreamer.Plugins.Interfaces
 {
-    using CStreamer.Plugins.Interfaces;
-
     internal class PadNamedFormat : IPadFormat
     {
-        private string formatName;
+        private readonly string formatName;
 
         public PadNamedFormat(string formatName)
         {

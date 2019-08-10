@@ -60,8 +60,7 @@ namespace CStreamer.Plugins.Buttplug
                         }
                     }
                 },
-                true
-                );
+                true);
 
             this.stateMachine = new ButtplugServerStateMachine();
 

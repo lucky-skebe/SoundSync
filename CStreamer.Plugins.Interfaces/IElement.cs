@@ -25,6 +25,12 @@ namespace CStreamer.Plugins.Interfaces
         /// </value>
         string Name { get; }
 
+        /// <summary>
+        /// Gets or sets the parent bin / pipeline of this element.
+        /// </summary>
+        /// <value>
+        /// The parent bin / pipeline of this element.
+        /// </value>
         IBin? Parent { get; set; }
 
         /// <summary>
