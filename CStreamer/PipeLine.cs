@@ -16,12 +16,13 @@ namespace CStreamer
     using CStreamer.Events;
     using CStreamer.PipeLineDefinitions;
     using CStreamer.Plugins.Interfaces;
+    using CStreamer.Plugins.Interfaces.Messages;
     using Optional;
 
     /// <summary>
     /// A complete pipeline consisting of linked elements that transform data from one form to another.
     /// </summary>
-    public class PipeLine
+    public class PipeLine : IBin
     {
         private readonly IList<IElement> elements = new List<IElement>();
 
@@ -46,6 +47,11 @@ namespace CStreamer
         /// Occurs when two element get unlinked.
         /// </summary>
         public event EventHandler<ElementsUnlinkedEventArgs> ElementsUnlinked;
+
+        /// <summary>
+        /// Occurs in case of errors.
+        /// </summary>
+        public event EventHandler<ErrorEventArgs> Error;
 
         /// <summary>
         /// Creates a new element from an existing template.
@@ -178,7 +184,13 @@ namespace CStreamer
         /// <param name="element">The element to add to the pipeline.</param>
         public void Add(IElement element)
         {
+            if (element == null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             this.elements.Add(element);
+            element.Parent = this;
             this.OnElementAdded(element);
         }
 
@@ -201,6 +213,7 @@ namespace CStreamer
             }
 
             this.elements.Remove(element);
+            element.Parent = null;
             this.OnElementRemoved(element);
         }
 
@@ -246,40 +259,14 @@ namespace CStreamer
                 throw new ArgumentNullException(nameof(sink));
             }
 
-            var srcType = src.GetType();
-            var sinkType = sink.GetType();
-
-            var srcBaseType = srcType.GetGenericInterfaceImplementation(typeof(ISrcPad<>));
-            var sinkBaseType = sinkType.GetGenericInterfaceImplementation(typeof(ISinkPad<>));
-
-            if (srcBaseType == null)
-            {
-                return false;
-            }
-
-            if (sinkBaseType == null)
-            {
-                return false;
-            }
-
-            if (!srcBaseType.GenericTypeArguments.SequenceEqual(sinkBaseType.GenericTypeArguments))
-            {
-                return false;
-            }
-
-            MethodInfo? genericConnect = typeof(PipeLine).GetMethod(nameof(this.Connect));
-            if (genericConnect == null)
-            {
-                return false;
-            }
-
-            var specificConnect = genericConnect.MakeGenericMethod(srcBaseType.GenericTypeArguments);
-
             this.Unlink(sink);
             this.Unlink(src);
-            specificConnect.Invoke(this, new object[] { src, sink });
 
-            return true;
+            var result = src.Link(sink);
+
+            result.MatchNone(s => this.ReceiveMessage(new ErrorMessage(s)));
+
+            return result.HasValue;
         }
 
         /// <summary>
@@ -348,6 +335,23 @@ namespace CStreamer
                 (errors) => Task.FromResult(Option.None<State, IEnumerable<string>>(errors))).ConfigureAwait(true);
         }
 
+        /// <inheritdoc/>
+        public void ReceiveMessage(Message message)
+        {
+            switch (message)
+            {
+                case PadsLinkedMessage padsLinked:
+                    this.OnElementsLinked(padsLinked.SrcPad, padsLinked.SinkPad);
+                    break;
+                case PadsUnlinkedMessage padsUnlinked:
+                    this.OnElementsUnlinked(padsUnlinked.SrcPad, padsUnlinked.SinkPad);
+                    break;
+                case ErrorMessage error:
+                    this.OnError(error.ErrorText);
+                    break;
+            }
+        }
+
         private static bool IsReverseOrder(State from, State to)
         {
             return (from, to) switch
@@ -388,6 +392,11 @@ namespace CStreamer
         private void OnElementsUnlinked(ISrcPad src, ISinkPad sink)
         {
             this.ElementsUnlinked?.Invoke(this, new ElementsUnlinkedEventArgs(src, sink));
+        }
+
+        private void OnError(string text)
+        {
+            this.Error?.Invoke(this, new ErrorEventArgs(text));
         }
 
         private Option<List<IElement>, List<string>> GetOrderedElements()

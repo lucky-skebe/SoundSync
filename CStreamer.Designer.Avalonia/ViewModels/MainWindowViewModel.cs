@@ -26,7 +26,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
         {
             this.Notifications = new NotificationAreaViewModel();
             this.ToolBar = new ToolBarViewModel(elementTypes);
-            this.Pipeline = new PipelineViewModel(pipeline);
+            this.Pipeline = new PipelineViewModel(pipeline, this.Notifications.AddNotification);
 
             this.Play = ReactiveCommand.CreateFromTask(() => pipeline.GoToState(State.Playing));
             this.Pause = ReactiveCommand.CreateFromTask(() => pipeline.GoToState(State.Ready));

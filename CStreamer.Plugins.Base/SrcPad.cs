@@ -9,6 +9,7 @@ namespace CStreamer.Plugins.Base
 {
     using System;
     using CStreamer.Plugins.Interfaces;
+    using CStreamer.Plugins.Interfaces.Messages;
     using Optional;
 
     /// <summary>
@@ -25,11 +26,14 @@ namespace CStreamer.Plugins.Base
         /// <param name="parent">the element this pad is connected to.</param>
         /// <param name="name">the name of the pad.</param>
         /// <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
-        public SrcPad(IElement parent, string name, bool mandatory)
+        /// <param name="output">Can be used to signal this pad producing a specific format. null if there is no specific format.</param>
+        public SrcPad(IElement parent, string name, bool mandatory, PadOutput? output = null)
         {
             this.Parent = parent;
             this.Name = name;
             this.Mandatory = mandatory;
+
+            this.Output = output ?? new PadOutput();
         }
 
         /// <inheritdoc/>
@@ -58,6 +62,12 @@ namespace CStreamer.Plugins.Base
 
         /// <inheritdoc/>
         public bool Mandatory { get; }
+
+        /// <inheritdoc/>
+        public string Caps => $"{typeof(TValue).Name} ({this.Output.ToString()})";
+
+        /// <inheritdoc/>
+        public PadOutput Output { get; }
 
         /// <inheritdoc/>
         public bool IsLinked()
@@ -110,7 +120,13 @@ namespace CStreamer.Plugins.Base
                 return Option.Some<ISinkPad<TValue>, string>(peer);
             }
 
+            if (!peer.Filter.CanAccept(this.Output))
+            {
+                return Option.None<ISinkPad<TValue>, string>("Format not Supported");
+            }
+
             this.Peer = peer;
+            this.Parent.SendMessage(new PadsLinkedMessage(this, peer));
 
             this.Peer.Link(this);
 
@@ -127,9 +143,21 @@ namespace CStreamer.Plugins.Base
 
             if (peer is ISinkPad<TValue> truePeer)
             {
-                this.Peer = truePeer;
-                truePeer.Link(this);
-                return Option.Some<ISinkPad, string>(peer);
+                return this.Link(truePeer).Map<ISinkPad>(p => p);
+            }
+            else if (peer is ICompositeSinkPad composite)
+            {
+                foreach (var childPad in composite.ChildPads)
+                {
+                    var result = this.Link(childPad);
+                    if (result.HasValue)
+                    {
+                        this.Parent.SendMessage(new PadsLinkedMessage(this, composite));
+                        return result;
+                    }
+                }
+
+                return Option.None<ISinkPad, string>("Could not link Pads be casue the there was no matching ChildPad");
             }
             else
             {
@@ -140,15 +168,9 @@ namespace CStreamer.Plugins.Base
         /// <inheritdoc/>
         public Option<IPad, string> Link(IPad peer)
         {
-            if (peer == this.Peer)
+            if (peer is ISinkPad srcPeer)
             {
-                return Option.Some<IPad, string>(peer);
-            }
-
-            if (peer is ISinkPad<TValue> truePeer)
-            {
-                this.Peer = truePeer;
-                return Option.Some<IPad, string>(peer);
+                return this.Link(srcPeer).Map<IPad>(p => p);
             }
             else
             {

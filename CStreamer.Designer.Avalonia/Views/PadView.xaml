@@ -9,7 +9,10 @@
 
   <Ellipse Width="{x:Static helper:Settings.PadSize}" Height="{x:Static helper:Settings.PadSize}" Fill="Black">
     <ToolTip.Tip>
-      <TextBlock Text="{Binding Name}" />
+      <StackPanel>
+        <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+        <TextBlock Text="{Binding Caps}" FontStyle="Italic" />
+      </StackPanel>
     </ToolTip.Tip>
   </Ellipse>
 </UserControl>

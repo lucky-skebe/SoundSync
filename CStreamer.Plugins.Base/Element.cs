@@ -12,6 +12,7 @@ namespace CStreamer.Plugins.Base
     using System.Threading.Tasks;
     using CStreamer.Base;
     using CStreamer.Plugins.Interfaces;
+    using CStreamer.Plugins.Interfaces.Messages;
 
     /// <summary>
     /// Baseclass for all element.
@@ -33,6 +34,13 @@ namespace CStreamer.Plugins.Base
 
         /// <inheritdoc/>
         public State CurrentState { get; private set; }
+
+        /// <inheritdoc/>
+        public IBin? Parent
+        {
+            get;
+            set; // TODO: Think of a better way so this can only be set by a pipeline / bin
+        }
 
         /// <inheritdoc/>
         public virtual async Task GoToState(State newState)
@@ -59,6 +67,12 @@ namespace CStreamer.Plugins.Base
 
                 this.CurrentState = transition;
             }
+        }
+
+        /// <inheritdoc/>
+        public void SendMessage(Message message)
+        {
+            this.Parent?.ReceiveMessage(message);
         }
 
         /// <summary>

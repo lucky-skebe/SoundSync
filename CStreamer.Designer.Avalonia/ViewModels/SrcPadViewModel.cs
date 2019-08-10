@@ -18,7 +18,6 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             : base(element, padIndex)
         {
             this.Model = model;
-            this.Type = "double";
             this.Info = string.Empty;
         }
 
@@ -26,7 +25,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 
         public string Name => this.Model.Name;
 
-        public string Type { get; }
+        public string Caps => this.Model.Caps;
 
         public string Info { get; }
 

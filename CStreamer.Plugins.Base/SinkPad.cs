@@ -9,6 +9,7 @@ namespace CStreamer.Plugins.Base
 {
     using System;
     using CStreamer.Plugins.Interfaces;
+    using CStreamer.Plugins.Interfaces.Messages;
     using Optional;
 
     /// <summary>
@@ -26,12 +27,15 @@ namespace CStreamer.Plugins.Base
         /// <param name="name">the name of the pad.</param>
         /// <param name="elementCallback">the callback inside the element to push data to.</param>
         /// <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
-        public SinkPad(IElement parent, string name, Action<TValue> elementCallback, bool mandatory)
+        /// <param name="filter">Can be used to Filter on a specific kind of format. null if any format can be accepted.</param>
+        public SinkPad(IElement parent, string name, Action<TValue> elementCallback, bool mandatory, PadFilter? filter = null)
         {
             this.Name = name;
             this.ElementCallback = elementCallback;
             this.Parent = parent;
             this.Mandatory = mandatory;
+
+            this.Filter = filter ?? new PadFilter();
         }
 
         /// <inheritdoc/>
@@ -60,6 +64,12 @@ namespace CStreamer.Plugins.Base
 
         /// <inheritdoc/>
         public bool Mandatory { get; }
+
+        /// <inheritdoc/>
+        public string Caps => $"{typeof(TValue).Name} ({this.Filter.ToString()})";
+
+        /// <inheritdoc/>
+        public PadFilter Filter { get; }
 
         /// <summary>
         /// Gets or sets the element callback.
@@ -108,7 +118,7 @@ namespace CStreamer.Plugins.Base
                 return false;
             }
 
-            return this.Parent.Equals(other.Parent) && this.Name.Equals(other.Name, StringComparison.Ordinal);
+            return this.Parent.Equals(other.Parent) && this.Name.Equals(other.Name, StringComparison.CurrentCultureIgnoreCase);
         }
 
         /// <inheritdoc/>
@@ -125,7 +135,13 @@ namespace CStreamer.Plugins.Base
                 return Option.Some<ISrcPad<TValue>, string>(peer);
             }
 
+            if (!this.Filter.CanAccept(peer.Output))
+            {
+                return Option.None<ISrcPad<TValue>, string>("Format not Supported");
+            }
+
             this.Peer = peer;
+            this.Parent.SendMessage(new PadsLinkedMessage(peer, this));
 
             this.Peer.Link(this);
 
@@ -142,8 +158,21 @@ namespace CStreamer.Plugins.Base
 
             if (peer is ISrcPad<TValue> truePeer)
             {
-                this.Peer = truePeer;
-                return Option.Some<ISrcPad, string>(peer);
+                return this.Link(truePeer).Map<ISrcPad>(p => p);
+            }
+            else if (peer is ICompositeSrcPad composite)
+            {
+                foreach (var childPad in composite.ChildPads)
+                {
+                    var result = this.Link(childPad);
+                    if (result.HasValue)
+                    {
+                        this.Parent.SendMessage(new PadsLinkedMessage(composite, this));
+                        return result;
+                    }
+                }
+
+                return Option.None<ISrcPad, string>("Could not link Pads be casue the there was no matching ChildPad");
             }
             else
             {
@@ -154,15 +183,9 @@ namespace CStreamer.Plugins.Base
         /// <inheritdoc/>
         public Option<IPad, string> Link(IPad peer)
         {
-            if (peer == this.Peer)
+            if (peer is ISrcPad srcPeer)
             {
-                return Option.Some<IPad, string>(peer);
-            }
-
-            if (peer is ISrcPad<TValue> truePeer)
-            {
-                this.Peer = truePeer;
-                return Option.Some<IPad, string>(peer);
+                return this.Link(srcPeer).Map<IPad>(p => p);
             }
             else
             {

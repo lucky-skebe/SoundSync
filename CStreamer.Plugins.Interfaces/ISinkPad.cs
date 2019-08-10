@@ -24,6 +24,14 @@ namespace CStreamer.Plugins.Interfaces
         new ISrcPad? Peer { get; }
 
         /// <summary>
+        /// Gets the filter on the type of content this pad can consume.
+        /// </summary>
+        /// <value>
+        /// The filter on the type of content this pad can consume.
+        /// </value>
+        PadFilter Filter { get; }
+
+        /// <summary>
         /// Links this Pad to the provided peer pad.
         /// </summary>
         /// <param name="peer">the peerpad to link to.</param>

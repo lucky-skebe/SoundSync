@@ -4,6 +4,116 @@
         <name>CStreamer.Plugins.Base</name>
     </assembly>
     <members>
+        <member name="T:CStreamer.Plugins.Base.CompositeSinkPad">
+            <summary>
+            A SinkPad that Consists of multiple Childpads.
+            </summary>
+            <remarks>
+            This Pad is used to support more than one InputType / Format.
+            To do so add pads for all supportrd InputTypes / Formats indo the ChildPads list.
+            The Childpads chould be ordered from least taxing conversion to most taxing conversion since the Pads will be tried during linking in the order of the list.
+            </remarks>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Collections.Generic.List{CStreamer.Plugins.Interfaces.ISinkPad},System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.CompositeSinkPad"/> class.
+            </summary>
+            <param name="parent">the element this pad is connected to.</param>
+            <param name="name">the name of the pad.</param>
+            <param name="childPads">A list of acceptable Childpads.</param>
+            <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.ChildPads">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.Peer">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.Parent">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.Mandatory">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.Caps">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.Filter">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Equals(CStreamer.Plugins.Interfaces.ISinkPad)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.IsLinked">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Link(CStreamer.Plugins.Interfaces.ISrcPad)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Link(CStreamer.Plugins.Interfaces.IPad)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Unlink">
+            <inheritdoc/>
+        </member>
+        <member name="T:CStreamer.Plugins.Base.CompositeSrcPad">
+            <summary>
+            A SrcPad that Consists of multiple Childpads.
+            </summary>
+            <remarks>
+            This Pad is used to support more than one InputType / Format.
+            To do so add pads for all supportrd InputTypes / Formats indo the ChildPads list.
+            The Childpads chould be ordered from least taxing conversion to most taxing conversion since the Pads will be tried during linking in the order of the list.
+            </remarks>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Collections.Generic.List{CStreamer.Plugins.Interfaces.ISrcPad},System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.CompositeSrcPad"/> class.
+            </summary>
+            <param name="parent">the element this pad is connected to.</param>
+            <param name="name">the name of the pad.</param>
+            <param name="childPads">A list of acceptable Childpads.</param>
+            <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.ChildPads">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.Peer">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.Parent">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.Mandatory">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.Caps">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.Output">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Equals(CStreamer.Plugins.Interfaces.ISrcPad)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.IsLinked">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Link(CStreamer.Plugins.Interfaces.ISinkPad)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Link(CStreamer.Plugins.Interfaces.IPad)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Unlink">
+            <inheritdoc/>
+        </member>
         <member name="T:CStreamer.Plugins.Base.Element">
             <summary>
             Baseclass for all element.
@@ -21,7 +131,13 @@
         <member name="P:CStreamer.Plugins.Base.Element.CurrentState">
             <inheritdoc/>
         </member>
+        <member name="P:CStreamer.Plugins.Base.Element.Parent">
+            <inheritdoc/>
+        </member>
         <member name="M:CStreamer.Plugins.Base.Element.GoToState(CStreamer.State)">
+            <inheritdoc/>
+        </member>
+        <member name="M:CStreamer.Plugins.Base.Element.SendMessage(CStreamer.Plugins.Interfaces.Messages.Message)">
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.Element.GetPropertyBindings">
@@ -96,7 +212,7 @@
              </summary>
              <typeparam name="TValue">The typt of value this pad can accept.</typeparam>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SinkPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Action{`0},System.Boolean)">
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Action{`0},System.Boolean,CStreamer.Plugins.Interfaces.PadFilter)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.SinkPad`1"/> class.
             </summary>
@@ -104,6 +220,7 @@
             <param name="name">the name of the pad.</param>
             <param name="elementCallback">the callback inside the element to push data to.</param>
             <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
+            <param name="filter">Can be used to Filter on a specific kind of format. null if any format can be accepted.</param>
         </member>
         <member name="P:CStreamer.Plugins.Base.SinkPad`1.Parent">
             <inheritdoc/>
@@ -120,6 +237,12 @@
             </value>
         </member>
         <member name="P:CStreamer.Plugins.Base.SinkPad`1.Mandatory">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SinkPad`1.Caps">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SinkPad`1.Filter">
             <inheritdoc/>
         </member>
         <member name="P:CStreamer.Plugins.Base.SinkPad`1.ElementCallback">
@@ -166,13 +289,14 @@
              </summary>
              <typeparam name="TValue">The typt of value this pad can push throu the pipeline.</typeparam>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SrcPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Boolean)">
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Boolean,CStreamer.Plugins.Interfaces.PadOutput)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.SrcPad`1"/> class.
             </summary>
             <param name="parent">the element this pad is connected to.</param>
             <param name="name">the name of the pad.</param>
             <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
+            <param name="output">Can be used to signal this pad producing a specific format. null if there is no specific format.</param>
         </member>
         <member name="P:CStreamer.Plugins.Base.SrcPad`1.Parent">
             <inheritdoc/>
@@ -189,6 +313,12 @@
             </value>
         </member>
         <member name="P:CStreamer.Plugins.Base.SrcPad`1.Mandatory">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SrcPad`1.Caps">
+            <inheritdoc/>
+        </member>
+        <member name="P:CStreamer.Plugins.Base.SrcPad`1.Output">
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.SrcPad`1.IsLinked">

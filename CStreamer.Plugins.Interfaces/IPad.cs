@@ -34,6 +34,14 @@ namespace CStreamer.Plugins.Interfaces
         string Name { get; }
 
         /// <summary>
+        /// Gets the Capabilities of the Pad.
+        /// </summary>
+        /// <value>
+        /// The Capabilities of the Pad.
+        /// </value>
+        string Caps { get; }
+
+        /// <summary>
         /// Gets the pad on the other side of the link of null if the pad is not linked.
         /// </summary>
         /// <value>

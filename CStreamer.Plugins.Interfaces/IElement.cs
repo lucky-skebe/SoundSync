@@ -9,6 +9,7 @@ namespace CStreamer.Plugins.Interfaces
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using CStreamer.Plugins.Interfaces.Messages;
     using Optional;
 
     /// <summary>
@@ -23,6 +24,14 @@ namespace CStreamer.Plugins.Interfaces
         /// The name of the element.
         /// </value>
         string Name { get; }
+
+        /// <summary>
+        /// Gets or sets the parent bin / pipeline of this element.
+        /// </summary>
+        /// <value>
+        /// The parent bin / pipeline of this element.
+        /// </value>
+        IBin? Parent { get; set; }
 
         /// <summary>
         /// Gets the current state of the element.
@@ -51,5 +60,11 @@ namespace CStreamer.Plugins.Interfaces
         /// </summary>
         /// <returns>All pads.</returns>
         IEnumerable<IPad> GetPads();
+
+        /// <summary>
+        /// Sends a Message to the Containing Bin/Pipeline.
+        /// </summary>
+        /// <param name="message">The message to send.</param>
+        void SendMessage(Message message);
     }
 }
