@@ -25,7 +25,7 @@ namespace CStreamer.Plugins.Basic
             : base(name)
         {
             this.Src = new SrcPad<double>(this, "src", true);
-            this.Sink = new SinkPad<double>(this, "sink", (f) => this.Src.Push(f * this.Multiplier), true);
+            this.Sink = new SinkPad<double>(this, "sink", (f) => this.Src.Push(this.Transform(f)), true);
         }
 
         /// <summary>
@@ -58,6 +58,16 @@ namespace CStreamer.Plugins.Basic
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// Transforms the specified input.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>The output value.</returns>
+        public double Transform(double input)
+        {
+            return input * this.Multiplier;
         }
 
         /// <inheritdoc/>
