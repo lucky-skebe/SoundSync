@@ -49,6 +49,11 @@ namespace CStreamer
         public event EventHandler<ElementsUnlinkedEventArgs> ElementsUnlinked;
 
         /// <summary>
+        /// Occurs in case of errors.
+        /// </summary>
+        public event EventHandler<ErrorEventArgs> Error;
+
+        /// <summary>
         /// Creates a new element from an existing template.
         /// Only the type gets copied.
         /// Properties need to be initialized manually.
@@ -333,17 +338,17 @@ namespace CStreamer
         /// <inheritdoc/>
         public void ReceiveMessage(Message message)
         {
-            if (message is PadsLinkedMessage padsLinked)
+            switch (message)
             {
-                this.OnElementsLinked(padsLinked.SrcPad, padsLinked.SinkPad);
-            }
-            else if (message is PadsUnlinkedMessage padsUnlinked)
-            {
-                this.OnElementsUnlinked(padsUnlinked.SrcPad, padsUnlinked.SinkPad);
-            }
-            else if (message is ErrorMessage error)
-            {
-                // this.OnElementsLinked(padsLinked.SrcPad, padsLinked.SinkPad);
+                case PadsLinkedMessage padsLinked:
+                    this.OnElementsLinked(padsLinked.SrcPad, padsLinked.SinkPad);
+                    break;
+                case PadsUnlinkedMessage padsUnlinked:
+                    this.OnElementsUnlinked(padsUnlinked.SrcPad, padsUnlinked.SinkPad);
+                    break;
+                case ErrorMessage error:
+                    this.OnError(error.ErrorText);
+                    break;
             }
         }
 
@@ -387,6 +392,11 @@ namespace CStreamer
         private void OnElementsUnlinked(ISrcPad src, ISinkPad sink)
         {
             this.ElementsUnlinked?.Invoke(this, new ElementsUnlinkedEventArgs(src, sink));
+        }
+
+        private void OnError(string text)
+        {
+            this.Error?.Invoke(this, new ErrorEventArgs(text));
         }
 
         private Option<List<IElement>, List<string>> GetOrderedElements()

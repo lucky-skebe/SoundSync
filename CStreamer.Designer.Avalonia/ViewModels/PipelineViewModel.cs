@@ -11,6 +11,9 @@ namespace CStreamer.Designer.Avalonia.ViewModels
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using System.Reactive;
+    using System.Reactive.Disposables;
+    using System.Reactive.Linq;
     using System.Threading.Tasks;
     using CStreamer.Base;
     using CStreamer.Designer.Avalonia.Helper;
@@ -35,7 +38,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
 
         private IElement? selectedElement;
 
-        public PipelineViewModel(PipeLine pipeline)
+        public PipelineViewModel(PipeLine pipeline, Action<Avalonia.Notification> addNotification)
         {
             this.pipeline = pipeline ?? throw new ArgumentNullException(nameof(pipeline));
             this.Items = new ObservableCollection<ICStreamerViewModel>();
@@ -49,6 +52,13 @@ namespace CStreamer.Designer.Avalonia.ViewModels
             this.pipeline.ElementRemoved += this.Pipeline_ElementRemoved;
             this.pipeline.ElementsLinked += this.Pipeline_ElementsLinked;
             this.pipeline.ElementsUnlinked += this.Pipeline_ElementsUnlinked;
+
+            this.WhenActivated((disposables) =>
+            {
+                var errors = Observable.FromEventPattern<ErrorEventArgs>((handler) => this.pipeline.Error += handler, (handler) => this.pipeline.Error -= handler);
+
+                errors.Subscribe(error => addNotification(new Avalonia.Notification(error.EventArgs.Text))).DisposeWith(disposables);
+            });
         }
 
         public ObservableCollection<ICStreamerViewModel> Items { get; }
