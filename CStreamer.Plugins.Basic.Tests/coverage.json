@@ -1,0 +1,3681 @@
+{
+  "CStreamer.Base.dll": {
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Base\\StateManager.cs": {
+      "CStreamer.Base.StateManager": {
+        "System.Collections.Generic.IList`1<CStreamer.State> CStreamer.Base.StateManager::GetTransitions(CStreamer.State,CStreamer.State)": {
+          "Lines": {
+            "24": 0,
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "31": 0,
+            "32": 0
+          },
+          "Branches": [
+            {
+              "Line": 25,
+              "Offset": 4,
+              "EndOffset": 8,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 10,
+              "EndOffset": 14,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 4,
+              "EndOffset": 19,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 15,
+              "EndOffset": 25,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 21,
+              "EndOffset": 49,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 15,
+              "EndOffset": 73,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 21,
+              "EndOffset": 73,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 10,
+              "EndOffset": 79,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 75,
+              "EndOffset": 85,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 81,
+              "EndOffset": 85,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 75,
+              "EndOffset": 95,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 25,
+              "Offset": 81,
+              "EndOffset": 95,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Base\\TypeExtensions.cs": {
+      "CStreamer.Base.TypeExtensions": {
+        "System.Type CStreamer.Base.TypeExtensions::GetGenericTypeImplementation(System.Type,System.Type)": {
+          "Lines": {
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "36": 0,
+            "37": 0,
+            "39": 0,
+            "40": 0
+          },
+          "Branches": [
+            {
+              "Line": 28,
+              "Offset": 54,
+              "EndOffset": 3,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 30,
+              "Offset": 10,
+              "EndOffset": 12,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 30,
+              "Offset": 10,
+              "EndOffset": 26,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 30,
+              "Offset": 29,
+              "EndOffset": 31,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 30,
+              "Offset": 29,
+              "EndOffset": 36,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 28,
+              "Offset": 54,
+              "EndOffset": 56,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Type CStreamer.Base.TypeExtensions::GetGenericInterfaceImplementation(System.Type,System.Type)": {
+          "Lines": {
+            "51": 0,
+            "52": 0,
+            "54": 0,
+            "55": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean CStreamer.Base.TypeExtensions::FilterGenericType(System.Type,System.Object)": {
+          "Lines": {
+            "58": 0,
+            "59": 0,
+            "60": 0
+          },
+          "Branches": [
+            {
+              "Line": 59,
+              "Offset": 7,
+              "EndOffset": 9,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 59,
+              "Offset": 7,
+              "EndOffset": 28,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "CStreamer.Plugins.Base.dll": {
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Base\\PropertyBinding.cs": {
+      "CStreamer.PropertyBinding`1": {
+        "System.Void CStreamer.PropertyBinding`1::CStreamer.Plugins.Interfaces.IPropertyBinding.add_ValueChanged(System.EventHandler`1<CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs>)": {
+          "Lines": {
+            "79": 0,
+            "80": 0,
+            "81": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.PropertyBinding`1::CStreamer.Plugins.Interfaces.IPropertyBinding.remove_ValueChanged(System.EventHandler`1<CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs>)": {
+          "Lines": {
+            "84": 0,
+            "85": 0,
+            "86": 0
+          },
+          "Branches": []
+        },
+        "System.String CStreamer.PropertyBinding`1::get_Name()": {
+          "Lines": {
+            "90": 0
+          },
+          "Branches": []
+        },
+        "TValue CStreamer.PropertyBinding`1::get_Value()": {
+          "Lines": {
+            "93": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.PropertyBinding`1::RaiseValueChanged(TValue)": {
+          "Lines": {
+            "101": 0,
+            "102": 0,
+            "103": 0
+          },
+          "Branches": [
+            {
+              "Line": 102,
+              "Offset": 8,
+              "EndOffset": 10,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 102,
+              "Offset": 8,
+              "EndOffset": 13,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "CStreamer.PropertyValue CStreamer.PropertyBinding`1::GetValue()": {
+          "Lines": {
+            "107": 0,
+            "108": 0,
+            "109": 0,
+            "110": 0,
+            "113": 0,
+            "114": 0,
+            "116": 0
+          },
+          "Branches": [
+            {
+              "Line": 108,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 108,
+              "Offset": 12,
+              "EndOffset": 27,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "Optional.Option`2<System.Object,System.String> CStreamer.PropertyBinding`1::TrySetValue(CStreamer.PropertyValue)": {
+          "Lines": {
+            "120": 0,
+            "121": 0,
+            "122": 0,
+            "123": 0,
+            "126": 0,
+            "127": 0,
+            "128": 0,
+            "129": 0,
+            "130": 0,
+            "131": 0,
+            "132": 0,
+            "134": 0,
+            "135": 0,
+            "136": 0,
+            "138": 0,
+            "139": 0,
+            "140": 0,
+            "141": 0,
+            "144": 0,
+            "146": 0,
+            "147": 0,
+            "148": 0,
+            "149": 0,
+            "151": 0,
+            "152": 0,
+            "153": 0,
+            "158": 0,
+            "159": 0
+          },
+          "Branches": [
+            {
+              "Line": 121,
+              "Offset": 7,
+              "EndOffset": 9,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 121,
+              "Offset": 7,
+              "EndOffset": 21,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 126,
+              "Offset": 41,
+              "EndOffset": 46,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 128,
+              "Offset": 58,
+              "EndOffset": 60,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 128,
+              "Offset": 58,
+              "EndOffset": 111,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 134,
+              "Offset": 124,
+              "EndOffset": 126,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 134,
+              "Offset": 124,
+              "EndOffset": 144,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 138,
+              "Offset": 174,
+              "EndOffset": 176,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 138,
+              "Offset": 174,
+              "EndOffset": 218,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 126,
+              "Offset": 41,
+              "EndOffset": 324,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.PropertyBinding`1::.ctor(System.String,System.Action`1<TValue>,System.Func`1<TValue>,System.Func`2<System.Object,Optional.Option`1<TValue>>)": {
+          "Lines": {
+            "34": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.PropertyBinding`1::.ctor(System.Linq.Expressions.Expression`1<System.Func`1<TValue>>)": {
+          "Lines": {
+            "46": 0,
+            "47": 0,
+            "48": 0,
+            "49": 0,
+            "50": 0,
+            "53": 0,
+            "54": 0,
+            "55": 0,
+            "58": 0,
+            "59": 0,
+            "60": 0,
+            "61": 0,
+            "62": 0,
+            "64": 0,
+            "65": 0,
+            "66": 0,
+            "68": 0,
+            "69": 0,
+            "71": 0
+          },
+          "Branches": [
+            {
+              "Line": 48,
+              "Offset": 20,
+              "EndOffset": 22,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 48,
+              "Offset": 20,
+              "EndOffset": 34,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 53,
+              "Offset": 59,
+              "EndOffset": 61,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 53,
+              "Offset": 59,
+              "EndOffset": 73,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 58,
+              "Offset": 86,
+              "EndOffset": 88,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 58,
+              "Offset": 86,
+              "EndOffset": 92,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 60,
+              "Offset": 131,
+              "EndOffset": 133,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 60,
+              "Offset": 131,
+              "EndOffset": 144,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 60,
+              "Offset": 149,
+              "EndOffset": 151,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 60,
+              "Offset": 149,
+              "EndOffset": 202,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Base\\CompositeSinkPad.cs": {
+      "CStreamer.Plugins.Base.CompositeSinkPad": {
+        "System.Collections.Generic.List`1<CStreamer.Plugins.Interfaces.ISinkPad> CStreamer.Plugins.Base.CompositeSinkPad::get_ChildPads()": {
+          "Lines": {
+            "44": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.ISrcPad CStreamer.Plugins.Base.CompositeSinkPad::get_Peer()": {
+          "Lines": {
+            "47": 0
+          },
+          "Branches": [
+            {
+              "Line": 47,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 47,
+              "Offset": 12,
+              "EndOffset": 37,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 47,
+              "Offset": 48,
+              "EndOffset": 50,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 47,
+              "Offset": 48,
+              "EndOffset": 73,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "CStreamer.Plugins.Interfaces.IElement CStreamer.Plugins.Base.CompositeSinkPad::get_Parent()": {
+          "Lines": {
+            "52": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Base.CompositeSinkPad::set_Parent(CStreamer.Plugins.Interfaces.IElement)": {
+          "Lines": {
+            "53": 0
+          },
+          "Branches": []
+        },
+        "System.String CStreamer.Plugins.Base.CompositeSinkPad::get_Name()": {
+          "Lines": {
+            "57": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean CStreamer.Plugins.Base.CompositeSinkPad::get_Mandatory()": {
+          "Lines": {
+            "60": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.IPad CStreamer.Plugins.Base.CompositeSinkPad::CStreamer.Plugins.Interfaces.IPad.get_Peer()": {
+          "Lines": {
+            "62": 0
+          },
+          "Branches": []
+        },
+        "System.String CStreamer.Plugins.Base.CompositeSinkPad::get_Caps()": {
+          "Lines": {
+            "65": 0
+          },
+          "Branches": [
+            {
+              "Line": 65,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 65,
+              "Offset": 12,
+              "EndOffset": 37,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 65,
+              "Offset": 53,
+              "EndOffset": 55,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 65,
+              "Offset": 53,
+              "EndOffset": 78,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "CStreamer.Plugins.Interfaces.PadFilter CStreamer.Plugins.Base.CompositeSinkPad::get_Filter()": {
+          "Lines": {
+            "68": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean CStreamer.Plugins.Base.CompositeSinkPad::Equals(CStreamer.Plugins.Interfaces.ISinkPad)": {
+          "Lines": {
+            "72": 0,
+            "73": 0,
+            "74": 0,
+            "75": 0,
+            "78": 0,
+            "79": 0
+          },
+          "Branches": [
+            {
+              "Line": 73,
+              "Offset": 7,
+              "EndOffset": 9,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 73,
+              "Offset": 7,
+              "EndOffset": 14,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 78,
+              "Offset": 31,
+              "EndOffset": 33,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 78,
+              "Offset": 31,
+              "EndOffset": 53,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Boolean CStreamer.Plugins.Base.CompositeSinkPad::IsLinked()": {
+          "Lines": {
+            "83": 0,
+            "84": 0,
+            "85": 0
+          },
+          "Branches": [
+            {
+              "Line": 84,
+              "Offset": 13,
+              "EndOffset": 15,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 84,
+              "Offset": 13,
+              "EndOffset": 38,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "Optional.Option`2<CStreamer.Plugins.Interfaces.ISrcPad,System.String> CStreamer.Plugins.Base.CompositeSinkPad::Link(CStreamer.Plugins.Interfaces.ISrcPad)": {
+          "Lines": {
+            "89": 0,
+            "90": 0,
+            "91": 0,
+            "92": 0,
+            "93": 0,
+            "94": 0,
+            "95": 0,
+            "96": 0,
+            "98": 0,
+            "100": 0,
+            "101": 0
+          },
+          "Branches": [
+            {
+              "Line": 90,
+              "Offset": 77,
+              "EndOffset": 16,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 93,
+              "Offset": 42,
+              "EndOffset": 44,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 93,
+              "Offset": 42,
+              "EndOffset": 69,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 90,
+              "Offset": 77,
+              "EndOffset": 79,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            }
+          ]
+        },
+        "Optional.Option`2<CStreamer.Plugins.Interfaces.IPad,System.String> CStreamer.Plugins.Base.CompositeSinkPad::Link(CStreamer.Plugins.Interfaces.IPad)": {
+          "Lines": {
+            "105": 0,
+            "106": 0,
+            "107": 0,
+            "108": 0,
+            "109": 0,
+            "110": 0,
+            "111": 0,
+            "112": 0,
+            "114": 0,
+            "116": 0,
+            "117": 0
+          },
+          "Branches": [
+            {
+              "Line": 106,
+              "Offset": 82,
+              "EndOffset": 16,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 109,
+              "Offset": 42,
+              "EndOffset": 44,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 109,
+              "Offset": 42,
+              "EndOffset": 74,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 106,
+              "Offset": 82,
+              "EndOffset": 84,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.Plugins.Base.CompositeSinkPad::Unlink()": {
+          "Lines": {
+            "121": 0,
+            "122": 0,
+            "123": 0,
+            "124": 0,
+            "125": 0,
+            "126": 0,
+            "127": 0,
+            "128": 0,
+            "129": 0,
+            "130": 0,
+            "131": 0
+          },
+          "Branches": [
+            {
+              "Line": 122,
+              "Offset": 76,
+              "EndOffset": 16,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 125,
+              "Offset": 38,
+              "EndOffset": 40,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 125,
+              "Offset": 38,
+              "EndOffset": 68,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 122,
+              "Offset": 76,
+              "EndOffset": 78,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.Plugins.Base.CompositeSinkPad::.ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Collections.Generic.List`1<CStreamer.Plugins.Interfaces.ISinkPad>,System.Boolean)": {
+          "Lines": {
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Base\\CompositeSrcPad.cs": {
+      "CStreamer.Plugins.Base.CompositeSrcPad": {
+        "System.Collections.Generic.List`1<CStreamer.Plugins.Interfaces.ISrcPad> CStreamer.Plugins.Base.CompositeSrcPad::get_ChildPads()": {
+          "Lines": {
+            "44": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.ISinkPad CStreamer.Plugins.Base.CompositeSrcPad::get_Peer()": {
+          "Lines": {
+            "47": 0
+          },
+          "Branches": [
+            {
+              "Line": 47,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 47,
+              "Offset": 12,
+              "EndOffset": 37,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 47,
+              "Offset": 48,
+              "EndOffset": 50,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 47,
+              "Offset": 48,
+              "EndOffset": 73,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "CStreamer.Plugins.Interfaces.IElement CStreamer.Plugins.Base.CompositeSrcPad::get_Parent()": {
+          "Lines": {
+            "52": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Base.CompositeSrcPad::set_Parent(CStreamer.Plugins.Interfaces.IElement)": {
+          "Lines": {
+            "53": 0
+          },
+          "Branches": []
+        },
+        "System.String CStreamer.Plugins.Base.CompositeSrcPad::get_Name()": {
+          "Lines": {
+            "57": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean CStreamer.Plugins.Base.CompositeSrcPad::get_Mandatory()": {
+          "Lines": {
+            "60": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.IPad CStreamer.Plugins.Base.CompositeSrcPad::CStreamer.Plugins.Interfaces.IPad.get_Peer()": {
+          "Lines": {
+            "62": 0
+          },
+          "Branches": []
+        },
+        "System.String CStreamer.Plugins.Base.CompositeSrcPad::get_Caps()": {
+          "Lines": {
+            "65": 0
+          },
+          "Branches": [
+            {
+              "Line": 65,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 65,
+              "Offset": 12,
+              "EndOffset": 37,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 65,
+              "Offset": 53,
+              "EndOffset": 55,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 65,
+              "Offset": 53,
+              "EndOffset": 78,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "CStreamer.Plugins.Interfaces.PadOutput CStreamer.Plugins.Base.CompositeSrcPad::get_Output()": {
+          "Lines": {
+            "68": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean CStreamer.Plugins.Base.CompositeSrcPad::Equals(CStreamer.Plugins.Interfaces.ISrcPad)": {
+          "Lines": {
+            "72": 0,
+            "73": 0,
+            "74": 0,
+            "75": 0,
+            "78": 0,
+            "79": 0
+          },
+          "Branches": [
+            {
+              "Line": 73,
+              "Offset": 7,
+              "EndOffset": 9,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 73,
+              "Offset": 7,
+              "EndOffset": 14,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 78,
+              "Offset": 31,
+              "EndOffset": 33,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 78,
+              "Offset": 31,
+              "EndOffset": 53,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Boolean CStreamer.Plugins.Base.CompositeSrcPad::IsLinked()": {
+          "Lines": {
+            "83": 0,
+            "84": 0,
+            "85": 0
+          },
+          "Branches": [
+            {
+              "Line": 84,
+              "Offset": 13,
+              "EndOffset": 15,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 84,
+              "Offset": 13,
+              "EndOffset": 38,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "Optional.Option`2<CStreamer.Plugins.Interfaces.ISinkPad,System.String> CStreamer.Plugins.Base.CompositeSrcPad::Link(CStreamer.Plugins.Interfaces.ISinkPad)": {
+          "Lines": {
+            "89": 0,
+            "90": 0,
+            "91": 0,
+            "92": 0,
+            "93": 0,
+            "94": 0,
+            "95": 0,
+            "96": 0,
+            "98": 0,
+            "100": 0,
+            "101": 0
+          },
+          "Branches": [
+            {
+              "Line": 90,
+              "Offset": 77,
+              "EndOffset": 16,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 93,
+              "Offset": 42,
+              "EndOffset": 44,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 93,
+              "Offset": 42,
+              "EndOffset": 69,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 90,
+              "Offset": 77,
+              "EndOffset": 79,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            }
+          ]
+        },
+        "Optional.Option`2<CStreamer.Plugins.Interfaces.IPad,System.String> CStreamer.Plugins.Base.CompositeSrcPad::Link(CStreamer.Plugins.Interfaces.IPad)": {
+          "Lines": {
+            "105": 0,
+            "106": 0,
+            "107": 0,
+            "108": 0,
+            "109": 0,
+            "110": 0,
+            "111": 0,
+            "112": 0,
+            "114": 0,
+            "116": 0,
+            "117": 0
+          },
+          "Branches": [
+            {
+              "Line": 106,
+              "Offset": 82,
+              "EndOffset": 16,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 109,
+              "Offset": 42,
+              "EndOffset": 44,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 109,
+              "Offset": 42,
+              "EndOffset": 74,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 106,
+              "Offset": 82,
+              "EndOffset": 84,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.Plugins.Base.CompositeSrcPad::Unlink()": {
+          "Lines": {
+            "121": 0,
+            "122": 0,
+            "123": 0,
+            "124": 0,
+            "125": 0,
+            "126": 0,
+            "127": 0,
+            "128": 0,
+            "129": 0,
+            "130": 0,
+            "131": 0
+          },
+          "Branches": [
+            {
+              "Line": 122,
+              "Offset": 76,
+              "EndOffset": 16,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 125,
+              "Offset": 38,
+              "EndOffset": 40,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 125,
+              "Offset": 38,
+              "EndOffset": 68,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 122,
+              "Offset": 76,
+              "EndOffset": 78,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.Plugins.Base.CompositeSrcPad::.ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Collections.Generic.List`1<CStreamer.Plugins.Interfaces.ISrcPad>,System.Boolean)": {
+          "Lines": {
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Base\\Element.cs": {
+      "CStreamer.Plugins.Base.Element": {
+        "System.String CStreamer.Plugins.Base.Element::get_Name()": {
+          "Lines": {
+            "33": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.State CStreamer.Plugins.Base.Element::get_CurrentState()": {
+          "Lines": {
+            "36": 1
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.IBin CStreamer.Plugins.Base.Element::get_Parent()": {
+          "Lines": {
+            "41": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Base.Element::set_Parent(CStreamer.Plugins.Interfaces.IBin)": {
+          "Lines": {
+            "42": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Base.Element::SendMessage(CStreamer.Plugins.Interfaces.Messages.Message)": {
+          "Lines": {
+            "74": 0,
+            "75": 0,
+            "76": 0
+          },
+          "Branches": [
+            {
+              "Line": 75,
+              "Offset": 8,
+              "EndOffset": 10,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 75,
+              "Offset": 8,
+              "EndOffset": 13,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Threading.Tasks.Task CStreamer.Plugins.Base.Element::TransitionStoppedReady()": {
+          "Lines": {
+            "94": 0,
+            "95": 0,
+            "96": 0
+          },
+          "Branches": []
+        },
+        "System.Threading.Tasks.Task CStreamer.Plugins.Base.Element::TransitionReadyPlaying()": {
+          "Lines": {
+            "105": 0,
+            "106": 0,
+            "107": 0
+          },
+          "Branches": []
+        },
+        "System.Threading.Tasks.Task CStreamer.Plugins.Base.Element::TransitionPlayingReady()": {
+          "Lines": {
+            "116": 0,
+            "117": 0,
+            "118": 0
+          },
+          "Branches": []
+        },
+        "System.Threading.Tasks.Task CStreamer.Plugins.Base.Element::TransitionReadyStopped()": {
+          "Lines": {
+            "127": 0,
+            "128": 0,
+            "129": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Base.Element::.ctor(System.String)": {
+          "Lines": {
+            "26": 1,
+            "27": 1,
+            "28": 1,
+            "29": 1,
+            "30": 1
+          },
+          "Branches": [
+            {
+              "Line": 28,
+              "Offset": 11,
+              "EndOffset": 13,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 28,
+              "Offset": 11,
+              "EndOffset": 40,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "CStreamer.Plugins.Base.Element/<GoToState>d__12": {
+        "System.Void CStreamer.Plugins.Base.Element/<GoToState>d__12::MoveNext()": {
+          "Lines": {
+            "47": 0,
+            "48": 0,
+            "50": 0,
+            "51": 0,
+            "52": 0,
+            "55": 0,
+            "56": 0,
+            "58": 0,
+            "59": 0,
+            "61": 0,
+            "62": 0,
+            "64": 0,
+            "65": 0,
+            "68": 0,
+            "69": 0,
+            "70": 0
+          },
+          "Branches": [
+            {
+              "Line": 50,
+              "Offset": 829,
+              "EndOffset": 112,
+              "Path": 1,
+              "Ordinal": 26,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 185,
+              "EndOffset": 207,
+              "Path": 3,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 185,
+              "EndOffset": 238,
+              "Path": 2,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 263,
+              "EndOffset": 270,
+              "Path": 0,
+              "Ordinal": 11,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 185,
+              "EndOffset": 282,
+              "Path": 1,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 231,
+              "EndOffset": 316,
+              "Path": 1,
+              "Ordinal": 10,
+              "Hits": 0
+            },
+            {
+              "Line": 55,
+              "Offset": 350,
+              "EndOffset": 352,
+              "Path": 0,
+              "Ordinal": 17,
+              "Hits": 0
+            },
+            {
+              "Line": 50,
+              "Offset": 64,
+              "EndOffset": 392,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 55,
+              "Offset": 350,
+              "EndOffset": 420,
+              "Path": 1,
+              "Ordinal": 18,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 263,
+              "EndOffset": 433,
+              "Path": 1,
+              "Ordinal": 12,
+              "Hits": 0
+            },
+            {
+              "Line": 58,
+              "Offset": 468,
+              "EndOffset": 470,
+              "Path": 0,
+              "Ordinal": 19,
+              "Hits": 0
+            },
+            {
+              "Line": 50,
+              "Offset": 64,
+              "EndOffset": 511,
+              "Path": 2,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 58,
+              "Offset": 468,
+              "EndOffset": 540,
+              "Path": 1,
+              "Ordinal": 20,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 306,
+              "EndOffset": 553,
+              "Path": 1,
+              "Ordinal": 16,
+              "Hits": 0
+            },
+            {
+              "Line": 61,
+              "Offset": 588,
+              "EndOffset": 590,
+              "Path": 0,
+              "Ordinal": 21,
+              "Hits": 0
+            },
+            {
+              "Line": 50,
+              "Offset": 64,
+              "EndOffset": 631,
+              "Path": 3,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 61,
+              "Offset": 588,
+              "EndOffset": 660,
+              "Path": 1,
+              "Ordinal": 22,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 272,
+              "EndOffset": 670,
+              "Path": 1,
+              "Ordinal": 14,
+              "Hits": 0
+            },
+            {
+              "Line": 64,
+              "Offset": 705,
+              "EndOffset": 707,
+              "Path": 0,
+              "Ordinal": 23,
+              "Hits": 0
+            },
+            {
+              "Line": 50,
+              "Offset": 64,
+              "EndOffset": 748,
+              "Path": 4,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 64,
+              "Offset": 705,
+              "EndOffset": 777,
+              "Path": 1,
+              "Ordinal": 24,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 185,
+              "EndOffset": 787,
+              "Path": 0,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 231,
+              "EndOffset": 787,
+              "Path": 0,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 272,
+              "EndOffset": 787,
+              "Path": 0,
+              "Ordinal": 13,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 306,
+              "EndOffset": 787,
+              "Path": 0,
+              "Ordinal": 15,
+              "Hits": 0
+            },
+            {
+              "Line": 50,
+              "Offset": 64,
+              "EndOffset": 818,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 50,
+              "Offset": 829,
+              "EndOffset": 834,
+              "Path": 0,
+              "Ordinal": 25,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Base\\PluginCatalog.cs": {
+      "CStreamer.Plugins.Base.PluginCatalog": {
+        "System.Collections.Generic.IEnumerable`1<System.Type> CStreamer.Plugins.Base.PluginCatalog::PluginTypes()": {
+          "Lines": {
+            "47": 0,
+            "48": 0,
+            "49": 0
+          },
+          "Branches": [
+            {
+              "Line": 48,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 48,
+              "Offset": 12,
+              "EndOffset": 37,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.Plugins.Base.PluginCatalog::AddDirectory(System.String,System.Boolean)": {
+          "Lines": {
+            "52": 0,
+            "53": 0,
+            "55": 0,
+            "56": 0,
+            "57": 0,
+            "60": 0,
+            "62": 0,
+            "63": 0,
+            "65": 0,
+            "67": 0,
+            "68": 0,
+            "69": 0,
+            "70": 0,
+            "71": 0,
+            "72": 0
+          },
+          "Branches": [
+            {
+              "Line": 55,
+              "Offset": 19,
+              "EndOffset": 21,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 55,
+              "Offset": 19,
+              "EndOffset": 24,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 60,
+              "Offset": 31,
+              "EndOffset": 33,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 60,
+              "Offset": 31,
+              "EndOffset": 36,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 62,
+              "Offset": 115,
+              "EndOffset": 51,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 67,
+              "Offset": 86,
+              "EndOffset": 88,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 67,
+              "Offset": 86,
+              "EndOffset": 103,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 62,
+              "Offset": 115,
+              "EndOffset": 117,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.Plugins.Base.PluginCatalog::.cctor()": {
+          "Lines": {
+            "27": 0,
+            "30": 0,
+            "31": 0,
+            "32": 0,
+            "34": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0
+          },
+          "Branches": [
+            {
+              "Line": 36,
+              "Offset": 52,
+              "EndOffset": 54,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 36,
+              "Offset": 52,
+              "EndOffset": 64,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Base\\SinkPad.cs": {
+      "CStreamer.Plugins.Base.SinkPad`1": {
+        "CStreamer.Plugins.Interfaces.IElement CStreamer.Plugins.Base.SinkPad`1::get_Parent()": {
+          "Lines": {
+            "44": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Base.SinkPad`1::set_Parent(CStreamer.Plugins.Interfaces.IElement)": {
+          "Lines": {
+            "45": 1
+          },
+          "Branches": []
+        },
+        "System.String CStreamer.Plugins.Base.SinkPad`1::get_Name()": {
+          "Lines": {
+            "49": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.ISrcPad`1<TValue> CStreamer.Plugins.Base.SinkPad`1::get_Peer()": {
+          "Lines": {
+            "57": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.ISrcPad CStreamer.Plugins.Base.SinkPad`1::CStreamer.Plugins.Interfaces.ISinkPad.get_Peer()": {
+          "Lines": {
+            "59": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.ISrcPad`1<TValue> CStreamer.Plugins.Base.SinkPad`1::CStreamer.Plugins.Interfaces.ISinkPad<TValue>.get_Peer()": {
+          "Lines": {
+            "61": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.IPad CStreamer.Plugins.Base.SinkPad`1::CStreamer.Plugins.Interfaces.IPad.get_Peer()": {
+          "Lines": {
+            "63": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean CStreamer.Plugins.Base.SinkPad`1::get_Mandatory()": {
+          "Lines": {
+            "66": 0
+          },
+          "Branches": []
+        },
+        "System.String CStreamer.Plugins.Base.SinkPad`1::get_Caps()": {
+          "Lines": {
+            "69": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.PadFilter CStreamer.Plugins.Base.SinkPad`1::get_Filter()": {
+          "Lines": {
+            "72": 0
+          },
+          "Branches": []
+        },
+        "System.Action`1<TValue> CStreamer.Plugins.Base.SinkPad`1::get_ElementCallback()": {
+          "Lines": {
+            "83": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Base.SinkPad`1::set_ElementCallback(System.Action`1<TValue>)": {
+          "Lines": {
+            "84": 1
+          },
+          "Branches": []
+        },
+        "System.Boolean CStreamer.Plugins.Base.SinkPad`1::IsLinked()": {
+          "Lines": {
+            "89": 0,
+            "90": 0,
+            "91": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Base.SinkPad`1::Push(TValue)": {
+          "Lines": {
+            "98": 0,
+            "99": 0,
+            "100": 0,
+            "101": 0,
+            "102": 0,
+            "103": 0
+          },
+          "Branches": [
+            {
+              "Line": 99,
+              "Offset": 17,
+              "EndOffset": 19,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 99,
+              "Offset": 17,
+              "EndOffset": 34,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.Plugins.Base.SinkPad`1::Unlink()": {
+          "Lines": {
+            "107": 0,
+            "108": 0,
+            "109": 0,
+            "110": 0,
+            "111": 0
+          },
+          "Branches": [
+            {
+              "Line": 110,
+              "Offset": 17,
+              "EndOffset": 21,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 110,
+              "Offset": 17,
+              "EndOffset": 28,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Boolean CStreamer.Plugins.Base.SinkPad`1::Equals(CStreamer.Plugins.Interfaces.ISinkPad)": {
+          "Lines": {
+            "115": 0,
+            "116": 0,
+            "117": 0,
+            "118": 0,
+            "121": 0,
+            "122": 0
+          },
+          "Branches": [
+            {
+              "Line": 116,
+              "Offset": 7,
+              "EndOffset": 9,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 116,
+              "Offset": 7,
+              "EndOffset": 14,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 121,
+              "Offset": 31,
+              "EndOffset": 33,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 121,
+              "Offset": 31,
+              "EndOffset": 53,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Int32 CStreamer.Plugins.Base.SinkPad`1::GetHashCode()": {
+          "Lines": {
+            "126": 0,
+            "127": 0,
+            "128": 0
+          },
+          "Branches": []
+        },
+        "Optional.Option`2<CStreamer.Plugins.Interfaces.ISrcPad`1<TValue>,System.String> CStreamer.Plugins.Base.SinkPad`1::Link(CStreamer.Plugins.Interfaces.ISrcPad`1<TValue>)": {
+          "Lines": {
+            "132": 0,
+            "133": 0,
+            "134": 0,
+            "135": 0,
+            "138": 0,
+            "139": 0,
+            "140": 0,
+            "143": 0,
+            "144": 0,
+            "146": 0,
+            "148": 0,
+            "149": 0
+          },
+          "Branches": [
+            {
+              "Line": 133,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 133,
+              "Offset": 12,
+              "EndOffset": 24,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 138,
+              "Offset": 46,
+              "EndOffset": 48,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 138,
+              "Offset": 46,
+              "EndOffset": 62,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "Optional.Option`2<CStreamer.Plugins.Interfaces.ISrcPad,System.String> CStreamer.Plugins.Base.SinkPad`1::Link(CStreamer.Plugins.Interfaces.ISrcPad)": {
+          "Lines": {
+            "153": 0,
+            "154": 0,
+            "155": 0,
+            "156": 0,
+            "159": 0,
+            "160": 0,
+            "161": 0,
+            "163": 0,
+            "164": 0,
+            "165": 0,
+            "166": 0,
+            "167": 0,
+            "168": 0,
+            "169": 0,
+            "170": 0,
+            "171": 0,
+            "173": 0,
+            "175": 0,
+            "178": 0,
+            "179": 0,
+            "181": 0
+          },
+          "Branches": [
+            {
+              "Line": 154,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 154,
+              "Offset": 12,
+              "EndOffset": 27,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 159,
+              "Offset": 40,
+              "EndOffset": 42,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 161,
+              "Offset": 60,
+              "EndOffset": 62,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 161,
+              "Offset": 60,
+              "EndOffset": 85,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 159,
+              "Offset": 40,
+              "EndOffset": 96,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 163,
+              "Offset": 113,
+              "EndOffset": 115,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 165,
+              "Offset": 200,
+              "EndOffset": 133,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 0
+            },
+            {
+              "Line": 168,
+              "Offset": 164,
+              "EndOffset": 166,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 168,
+              "Offset": 164,
+              "EndOffset": 192,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 165,
+              "Offset": 200,
+              "EndOffset": 202,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 0
+            },
+            {
+              "Line": 163,
+              "Offset": 113,
+              "EndOffset": 232,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            }
+          ]
+        },
+        "Optional.Option`2<CStreamer.Plugins.Interfaces.IPad,System.String> CStreamer.Plugins.Base.SinkPad`1::Link(CStreamer.Plugins.Interfaces.IPad)": {
+          "Lines": {
+            "185": 0,
+            "186": 0,
+            "187": 0,
+            "188": 0,
+            "191": 0,
+            "192": 0,
+            "194": 0
+          },
+          "Branches": [
+            {
+              "Line": 186,
+              "Offset": 14,
+              "EndOffset": 16,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 188,
+              "Offset": 33,
+              "EndOffset": 35,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 188,
+              "Offset": 33,
+              "EndOffset": 58,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 186,
+              "Offset": 14,
+              "EndOffset": 66,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.Plugins.Base.SinkPad`1::.ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Action`1<TValue>,System.Boolean,CStreamer.Plugins.Interfaces.PadFilter)": {
+          "Lines": {
+            "31": 1,
+            "32": 1,
+            "33": 1,
+            "34": 1,
+            "35": 1,
+            "36": 1,
+            "38": 1,
+            "39": 1
+          },
+          "Branches": [
+            {
+              "Line": 38,
+              "Offset": 43,
+              "EndOffset": 45,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 38,
+              "Offset": 43,
+              "EndOffset": 51,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Base\\SrcPad.cs": {
+      "CStreamer.Plugins.Base.SrcPad`1": {
+        "CStreamer.Plugins.Interfaces.IElement CStreamer.Plugins.Base.SrcPad`1::get_Parent()": {
+          "Lines": {
+            "42": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Base.SrcPad`1::set_Parent(CStreamer.Plugins.Interfaces.IElement)": {
+          "Lines": {
+            "43": 1
+          },
+          "Branches": []
+        },
+        "System.String CStreamer.Plugins.Base.SrcPad`1::get_Name()": {
+          "Lines": {
+            "47": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.ISinkPad`1<TValue> CStreamer.Plugins.Base.SrcPad`1::get_Peer()": {
+          "Lines": {
+            "55": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.IPad CStreamer.Plugins.Base.SrcPad`1::CStreamer.Plugins.Interfaces.IPad.get_Peer()": {
+          "Lines": {
+            "57": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.ISinkPad CStreamer.Plugins.Base.SrcPad`1::CStreamer.Plugins.Interfaces.ISrcPad.get_Peer()": {
+          "Lines": {
+            "59": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.ISinkPad`1<TValue> CStreamer.Plugins.Base.SrcPad`1::CStreamer.Plugins.Interfaces.ISrcPad<TValue>.get_Peer()": {
+          "Lines": {
+            "61": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean CStreamer.Plugins.Base.SrcPad`1::get_Mandatory()": {
+          "Lines": {
+            "64": 0
+          },
+          "Branches": []
+        },
+        "System.String CStreamer.Plugins.Base.SrcPad`1::get_Caps()": {
+          "Lines": {
+            "67": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.PadOutput CStreamer.Plugins.Base.SrcPad`1::get_Output()": {
+          "Lines": {
+            "70": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean CStreamer.Plugins.Base.SrcPad`1::IsLinked()": {
+          "Lines": {
+            "74": 0,
+            "75": 0,
+            "76": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Base.SrcPad`1::Push(TValue)": {
+          "Lines": {
+            "83": 0,
+            "84": 0,
+            "85": 0,
+            "86": 0,
+            "87": 0,
+            "88": 0
+          },
+          "Branches": [
+            {
+              "Line": 84,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 86,
+              "Offset": 22,
+              "EndOffset": 24,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 86,
+              "Offset": 22,
+              "EndOffset": 27,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 84,
+              "Offset": 12,
+              "EndOffset": 35,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.Plugins.Base.SrcPad`1::Unlink()": {
+          "Lines": {
+            "92": 0,
+            "93": 0,
+            "94": 0,
+            "95": 0,
+            "96": 0
+          },
+          "Branches": [
+            {
+              "Line": 95,
+              "Offset": 17,
+              "EndOffset": 21,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 95,
+              "Offset": 17,
+              "EndOffset": 28,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Boolean CStreamer.Plugins.Base.SrcPad`1::Equals(CStreamer.Plugins.Interfaces.ISrcPad)": {
+          "Lines": {
+            "100": 0,
+            "101": 0,
+            "102": 0,
+            "103": 0,
+            "106": 0,
+            "107": 0
+          },
+          "Branches": [
+            {
+              "Line": 101,
+              "Offset": 7,
+              "EndOffset": 9,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 7,
+              "EndOffset": 14,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 106,
+              "Offset": 31,
+              "EndOffset": 33,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 106,
+              "Offset": 31,
+              "EndOffset": 53,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Int32 CStreamer.Plugins.Base.SrcPad`1::GetHashCode()": {
+          "Lines": {
+            "111": 0,
+            "112": 0,
+            "113": 0
+          },
+          "Branches": []
+        },
+        "Optional.Option`2<CStreamer.Plugins.Interfaces.ISinkPad`1<TValue>,System.String> CStreamer.Plugins.Base.SrcPad`1::Link(CStreamer.Plugins.Interfaces.ISinkPad`1<TValue>)": {
+          "Lines": {
+            "117": 0,
+            "118": 0,
+            "119": 0,
+            "120": 0,
+            "123": 0,
+            "124": 0,
+            "125": 0,
+            "128": 0,
+            "129": 0,
+            "131": 0,
+            "133": 0,
+            "134": 0
+          },
+          "Branches": [
+            {
+              "Line": 118,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 118,
+              "Offset": 12,
+              "EndOffset": 24,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 123,
+              "Offset": 46,
+              "EndOffset": 48,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 123,
+              "Offset": 46,
+              "EndOffset": 62,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        },
+        "Optional.Option`2<CStreamer.Plugins.Interfaces.ISinkPad,System.String> CStreamer.Plugins.Base.SrcPad`1::Link(CStreamer.Plugins.Interfaces.ISinkPad)": {
+          "Lines": {
+            "138": 0,
+            "139": 0,
+            "140": 0,
+            "141": 0,
+            "144": 0,
+            "145": 0,
+            "146": 0,
+            "148": 0,
+            "149": 0,
+            "150": 0,
+            "151": 0,
+            "152": 0,
+            "153": 0,
+            "154": 0,
+            "155": 0,
+            "156": 0,
+            "158": 0,
+            "160": 0,
+            "163": 0,
+            "164": 0,
+            "166": 0
+          },
+          "Branches": [
+            {
+              "Line": 139,
+              "Offset": 12,
+              "EndOffset": 14,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 139,
+              "Offset": 12,
+              "EndOffset": 27,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 144,
+              "Offset": 40,
+              "EndOffset": 42,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 146,
+              "Offset": 60,
+              "EndOffset": 62,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 146,
+              "Offset": 60,
+              "EndOffset": 85,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 144,
+              "Offset": 40,
+              "EndOffset": 96,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 148,
+              "Offset": 113,
+              "EndOffset": 115,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 150,
+              "Offset": 200,
+              "EndOffset": 133,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 0
+            },
+            {
+              "Line": 153,
+              "Offset": 164,
+              "EndOffset": 166,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 153,
+              "Offset": 164,
+              "EndOffset": 192,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            },
+            {
+              "Line": 150,
+              "Offset": 200,
+              "EndOffset": 202,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 0
+            },
+            {
+              "Line": 148,
+              "Offset": 113,
+              "EndOffset": 232,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            }
+          ]
+        },
+        "Optional.Option`2<CStreamer.Plugins.Interfaces.IPad,System.String> CStreamer.Plugins.Base.SrcPad`1::Link(CStreamer.Plugins.Interfaces.IPad)": {
+          "Lines": {
+            "170": 0,
+            "171": 0,
+            "172": 0,
+            "173": 0,
+            "176": 0,
+            "177": 0,
+            "179": 0
+          },
+          "Branches": [
+            {
+              "Line": 171,
+              "Offset": 14,
+              "EndOffset": 16,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 173,
+              "Offset": 33,
+              "EndOffset": 35,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 173,
+              "Offset": 33,
+              "EndOffset": 58,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 171,
+              "Offset": 14,
+              "EndOffset": 66,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.Plugins.Base.SrcPad`1::.ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Boolean,CStreamer.Plugins.Interfaces.PadOutput)": {
+          "Lines": {
+            "30": 1,
+            "31": 1,
+            "32": 1,
+            "33": 1,
+            "34": 1,
+            "36": 1,
+            "37": 1
+          },
+          "Branches": [
+            {
+              "Line": 36,
+              "Offset": 34,
+              "EndOffset": 36,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 36,
+              "Offset": 34,
+              "EndOffset": 42,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "CStreamer.Plugins.Basic.dll": {
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Basic\\ConvertElement.cs": {
+      "CStreamer.Plugins.Basic.ConvertElement": {
+        "CStreamer.Plugins.Base.CompositeSinkPad CStreamer.Plugins.Basic.ConvertElement::get_Sink()": {
+          "Lines": {
+            "89": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.ConvertElement::set_Sink(CStreamer.Plugins.Base.CompositeSinkPad)": {
+          "Lines": {
+            "90": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Base.CompositeSrcPad CStreamer.Plugins.Basic.ConvertElement::get_Src()": {
+          "Lines": {
+            "101": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.ConvertElement::set_Src(CStreamer.Plugins.Base.CompositeSrcPad)": {
+          "Lines": {
+            "102": 0
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.IEnumerable`1<CStreamer.Plugins.Interfaces.IPropertyBinding> CStreamer.Plugins.Basic.ConvertElement::GetPropertyBindings()": {
+          "Lines": {
+            "114": 0,
+            "115": 0,
+            "116": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.ConvertElement::.ctor(System.String)": {
+          "Lines": {
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "31": 0,
+            "32": 0,
+            "33": 0,
+            "34": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "42": 0,
+            "43": 0,
+            "44": 0,
+            "45": 0,
+            "46": 0,
+            "47": 0,
+            "48": 0,
+            "49": 0,
+            "50": 0,
+            "51": 0,
+            "52": 0,
+            "53": 0,
+            "54": 0,
+            "55": 0,
+            "56": 0,
+            "57": 0,
+            "58": 0,
+            "59": 0,
+            "60": 0,
+            "61": 0,
+            "62": 0,
+            "63": 0,
+            "64": 0,
+            "65": 0,
+            "66": 0,
+            "67": 0,
+            "68": 0,
+            "69": 0,
+            "70": 0,
+            "71": 0,
+            "72": 0,
+            "73": 0,
+            "74": 0,
+            "75": 0,
+            "76": 0,
+            "77": 0,
+            "78": 0,
+            "79": 0
+          },
+          "Branches": []
+        }
+      },
+      "CStreamer.Plugins.Basic.ConvertElement/<GetPads>d__9": {
+        "System.Boolean CStreamer.Plugins.Basic.ConvertElement/<GetPads>d__9::MoveNext()": {
+          "Lines": {
+            "107": 0,
+            "108": 0,
+            "109": 0,
+            "110": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Basic\\EnumerateElement.cs": {
+      "CStreamer.Plugins.Basic.EnumerateElement": {
+        "CStreamer.Plugins.Base.SinkPad`1<System.Collections.Generic.IEnumerable`1<System.Single>> CStreamer.Plugins.Basic.EnumerateElement::get_Sink()": {
+          "Lines": {
+            "53": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.EnumerateElement::set_Sink(CStreamer.Plugins.Base.SinkPad`1<System.Collections.Generic.IEnumerable`1<System.Single>>)": {
+          "Lines": {
+            "54": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Base.SrcPad`1<System.Single> CStreamer.Plugins.Basic.EnumerateElement::get_Src()": {
+          "Lines": {
+            "65": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.EnumerateElement::set_Src(CStreamer.Plugins.Base.SrcPad`1<System.Single>)": {
+          "Lines": {
+            "66": 0
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.IEnumerable`1<CStreamer.Plugins.Interfaces.IPropertyBinding> CStreamer.Plugins.Basic.EnumerateElement::GetPropertyBindings()": {
+          "Lines": {
+            "78": 0,
+            "79": 0,
+            "80": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.EnumerateElement::<.ctor>b__0_0(System.Collections.Generic.IEnumerable`1<System.Single>)": {
+          "Lines": {
+            "32": 0,
+            "33": 0,
+            "34": 0,
+            "35": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0
+          },
+          "Branches": [
+            {
+              "Line": 33,
+              "Offset": 7,
+              "EndOffset": 9,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 33,
+              "Offset": 7,
+              "EndOffset": 12,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 38,
+              "Offset": 50,
+              "EndOffset": 22,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 38,
+              "Offset": 50,
+              "EndOffset": 52,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.Plugins.Basic.EnumerateElement::.ctor(System.String)": {
+          "Lines": {
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "28": 0,
+            "29": 0,
+            "30": 0,
+            "31": 0,
+            "36": 0,
+            "37": 0,
+            "43": 0
+          },
+          "Branches": []
+        }
+      },
+      "CStreamer.Plugins.Basic.EnumerateElement/<GetPads>d__9": {
+        "System.Boolean CStreamer.Plugins.Basic.EnumerateElement/<GetPads>d__9::MoveNext()": {
+          "Lines": {
+            "71": 0,
+            "72": 0,
+            "73": 0,
+            "74": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Basic\\MultiplyElement.cs": {
+      "CStreamer.Plugins.Basic.MultiplyElement": {
+        "System.Double CStreamer.Plugins.Basic.MultiplyElement::get_Multiplier()": {
+          "Lines": {
+            "37": 3
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Base.SinkPad`1<System.Double> CStreamer.Plugins.Basic.MultiplyElement::get_Sink()": {
+          "Lines": {
+            "47": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.MultiplyElement::set_Sink(CStreamer.Plugins.Base.SinkPad`1<System.Double>)": {
+          "Lines": {
+            "48": 1
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Base.SrcPad`1<System.Double> CStreamer.Plugins.Basic.MultiplyElement::get_Src()": {
+          "Lines": {
+            "59": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.MultiplyElement::set_Src(CStreamer.Plugins.Base.SrcPad`1<System.Double>)": {
+          "Lines": {
+            "60": 1
+          },
+          "Branches": []
+        },
+        "System.Double CStreamer.Plugins.Basic.MultiplyElement::Transform(System.Double)": {
+          "Lines": {
+            "69": 1,
+            "70": 1,
+            "71": 1
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.MultiplyElement::<.ctor>b__0_0(System.Double)": {
+          "Lines": {
+            "28": 1
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.MultiplyElement::.ctor(System.String)": {
+          "Lines": {
+            "25": 1,
+            "26": 1,
+            "27": 1,
+            "29": 1
+          },
+          "Branches": []
+        }
+      },
+      "CStreamer.Plugins.Basic.MultiplyElement/<GetPads>d__14": {
+        "System.Boolean CStreamer.Plugins.Basic.MultiplyElement/<GetPads>d__14::MoveNext()": {
+          "Lines": {
+            "75": 0,
+            "76": 0,
+            "77": 0,
+            "78": 0
+          },
+          "Branches": []
+        }
+      },
+      "CStreamer.Plugins.Basic.MultiplyElement/<GetPropertyBindings>d__15": {
+        "System.Boolean CStreamer.Plugins.Basic.MultiplyElement/<GetPropertyBindings>d__15::MoveNext()": {
+          "Lines": {
+            "82": 0,
+            "83": 0,
+            "84": 0
+          },
+          "Branches": [
+            {
+              "Line": 82,
+              "Offset": 14,
+              "EndOffset": 22,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 82,
+              "Offset": 14,
+              "EndOffset": 103,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Basic\\TimedAVGElement.cs": {
+      "CStreamer.Plugins.Basic.TimedAVGElement": {
+        "System.Double CStreamer.Plugins.Basic.TimedAVGElement::get_AverageSample()": {
+          "Lines": {
+            "64": 0,
+            "65": 0,
+            "66": 0,
+            "67": 0,
+            "68": 0,
+            "69": 0,
+            "70": 0,
+            "72": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 CStreamer.Plugins.Basic.TimedAVGElement::get_AVGMs()": {
+          "Lines": {
+            "81": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Base.SinkPad`1<System.Double> CStreamer.Plugins.Basic.TimedAVGElement::get_Sink()": {
+          "Lines": {
+            "91": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.TimedAVGElement::set_Sink(CStreamer.Plugins.Base.SinkPad`1<System.Double>)": {
+          "Lines": {
+            "92": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Base.SrcPad`1<System.Double> CStreamer.Plugins.Basic.TimedAVGElement::get_Src()": {
+          "Lines": {
+            "103": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.TimedAVGElement::set_Src(CStreamer.Plugins.Base.SrcPad`1<System.Double>)": {
+          "Lines": {
+            "104": 0
+          },
+          "Branches": []
+        },
+        "System.Threading.Tasks.Task CStreamer.Plugins.Basic.TimedAVGElement::TransitionReadyPlaying()": {
+          "Lines": {
+            "122": 0,
+            "123": 0,
+            "124": 0,
+            "125": 0,
+            "126": 0
+          },
+          "Branches": []
+        },
+        "System.Threading.Tasks.Task CStreamer.Plugins.Basic.TimedAVGElement::TransitionPlayingReady()": {
+          "Lines": {
+            "130": 0,
+            "131": 0,
+            "132": 0,
+            "133": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.TimedAVGElement::BackgroundWorker()": {
+          "Lines": {
+            "136": 0,
+            "137": 0,
+            "138": 0,
+            "139": 0,
+            "140": 0,
+            "142": 0,
+            "143": 0,
+            "144": 0
+          },
+          "Branches": [
+            {
+              "Line": 137,
+              "Offset": 45,
+              "EndOffset": 3,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 137,
+              "Offset": 45,
+              "EndOffset": 47,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Void CStreamer.Plugins.Basic.TimedAVGElement::<.ctor>b__4_0(System.Double)": {
+          "Lines": {
+            "45": 0,
+            "46": 0,
+            "47": 0,
+            "48": 0,
+            "49": 0,
+            "50": 0,
+            "51": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Basic.TimedAVGElement::.ctor(System.String)": {
+          "Lines": {
+            "25": 0,
+            "26": 0,
+            "27": 0,
+            "34": 0,
+            "35": 0,
+            "36": 0,
+            "37": 0,
+            "38": 0,
+            "39": 0,
+            "40": 0,
+            "41": 0,
+            "42": 0,
+            "43": 0,
+            "44": 0,
+            "52": 0,
+            "53": 0
+          },
+          "Branches": []
+        }
+      },
+      "CStreamer.Plugins.Basic.TimedAVGElement/<GetPropertyBindings>d__19": {
+        "System.Boolean CStreamer.Plugins.Basic.TimedAVGElement/<GetPropertyBindings>d__19::MoveNext()": {
+          "Lines": {
+            "109": 0,
+            "110": 0,
+            "111": 0
+          },
+          "Branches": [
+            {
+              "Line": 109,
+              "Offset": 14,
+              "EndOffset": 22,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 109,
+              "Offset": 14,
+              "EndOffset": 103,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      },
+      "CStreamer.Plugins.Basic.TimedAVGElement/<GetPads>d__20": {
+        "System.Boolean CStreamer.Plugins.Basic.TimedAVGElement/<GetPads>d__20::MoveNext()": {
+          "Lines": {
+            "115": 0,
+            "116": 0,
+            "117": 0,
+            "118": 0
+          },
+          "Branches": []
+        }
+      }
+    }
+  },
+  "CStreamer.Plugins.Interfaces.dll": {
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\IElementExtensions.cs": {
+      "CStreamer.IElementExtensions": {
+        "System.String CStreamer.IElementExtensions::GetElementName(CStreamer.Plugins.Interfaces.IElement)": {
+          "Lines": {
+            "30": 1,
+            "31": 1,
+            "32": 0,
+            "33": 0,
+            "36": 1,
+            "38": 1,
+            "39": 1
+          },
+          "Branches": [
+            {
+              "Line": 31,
+              "Offset": 7,
+              "EndOffset": 9,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 31,
+              "Offset": 7,
+              "EndOffset": 21,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        },
+        "System.String CStreamer.IElementExtensions::GetElementName(System.Type)": {
+          "Lines": {
+            "51": 1,
+            "52": 1,
+            "53": 0,
+            "54": 0,
+            "58": 1,
+            "59": 0,
+            "60": 0,
+            "63": 1,
+            "64": 1,
+            "66": 1,
+            "67": 1,
+            "68": 1,
+            "70": 0,
+            "71": 0,
+            "72": 0,
+            "74": 0,
+            "75": 0,
+            "76": 0,
+            "79": 0,
+            "81": 1
+          },
+          "Branches": [
+            {
+              "Line": 52,
+              "Offset": 10,
+              "EndOffset": 12,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 52,
+              "Offset": 10,
+              "EndOffset": 24,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            },
+            {
+              "Line": 58,
+              "Offset": 37,
+              "EndOffset": 39,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 58,
+              "Offset": 37,
+              "EndOffset": 49,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            },
+            {
+              "Line": 66,
+              "Offset": 76,
+              "EndOffset": 78,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 1
+            },
+            {
+              "Line": 66,
+              "Offset": 76,
+              "EndOffset": 84,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 70,
+              "Offset": 102,
+              "EndOffset": 104,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 70,
+              "Offset": 102,
+              "EndOffset": 110,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 0
+            },
+            {
+              "Line": 74,
+              "Offset": 128,
+              "EndOffset": 130,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 74,
+              "Offset": 128,
+              "EndOffset": 136,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Boolean CStreamer.IElementExtensions::TrimEnd(System.String,System.String,System.String&)": {
+          "Lines": {
+            "84": 1,
+            "85": 1,
+            "86": 1,
+            "87": 1,
+            "88": 1,
+            "89": 1,
+            "90": 1,
+            "93": 0,
+            "94": 1
+          },
+          "Branches": [
+            {
+              "Line": 86,
+              "Offset": 14,
+              "EndOffset": 16,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 86,
+              "Offset": 14,
+              "EndOffset": 40,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\PropertyValue.cs": {
+      "CStreamer.PropertyValue": {
+        "System.String CStreamer.PropertyValue::get_PropertyName()": {
+          "Lines": {
+            "32": 0
+          },
+          "Branches": []
+        },
+        "System.Object CStreamer.PropertyValue::get_Value()": {
+          "Lines": {
+            "40": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.PropertyValue::.ctor(System.String,System.Object)": {
+          "Lines": {
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\BindingValueChangedEventArgs.cs": {
+      "CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs": {
+        "System.Object CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs::get_NewValue()": {
+          "Lines": {
+            "30": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs::.ctor(System.Object)": {
+          "Lines": {
+            "19": 0,
+            "20": 0,
+            "21": 0,
+            "22": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\BindingValueChangedEventArgs{TValue}.cs": {
+      "CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs`1": {
+        "TValue CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs`1::get_NewValue()": {
+          "Lines": {
+            "32": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Interfaces.BindingValueChangedEventArgs`1::.ctor(TValue)": {
+          "Lines": {
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\PadAnyContent.cs": {
+      "CStreamer.Plugins.Interfaces.PadAnyContent": {
+        "System.Boolean CStreamer.Plugins.Interfaces.PadAnyContent::CanAccept(CStreamer.Plugins.Interfaces.IPadContent)": {
+          "Lines": {
+            "13": 0,
+            "14": 0,
+            "15": 0
+          },
+          "Branches": []
+        },
+        "System.String CStreamer.Plugins.Interfaces.PadAnyContent::ToString()": {
+          "Lines": {
+            "18": 0,
+            "19": 0,
+            "20": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\PadAnyFormat.cs": {
+      "CStreamer.Plugins.Interfaces.PadAnyFormat": {
+        "System.Boolean CStreamer.Plugins.Interfaces.PadAnyFormat::CanAccept(CStreamer.Plugins.Interfaces.IPadFormat)": {
+          "Lines": {
+            "13": 0,
+            "14": 0,
+            "15": 0
+          },
+          "Branches": []
+        },
+        "System.String CStreamer.Plugins.Interfaces.PadAnyFormat::ToString()": {
+          "Lines": {
+            "18": 0,
+            "19": 0,
+            "20": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\PadContent.cs": {
+      "CStreamer.Plugins.Interfaces.PadContent": {
+        "CStreamer.Plugins.Interfaces.IPadContent CStreamer.Plugins.Interfaces.PadContent::Any()": {
+          "Lines": {
+            "20": 2,
+            "21": 2,
+            "22": 2
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.IPadContent CStreamer.Plugins.Interfaces.PadContent::OfName(System.String)": {
+          "Lines": {
+            "30": 0,
+            "31": 0,
+            "32": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\PadFilter.cs": {
+      "CStreamer.Plugins.Interfaces.PadFilter": {
+        "CStreamer.Plugins.Interfaces.IPadFormat CStreamer.Plugins.Interfaces.PadFilter::get_Format()": {
+          "Lines": {
+            "21": 1
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.IPadContent CStreamer.Plugins.Interfaces.PadFilter::get_Content()": {
+          "Lines": {
+            "29": 1
+          },
+          "Branches": []
+        },
+        "System.Boolean CStreamer.Plugins.Interfaces.PadFilter::CanAccept(CStreamer.Plugins.Interfaces.PadOutput)": {
+          "Lines": {
+            "39": 0,
+            "40": 0,
+            "41": 0
+          },
+          "Branches": [
+            {
+              "Line": 40,
+              "Offset": 18,
+              "EndOffset": 20,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 40,
+              "Offset": 18,
+              "EndOffset": 39,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.String CStreamer.Plugins.Interfaces.PadFilter::ToString()": {
+          "Lines": {
+            "45": 0,
+            "46": 0,
+            "47": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\PadFormat.cs": {
+      "CStreamer.Plugins.Interfaces.PadFormat": {
+        "CStreamer.Plugins.Interfaces.IPadFormat CStreamer.Plugins.Interfaces.PadFormat::Any()": {
+          "Lines": {
+            "20": 2,
+            "21": 2,
+            "22": 2
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.IPadFormat CStreamer.Plugins.Interfaces.PadFormat::OfName(System.String)": {
+          "Lines": {
+            "30": 0,
+            "31": 0,
+            "32": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\PadNamedContent.cs": {
+      "CStreamer.Plugins.Interfaces.PadNamedContent": {
+        "System.Boolean CStreamer.Plugins.Interfaces.PadNamedContent::CanAccept(CStreamer.Plugins.Interfaces.IPadContent)": {
+          "Lines": {
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0
+          },
+          "Branches": [
+            {
+              "Line": 21,
+              "Offset": 9,
+              "EndOffset": 15,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 21,
+              "Offset": 9,
+              "EndOffset": 35,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.String CStreamer.Plugins.Interfaces.PadNamedContent::ToString()": {
+          "Lines": {
+            "29": 0,
+            "30": 0,
+            "31": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Interfaces.PadNamedContent::.ctor(System.String)": {
+          "Lines": {
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\PadNamedFormat.cs": {
+      "CStreamer.Plugins.Interfaces.PadNamedFormat": {
+        "System.Boolean CStreamer.Plugins.Interfaces.PadNamedFormat::CanAccept(CStreamer.Plugins.Interfaces.IPadFormat)": {
+          "Lines": {
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0,
+            "26": 0
+          },
+          "Branches": [
+            {
+              "Line": 21,
+              "Offset": 9,
+              "EndOffset": 15,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 21,
+              "Offset": 9,
+              "EndOffset": 35,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.String CStreamer.Plugins.Interfaces.PadNamedFormat::ToString()": {
+          "Lines": {
+            "29": 0,
+            "30": 0,
+            "31": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Interfaces.PadNamedFormat::.ctor(System.String)": {
+          "Lines": {
+            "14": 0,
+            "15": 0,
+            "16": 0,
+            "17": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\PadOutput.cs": {
+      "CStreamer.Plugins.Interfaces.PadOutput": {
+        "CStreamer.Plugins.Interfaces.IPadFormat CStreamer.Plugins.Interfaces.PadOutput::get_Format()": {
+          "Lines": {
+            "21": 1
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.IPadContent CStreamer.Plugins.Interfaces.PadOutput::get_Content()": {
+          "Lines": {
+            "29": 1
+          },
+          "Branches": []
+        },
+        "System.String CStreamer.Plugins.Interfaces.PadOutput::ToString()": {
+          "Lines": {
+            "33": 0,
+            "34": 0,
+            "35": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\Messages\\ErrorMessage.cs": {
+      "CStreamer.Plugins.Interfaces.Messages.ErrorMessage": {
+        "System.String CStreamer.Plugins.Interfaces.Messages.ErrorMessage::get_ErrorText()": {
+          "Lines": {
+            "31": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Interfaces.Messages.ErrorMessage::.ctor(System.String)": {
+          "Lines": {
+            "20": 0,
+            "21": 0,
+            "22": 0,
+            "23": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\Messages\\PadsLinkedMessage.cs": {
+      "CStreamer.Plugins.Interfaces.Messages.PadsLinkedMessage": {
+        "CStreamer.Plugins.Interfaces.ISrcPad CStreamer.Plugins.Interfaces.Messages.PadsLinkedMessage::get_SrcPad()": {
+          "Lines": {
+            "33": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.ISinkPad CStreamer.Plugins.Interfaces.Messages.PadsLinkedMessage::get_SinkPad()": {
+          "Lines": {
+            "41": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Interfaces.Messages.PadsLinkedMessage::.ctor(CStreamer.Plugins.Interfaces.ISrcPad,CStreamer.Plugins.Interfaces.ISinkPad)": {
+          "Lines": {
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\Messages\\PadsUnlinkedMessage.cs": {
+      "CStreamer.Plugins.Interfaces.Messages.PadsUnlinkedMessage": {
+        "CStreamer.Plugins.Interfaces.ISrcPad CStreamer.Plugins.Interfaces.Messages.PadsUnlinkedMessage::get_SrcPad()": {
+          "Lines": {
+            "33": 0
+          },
+          "Branches": []
+        },
+        "CStreamer.Plugins.Interfaces.ISinkPad CStreamer.Plugins.Interfaces.Messages.PadsUnlinkedMessage::get_SinkPad()": {
+          "Lines": {
+            "41": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Interfaces.Messages.PadsUnlinkedMessage::.ctor(CStreamer.Plugins.Interfaces.ISrcPad,CStreamer.Plugins.Interfaces.ISinkPad)": {
+          "Lines": {
+            "21": 0,
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\Users\\Fritz\\Documents\\Projects\\CStreamer\\CStreamer.Plugins.Interfaces\\Attributes\\ElementNameAttribute.cs": {
+      "CStreamer.Plugins.Attributes.ElementNameAttribute": {
+        "System.String CStreamer.Plugins.Attributes.ElementNameAttribute::get_Name()": {
+          "Lines": {
+            "33": 0
+          },
+          "Branches": []
+        },
+        "System.Void CStreamer.Plugins.Attributes.ElementNameAttribute::.ctor(System.String)": {
+          "Lines": {
+            "22": 0,
+            "23": 0,
+            "24": 0,
+            "25": 0
+          },
+          "Branches": []
+        }
+      }
+    }
+  }
+}

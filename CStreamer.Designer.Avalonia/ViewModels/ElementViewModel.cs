@@ -7,8 +7,9 @@
 
 namespace CStreamer.Designer.Avalonia.ViewModels
 {
+    using CStreamer.Base;
+    using CStreamer.Base.BaseElements;
     using CStreamer.Designer.Avalonia.Helper;
-    using CStreamer.Plugins.Interfaces;
     using global::Avalonia;
     using ReactiveUI;
 

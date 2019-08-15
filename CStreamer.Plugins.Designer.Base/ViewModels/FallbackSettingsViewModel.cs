@@ -8,12 +8,12 @@
 namespace CStreamer.Plugins.Designer.Base.ViewModels
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Text;
+    using System.Reflection;
+    using CStreamer.Base;
+    using CStreamer.Base.BaseElements;
     using CStreamer.Plugins.Designer.Base.ViewModels.Settings;
-    using CStreamer.Plugins.Interfaces;
 
     internal class FallbackSettingsViewModel
     {
@@ -21,15 +21,27 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels
         {
             this.Element = element;
 
-            this.Settings = new ObservableCollection<ISettingViewModel>(element.GetPropertyBindings().Select<IPropertyBinding, ISettingViewModel>(
-                bind =>
-                    bind switch
-                    {
-                        IPropertyBinding<string> b => (ISettingViewModel)new StringSettingViewModel(b),
-                        IPropertyBinding<double> b => (ISettingViewModel)new DoubleSettingViewModel(b),
-                        IPropertyBinding<int> b => (ISettingViewModel)new IntSettingViewModel(b),
-                        IPropertyBinding b => new ObjectSettingsViewModel(b)
-                    }));
+            this.Settings = new ObservableCollection<ISettingViewModel>(element.GetProperties().Select<PropertyInfo, ISettingViewModel>(
+                property =>
+                 {
+                     Type propertyType = property.PropertyType;
+                     if (propertyType == typeof(string))
+                     {
+                         return new StringSettingViewModel(element, property);
+                     }
+                     else if (propertyType == typeof(double))
+                     {
+                         return new DoubleSettingViewModel(element, property);
+                     }
+                     else if (propertyType == typeof(int))
+                     {
+                         return new IntSettingViewModel(element, property);
+                     }
+                     else
+                     {
+                         return new ObjectSettingsViewModel(property.Name, property.GetValue(element) as object);
+                     }
+                 }));
         }
 
         public IElement Element { get; }

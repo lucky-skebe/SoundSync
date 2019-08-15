@@ -8,7 +8,12 @@
 namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
 {
     using System;
-    using CStreamer.Plugins.Interfaces;
+    using System.ComponentModel;
+    using System.Reactive.Disposables;
+    using System.Reactive.Linq;
+    using System.Reflection;
+    using CStreamer.Base.BaseElements;
+    using CStreamer.Base.Events;
     using ReactiveUI;
 
     /// <summary>
@@ -19,36 +24,46 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
     internal abstract class BaseSettingViewModel<TValue> : ViewModelBase, ISettingViewModel
         where TValue : IEquatable<TValue>
     {
-        private readonly IPropertyBinding<TValue> binding;
+        private readonly IElement element;
+        private readonly PropertyInfo property;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseSettingViewModel{TValue}"/> class.
         /// </summary>
-        /// <param name="binding">The underlying PropertyBinding.</param>
-        protected BaseSettingViewModel(IPropertyBinding<TValue> binding)
+        /// <param name="element">The underlying CStreamer Element.</param>
+        /// <param name="property">The Property this ViewModel binds to.</param>
+        protected BaseSettingViewModel(IElement element, PropertyInfo property)
         {
-            this.binding = binding;
+            this.element = element;
+            this.property = property;
 
-            this.binding.ValueChanged += this.Binding_ValueChanged;
-            this.Name = binding.Name;
+            this.Name = property.Name;
+
+            this.WhenActivated(disposables =>
+            {
+                Observable
+                    .FromEvent<PropertyChangedEventHandler, PropertyChangedEventArgs>(handler => element.PropertyChanged += handler, handler => element.PropertyChanged -= handler)
+                    .Where(args => args.PropertyName == string.Empty || args.PropertyName == this.Name)
+                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .Subscribe(_ => this.RaisePropertyChanged("Value"))
+                    .DisposeWith(disposables);
+            });
         }
 
         /// <summary>
-        /// Gets the Value of the underlying PropertyBinding.
+        /// Gets or sets the Value of the underlying PropertyBinding.
         /// </summary>
         /// <value>
         /// The Value of the underlying PropertyBinding.
         /// </value>
         public TValue Value
         {
-            get => this.binding.Value;
-            private set
+            get => (TValue)this.property.GetValue(this.element);
+            set
             {
                 if (!this.Value.Equals(value))
                 {
-                    this.RaisePropertyChanging();
-                    this.binding.Value = value;
-                    this.RaisePropertyChanged();
+                    this.property.SetValue(this.element, value);
                 }
             }
         }
@@ -63,11 +78,6 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
         public string Name
         {
             get;
-        }
-
-        private void Binding_ValueChanged(object sender, BindingValueChangedEventArgs<TValue> e)
-        {
-            this.RaisePropertyChanged(nameof(this.Value));
         }
     }
 }

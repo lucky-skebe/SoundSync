@@ -7,7 +7,7 @@
 
 namespace CStreamer.Events
 {
-    using CStreamer.Plugins.Interfaces;
+    using CStreamer.Base.BaseElements;
 
     /// <summary>
     /// Provides data for the <see cref="PipeLine.ElementsUnlinked" /> event.

@@ -7,7 +7,7 @@
 
 namespace CStreamer.Plugins.Designer.Base
 {
-    using CStreamer.Plugins.Interfaces;
+    using CStreamer.Base.BaseElements;
     using global::Avalonia.Controls;
     using global::Avalonia.Controls.Templates;
 

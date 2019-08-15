@@ -12,6 +12,7 @@ namespace CStreamer.Designer.Avalonia.ViewModels
     using System.IO;
     using System.Reactive;
     using System.Reactive.Disposables;
+    using CStreamer.Base;
     using CStreamer.Designer.Avalonia.Helper;
     using global::Avalonia.Controls;
     using Newtonsoft.Json;

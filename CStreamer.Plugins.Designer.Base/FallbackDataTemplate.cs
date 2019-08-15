@@ -9,9 +9,9 @@ namespace CStreamer.Plugins.Designer.Base
 {
     using Avalonia.Controls;
     using Avalonia.Controls.Templates;
+    using CStreamer.Base.BaseElements;
     using CStreamer.Plugins.Designer.Base.ViewModels;
     using CStreamer.Plugins.Designer.Base.Views;
-    using CStreamer.Plugins.Interfaces;
 
     internal class FallbackDataTemplate : IDataTemplate
     {

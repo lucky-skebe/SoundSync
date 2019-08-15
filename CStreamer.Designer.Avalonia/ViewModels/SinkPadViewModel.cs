@@ -7,9 +7,9 @@
 
 namespace CStreamer.Designer.Avalonia.ViewModels
 {
+    using CStreamer.Base.BaseElements;
     using CStreamer.Designer.Avalonia.Helper;
     using CStreamer.Designer.Avalonia.Views;
-    using CStreamer.Plugins.Interfaces;
 
     [LocateView(typeof(PadView))]
     internal class SinkPadViewModel : PadViewModel

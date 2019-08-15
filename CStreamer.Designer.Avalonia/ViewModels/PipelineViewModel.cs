@@ -16,9 +16,9 @@ namespace CStreamer.Designer.Avalonia.ViewModels
     using System.Reactive.Linq;
     using System.Threading.Tasks;
     using CStreamer.Base;
+    using CStreamer.Base.BaseElements;
     using CStreamer.Designer.Avalonia.Helper;
     using CStreamer.Events;
-    using CStreamer.Plugins.Interfaces;
     using global::Avalonia;
     using ReactiveUI;
 

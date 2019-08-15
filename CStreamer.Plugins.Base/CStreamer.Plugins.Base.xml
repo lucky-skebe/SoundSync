@@ -14,7 +14,7 @@
             The Childpads chould be ordered from least taxing conversion to most taxing conversion since the Pads will be tried during linking in the order of the list.
             </remarks>
         </member>
-        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Collections.Generic.List{CStreamer.Plugins.Interfaces.ISinkPad},System.Boolean)">
+        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.#ctor(CStreamer.Base.BaseElements.IElement,System.String,System.Collections.Generic.List{CStreamer.Base.BaseElements.ISinkPad},System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.CompositeSinkPad"/> class.
             </summary>
@@ -24,7 +24,12 @@
             <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
         </member>
         <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.ChildPads">
-            <inheritdoc/>
+            <summary>
+            Gets the child pads.
+            </summary>
+            <value>
+            The child pads.
+            </value>
         </member>
         <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.Peer">
             <inheritdoc/>
@@ -44,16 +49,16 @@
         <member name="P:CStreamer.Plugins.Base.CompositeSinkPad.Filter">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Equals(CStreamer.Plugins.Interfaces.ISinkPad)">
+        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Equals(CStreamer.Base.BaseElements.ISinkPad)">
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.IsLinked">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Link(CStreamer.Plugins.Interfaces.ISrcPad)">
+        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Link(CStreamer.Base.BaseElements.ISrcPad)">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Link(CStreamer.Plugins.Interfaces.IPad)">
+        <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Link(CStreamer.Base.BaseElements.IPad)">
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.CompositeSinkPad.Unlink">
@@ -69,7 +74,7 @@
             The Childpads chould be ordered from least taxing conversion to most taxing conversion since the Pads will be tried during linking in the order of the list.
             </remarks>
         </member>
-        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Collections.Generic.List{CStreamer.Plugins.Interfaces.ISrcPad},System.Boolean)">
+        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.#ctor(CStreamer.Base.BaseElements.IElement,System.String,System.Collections.Generic.List{CStreamer.Base.BaseElements.ISrcPad},System.Boolean)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.CompositeSrcPad"/> class.
             </summary>
@@ -79,7 +84,12 @@
             <param name="mandatory">A value indicating whether the Pad needs to be linked for the element to be functional.</param>
         </member>
         <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.ChildPads">
-            <inheritdoc/>
+            <summary>
+            Gets the child pads.
+            </summary>
+            <value>
+            The child pads.
+            </value>
         </member>
         <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.Peer">
             <inheritdoc/>
@@ -99,16 +109,16 @@
         <member name="P:CStreamer.Plugins.Base.CompositeSrcPad.Output">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Equals(CStreamer.Plugins.Interfaces.ISrcPad)">
+        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Equals(CStreamer.Base.BaseElements.ISrcPad)">
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.IsLinked">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Link(CStreamer.Plugins.Interfaces.ISinkPad)">
+        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Link(CStreamer.Base.BaseElements.ISinkPad)">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Link(CStreamer.Plugins.Interfaces.IPad)">
+        <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Link(CStreamer.Base.BaseElements.IPad)">
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.CompositeSrcPad.Unlink">
@@ -125,6 +135,9 @@
             </summary>
             <param name="name">the name ot the element.</param>
         </member>
+        <member name="E:CStreamer.Plugins.Base.Element.PropertyChanged">
+            <inheritdoc/>
+        </member>
         <member name="P:CStreamer.Plugins.Base.Element.Name">
             <inheritdoc/>
         </member>
@@ -134,17 +147,11 @@
         <member name="P:CStreamer.Plugins.Base.Element.Parent">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.Element.GoToState(CStreamer.State)">
+        <member name="M:CStreamer.Plugins.Base.Element.GoToState(CStreamer.Base.State)">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.Element.SendMessage(CStreamer.Plugins.Interfaces.Messages.Message)">
+        <member name="M:CStreamer.Plugins.Base.Element.SendMessage(CStreamer.Base.Messages.Message)">
             <inheritdoc/>
-        </member>
-        <member name="M:CStreamer.Plugins.Base.Element.GetPropertyBindings">
-            <summary>
-            Gets a list of all Property bindings that should be serialized/deserialized.
-            </summary>
-            <returns>List of all the PropertyBindings of hte element.</returns>
         </member>
         <member name="M:CStreamer.Plugins.Base.Element.GetPads">
             <inheritdoc/>
@@ -212,7 +219,7 @@
              </summary>
              <typeparam name="TValue">The typt of value this pad can accept.</typeparam>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SinkPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Action{`0},System.Boolean,CStreamer.Plugins.Interfaces.PadFilter)">
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.#ctor(CStreamer.Base.BaseElements.IElement,System.String,System.Action{`0},System.Boolean,CStreamer.Base.Filter.PadFilter)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.SinkPad`1"/> class.
             </summary>
@@ -266,19 +273,19 @@
         <member name="M:CStreamer.Plugins.Base.SinkPad`1.Unlink">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Equals(CStreamer.Plugins.Interfaces.ISinkPad)">
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Equals(CStreamer.Base.BaseElements.ISinkPad)">
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.SinkPad`1.GetHashCode">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Link(CStreamer.Plugins.Interfaces.ISrcPad{`0})">
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Link(CStreamer.Base.BaseElements.ISrcPad{`0})">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Link(CStreamer.Plugins.Interfaces.ISrcPad)">
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Link(CStreamer.Base.BaseElements.ISrcPad)">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Link(CStreamer.Plugins.Interfaces.IPad)">
+        <member name="M:CStreamer.Plugins.Base.SinkPad`1.Link(CStreamer.Base.BaseElements.IPad)">
             <inheritdoc/>
         </member>
         <member name="T:CStreamer.Plugins.Base.SrcPad`1">
@@ -289,7 +296,7 @@
              </summary>
              <typeparam name="TValue">The typt of value this pad can push throu the pipeline.</typeparam>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SrcPad`1.#ctor(CStreamer.Plugins.Interfaces.IElement,System.String,System.Boolean,CStreamer.Plugins.Interfaces.PadOutput)">
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.#ctor(CStreamer.Base.BaseElements.IElement,System.String,System.Boolean,CStreamer.Base.Filter.PadOutput)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Base.SrcPad`1"/> class.
             </summary>
@@ -333,62 +340,19 @@
         <member name="M:CStreamer.Plugins.Base.SrcPad`1.Unlink">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Equals(CStreamer.Plugins.Interfaces.ISrcPad)">
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Equals(CStreamer.Base.BaseElements.ISrcPad)">
             <inheritdoc/>
         </member>
         <member name="M:CStreamer.Plugins.Base.SrcPad`1.GetHashCode">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Link(CStreamer.Plugins.Interfaces.ISinkPad{`0})">
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Link(CStreamer.Base.BaseElements.ISinkPad{`0})">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Link(CStreamer.Plugins.Interfaces.ISinkPad)">
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Link(CStreamer.Base.BaseElements.ISinkPad)">
             <inheritdoc/>
         </member>
-        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Link(CStreamer.Plugins.Interfaces.IPad)">
-            <inheritdoc/>
-        </member>
-        <member name="T:CStreamer.PropertyBinding`1">
-            <summary>
-            Describes how to set/get a certain properties value.
-            </summary>
-            <typeparam name="TValue">The Type of the underlying property.</typeparam>
-        </member>
-        <member name="M:CStreamer.PropertyBinding`1.#ctor(System.String,System.Action{`0},System.Func{`0},System.Func{System.Object,Optional.Option{`0}})">
-            <summary>
-            Initializes a new instance of the <see cref="T:CStreamer.PropertyBinding`1"/> class.
-            </summary>
-            <param name="name">The name of the property.</param>
-            <param name="setValue">How to set the properties value.</param>
-            <param name="getValue">How to get teh properties value.</param>
-            <param name="convert">a Custom conversion logic if no generic cast can be determined.</param>
-        </member>
-        <member name="M:CStreamer.PropertyBinding`1.#ctor(System.Linq.Expressions.Expression{System.Func{`0}})">
-            <summary>
-            Initializes a new instance of the <see cref="T:CStreamer.PropertyBinding`1"/> class.
-            </summary>
-            <param name="property">An expression thast is used to automatically create a nes proprety binding.</param>
-        </member>
-        <member name="E:CStreamer.PropertyBinding`1.ValueChanged">
-            <inheritdoc/>
-        </member>
-        <member name="P:CStreamer.PropertyBinding`1.Name">
-            <inheritdoc/>
-        </member>
-        <member name="P:CStreamer.PropertyBinding`1.Value">
-            <inheritdoc/>
-        </member>
-        <member name="M:CStreamer.PropertyBinding`1.RaiseValueChanged(`0)">
-            <summary>
-            Raises a <see cref="E:CStreamer.PropertyBinding`1.ValueChanged"/> Event.
-            Use this in your Elements when property values change.
-            </summary>
-            <param name="value">The new value of the Property.</param>
-        </member>
-        <member name="M:CStreamer.PropertyBinding`1.GetValue">
-            <inheritdoc/>
-        </member>
-        <member name="M:CStreamer.PropertyBinding`1.TrySetValue(CStreamer.PropertyValue)">
+        <member name="M:CStreamer.Plugins.Base.SrcPad`1.Link(CStreamer.Base.BaseElements.IPad)">
             <inheritdoc/>
         </member>
     </members>

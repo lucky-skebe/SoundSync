@@ -109,6 +109,21 @@
             If you want to Force your datatemplate do be used. (Mainly during development).
             </summary>
         </member>
+        <member name="T:CStreamer.Plugins.Designer.Base.TypeExtensions">
+            <summary>
+            Extension Methods for the Type type.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Plugins.Designer.Base.TypeExtensions.GetGenericTypeImplementation(System.Type,System.Type)">
+             <summary>
+             Gets a Generic type implementation of a given type.
+            
+             So if instanceType inherits genericType{} it returns genericType{T}.
+             </summary>
+             <param name="instanceType">The type to check.</param>
+             <param name="genericType">The generic type to check for as opengeneric.</param>
+             <returns>The specific type implementation or null if it doesn't inherit that type.</returns>
+        </member>
         <member name="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.BaseSettingViewModel`1">
             <summary>
             A Simple ViewModel that contains a Name and a Value.
@@ -116,7 +131,7 @@
             </summary>
             <typeparam name="TValue">The Type of the <see cref="P:CStreamer.Plugins.Designer.Base.ViewModels.Settings.BaseSettingViewModel`1.Value"/> Property.</typeparam>
         </member>
-        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.BaseSettingViewModel`1.#ctor(CStreamer.Plugins.Interfaces.IPropertyBinding{`0})">
+        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.BaseSettingViewModel`1.#ctor(CStreamer.Base.BaseElements.IElement,System.Reflection.PropertyInfo)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.BaseSettingViewModel`1"/> class.
             </summary>
@@ -145,7 +160,7 @@
             Used for presenting a simple Settings Control.
             </summary>
         </member>
-        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.DoubleSettingViewModel.#ctor(CStreamer.Plugins.Interfaces.IPropertyBinding{System.Double})">
+        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.DoubleSettingViewModel.#ctor(CStreamer.Base.BaseElements.IElement,System.Reflection.PropertyInfo)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.DoubleSettingViewModel"/> class.
             </summary>
@@ -157,7 +172,7 @@
             Used for presenting a simple Settings Control.
             </summary>
         </member>
-        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.IntSettingViewModel.#ctor(CStreamer.Plugins.Interfaces.IPropertyBinding{System.Int32})">
+        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.IntSettingViewModel.#ctor(CStreamer.Base.BaseElements.IElement,System.Reflection.PropertyInfo)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.IntSettingViewModel"/> class.
             </summary>
@@ -174,7 +189,7 @@
             Used for presenting a simple Settings Control.
             </summary>
         </member>
-        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.ObjectSettingsViewModel.#ctor(CStreamer.Plugins.Interfaces.IPropertyBinding)">
+        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.ObjectSettingsViewModel.#ctor(System.String,System.Object)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.ObjectSettingsViewModel"/> class.
             </summary>
@@ -186,7 +201,7 @@
             Used for presenting a simple Settings Control.
             </summary>
         </member>
-        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.StringSettingViewModel.#ctor(CStreamer.Plugins.Interfaces.IPropertyBinding{System.String})">
+        <member name="M:CStreamer.Plugins.Designer.Base.ViewModels.Settings.StringSettingViewModel.#ctor(CStreamer.Base.BaseElements.IElement,System.Reflection.PropertyInfo)">
             <summary>
             Initializes a new instance of the <see cref="T:CStreamer.Plugins.Designer.Base.ViewModels.Settings.StringSettingViewModel"/> class.
             </summary>

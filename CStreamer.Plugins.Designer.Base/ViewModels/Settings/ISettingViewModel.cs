@@ -7,10 +7,12 @@
 
 namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
 {
+    using ReactiveUI;
+
     /// <summary>
     /// A MArker interface to find all SettingsViewModels.
     /// </summary>
-    public interface ISettingViewModel
+    public interface ISettingViewModel : ISupportsActivation
     {
     }
 }

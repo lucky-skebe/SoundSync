@@ -12,8 +12,10 @@ namespace CStreamer.Plugins.Basic
     using System.Threading;
     using System.Threading.Tasks;
     using CStreamer;
+    using CStreamer.Base;
+    using CStreamer.Base.Attributes;
+    using CStreamer.Base.BaseElements;
     using CStreamer.Plugins.Base;
-    using CStreamer.Plugins.Interfaces;
 
     /// <summary>
     /// Takes an average over all inputdata over a given amount of time.
@@ -78,6 +80,7 @@ namespace CStreamer.Plugins.Basic
         /// <value>
         /// The amount of millisecods between every average calculation.
         /// </value>
+        [Property]
         public int AVGMs { get; set; } = 50;
 
         /// <summary>
@@ -102,12 +105,6 @@ namespace CStreamer.Plugins.Basic
         {
             get;
             private set;
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
-        {
-            yield return new PropertyBinding<int>(() => this.AVGMs);
         }
 
         /// <inheritdoc/>

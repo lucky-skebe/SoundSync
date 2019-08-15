@@ -7,7 +7,8 @@
 
 namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
 {
-    using CStreamer.Plugins.Interfaces;
+    using System.Reflection;
+    using CStreamer.Base.BaseElements;
 
     /// <summary>
     /// A Simple ViewModel that contains a Name and a Value.
@@ -18,9 +19,10 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
         /// <summary>
         /// Initializes a new instance of the <see cref="StringSettingViewModel"/> class.
         /// </summary>
-        /// <param name="binding">The underlying PropertyBinding.</param>
-        public StringSettingViewModel(IPropertyBinding<string> binding)
-            : base(binding)
+        /// <param name="element">The underlying CStreamer Element.</param>
+        /// <param name="property"></param>
+        public StringSettingViewModel(IElement element, PropertyInfo property)
+            : base(element, property)
         {
         }
     }

@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Plugins.Designer.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Plugins.Designer.Buttplug", "CStreamer.Plugins.Designer.Buttplug\CStreamer.Plugins.Designer.Buttplug.csproj", "{4A02572C-6022-4138-B50F-20C6E09B0BB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CStreamer.Plugins.Basic.Tests", "CStreamer.Plugins.Basic.Tests\CStreamer.Plugins.Basic.Tests.csproj", "{D9BBDBD2-E732-43D0-86C1-CFD70B6A558A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CStreamer.Plugins.Basic.Tests", "CStreamer.Plugins.Basic.Tests\CStreamer.Plugins.Basic.Tests.csproj", "{D9BBDBD2-E732-43D0-86C1-CFD70B6A558A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{05A28278-3920-4813-A6D3-A4310513FC27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,6 +179,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{681A7B99-46A4-4CBF-978E-8568AA3AC873} = {BDF56C5D-5949-4C29-AD07-81C4C3EBA8E3}
+		{B9E12FDE-6250-4743-BAD6-A03C984F9BC3} = {05A28278-3920-4813-A6D3-A4310513FC27}
 		{7C100CB8-B804-449D-94D8-837EE360E9C0} = {BDF56C5D-5949-4C29-AD07-81C4C3EBA8E3}
 		{90BB8EE2-EB1E-43F7-87B2-5B9A6C557CCC} = {BDF56C5D-5949-4C29-AD07-81C4C3EBA8E3}
 		{9F8FFAEF-FACD-4228-98B1-BF3E884D5B66} = {BDF56C5D-5949-4C29-AD07-81C4C3EBA8E3}

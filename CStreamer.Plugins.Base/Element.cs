@@ -9,10 +9,11 @@ namespace CStreamer.Plugins.Base
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Threading.Tasks;
     using CStreamer.Base;
-    using CStreamer.Plugins.Interfaces;
-    using CStreamer.Plugins.Interfaces.Messages;
+    using CStreamer.Base.BaseElements;
+    using CStreamer.Base.Messages;
 
     /// <summary>
     /// Baseclass for all element.
@@ -28,6 +29,9 @@ namespace CStreamer.Plugins.Base
             this.Name = name ?? $"{this.GetElementName()}-{Guid.NewGuid()}";
             this.CurrentState = State.Stopped;
         }
+
+        /// <inheritdoc/>
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <inheritdoc/>
         public string Name { get; }
@@ -74,12 +78,6 @@ namespace CStreamer.Plugins.Base
         {
             this.Parent?.ReceiveMessage(message);
         }
-
-        /// <summary>
-        /// Gets a list of all Property bindings that should be serialized/deserialized.
-        /// </summary>
-        /// <returns>List of all the PropertyBindings of hte element.</returns>
-        public abstract IEnumerable<IPropertyBinding> GetPropertyBindings();
 
         /// <inheritdoc/>
         public abstract IEnumerable<IPad> GetPads();

@@ -10,7 +10,6 @@ namespace CStreamer.Plugins.Designer.Base
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using CStreamer.Base;
     using CStreamer.Plugins.Base;
     using global::Avalonia.Controls;
     using global::Avalonia.Controls.Templates;

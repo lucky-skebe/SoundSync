@@ -8,8 +8,10 @@
 namespace CStreamer.Plugins.Base
 {
     using System;
-    using CStreamer.Plugins.Interfaces;
-    using CStreamer.Plugins.Interfaces.Messages;
+    using CStreamer.Base;
+    using CStreamer.Base.BaseElements;
+    using CStreamer.Base.Filter;
+    using CStreamer.Base.Messages;
     using Optional;
 
     /// <summary>
@@ -160,7 +162,7 @@ namespace CStreamer.Plugins.Base
             {
                 return this.Link(truePeer).Map<ISrcPad>(p => p);
             }
-            else if (peer is ICompositeSrcPad composite)
+            else if (peer is CompositeSrcPad composite)
             {
                 foreach (var childPad in composite.ChildPads)
                 {

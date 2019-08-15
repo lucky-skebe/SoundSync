@@ -11,8 +11,9 @@ namespace CStreamer.Plugins.Base
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using CStreamer.Plugins.Interfaces;
-    using CStreamer.Plugins.Interfaces.Messages;
+    using CStreamer.Base.BaseElements;
+    using CStreamer.Base.Filter;
+    using CStreamer.Base.Messages;
     using Optional;
 
     /// <summary>
@@ -23,7 +24,7 @@ namespace CStreamer.Plugins.Base
     /// To do so add pads for all supportrd InputTypes / Formats indo the ChildPads list.
     /// The Childpads chould be ordered from least taxing conversion to most taxing conversion since the Pads will be tried during linking in the order of the list.
     /// </remarks>
-    public class CompositeSinkPad : ICompositeSinkPad
+    public class CompositeSinkPad : ISinkPad
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CompositeSinkPad"/> class.
@@ -40,7 +41,12 @@ namespace CStreamer.Plugins.Base
             this.Mandatory = mandatory;
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the child pads.
+        /// </summary>
+        /// <value>
+        /// The child pads.
+        /// </value>
         public List<ISinkPad> ChildPads { get; }
 
         /// <inheritdoc/>

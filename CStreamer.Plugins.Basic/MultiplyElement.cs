@@ -9,8 +9,10 @@ namespace CStreamer.Plugins.Basic
 {
     using System.Collections.Generic;
     using CStreamer;
+    using CStreamer.Base;
+    using CStreamer.Base.Attributes;
+    using CStreamer.Base.BaseElements;
     using CStreamer.Plugins.Base;
-    using CStreamer.Plugins.Interfaces;
 
     /// <summary>
     /// An Element that multiplies the input by a fixed value.
@@ -34,6 +36,7 @@ namespace CStreamer.Plugins.Basic
         /// <value>
         /// the amount the input gets multiplied by.
         /// </value>
+        [Property]
         public double Multiplier { get; set; } = 10;
 
         /// <summary>
@@ -75,12 +78,6 @@ namespace CStreamer.Plugins.Basic
         {
             yield return this.Sink;
             yield return this.Src;
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
-        {
-            yield return new PropertyBinding<double>(() => this.Multiplier);
         }
     }
 }

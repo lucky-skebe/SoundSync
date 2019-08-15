@@ -9,8 +9,9 @@ namespace CStreamer.Plugins.Basic
 {
     using System.Collections.Generic;
     using System.Linq;
+    using CStreamer.Base;
+    using CStreamer.Base.BaseElements;
     using CStreamer.Plugins.Base;
-    using CStreamer.Plugins.Interfaces;
 
     /// <summary>
     /// An Element that enumerates an input <see cref="IEnumerable{T}"/> and pusches out the single values.
@@ -71,12 +72,6 @@ namespace CStreamer.Plugins.Basic
         {
             yield return this.Sink;
             yield return this.Src;
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
-        {
-            return Enumerable.Empty<IPropertyBinding>();
         }
     }
 }

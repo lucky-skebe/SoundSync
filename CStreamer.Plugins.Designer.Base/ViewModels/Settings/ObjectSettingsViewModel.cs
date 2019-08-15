@@ -7,7 +7,7 @@
 
 namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
 {
-    using CStreamer.Plugins.Interfaces;
+    using CStreamer.Base;
     using ReactiveUI;
 
     /// <summary>
@@ -21,11 +21,12 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
         /// <summary>
         /// Initializes a new instance of the <see cref="ObjectSettingsViewModel"/> class.
         /// </summary>
-        /// <param name="binding">The underlying PropertyBinding.</param>
-        public ObjectSettingsViewModel(IPropertyBinding binding)
+        /// <param name="name">The Name of the Property.</param>
+        /// <param name="value">The Value to bind to.</param>
+        public ObjectSettingsViewModel(string name, object? value)
         {
-            this.value = binding.GetValue().Value;
-            this.Name = binding.Name;
+            this.value = value;
+            this.Name = name;
         }
 
         public object? Value

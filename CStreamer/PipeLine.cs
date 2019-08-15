@@ -13,10 +13,10 @@ namespace CStreamer
     using System.Reflection;
     using System.Threading.Tasks;
     using CStreamer.Base;
+    using CStreamer.Base.BaseElements;
+    using CStreamer.Base.Messages;
     using CStreamer.Events;
     using CStreamer.PipeLineDefinitions;
-    using CStreamer.Plugins.Interfaces;
-    using CStreamer.Plugins.Interfaces.Messages;
     using Optional;
 
     /// <summary>
@@ -82,7 +82,10 @@ namespace CStreamer
 
             foreach (var element in this.elements)
             {
-                pipeline.Elements.Add(new ElementDefinition(element.GetElementName(), element.Name, element.GetPropertyValues().ToList()));
+                var props = element.GetPropertyValues().ToList();
+                var oks = props.Where(p => p.Item2.HasValue).Select(p => new PropertyValue(p.Item1, p.Item2.ValueOr((object?)null))).ToList();
+
+                pipeline.Elements.Add(new ElementDefinition(element.GetElementName(), element.Name, oks));
 
                 foreach (var srcPad in element.GetSrcPads())
                 {

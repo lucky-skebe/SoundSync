@@ -10,10 +10,10 @@ namespace CStreamer
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
-    using CStreamer.Plugins.Attributes;
+    using CStreamer.Base;
+    using CStreamer.Base.Attributes;
+    using CStreamer.Base.BaseElements;
     using CStreamer.Plugins.Base;
-    using CStreamer.Plugins.Interfaces;
 
     /// <summary>
     /// Create elements give a factoryType name.

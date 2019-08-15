@@ -9,8 +9,9 @@ namespace CStreamer.Plugins.Basic
 {
     using System.Collections.Generic;
     using System.Linq;
+    using CStreamer.Base;
+    using CStreamer.Base.BaseElements;
     using CStreamer.Plugins.Base;
-    using CStreamer.Plugins.Interfaces;
 
     /// <summary>
     /// An element to convert between different numeric types.
@@ -107,12 +108,6 @@ namespace CStreamer.Plugins.Basic
         {
             yield return this.Src;
             yield return this.Sink;
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
-        {
-            return Enumerable.Empty<IPropertyBinding>();
         }
     }
 }

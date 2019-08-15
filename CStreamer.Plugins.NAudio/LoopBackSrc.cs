@@ -11,8 +11,9 @@ namespace CStreamer.Plugins.NAudio
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using CStreamer.Base;
+    using CStreamer.Base.BaseElements;
     using CStreamer.Plugins.Base;
-    using CStreamer.Plugins.Interfaces;
     using global::NAudio.Wave;
 
     /// <summary>
@@ -62,12 +63,6 @@ namespace CStreamer.Plugins.NAudio
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
-        {
-            return Enumerable.Empty<IPropertyBinding>();
         }
 
         /// <inheritdoc/>

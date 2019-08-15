@@ -12,8 +12,10 @@ namespace CStreamer.Plugins.Buttplug
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading.Tasks;
+    using CStreamer.Base;
+    using CStreamer.Base.Attributes;
+    using CStreamer.Base.BaseElements;
     using CStreamer.Plugins.Base;
-    using CStreamer.Plugins.Interfaces;
     using global::Buttplug.Client;
     using global::Buttplug.Client.Connectors.WebsocketConnector;
     using Newtonsoft.Json.Linq;
@@ -28,6 +30,7 @@ namespace CStreamer.Plugins.Buttplug
 
         private readonly ButtplugServerStateMachine stateMachine;
 
+        // TODO Serialize and load selectedDevices
         private List<string> selectedDeviceCache;
         private ButtplugClient? client;
         private double lastVal = 0;
@@ -188,17 +191,6 @@ namespace CStreamer.Plugins.Buttplug
         public override IEnumerable<IPad> GetPads()
         {
             yield return this.Sink;
-        }
-
-        /// <inheritdoc/>
-        public override IEnumerable<IPropertyBinding> GetPropertyBindings()
-        {
-            yield return new PropertyBinding<string>(() => this.ServerAddress);
-            yield return new PropertyBinding<List<string>>(
-                "SelectedDevices",
-                (s) => { this.selectedDeviceCache = s; },
-                this.devices.Where(d => d.Selected).Select(w => GetDeviceId(w.Device)).ToList,
-                this.ParseSelectedDeviceCache);
         }
 
         /// <inheritdoc/>

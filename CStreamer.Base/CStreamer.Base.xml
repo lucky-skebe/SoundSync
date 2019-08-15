@@ -4,43 +4,524 @@
         <name>CStreamer.Base</name>
     </assembly>
     <members>
-        <member name="T:CStreamer.Base.StateManager">
+        <member name="T:CStreamer.Base.Attributes.ElementNameAttribute">
             <summary>
-            A helperclass that returns all <see cref="T:CStreamer.State">States</see> a State treansition should go throu.
+            Ueed to set the name an element can be retrieved as.
             </summary>
         </member>
-        <member name="M:CStreamer.Base.StateManager.GetTransitions(CStreamer.State,CStreamer.State)">
+        <member name="M:CStreamer.Base.Attributes.ElementNameAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Base.Attributes.ElementNameAttribute"/> class.
+            </summary>
+            <param name="name">The name to register under.</param>
+        </member>
+        <member name="P:CStreamer.Base.Attributes.ElementNameAttribute.Name">
+            <summary>
+            Gets the name to register under.
+            </summary>
+            <value>
+            The name to register under.
+            </value>
+        </member>
+        <member name="T:CStreamer.Base.BaseElements.IBin">
+            <summary>
+            A Collection of Elements wich can be used like one complete element.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Base.BaseElements.IBin.ReceiveMessage(CStreamer.Base.Messages.Message)">
+            <summary>
+            Receives a message.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="T:CStreamer.Base.BaseElements.IElement">
+            <summary>
+            Defines what members all elements need to implement.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.IElement.Name">
+            <summary>
+            Gets the name of the element.
+            </summary>
+            <value>
+            The name of the element.
+            </value>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.IElement.Parent">
+            <summary>
+            Gets or sets the parent bin / pipeline of this element.
+            </summary>
+            <value>
+            The parent bin / pipeline of this element.
+            </value>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.IElement.CurrentState">
+            <summary>
+            Gets the current state of the element.
+            </summary>
+            <value>
+            The current state of the element.
+            </value>
+        </member>
+        <member name="M:CStreamer.Base.BaseElements.IElement.GoToState(CStreamer.Base.State)">
+            <summary>
+            Tells the element to change to a specific State.
+            Changed to all the inbetween states as well.
+            </summary>
+            <param name="newState">The State to change to.</param>
+            <returns>A task that represents the state change operation.</returns>
+        </member>
+        <member name="M:CStreamer.Base.BaseElements.IElement.GetPads">
+            <summary>
+            Returns all pads of the element.
+            </summary>
+            <returns>All pads.</returns>
+        </member>
+        <member name="M:CStreamer.Base.BaseElements.IElement.SendMessage(CStreamer.Base.Messages.Message)">
+            <summary>
+            Sends a Message to the Containing Bin/Pipeline.
+            </summary>
+            <param name="message">The message to send.</param>
+        </member>
+        <member name="T:CStreamer.Base.BaseElements.IPad">
+            <summary>
+            Describes the minimal requirements of a pad.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.IPad.Parent">
+            <summary>
+            Gets the element this pad is a part of.
+            </summary>
+            <value>
+            The element this pad is a part of.
+            </value>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.IPad.Name">
+            <summary>
+            Gets the Name of the pad.
+            </summary>
+            <value>
+            The Name of the pad.
+            </value>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.IPad.Caps">
+            <summary>
+            Gets the Capabilities of the Pad.
+            </summary>
+            <value>
+            The Capabilities of the Pad.
+            </value>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.IPad.Peer">
+            <summary>
+            Gets the pad on the other side of the link of null if the pad is not linked.
+            </summary>
+            <value>
+            The pad on the other side of the link of null if the pad is not linked.
+            </value>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.IPad.Mandatory">
+            <summary>
+            Gets a value indicating whether the Pad needs to be linked for the element to be functional.
+            </summary>
+            <value>
+            A value indicating whether the Pad needs to be linked for the element to be functional.
+            </value>
+        </member>
+        <member name="M:CStreamer.Base.BaseElements.IPad.IsLinked">
+            <summary>
+            Returns the linking status of the pad.
+            </summary>
+            <returns>true if the pad is linked, false otherwise.</returns>
+        </member>
+        <member name="M:CStreamer.Base.BaseElements.IPad.Unlink">
+            <summary>
+            Unliks the pad from it's peer pad.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Base.BaseElements.IPad.Link(CStreamer.Base.BaseElements.IPad)">
+            <summary>
+            Links this Pad to the provided peer pad.
+            </summary>
+            <param name="peer">the peerpad to link to.</param>
+            <returns>An <see cref="T:Optional.Option`2"/> contianing either the new peer or an error message.</returns>
+        </member>
+        <member name="T:CStreamer.Base.BaseElements.ISinkPad">
+            <summary>
+            Describes the minimum requirements for a SinkPad.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.ISinkPad.Peer">
+            <summary>
+            Gets the pad on the other side of the link of null if the pad is not linked.
+            </summary>
+            <value>
+            The pad on the other side of the link of null if the pad is not linked.
+            </value>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.ISinkPad.Filter">
+            <summary>
+            Gets the filter on the type of content this pad can consume.
+            </summary>
+            <value>
+            The filter on the type of content this pad can consume.
+            </value>
+        </member>
+        <member name="M:CStreamer.Base.BaseElements.ISinkPad.Link(CStreamer.Base.BaseElements.ISrcPad)">
+            <summary>
+            Links this Pad to the provided peer pad.
+            </summary>
+            <param name="peer">the peerpad to link to.</param>
+            <returns>An <see cref="T:Optional.Option`2"/> contianing either the new peer or an error message.</returns>
+        </member>
+        <member name="T:CStreamer.Base.BaseElements.ISinkPad`1">
+            <summary>
+            Describes the minimum requirements for a SinkPad that accepts a certein type.
+            </summary>
+            <typeparam name="TValue" >The type this SinkPad accepts.</typeparam>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.ISinkPad`1.Peer">
+            <summary>
+            Gets the pad on the other side of the link of null if the pad is not linked.
+            </summary>
+            <value>
+            The pad on the other side of the link of null if the pad is not linked.
+            </value>
+        </member>
+        <member name="M:CStreamer.Base.BaseElements.ISinkPad`1.Push(`0)">
+            <summary>
+            Consumes a Value and sends it to it's parent element.
+            </summary>
+            <param name="value">The value to send to it's parent.</param>
+        </member>
+        <member name="M:CStreamer.Base.BaseElements.ISinkPad`1.Link(CStreamer.Base.BaseElements.ISrcPad{`0})">
+            <summary>
+            Links this Pad to the provided peer pad.
+            </summary>
+            <param name="peer">the peerpad to link to.</param>
+            <returns>An <see cref="T:Optional.Option`2"/> contianing either the new peer or an error message.</returns>
+        </member>
+        <member name="T:CStreamer.Base.BaseElements.ISrcPad">
+            <summary>
+            Describes the minimum requirements for a SrcPad.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.ISrcPad.Peer">
+            <summary>
+            Gets the pad on the other side of the link of null if the pad is not linked.
+            </summary>
+            <value>
+            The pad on the other side of the link of null if the pad is not linked.
+            </value>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.ISrcPad.Output">
+            <summary>
+            Gets the output type this pad can produce.
+            </summary>
+            <value>
+            The output type this pad can produce.
+            </value>
+        </member>
+        <member name="M:CStreamer.Base.BaseElements.ISrcPad.Link(CStreamer.Base.BaseElements.ISinkPad)">
+            <summary>
+            Links this Pad to the provided peer pad.
+            </summary>
+            <param name="peer">the peerpad to link to.</param>
+            <returns>An <see cref="T:Optional.Option`2"/> contianing either the new peer or an error message.</returns>
+        </member>
+        <member name="T:CStreamer.Base.BaseElements.ISrcPad`1">
+            <summary>
+            Describes the minimum requirements for a SrcPad that produces a certein type.
+            </summary>
+            <typeparam name="TValue" >The type this SrcPad produces.</typeparam>
+        </member>
+        <member name="P:CStreamer.Base.BaseElements.ISrcPad`1.Peer">
+            <summary>
+            Gets the pad on the other side of the link of null if the pad is not linked.
+            </summary>
+            <value>
+            The pad on the other side of the link of null if the pad is not linked.
+            </value>
+        </member>
+        <member name="M:CStreamer.Base.BaseElements.ISrcPad`1.Link(CStreamer.Base.BaseElements.ISinkPad{`0})">
+            <summary>
+            Links this Pad to the provided peer pad.
+            </summary>
+            <param name="peer">the peerpad to link to.</param>
+            <returns>An <see cref="T:Optional.Option`2"/> contianing either the new peer or an error message.</returns>
+        </member>
+        <member name="T:CStreamer.Base.Events.BindingValueChangedEventArgs">
+            <summary>
+            Describes a change in one of an elements properties.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Base.Events.BindingValueChangedEventArgs.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Base.Events.BindingValueChangedEventArgs"/> class.
+            </summary>
+            <param name="newValue">The new value of the Property.</param>
+        </member>
+        <member name="P:CStreamer.Base.Events.BindingValueChangedEventArgs.NewValue">
+            <summary>
+            Gets the new value of the Property.
+            </summary>
+            <value>
+            The new value of the Property.
+            </value>
+        </member>
+        <member name="T:CStreamer.Base.Events.BindingValueChangedEventArgs`1">
+            <summary>
+            Describes a change in one of an elements properties.
+            </summary>
+            <typeparam name="TValue" >The Type contained in the Property.</typeparam>
+        </member>
+        <member name="M:CStreamer.Base.Events.BindingValueChangedEventArgs`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Base.Events.BindingValueChangedEventArgs`1"/> class.
+            </summary>
+            <param name="newValue">The new value of the Property.</param>
+        </member>
+        <member name="P:CStreamer.Base.Events.BindingValueChangedEventArgs`1.NewValue">
+            <summary>
+            Gets the new value of the Property.
+            </summary>
+            <value>
+            The new value of the Property.
+            </value>
+        </member>
+        <member name="T:CStreamer.Base.Filter.IPadContent">
+            <summary>
+            Interface for all pad contents.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Base.Filter.IPadContent.CanAccept(CStreamer.Base.Filter.IPadContent)">
+            <summary>
+            Determines whether this instance can accept the specified input.
+            </summary>
+            <param name="input">The input.</param>
+            <returns>
+              <c>true</c> if this instance can accept the specified input; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:CStreamer.Base.Filter.IPadFormat">
+            <summary>
+            Interface for all Pad Formats.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Base.Filter.IPadFormat.CanAccept(CStreamer.Base.Filter.IPadFormat)">
+            <summary>
+            Determines whether this instance can accept the specified format.
+            </summary>
+            <param name="format">The format.</param>
+            <returns>
+              <c>true</c> if this instance can accept the specified format; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:CStreamer.Base.Filter.PadFilter">
+            <summary>
+            Describes a filter on a format / contenttype pair.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Base.Filter.PadFilter.Format">
+            <summary>
+            Gets or sets the format filter.
+            </summary>
+            <value>
+            The format filter.
+            </value>
+        </member>
+        <member name="P:CStreamer.Base.Filter.PadFilter.Content">
+            <summary>
+            Gets or sets the content filter.
+            </summary>
+            <value>
+            The content filter.
+            </value>
+        </member>
+        <member name="M:CStreamer.Base.Filter.PadFilter.CanAccept(CStreamer.Base.Filter.PadOutput)">
+            <summary>
+            Determines whether this instance can accept the specified pad output.
+            </summary>
+            <param name="padOutput">The pad output.</param>
+            <returns>
+              <c>true</c> if this instance can accept the specified pad output; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:CStreamer.Base.Filter.PadFilter.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:CStreamer.Base.Filter.PadOutput">
+            <summary>
+            Describes a Output format / content a pad can produce.
+            </summary>
+        </member>
+        <member name="P:CStreamer.Base.Filter.PadOutput.Format">
+            <summary>
+            Gets or sets the format description.
+            </summary>
+            <value>
+            The format description.
+            </value>
+        </member>
+        <member name="P:CStreamer.Base.Filter.PadOutput.Content">
+            <summary>
+            Gets or sets the content description.
+            </summary>
+            <value>
+            The content description.
+            </value>
+        </member>
+        <member name="M:CStreamer.Base.Filter.PadOutput.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="T:CStreamer.Base.IElementExtensions">
+            <summary>
+            Extension Methods for all objects implementing IElement.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Base.IElementExtensions.GetElementName(CStreamer.Base.BaseElements.IElement)">
+             <summary>
+             Gets the name for a given Elements type.
+            
+             These names can either be registered using the <see cref="T:CStreamer.Base.Attributes.ElementNameAttribute"/> or will be generated using the Classname.
+             Classnames ending in Src, Sink, or Element will get these parts removed.
+             </summary>
+             <param name="element">the element to resolve the name of.</param>
+             <returns>The factoryType name of the given type.</returns>
+             <exception cref="T:System.ArgumentNullException">if type is null.</exception>
+        </member>
+        <member name="M:CStreamer.Base.IElementExtensions.GetElementName(System.Type)">
+             <summary>
+             Gets the name for a given Type.
+            
+             These names can either be registered using the <see cref="T:CStreamer.Base.Attributes.ElementNameAttribute"/> or will be generated using the Classname.
+             Classnames ending in Src, Sink, or Element will get these parts removed.
+             </summary>
+             <param name="type">the type to resolve the name of.</param>
+             <returns>The factoryType name of the given type.</returns>
+             <exception cref="T:System.ArgumentNullException">if type is null.</exception>
+        </member>
+        <member name="T:CStreamer.Base.Messages.ErrorMessage">
+            <summary>
+            A <see cref="T:CStreamer.Base.Messages.Message"/> that some kind of Error has occured.
+            </summary>
+            <seealso cref="T:CStreamer.Base.Messages.Message" />
+        </member>
+        <member name="M:CStreamer.Base.Messages.ErrorMessage.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Base.Messages.ErrorMessage"/> class.
+            </summary>
+            <param name="errorText">The error text.</param>
+        </member>
+        <member name="P:CStreamer.Base.Messages.ErrorMessage.ErrorText">
+            <summary>
+            Gets the error text.
+            </summary>
+            <value>
+            The error text.
+            </value>
+        </member>
+        <member name="T:CStreamer.Base.Messages.Message">
+            <summary>
+            An abstract base class to all messages that can be sent to a Bin / Pipeline.
+            </summary>
+        </member>
+        <member name="T:CStreamer.Base.Messages.PadsLinkedMessage">
+            <summary>
+            A Message signaling two pads being linked.
+            </summary>
+            <seealso cref="T:CStreamer.Base.Messages.Message" />
+        </member>
+        <member name="M:CStreamer.Base.Messages.PadsLinkedMessage.#ctor(CStreamer.Base.BaseElements.ISrcPad,CStreamer.Base.BaseElements.ISinkPad)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Base.Messages.PadsLinkedMessage"/> class.
+            </summary>
+            <param name="srcPad">The source pad.</param>
+            <param name="sinkPad">The sink pad.</param>
+        </member>
+        <member name="P:CStreamer.Base.Messages.PadsLinkedMessage.SrcPad">
+            <summary>
+            Gets the source pad.
+            </summary>
+            <value>
+            The source pad.
+            </value>
+        </member>
+        <member name="P:CStreamer.Base.Messages.PadsLinkedMessage.SinkPad">
+            <summary>
+            Gets the sink pad.
+            </summary>
+            <value>
+            The sink pad.
+            </value>
+        </member>
+        <member name="T:CStreamer.Base.Messages.PadsUnlinkedMessage">
+            <summary>
+            A message signaling two pads being unlinked.
+            </summary>
+            <seealso cref="T:CStreamer.Base.Messages.Message" />
+        </member>
+        <member name="M:CStreamer.Base.Messages.PadsUnlinkedMessage.#ctor(CStreamer.Base.BaseElements.ISrcPad,CStreamer.Base.BaseElements.ISinkPad)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CStreamer.Base.Messages.PadsUnlinkedMessage"/> class.
+            </summary>
+            <param name="srcPad">The source pad.</param>
+            <param name="sinkPad">The sink pad.</param>
+        </member>
+        <member name="P:CStreamer.Base.Messages.PadsUnlinkedMessage.SrcPad">
+            <summary>
+            Gets the source pad.
+            </summary>
+            <value>
+            The source pad.
+            </value>
+        </member>
+        <member name="P:CStreamer.Base.Messages.PadsUnlinkedMessage.SinkPad">
+            <summary>
+            Gets the sink pad.
+            </summary>
+            <value>
+            The sink pad.
+            </value>
+        </member>
+        <member name="T:CStreamer.Base.State">
+            <summary>
+            State of the Pipeline or Element.
+            Pretty Similar to the GStreamer State.
+            </summary>
+        </member>
+        <member name="F:CStreamer.Base.State.Playing">
+            <summary>
+            Playlist/Element is playing.
+            Data is getting pushed throu it.
+            </summary>
+        </member>
+        <member name="F:CStreamer.Base.State.Ready">
+            <summary>
+            Playlist/Element is ready.
+            All Elements have finished their initalization.
+            But no data is flowing yet.
+            </summary>
+        </member>
+        <member name="F:CStreamer.Base.State.Stopped">
+            <summary>
+            Playlist/Element is stopped.
+            No data is flowing
+            Elements may not be initialized yet or may have releases their resources.
+            </summary>
+        </member>
+        <member name="T:CStreamer.Base.StateManager">
+            <summary>
+            A helperclass that returns all <see cref="T:CStreamer.Base.State">States</see> a State treansition should go throu.
+            </summary>
+        </member>
+        <member name="M:CStreamer.Base.StateManager.GetTransitions(CStreamer.Base.State,CStreamer.Base.State)">
             <summary>
             Gets a list of all states that should be gone throu to reach the given state.
             </summary>
             <param name="from">The original State.</param>
             <param name="to">The desired State.</param>
             <returns>A list of all states that should be gone throu.</returns>
-        </member>
-        <member name="T:CStreamer.Base.TypeExtensions">
-            <summary>
-            Extension Methods for the Type type.
-            </summary>
-        </member>
-        <member name="M:CStreamer.Base.TypeExtensions.GetGenericTypeImplementation(System.Type,System.Type)">
-             <summary>
-             Gets a Generic type implementation of a given type.
-            
-             So if instanceType inherits genericType{} it returns genericType{T}.
-             </summary>
-             <param name="instanceType">The type to check.</param>
-             <param name="genericType">The generic type to check for as opengeneric.</param>
-             <returns>The specific type implementation or null if it doesn't inherit that type.</returns>
-        </member>
-        <member name="M:CStreamer.Base.TypeExtensions.GetGenericInterfaceImplementation(System.Type,System.Type)">
-             <summary>
-             Gets a Generic type interface of a given type.
-            
-             So if instanceType or any of it's parents implements genericType{} it returns genericType{T}.
-             </summary>
-             <param name="instanceType">The type to check.</param>
-             <param name="genericType">The generic type to check for as opengeneric.</param>
-             <returns>The specific type interface or null if it doesn't implement that type.</returns>
         </member>
     </members>
 </doc>

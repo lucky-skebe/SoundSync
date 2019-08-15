@@ -12,9 +12,9 @@ namespace CStreamer.Designer.Avalonia.Views
     using System.Reactive;
     using System.Reactive.Disposables;
     using System.Reactive.Linq;
+    using CStreamer.Base.BaseElements;
     using CStreamer.Designer.Avalonia.Helper;
     using CStreamer.Designer.Avalonia.ViewModels;
-    using CStreamer.Plugins.Interfaces;
     using global::Avalonia;
     using global::Avalonia.Controls;
     using global::Avalonia.Controls.Presenters;
