@@ -20,7 +20,7 @@ namespace CStreamer.Plugins.Designer.Base.ViewModels.Settings
         /// Initializes a new instance of the <see cref="StringSettingViewModel"/> class.
         /// </summary>
         /// <param name="element">The underlying CStreamer Element.</param>
-        /// <param name="property"></param>
+        /// <param name="property">The Property this ViewModel binds to.</param>
         public StringSettingViewModel(IElement element, PropertyInfo property)
             : base(element, property)
         {

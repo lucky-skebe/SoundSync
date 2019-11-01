@@ -9,6 +9,7 @@ namespace CStreamer.Base
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
     using System.Reflection;
     using CStreamer.Base.Attributes;
@@ -222,6 +223,12 @@ namespace CStreamer.Base
             {
                 prop.SetValue(element, value);
                 return Option.Some<object?, string>(value);
+            }
+            var converter = TypeDescriptor.GetConverter(prop.PropertyType);
+            if (converter.CanConvertFrom(value.GetType()))
+            {
+                prop.SetValue(element, converter.ConvertFrom(value));
+                return Option.Some<object?, string>(converter.ConvertFrom(value));
             }
 
             throw new NotImplementedException();

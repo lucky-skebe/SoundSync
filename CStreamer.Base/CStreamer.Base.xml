@@ -401,6 +401,16 @@
              <returns>The factoryType name of the given type.</returns>
              <exception cref="T:System.ArgumentNullException">if type is null.</exception>
         </member>
+        <member name="M:CStreamer.Base.IElementExtensions.GetProperties(CStreamer.Base.BaseElements.IElement)">
+            <summary>
+            Returns ann CStreamer Properties of a given Element.
+            </summary>
+            <remarks>
+            For a .Net Property to be recognized it needs the <see cref="T:CStreamer.Base.Attributes.PropertyAttribute"/> and an axxessible getter and setter.
+            </remarks>
+            <param name="element">The element.</param>
+            <returns>All the CStreamer Properties.</returns>
+        </member>
         <member name="T:CStreamer.Base.Messages.ErrorMessage">
             <summary>
             A <see cref="T:CStreamer.Base.Messages.Message"/> that some kind of Error has occured.

@@ -11,8 +11,6 @@ namespace CStreamer.Plugins.Basic
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using CStreamer;
-    using CStreamer.Base;
     using CStreamer.Base.Attributes;
     using CStreamer.Base.BaseElements;
     using CStreamer.Plugins.Base;
@@ -81,7 +79,7 @@ namespace CStreamer.Plugins.Basic
         /// The amount of millisecods between every average calculation.
         /// </value>
         [Property]
-        public int AVGMs { get; set; } = 50;
+        public long AVGMs { get; set; } = 50;
 
         /// <summary>
         /// Gets the one input sinkpad this element has.
@@ -133,7 +131,7 @@ namespace CStreamer.Plugins.Basic
         {
             while (this.running)
             {
-                Thread.Sleep(this.AVGMs);
+                Thread.Sleep((int)this.AVGMs);
                 double avg = this.AverageSample;
 
                 this.Src.Push(avg);
